@@ -1,4 +1,5 @@
 import { AppShell } from '@/components/shell/app-shell'
+import { fetchSessions } from '@/lib/custom/queries'
 import { CustomProvider } from '@/lib/custom/store'
 import '@/styles/tailwind.css'
 import type { Metadata } from 'next'
@@ -17,11 +18,15 @@ export const metadata: Metadata = {
     'Weekend sessions from a BITS Pilani WILP M.Tech in AI & ML, rebuilt as things you can drag. Plain English first, the maths fully labelled underneath.',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Fetched here so every page renders the sidebar tree complete, including
+  // user-written sessions, without waiting for the client to hydrate.
+  const sessions = await fetchSessions()
+
   return (
     <html lang="en" className={inter.className}>
       <body className="antialiased">
-        <CustomProvider>
+        <CustomProvider initialSessions={sessions}>
           <AppShell>{children}</AppShell>
         </CustomProvider>
       </body>

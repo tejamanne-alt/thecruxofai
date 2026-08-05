@@ -6,6 +6,7 @@ import { Description, Field, FieldGroup, Label } from '@/components/catalyst/fie
 import { Input } from '@/components/catalyst/input'
 import { Select } from '@/components/catalyst/select'
 import { Textarea } from '@/components/catalyst/textarea'
+import { MAX_IMAGE_BYTES } from '@/lib/custom/session'
 import { useCustom } from '@/lib/custom/store'
 import { courses, groups, type ChartKind, type GroupId } from '@/lib/data/curriculum'
 import { useRouter } from 'next/navigation'
@@ -19,79 +20,22 @@ const CHART_OPTIONS: Array<{ id: ChartKind | 'none'; label: string }> = [
   { id: 'boundary', label: 'Split the plane (classification)' },
 ]
 
-export function LoginDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const { hasPin, signIn } = useCustom()
-  const [code, setCode] = useState('')
-  const [error, setError] = useState('')
-
-  function submit() {
-    const err = signIn(code)
-    if (err) {
-      setError(err)
-      return
-    }
-    setCode('')
-    setError('')
-    onClose()
-  }
-
-  return (
-    <Dialog open={open} onClose={onClose} size="md">
-      <DialogTitle>{hasPin ? 'Admin sign in' : 'Set an admin passcode'}</DialogTitle>
-      <DialogDescription>
-        {hasPin
-          ? 'Enter the passcode you set on this browser. Editing tools stay hidden for everyone else.'
-          : 'Nobody has claimed this copy yet. Pick a passcode and you become the admin — the only one who can add or delete sessions.'}
-      </DialogDescription>
-      <DialogBody>
-        <Field>
-          <Label>Passcode</Label>
-          <Input
-            type="password"
-            value={code}
-            autoFocus
-            onChange={(e) => {
-              setCode(e.target.value)
-              setError('')
-            }}
-            onKeyDown={(e) => e.key === 'Enter' && submit()}
-          />
-          {error ? (
-            <Description className="text-red-600">{error}</Description>
-          ) : (
-            <Description>
-              This is a visibility gate, not security. It hides the editing buttons in this browser; it does not protect
-              anything, because the whole site runs on your machine. Real protection needs server-side auth on the write
-              endpoints.
-            </Description>
-          )}
-        </Field>
-      </DialogBody>
-      <DialogActions>
-        <Button plain onClick={onClose}>
-          Cancel
-        </Button>
-        <Button onClick={submit}>{hasPin ? 'Sign in' : 'Claim this copy'}</Button>
-      </DialogActions>
-    </Dialog>
-  )
-}
-
 export function AddSessionDialog({ open, group, onClose }: { open: boolean; group: GroupId; onClose: () => void }) {
   const { add } = useCustom()
   const router = useRouter()
-  const firstCourse = courses.find((c) => c.group === group)?.id ?? 'ml'
 
   const [title, setTitle] = useState('')
   const [groupId, setGroupId] = useState<GroupId>(group)
-  const [courseId, setCourseId] = useState(firstCourse)
+  const [courseId, setCourseId] = useState(courses.find((c) => c.group === group)?.id ?? 'ml')
   const [summary, setSummary] = useState('')
   const [math, setMath] = useState('')
   const [chart, setChart] = useState<ChartKind | 'none'>('line')
-  const [image, setImage] = useState<string | null>(null)
+  const [imageFile, setImageFile] = useState<File | null>(null)
   const [files, setFiles] = useState<string[]>([])
+  const [error, setError] = useState('')
+  const [busy, setBusy] = useState(false)
 
-  // Re-key the form when the caller opens it against a different section.
+  // Re-point the form when the caller opens it against a different section.
   const [lastGroup, setLastGroup] = useState(group)
   if (open && lastGroup !== group) {
     setLastGroup(group)
@@ -104,35 +48,42 @@ export function AddSessionDialog({ open, group, onClose }: { open: boolean; grou
   async function onFiles(list: FileList | null) {
     const arr = Array.from(list ?? [])
     setFiles(arr.map((f) => `${f.name} (${Math.round(f.size / 1024)} KB)`))
+    setError('')
 
-    const img = arr.find((f) => /^image\//.test(f.type) && f.size < 3.5 * 1024 * 1024)
-    if (img) {
-      const reader = new FileReader()
-      reader.onload = () => setImage(String(reader.result))
-      reader.readAsDataURL(img)
+    const img = arr.find((f) => /^image\//.test(f.type))
+    if (img && img.size > MAX_IMAGE_BYTES) {
+      setError(`${img.name} is over 3.5 MB — it will not be uploaded. Shrink it and pick it again.`)
+      setImageFile(null)
+    } else {
+      setImageFile(img ?? null)
     }
+
     const txt = arr.find((f) => /^text\//.test(f.type) || /\.(md|txt)$/i.test(f.name))
     if (txt && !summary.trim()) setSummary(await txt.text())
   }
 
-  function submit() {
-    const item = add({
-      title: title.trim() || 'Untitled session',
-      group: groupId,
-      courseId,
-      summary,
-      math,
-      chart,
-      image,
-      files,
-    })
+  async function submit() {
+    if (busy) return
+    setBusy(true)
+    setError('')
+
+    const result = await add({ title, group: groupId, courseId, summary, math, chart, files, imageFile })
+    setBusy(false)
+
+    if ('error' in result) {
+      setError(result.error)
+      return
+    }
+
     onClose()
     setTitle('')
     setSummary('')
     setMath('')
-    setImage(null)
+    setImageFile(null)
     setFiles([])
-    router.push(`/my/${item.id}`)
+    // The layout fetches sessions on the server, so refresh the tree too.
+    router.push(`/my/${result.id}`)
+    router.refresh()
   }
 
   return (
@@ -222,18 +173,22 @@ export function AddSessionDialog({ open, group, onClose }: { open: boolean; grou
               />
               <Description>
                 {files.length
-                  ? `Attached: ${files.join(' · ')}${image ? ' — the image is shown on the page.' : ''}`
-                  : 'Slides, PDFs, board photos or a text file. Images are embedded, text files pre-fill the write-up, and every filename is listed as the source. PDF and PPTX contents are not read in the browser — they are recorded as sources only.'}
+                  ? `Attached: ${files.join(' · ')}${imageFile ? ' — the image is uploaded and shown on the page.' : ''}`
+                  : 'Slides, PDFs, board photos or a text file. Images go to Supabase Storage, text files pre-fill the write-up, and every filename is listed as the source. PDF and PPTX contents are not read in the browser — they are recorded as sources only.'}
               </Description>
             </Field>
           </div>
+
+          {error && <p className="text-[13px] text-red-600">{error}</p>}
         </FieldGroup>
       </DialogBody>
       <DialogActions>
         <Button plain onClick={onClose}>
           Cancel
         </Button>
-        <Button onClick={submit}>Create session</Button>
+        <Button onClick={submit} disabled={busy}>
+          {busy ? 'Saving…' : 'Create session'}
+        </Button>
       </DialogActions>
     </Dialog>
   )

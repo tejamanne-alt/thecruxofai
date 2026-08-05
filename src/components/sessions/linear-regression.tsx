@@ -155,9 +155,9 @@ export function LinearRegressionSession() {
           </>,
           <>
             The question we want answered is:{' '}
-            <strong>“if a new student tells me they studied 6 hours, what mark should I expect?”</strong>{' '}
-            There is no single dot at exactly 6 hours to look up, and even if there were, one student isn&rsquo;t a
-            rule. So instead we draw one straight line through the whole crowd and read the answer off the line.
+            <strong>“if a new student tells me they studied 6 hours, what mark should I expect?”</strong> There is no
+            single dot at exactly 6 hours to look up, and even if there were, one student isn&rsquo;t a rule. So instead
+            we draw one straight line through the whole crowd and read the answer off the line.
           </>,
         ]}
         mappings={[
