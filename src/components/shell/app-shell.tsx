@@ -90,6 +90,12 @@ function MenuIcon() {
  * Two columns: a 288px sidebar that owns the whole viewport height, and a main
  * column under a fixed 63px bar. The 63 matches the sidebar header's divider so
  * the two rules meet.
+ *
+ * Stacking layers, lowest first — keep new fixed elements on this scale:
+ *   z-2   chart tooltip (inside its own card)
+ *   z-20  top bar
+ *   z-30  mobile nav backdrop, panel and menu button
+ *   z-50  dialogs (set in components/catalyst/dialog.tsx)
  */
 export function AppShell({ children }: { children: React.ReactNode }) {
   const { user, signOut } = useCustom()
@@ -99,6 +105,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const [addGroup, setAddGroup] = useState<GroupId | null>(null)
 
   const onAccountClick = async () => {
+    // On a phone this is reached from inside the slide-over nav. Leaving that
+    // open behind a modal means two dialogs fight over the focus trap and the
+    // scroll lock, and dismissing the modal drops you back into a menu you did
+    // not ask to reopen. Every path that opens a dialog closes the nav first.
+    setMobileOpen(false)
+
     if (!user) {
       setLogin(true)
       return
