@@ -93,6 +93,90 @@ export function dot(g: CanvasRenderingContext2D, x: number, y: number, r: number
   }
 }
 
+/**
+ * A square plane with the origin in the middle and cross-hair axes, for charts
+ * about vectors and transformations. `drawAxes` puts its L-shaped axis at the
+ * left and bottom edges, which hides the origin — and the origin is the whole
+ * point when you are watching arrows move.
+ *
+ * The frame is kept square in *data* units per pixel, so a rotation looks like
+ * a rotation instead of a squash.
+ */
+export function drawPlane(g: CanvasRenderingContext2D, W: number, H: number, span: number): Frame {
+  const pad = 18
+  const size = Math.min(W - pad * 2, H - pad * 2)
+  const cx = W / 2
+  const cy = H / 2
+  const scale = size / (span * 2)
+
+  const frame: Frame = {
+    L: cx - size / 2,
+    R: cx + size / 2,
+    T: cy - size / 2,
+    B: cy + size / 2,
+    px: (v) => cx + v * scale,
+    py: (v) => cy - v * scale,
+  }
+
+  g.save()
+  g.beginPath()
+  g.rect(frame.L, frame.T, frame.R - frame.L, frame.B - frame.T)
+  g.clip()
+
+  for (let i = -span; i <= span; i++) {
+    const onAxis = i === 0
+    g.strokeStyle = onAxis ? 'rgba(9,9,11,0.35)' : 'rgba(9,9,11,0.08)'
+    g.lineWidth = onAxis ? 1.5 : 1
+    g.beginPath()
+    g.moveTo(frame.px(i), frame.T)
+    g.lineTo(frame.px(i), frame.B)
+    g.moveTo(frame.L, frame.py(i))
+    g.lineTo(frame.R, frame.py(i))
+    g.stroke()
+  }
+  g.restore()
+
+  g.fillStyle = '#a1a1aa'
+  g.textAlign = 'center'
+  g.fillText('0', frame.px(0) - 10, frame.py(0) + 11)
+  return frame
+}
+
+/** An arrow from the origin (or anywhere) — the standard way to draw a vector. */
+export function arrow(
+  g: CanvasRenderingContext2D,
+  x0: number,
+  y0: number,
+  x1: number,
+  y1: number,
+  colour: string,
+  width = 2.5
+) {
+  const dx = x1 - x0
+  const dy = y1 - y0
+  const len = Math.hypot(dx, dy)
+  if (len < 1) return
+  const ux = dx / len
+  const uy = dy / len
+  const head = Math.min(11, len * 0.4)
+
+  g.strokeStyle = colour
+  g.lineWidth = width
+  g.beginPath()
+  g.moveTo(x0, y0)
+  // Stop short so the shaft does not poke through the head.
+  g.lineTo(x1 - ux * head * 0.7, y1 - uy * head * 0.7)
+  g.stroke()
+
+  g.fillStyle = colour
+  g.beginPath()
+  g.moveTo(x1, y1)
+  g.lineTo(x1 - ux * head - uy * head * 0.45, y1 - uy * head + ux * head * 0.45)
+  g.lineTo(x1 - ux * head + uy * head * 0.45, y1 - uy * head - ux * head * 0.45)
+  g.closePath()
+  g.fill()
+}
+
 /** The ring that marks whatever the pointer is nearest. */
 export function halo(g: CanvasRenderingContext2D, x: number, y: number, r: number) {
   g.beginPath()

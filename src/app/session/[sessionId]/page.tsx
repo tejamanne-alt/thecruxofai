@@ -1,5 +1,7 @@
+import { AlgebraSession } from '@/components/sessions/algebra'
 import { GradientDescentSession } from '@/components/sessions/gradient-descent'
 import { KMeansSession } from '@/components/sessions/kmeans'
+import { LinearAlgebraSession } from '@/components/sessions/linear-algebra'
 import { LinearRegressionSession } from '@/components/sessions/linear-regression'
 import { PerceptronSession } from '@/components/sessions/perceptron'
 import { CheatSheetTab } from '@/components/tabs/cheat-sheet-tab'
@@ -11,6 +13,8 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 const OVERVIEWS: Record<TopicId, () => React.ReactElement> = {
+  algebra: AlgebraSession,
+  linalg: LinearAlgebraSession,
   regression: LinearRegressionSession,
   gradient: GradientDescentSession,
   kmeans: KMeansSession,

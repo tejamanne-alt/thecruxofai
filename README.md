@@ -53,7 +53,7 @@ src/
   components/
     catalyst/              the UI kit, unmodified except link.tsx and dialog.tsx
     charts/                ChartCanvas (hover, tooltips, easing) + the generic templates
-    sessions/              the four built sessions and their shared parts
+    sessions/              the six built sessions and their shared parts
     shell/                 sidebar, nav tree, top bar, auth + add-session dialogs
                            (stacking layers are documented at the top of app-shell.tsx)
     tabs/                  cheat sheet / quiz / exam tabs
@@ -102,14 +102,21 @@ Two details worth keeping:
 `trainEpoch` recomputes the misclassified set **after** the epoch's weight updates land. Working it out during the pass
 makes the accuracy, the "still wrong" count and the red rings on the chart disagree with each other.
 
-## The four sessions built so far
+## The sessions built so far
+
+The first two are the foundations everything else leans on, so they come first in the tree.
 
 | Session | Course | What you can do to it |
 |---|---|---|
+| Algebra | Mathematical Foundations | Turn a rate and a constant into a rule, then bolt on a second stage (ReLU, sigmoid, square) and watch a straight line become a curve |
+| Linear algebra | Mathematical Foundations | Set the four entries of a 2×2 matrix and watch the grid bend; squash the determinant to zero and see information vanish |
 | Linear regression | Machine Learning | Drag slope and intercept, watch MSE against the achievable floor, snap to the closed-form fit |
 | Gradient descent | Mathematical Foundations | Change η, step or run 20, push past η = 1 and watch it diverge |
 | k-means clustering | Machine Learning | Change k, alternate the assign and move steps, reseed to land in a different local minimum |
 | The perceptron | Deep Neural Networks | Train a pass at a time and watch the boundary rotate as the mistakes run out |
+
+Every session ends with a **Where this shows up in AI & ML** section — not "you will need this one day", but the places
+the idea appears by name in things already on the site.
 
 ## Adding your own session
 
