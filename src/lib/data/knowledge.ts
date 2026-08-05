@@ -30,6 +30,194 @@ export interface TopicKnowledge {
  * the empty states say so rather than filling the space.
  */
 export const knowledge: Record<TopicId, TopicKnowledge> = {
+  algebra: {
+    cheat: [
+      { formula: 'f(x) = a·x + b', why: 'The straight-line rule. a is the rate, b is the flat part.' },
+      { formula: '(g ∘ f)(x) = g(f(x))', why: 'Composition: do f, feed the answer into g. Depth is this, repeated.' },
+      {
+        formula: 'a·x + b = 0 ⟹ x = −b/a',
+        why: 'Solving is isolating the unknown by doing the same thing to both sides.',
+      },
+      {
+        formula: 'g(z) = max(0, z)',
+        why: 'ReLU. The cheapest useful bend, and the reason stacked layers do not collapse.',
+      },
+      {
+        formula: 'σ(z) = 1/(1 + e⁻ᶻ)',
+        why: 'Sigmoid. Squashes any number into 0…1, so a score can be read as a probability.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'You stack two straight-line rules: first z = a·x + b, then y = c·z + d. What is the result?',
+        options: [
+          'A curve, because two rules were applied',
+          'Still a single straight-line rule, just with different numbers',
+          'A step function',
+          'It depends on the values of a and c',
+        ],
+        answer: 1,
+        explain:
+          'y = c(ax+b)+d = (ca)x + (cb+d) — one straight rule again. This is exactly why a neural network needs a non-linear activation between layers: without it, a hundred layers collapse into the equivalent of one.',
+      },
+      {
+        q: 'In f(x) = a·x + b, what does b do to the graph?',
+        options: [
+          'Tilts the line',
+          'Slides the whole line up or down without changing its tilt',
+          'Stretches the line horizontally',
+          'Nothing visible',
+        ],
+        answer: 1,
+        explain:
+          'b is the value when x = 0, so changing it shifts the line vertically. In a model this is the bias, and it is what lets a rule sit away from the origin — a matrix alone always maps 0 to 0.',
+      },
+      {
+        q: 'Why does the notation f(x) not mean "f multiplied by x"?',
+        options: [
+          'It does mean that, in some contexts',
+          'Because f names a machine, and the brackets hold what you feed it',
+          'Because f is always a constant',
+          'It is a historical mistake with no meaning',
+        ],
+        answer: 1,
+        explain:
+          'Function notation reuses brackets for something entirely different from multiplication. Reading f(x) as a product is one of the most common early stumbles, and it makes composition g(f(x)) impossible to parse.',
+      },
+      {
+        q: 'A model is described as having "7 billion parameters". In the language of this page, what are those?',
+        options: [
+          'Seven billion training examples',
+          'The values of a and b — the multipliers and the constants inside the rules',
+          'Seven billion separate models',
+          'The number of inputs it accepts',
+        ],
+        answer: 1,
+        explain:
+          'Parameters are exactly the coefficients and constants. Training searches for values of them that make the composed rule fit the data; the architecture decides how many there are and how they are wired.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Show that composing two affine functions yields an affine function, and explain the consequence for deep networks.',
+        meta: 'Derivation · ~6 marks',
+        points: [
+          'Let f(x) = ax + b and g(z) = cz + d.',
+          'Then g(f(x)) = c(ax + b) + d = (ca)x + (cb + d).',
+          "This has the form a'x + b', so it is affine — the composition adds no expressive power.",
+          'Consequence: without a non-linear activation between layers, a deep network is equivalent to a single layer.',
+          'Name the usual fixes: ReLU, sigmoid, tanh; note ReLU is preferred for its cheap gradient.',
+        ],
+      },
+      {
+        q: 'Compare ReLU and sigmoid as activation functions. When would you choose each?',
+        meta: 'Compare & contrast · ~6 marks',
+        points: [
+          'ReLU: max(0, z), gradient is 0 or 1, cheap, no saturation for positive inputs; risk of dead units.',
+          'Sigmoid: 1/(1+e⁻ᶻ), output bounded in (0,1), interpretable as a probability.',
+          'Sigmoid saturates at both tails, so gradients vanish — a serious problem in deep stacks.',
+          'Practical rule: ReLU (or a variant) in hidden layers, sigmoid or softmax at the output when a probability is wanted.',
+        ],
+      },
+    ],
+  },
+
+  linalg: {
+    cheat: [
+      {
+        formula: 'A·v = [av₁+bv₂, cv₁+dv₂]',
+        why: 'Each output entry is one row of A, multiplied into v and totalled.',
+      },
+      {
+        formula: 'columns of A = where î and ĵ land',
+        why: 'A matrix is fully described by what it does to the basis arrows.',
+      },
+      {
+        formula: 'det(A) = ad − bc',
+        why: 'The area scale factor. Zero means space collapsed and nothing can undo it.',
+      },
+      { formula: 'u·v = ‖u‖‖v‖cos θ', why: 'The dot product. Big when vectors agree — this is cosine similarity.' },
+      {
+        formula: 'A⁻¹ exists ⟺ det(A) ≠ 0',
+        why: 'A flattened transform has no inverse: two inputs now share one output.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'What do the columns of a 2×2 matrix tell you directly?',
+        options: [
+          'The eigenvalues',
+          'Where the basis vectors (1,0) and (0,1) end up after the transform',
+          'The determinant',
+          'The average of the data',
+        ],
+        answer: 1,
+        explain:
+          'Column one is the image of (1,0), column two the image of (0,1). Every other vector is a mix of those two, so knowing where they land tells you where everything lands — which is why the picture is enough to reason with.',
+      },
+      {
+        q: 'A transform has determinant 0. What has happened, and can it be undone?',
+        options: [
+          'Nothing changed; it can be undone trivially',
+          'Space was flattened onto a line or point, and it cannot be undone',
+          'Space was rotated, and rotating back undoes it',
+          'The matrix is not square',
+        ],
+        answer: 1,
+        explain:
+          'Zero determinant means the output has fewer dimensions than the input — distinct inputs now land on the same output, so the information distinguishing them is gone. No inverse exists.',
+      },
+      {
+        q: 'Why is the dot product the standard way to measure similarity between embeddings?',
+        options: [
+          'It is the fastest thing a computer can do',
+          'It is large when two vectors point the same way and zero when they are perpendicular',
+          'It always returns a value between 0 and 1',
+          'It measures the distance between them',
+        ],
+        answer: 1,
+        explain:
+          'u·v = ‖u‖‖v‖cos θ, so it tracks the angle between the vectors. Normalising the lengths first gives cosine similarity, which is what semantic search and RAG rank by. Note it is not a distance — it grows with length unless you normalise.',
+      },
+      {
+        q: 'What does the word "linear" actually restrict?',
+        options: [
+          'The transform must be a straight line on a graph',
+          'Grid lines stay straight, parallel and evenly spaced; the origin stays fixed',
+          'Only 2×2 matrices are allowed',
+          'The determinant must be positive',
+        ],
+        answer: 1,
+        explain:
+          'Linearity means A(u+v) = Au + Av and A(kv) = k(Av). Geometrically that is exactly "straight stays straight, evenly spaced, origin fixed". Because the origin is fixed, a matrix alone cannot translate — which is why the bias term exists.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Explain geometrically what the determinant of a 2×2 matrix measures, and interpret det = 0, det < 0 and |det| > 1.',
+        meta: 'Explain · ~7 marks',
+        points: [
+          'det(A) = ad − bc is the factor by which the transform scales area.',
+          'The unit square (area 1) maps to a parallelogram whose area is |det(A)|.',
+          '|det| > 1 expands area; |det| < 1 contracts it.',
+          'det < 0 means orientation is reversed — the plane has been flipped.',
+          'det = 0 means the image is a line or point: the transform is not invertible and rank has dropped.',
+        ],
+      },
+      {
+        q: 'A fully connected layer computes h = σ(Wx + b). Identify each object, its shape, and why the bias cannot be absorbed into W.',
+        meta: 'Short answer · ~6 marks',
+        points: [
+          'x is the input vector (n×1); W is the weight matrix (m×n); b is the bias vector (m×1); h is the output (m×1).',
+          'Wx is a linear map: it rotates, scales and shears, but always sends 0 to 0.',
+          'b translates the result, which no matrix can do on its own — hence it must be a separate term.',
+          'σ applies element-wise and supplies the non-linearity; without it, stacked layers collapse to a single linear map.',
+          'Mention the augmentation trick (appending a constant 1 to x) as the formal way to fold b into W.',
+        ],
+      },
+    ],
+  },
+
   regression: {
     cheat: [
       { formula: 'ŷ = wx + b', why: 'One straight line: slope times input plus intercept.' },

@@ -1,7 +1,7 @@
 import raw from './curriculum.json'
 
 export type GroupId = 's1' | 's2' | 'eg' | 'edl' | 'enlp' | 'eav' | 's4'
-export type TopicId = 'regression' | 'gradient' | 'kmeans' | 'perceptron'
+export type TopicId = 'algebra' | 'linalg' | 'regression' | 'gradient' | 'kmeans' | 'perceptron'
 export type ChartKind = 'line' | 'bowl' | 'clusters' | 'boundary'
 
 export interface Group {
@@ -26,7 +26,12 @@ export interface SessionMeta {
   id: TopicId
   label: string
   blurb: string
-  chart: ChartKind
+  /**
+   * Only a hint about which template a session resembles. Built-in sessions
+   * render their own bespoke component, so nothing reads this — the two
+   * foundation pages have graphics with no template equivalent and omit it.
+   */
+  chart?: ChartKind
 }
 
 /**
@@ -53,7 +58,7 @@ export const courses: Course[] = (
 }))
 
 export const sessions: SessionMeta[] = Object.entries(
-  raw.sessions as Record<string, { label: string; blurb: string; chart: ChartKind }>
+  raw.sessions as Record<string, { label: string; blurb: string; chart?: ChartKind }>
 ).map(([id, s]) => ({ id: id as TopicId, ...s }))
 
 export const sessionById = Object.fromEntries(sessions.map((s) => [s.id, s])) as Record<TopicId, SessionMeta>

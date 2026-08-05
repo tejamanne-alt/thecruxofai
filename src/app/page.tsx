@@ -34,7 +34,8 @@ export default function HomePage() {
 
       <h2 className="mt-10 mb-1.5 text-lg font-semibold tracking-[-0.02em]">Interactive sessions so far</h2>
       <p className="mb-4 max-w-[660px] text-[14px]/[1.6] text-zinc-600">
-        Four built from semester 1 and 2 material. The rest of the curriculum is in the menu, waiting for its weekend.
+        {sessions.length} built from semester 1 and 2 material, starting with the two the rest of the maths rests on.
+        The remainder of the curriculum is in the menu, waiting for its weekend.
       </p>
 
       <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
