@@ -1,93 +1,80 @@
-'use client'
-
 import { CHART_NOTES, TemplateChart } from '@/components/charts/template-chart'
 import { CheatSheetTab } from '@/components/tabs/cheat-sheet-tab'
 import { ExamTab } from '@/components/tabs/exam-tab'
 import { QuizTab } from '@/components/tabs/quiz-tab'
 import { PageHeader } from '@/components/ui/page-header'
-import { useCustom } from '@/lib/custom/store'
+import { fetchSession } from '@/lib/custom/queries'
+import { imageUrl } from '@/lib/custom/session'
 import { courseById, groupById } from '@/lib/data/curriculum'
 import { scopeForCustom } from '@/lib/scope'
-import Link from 'next/link'
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { DeleteSessionButton } from './delete-session-button'
 
 /**
- * A user-created session. Client-rendered, because the record lives in this
- * browser's localStorage and nowhere else — see the backend notes in the README.
+ * A user-written session. Rendered on the server now that the record lives in
+ * Postgres rather than one browser's localStorage — which is what makes these
+ * pages linkable and shareable with classmates.
  */
-export default function CustomSessionPage() {
-  const { id } = useParams<{ id: string }>()
-  const tab = useSearchParams().get('tab') ?? 'overview'
-  const router = useRouter()
-  const { sessions, remove, admin } = useCustom()
-
-  if (sessions === null) {
-    return <p className="text-[13px] text-zinc-500">Loading your sessions…</p>
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params
+  const session = await fetchSession(id)
+  if (!session) return {}
+  return {
+    title: session.title,
+    description: session.summary.slice(0, 200) || undefined,
   }
+}
 
-  const item = sessions.find((s) => s.id === id)
-  if (!item) {
-    return (
-      <div>
-        <PageHeader
-          eyebrow="Not found"
-          title="That session is not in this browser"
-          intro="Sessions you add are stored in this browser only. Open the site in the browser you wrote it in, or add it again."
-        />
-        <Link href="/" className="text-[13px] font-semibold" style={{ color: 'var(--acc)' }}>
-          ← Back to home
-        </Link>
-      </div>
-    )
-  }
+export default async function CustomSessionPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>
+  searchParams: Promise<{ tab?: string }>
+}) {
+  const { id } = await params
+  const { tab } = await searchParams
+  const session = await fetchSession(id)
+  if (!session) notFound()
 
-  const course = courseById[item.courseId]
-  const kicker = `${groupById[item.group]?.label ?? ''} · ${course?.name ?? ''}`
-  const scope = scopeForCustom(item.id, item.title, kicker, item.math)
+  const course = courseById[session.courseId]
+  const kicker = `${groupById[session.group]?.label ?? ''} · ${course?.name ?? ''}`
+  const scope = scopeForCustom(session.id, session.title, kicker, session.math)
 
   if (tab === 'cheat') return <CheatSheetTab scope={scope} />
   if (tab === 'quiz') return <QuizTab scope={scope} />
   if (tab === 'exam') return <ExamTab scope={scope} />
 
   const legend = scope.cheat
+  const src = imageUrl(session.imagePath)
 
   return (
     <div>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <PageHeader eyebrow={kicker} title={item.title} />
+          <PageHeader eyebrow={kicker} title={session.title} />
         </div>
-        {admin && (
-          <button
-            type="button"
-            onClick={() => {
-              remove(item.id)
-              router.push('/')
-            }}
-            className="shrink-0 cursor-pointer rounded-lg border border-zinc-950/[0.12] bg-white px-3.5 py-2 text-[12.5px] font-medium hover:border-red-600 hover:text-red-600"
-          >
-            Delete session
-          </button>
-        )}
+        <DeleteSessionButton session={session} />
       </div>
 
       <p className="crux-prose mb-7 max-w-[720px] text-[14.5px]/[1.7] whitespace-pre-wrap text-zinc-700">
-        {item.summary || 'No write-up yet — add one by recreating this session.'}
+        {session.summary || 'No write-up yet — add one by recreating this session.'}
       </p>
 
-      {item.chart !== 'none' && (
+      {session.chart !== 'none' && (
         <>
-          <TemplateChart chart={item.chart} />
-          <p className="mt-2 text-[11.5px] text-zinc-400">{CHART_NOTES[item.chart]}</p>
+          <TemplateChart chart={session.chart} />
+          <p className="mt-2 text-[11.5px] text-zinc-400">{CHART_NOTES[session.chart]}</p>
         </>
       )}
 
-      {item.image && (
-        // Intentionally a plain <img>: the source is a data: URL held in
-        // localStorage, which next/image cannot optimise.
+      {src && (
+        // A plain <img>: the object is served straight from Supabase Storage's
+        // public CDN endpoint, which next/image would only proxy again.
         <img
-          src={item.image}
-          alt={`Uploaded material for ${item.title}`}
+          src={src}
+          alt={`Uploaded material for ${session.title}`}
           className="mt-6 max-h-[520px] w-auto max-w-full rounded-lg border border-zinc-950/10"
         />
       )}
@@ -112,13 +99,13 @@ export default function CustomSessionPage() {
         </div>
       )}
 
-      {item.files.length > 0 && (
+      {session.files.length > 0 && (
         <div className="mt-7">
           <div className="mb-2 text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">
             Source material
           </div>
           <ul className="flex flex-col gap-1">
-            {item.files.map((f) => (
+            {session.files.map((f) => (
               <li key={f} className="text-[12.5px] text-zinc-600">
                 {f}
               </li>

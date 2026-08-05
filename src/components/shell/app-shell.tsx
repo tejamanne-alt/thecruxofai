@@ -5,8 +5,10 @@ import { TopBar } from '@/components/shell/top-bar'
 import { useCustom } from '@/lib/custom/store'
 import type { GroupId } from '@/lib/data/curriculum'
 import * as Headless from '@headlessui/react'
+import { useRouter } from 'next/navigation'
 import { Suspense, useState } from 'react'
-import { AddSessionDialog, LoginDialog } from './admin-dialogs'
+import { AddSessionDialog } from './add-session-dialog'
+import { AuthDialog } from './auth-dialog'
 
 function Brand() {
   return (
@@ -25,13 +27,15 @@ function Brand() {
 function SidebarContent({
   onNavigate,
   onAddSession,
-  onAdminClick,
+  onAccountClick,
 }: {
   onNavigate?: () => void
   onAddSession: (g: GroupId) => void
-  onAdminClick: () => void
+  onAccountClick: () => void
 }) {
-  const { admin } = useCustom()
+  const { user, ready } = useCustom()
+  const signedIn = !!user
+
   return (
     <div className="flex h-full flex-col overflow-hidden py-4 pr-2 pl-4">
       <Brand />
@@ -39,10 +43,10 @@ function SidebarContent({
       <div className="shrink-0 border-t border-zinc-950/[0.08] pt-3">
         <button
           type="button"
-          onClick={onAdminClick}
+          onClick={onAccountClick}
           className="flex w-full cursor-pointer items-center gap-[9px] rounded-lg border px-2.5 py-2 text-left text-[12.5px] font-medium hover:border-zinc-950/30"
           style={
-            admin
+            signedIn
               ? { background: 'var(--acc-12)', borderColor: 'var(--acc-35)', color: '#09090b' }
               : { background: '#fff', borderColor: 'rgba(9,9,11,0.12)', color: '#3f3f46' }
           }
@@ -50,14 +54,17 @@ function SidebarContent({
           <span
             className="grid size-5 shrink-0 place-items-center rounded-md text-[10px]"
             style={
-              admin
+              signedIn
                 ? { background: 'var(--acc)', color: '#fff' }
                 : { background: 'rgba(9,9,11,0.08)', color: '#52525b' }
             }
           >
-            {admin ? '✓' : '⚿'}
+            {signedIn ? '✓' : '⚿'}
           </span>
-          <span className="min-w-0 flex-1">{admin ? 'Admin mode — sign out' : 'Admin sign in'}</span>
+          <span className="min-w-0 flex-1 truncate">
+            {!ready ? 'Checking session…' : signedIn ? (user.email ?? 'Signed in') : 'Sign in'}
+          </span>
+          {signedIn && <span className="shrink-0 text-[10.5px] text-zinc-500">Sign out</span>}
         </button>
       </div>
     </div>
@@ -78,18 +85,28 @@ function MenuIcon() {
  * the two rules meet.
  */
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const { admin, signOut } = useCustom()
+  const { user, signOut } = useCustom()
+  const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [login, setLogin] = useState(false)
   const [addGroup, setAddGroup] = useState<GroupId | null>(null)
 
-  const onAdminClick = () => (admin ? signOut() : setLogin(true))
+  const onAccountClick = async () => {
+    if (!user) {
+      setLogin(true)
+      return
+    }
+    await signOut()
+    // The layout renders server-side with the request's cookies, so re-fetch it
+    // rather than leaving a stale signed-in tree on screen.
+    router.refresh()
+  }
 
   return (
     <div className="flex min-h-svh w-full bg-zinc-100">
       {/* Desktop sidebar */}
       <aside className="sticky top-0 hidden h-svh w-72 shrink-0 lg:block">
-        <SidebarContent onAddSession={setAddGroup} onAdminClick={onAdminClick} />
+        <SidebarContent onAddSession={setAddGroup} onAccountClick={onAccountClick} />
       </aside>
 
       {/* Mobile sidebar */}
@@ -108,7 +125,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               setMobileOpen(false)
               setAddGroup(g)
             }}
-            onAdminClick={onAdminClick}
+            onAccountClick={onAccountClick}
           />
         </Headless.DialogPanel>
       </Headless.Dialog>
@@ -133,7 +150,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </main>
       </div>
 
-      <LoginDialog open={login} onClose={() => setLogin(false)} />
+      <AuthDialog open={login} onClose={() => setLogin(false)} />
       <AddSessionDialog open={addGroup !== null} group={addGroup ?? 's1'} onClose={() => setAddGroup(null)} />
     </div>
   )

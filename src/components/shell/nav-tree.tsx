@@ -61,7 +61,7 @@ export function NavTree({
   onAddSession?: (group: GroupId) => void
 }) {
   const pathname = usePathname()
-  const { sessions: custom, admin } = useCustom()
+  const { sessions: custom, user } = useCustom()
 
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({ s1: true, s2: true })
   const [openCourses, setOpenCourses] = useState<Record<string, boolean>>({
@@ -75,7 +75,7 @@ export function NavTree({
   const [lastPath, setLastPath] = useState(pathname)
   if (lastPath !== pathname) {
     setLastPath(pathname)
-    const course = courseForPath(pathname, custom ?? [])
+    const course = courseForPath(pathname, custom)
     if (course) {
       setOpenGroups((g) => ({ ...g, [course.group]: true }))
       setOpenCourses((c) => ({ ...c, [course.id]: true }))
@@ -83,10 +83,10 @@ export function NavTree({
   }
 
   const customByCourse = new Map<string, typeof custom>()
-  for (const s of custom ?? []) {
+  for (const s of custom) {
     const list = customByCourse.get(s.courseId) ?? []
     list.push(s)
-    customByCourse.set(s.courseId, list as never)
+    customByCourse.set(s.courseId, list)
   }
 
   function childrenOf(course: Course) {
@@ -157,7 +157,7 @@ export function NavTree({
                   <span className="min-w-0 flex-1 truncate">{g.label}</span>
                   <span className="shrink-0 text-[10.5px] font-medium text-zinc-500">{g.meta}</span>
                 </button>
-                {admin && onAddSession && (
+                {user && onAddSession && (
                   <button
                     type="button"
                     title="Add a session to this section"

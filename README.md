@@ -12,6 +12,7 @@ that there is no page yet. Nothing is fabricated to fill space.
 
 ```bash
 npm install
+cp .env.example .env.local   # Supabase URL + publishable key
 npm run dev        # http://localhost:3000
 npm run build      # production build
 npm run start      # serve the production build
@@ -23,8 +24,10 @@ Node 20+ is enough; it was built and tested on Node 22.
 
 ## Stack
 
-- **Next.js 16** (App Router, React 19) — pages are static where they can be, so sessions are linkable and shareable
+- **Next.js 16** (App Router, React 19) — every view is a real URL, so sessions and tabs are linkable and shareable
   with classmates.
+- **Supabase** — Postgres for user-written sessions, Storage for uploaded images, and Auth for who may write what. See
+  the Supabase section below.
 - **Tailwind CSS v4**, configured from `src/styles/tailwind.css`.
 - **Catalyst UI kit** (`src/components/catalyst/`) — Tailwind Plus's React component set, used for the dialogs, form
   fields, buttons and links. `link.tsx` is the one file changed from the shipped kit: it now wraps `next/link`, as the
@@ -44,18 +47,19 @@ src/
     cheat-sheet/           whole-course cheat sheet + recall cards
     course/[courseId]/     one course: syllabus + its sessions
     session/[sessionId]/   one built session
-    my/[id]/               a session you added yourself (client-only)
+    my/[id]/               a session someone wrote, served from Postgres
   components/
     catalyst/              the UI kit, unmodified except link.tsx
     charts/                ChartCanvas (hover, tooltips, easing) + the generic templates
     sessions/              the four built sessions and their shared parts
-    shell/                 sidebar, nav tree, top bar, admin dialogs
+    shell/                 sidebar, nav tree, top bar, auth + add-session dialogs
     tabs/                  cheat sheet / quiz / exam tabs
   lib/
     chart/frame.ts         axes, dots, halos, the accent colour
     data/                  curriculum.json + typed wrappers, the knowledge base, brochure copy
     model/                 seeded sample data and the actual maths
-    custom/store.tsx       localStorage-backed user sessions + the admin gate
+    custom/                user sessions: Supabase-backed store, server queries, shared types
+    supabase/              browser + server clients, generated DB types, env guard
     scope.ts               what the four tabs act on
 ```
 
@@ -74,8 +78,11 @@ clears quiz answers and expanded exam answers.
 
 ### The charts
 
-`ChartCanvas` handles the parts every chart needs: device-pixel-ratio sizing, a callback ref plus `ResizeObserver` so it
-paints the moment it mounts, nearest-candidate hit testing with per-kind radii, and the tooltip.
+`ChartCanvas` handles the parts every chart needs: device-pixel-ratio sizing, a `ResizeObserver` attached in a stable
+effect so it paints the moment it mounts, nearest-candidate hit testing with per-kind radii, and the tooltip.
+
+The observer has to live in an effect rather than a ref callback: an unstable ref callback is torn down and re-run on
+every render, and the `setSize` inside it then loops forever.
 
 Two details worth keeping:
 
@@ -103,33 +110,93 @@ makes the accuracy, the "still wrong" count and the red rings on the chart disag
 
 ## Adding your own session
 
-Sign in as admin (sidebar footer), then use the `+` on any semester header. You get a title, a course, a write-up, a
+Sign in (sidebar footer), then use the `+` on any semester header. You get a title, a course, a write-up, a
 `symbol = meaning` list that becomes the page's legend and its cheat sheet, one of four chart templates, and a file
 upload.
 
-Uploads are handled in the browser: images under 3.5 MB are embedded as data URLs, the first text or markdown file
+Uploads: images under 3.5 MB go to Supabase Storage under your own user prefix, the first text or markdown file
 pre-fills an empty write-up, and every filename and size is recorded as source material. **PDF and PPTX contents are not
 parsed** — they are recorded as sources only.
 
-### The admin gate is a visibility gate, not security
+Sessions are stored in Postgres, so they are shared, permanent and linkable — send a classmate `/my/<id>` and it works.
+Pages render on the server, so they carry real titles and descriptions when shared.
 
-The first passcode set claims the copy (stored base64-obfuscated in `localStorage`); later sign-ins compare against it,
-and the session flag lives in `sessionStorage` so it clears with the tab. It hides the editing buttons in this browser
-and nothing more — the whole app runs on your machine, so anyone can read it. The dialog says so plainly.
+## Supabase
 
-Sessions you add live in this browser's `localStorage` under `aiml-lab-sessions-v1`. They do not follow you to another
-device.
+The backend is Supabase project `fprfnbfoqjuwgckhtnxz`. Two environment variables are all the app needs — copy
+`.env.example` to `.env.local` for development, and set the same pair in Vercel:
 
-## If this grows a backend
+```
+NEXT_PUBLIC_SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+```
 
-The site is client-only today. In rough order of value:
+Both are public by design: the publishable key carries no privileges of its own, and everything it can reach is guarded
+by row-level security. **The project's secret key bypasses RLS entirely and must never appear in a `NEXT_PUBLIC_`
+variable or in this repo.**
 
-1. **Parse PDF/PPTX server-side** and pre-fill the write-up and formula list from the session slides. This is the biggest
-   genuine upgrade available.
-2. **Move sessions to a database**, images to object storage rather than data URLs.
-3. **Real auth**, gating the write endpoints rather than the buttons.
-4. **Author the quiz and exam banks** in the same store as sessions, instead of hard-coding them in
-   `lib/data/knowledge.ts`.
+### Security is in the database, not the buttons
+
+The prototype's passcode gate was cosmetic and said so. It is gone. Supabase Auth issues the session, and Postgres
+enforces what that session can do:
+
+| Who | Read | Create | Edit / delete |
+|---|---|---|---|
+| Signed-out visitor | ✅ any session | ❌ | ❌ |
+| Signed-in user | ✅ any session | ✅ as themselves | ✅ their own only |
+
+Hiding the `+` button and the delete button is a courtesy. The rules that matter are the four policies on
+`public.sessions` and the four on `storage.objects` — a crafted request from anyone else fails at the database. The
+policies are verified by `supabase/tests/rls.sql`, which asserts every row of that table.
+
+Storage paths are `session-images/<user id>/<uuid>.<ext>`, and the insert policy requires that first segment to equal
+the uploader's own id, so nobody can write into someone else's prefix.
+
+### Schema
+
+One table. The curriculum itself — groups, courses, syllabus text — stays in the app as static brochure data, because it
+is a fixed source of truth rather than user content; duplicating it into tables would create two versions of it.
+
+```
+public.sessions
+  id          uuid pk        author_id   uuid -> auth.users (cascade delete)
+  title       text           chart       text (none|line|bowl|clusters|boundary)
+  group_id    text           image_path  text  -> storage object path, not a data URL
+  course_id   text           files       jsonb -> source filenames and sizes
+  summary     text           created_at  timestamptz
+  math        text           updated_at  timestamptz (trigger)
+```
+
+### Migrations and tests
+
+`supabase/migrations/` holds the four migrations that built the schema, in order, so the project can be rebuilt from
+scratch. `supabase/tests/rls.sql` is the policy test — it impersonates two users and the `anon` role and asserts all nine
+outcomes in the table above:
+
+```bash
+psql "$DATABASE_URL" -f supabase/tests/rls.sql   # every row should read PASS
+```
+
+It deliberately checks that a stranger's `UPDATE` and `DELETE` affect **zero rows** rather than raising an error. That is
+how a missing `USING` clause actually fails, and an exception-only test would sail straight past it.
+
+### If the database is unreachable
+
+The four built sessions, the whole curriculum, the cheat sheets and the quizzes are static app data. A missing or
+unreachable Supabase config degrades to "you cannot add your own sessions" — every other page still renders. That is
+deliberate: an outage should not take your revision notes offline the night before an exam.
+
+One consequence worth knowing: because the sidebar tree reads the database on the server, pages are rendered per request
+rather than prerendered at build time. For a study site that is the right trade — the tree is always correct — but it is
+why the build reports every route as dynamic.
+
+## Still to do
+
+1. **Parse PDF/PPTX server-side** — an Edge Function that reads the uploaded slides and pre-fills the write-up and
+   formula list. This is the biggest genuine upgrade left.
+2. **Author the quiz and exam banks** in Postgres too, instead of hard-coding them in `lib/data/knowledge.ts`.
+3. **Editing an existing session** — today you can create and delete, but not revise. The `UPDATE` policy is already in
+   place for it.
 
 ## Design tokens
 

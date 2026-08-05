@@ -1,122 +1,195 @@
 'use client'
 
+import { IMAGE_BUCKET, MAX_IMAGE_BYTES, rowToSession, type CustomSession } from '@/lib/custom/session'
 import type { ChartKind, GroupId } from '@/lib/data/curriculum'
+import { getSupabaseBrowserClient } from '@/lib/supabase/client'
+import { supabaseConfigured } from '@/lib/supabase/env'
+import type { User } from '@supabase/supabase-js'
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
-export interface CustomSession {
-  id: string
+export type { CustomSession }
+
+export interface NewSession {
   title: string
   group: GroupId
   courseId: string
   summary: string
-  /** One `symbol = meaning` per line. Parsed into a legend on the page. */
   math: string
   chart: ChartKind | 'none'
-  /** A data URL for images under 3.5 MB, embedded straight into the record. */
-  image: string | null
-  /** Filenames + sizes of everything uploaded, kept as the source list. */
   files: string[]
-  createdAt: number
-}
-
-const STORE = 'aiml-lab-sessions-v1'
-const PIN = 'aiml-lab-pin-v1'
-const SESSION_FLAG = 'aiml-lab-admin-v1'
-
-function obfuscate(s: string) {
-  try {
-    return btoa(unescape(encodeURIComponent('aiml:' + s)))
-  } catch {
-    return 'aiml:' + s
-  }
+  /** Uploaded to storage before the row is inserted. */
+  imageFile: File | null
 }
 
 interface CustomContextValue {
-  /** null until the browser store has been read, so pages can avoid flashing. */
-  sessions: CustomSession[] | null
-  add: (s: Omit<CustomSession, 'id' | 'createdAt'>) => CustomSession
-  remove: (id: string) => void
-  admin: boolean
-  hasPin: boolean
-  /** Returns an error string, or null on success. */
-  signIn: (code: string) => string | null
-  signOut: () => void
+  sessions: CustomSession[]
+  /** Whether the signed-in user may edit a given session. */
+  canEdit: (session: CustomSession) => boolean
+  user: User | null
+  /** False until the auth state has been read, so the UI can avoid flicker. */
+  ready: boolean
+  configured: boolean
+  add: (draft: NewSession) => Promise<{ id: string } | { error: string }>
+  remove: (id: string) => Promise<string | null>
+  signIn: (email: string, password: string) => Promise<string | null>
+  signUp: (email: string, password: string) => Promise<{ error: string | null; needsConfirmation: boolean }>
+  signOut: () => Promise<void>
 }
 
 const CustomContext = createContext<CustomContextValue | null>(null)
 
-export function CustomProvider({ children }: { children: React.ReactNode }) {
-  const [sessions, setSessions] = useState<CustomSession[] | null>(null)
-  const [admin, setAdmin] = useState(false)
-  const [hasPin, setHasPin] = useState(false)
+export function CustomProvider({
+  children,
+  initialSessions,
+}: {
+  children: React.ReactNode
+  /** Fetched on the server so the sidebar tree is correct on first paint. */
+  initialSessions: CustomSession[]
+}) {
+  const [sessions, setSessions] = useState<CustomSession[]>(initialSessions)
+  const [user, setUser] = useState<User | null>(null)
+  const [ready, setReady] = useState(!supabaseConfigured)
 
-  // localStorage does not exist during SSR, so this genuinely has to happen
-  // after mount — reading it during render would break hydration. `sessions`
-  // stays null until then so pages can hold off instead of flashing "not found".
+  // useState only reads its initial value once, so a router.refresh() — which
+  // re-runs the layout's server fetch — would otherwise be dropped on the
+  // floor. Adopt the new server list whenever its identity actually changes.
+  const [lastInitial, setLastInitial] = useState(initialSessions)
+  if (lastInitial !== initialSessions) {
+    setLastInitial(initialSessions)
+    setSessions(initialSessions)
+  }
+
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORE)
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setSessions(raw ? (JSON.parse(raw) as CustomSession[]) : [])
-      setHasPin(!!localStorage.getItem(PIN))
-      setAdmin(sessionStorage.getItem(SESSION_FLAG) === '1')
-    } catch {
-      setSessions([])
-    }
+    if (!supabaseConfigured) return
+    const supabase = getSupabaseBrowserClient()
+
+    // getUser() revalidates against the auth server rather than trusting the
+    // cookie, which is what makes it safe to gate the editing UI on.
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user ?? null)
+      setReady(true)
+    })
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+      setReady(true)
+    })
+    return () => sub.subscription.unsubscribe()
   }, [])
 
-  const persist = useCallback((list: CustomSession[]) => {
-    setSessions(list)
-    try {
-      localStorage.setItem(STORE, JSON.stringify(list))
-    } catch {
-      // Quota is the usual culprit — an embedded image can be large. The page
-      // keeps working for this tab either way.
-    }
+  const refresh = useCallback(async () => {
+    if (!supabaseConfigured) return
+    const { data } = await getSupabaseBrowserClient()
+      .from('sessions')
+      .select('*')
+      .order('created_at', { ascending: true })
+    if (data) setSessions(data.map(rowToSession))
   }, [])
 
-  const add = useCallback(
-    (s: Omit<CustomSession, 'id' | 'createdAt'>) => {
-      const item: CustomSession = { ...s, id: String(Date.now()), createdAt: Date.now() }
-      persist([...(sessions ?? []), item])
-      return item
+  const add = useCallback(async (draft: NewSession): Promise<{ id: string } | { error: string }> => {
+    if (!supabaseConfigured) return { error: 'Supabase is not configured for this deployment.' }
+    const supabase = getSupabaseBrowserClient()
+
+    const { data: auth } = await supabase.auth.getUser()
+    if (!auth.user) return { error: 'You are signed out. Sign in again and retry.' }
+
+    // The image goes up first: a row pointing at an object that failed to
+    // upload would render a broken page, whereas an orphaned object is
+    // invisible. Storage RLS requires the uid prefix on the path.
+    let imagePath: string | null = null
+    if (draft.imageFile) {
+      if (draft.imageFile.size > MAX_IMAGE_BYTES) {
+        return { error: 'That image is over 3.5 MB. Shrink it and try again.' }
+      }
+      const ext = draft.imageFile.name.split('.').pop()?.toLowerCase() ?? 'png'
+      const path = `${auth.user.id}/${crypto.randomUUID()}.${ext}`
+      const { error } = await supabase.storage
+        .from(IMAGE_BUCKET)
+        .upload(path, draft.imageFile, { contentType: draft.imageFile.type, upsert: false })
+      if (error) return { error: `The image could not be uploaded: ${error.message}` }
+      imagePath = path
+    }
+
+    const { data, error } = await supabase
+      .from('sessions')
+      .insert({
+        title: draft.title.trim() || 'Untitled session',
+        group_id: draft.group,
+        course_id: draft.courseId,
+        summary: draft.summary,
+        math: draft.math,
+        chart: draft.chart,
+        image_path: imagePath,
+        files: draft.files,
+        author_id: auth.user.id,
+      })
+      .select()
+      .single()
+
+    if (error || !data) {
+      // Do not leave the just-uploaded object behind if the row failed.
+      if (imagePath) await supabase.storage.from(IMAGE_BUCKET).remove([imagePath])
+      return { error: error?.message ?? 'The session could not be saved.' }
+    }
+
+    setSessions((list) => [...list, rowToSession(data)])
+    return { id: data.id }
+  }, [])
+
+  const remove = useCallback(
+    async (id: string): Promise<string | null> => {
+      if (!supabaseConfigured) return 'Supabase is not configured for this deployment.'
+      const supabase = getSupabaseBrowserClient()
+      const target = sessions.find((s) => s.id === id)
+
+      const { error } = await supabase.from('sessions').delete().eq('id', id)
+      if (error) return error.message
+
+      if (target?.imagePath) await supabase.storage.from(IMAGE_BUCKET).remove([target.imagePath])
+      setSessions((list) => list.filter((s) => s.id !== id))
+      return null
     },
-    [sessions, persist]
+    [sessions]
   )
 
-  const remove = useCallback((id: string) => persist((sessions ?? []).filter((s) => s.id !== id)), [sessions, persist])
-
-  const signIn = useCallback((code: string) => {
-    const trimmed = code.trim()
-    if (trimmed.length < 4) return 'Use at least four characters.'
-    try {
-      const stored = localStorage.getItem(PIN)
-      if (!stored) {
-        localStorage.setItem(PIN, obfuscate(trimmed))
-        setHasPin(true)
-      } else if (stored !== obfuscate(trimmed)) {
-        return 'That passcode does not match.'
-      }
-      sessionStorage.setItem(SESSION_FLAG, '1')
-      setAdmin(true)
+  const signIn = useCallback(
+    async (email: string, password: string) => {
+      const { error } = await getSupabaseBrowserClient().auth.signInWithPassword({ email, password })
+      if (error) return error.message
+      await refresh()
       return null
-    } catch {
-      return 'This browser is blocking local storage, so admin mode cannot be set.'
-    }
+    },
+    [refresh]
+  )
+
+  const signUp = useCallback(async (email: string, password: string) => {
+    const { data, error } = await getSupabaseBrowserClient().auth.signUp({ email, password })
+    if (error) return { error: error.message, needsConfirmation: false }
+    // With email confirmation on, Supabase returns a user but no session.
+    return { error: null, needsConfirmation: !data.session }
   }, [])
 
-  const signOut = useCallback(() => {
-    try {
-      sessionStorage.removeItem(SESSION_FLAG)
-    } catch {
-      // ignore
-    }
-    setAdmin(false)
+  const signOut = useCallback(async () => {
+    await getSupabaseBrowserClient().auth.signOut()
+    setUser(null)
   }, [])
+
+  const canEdit = useCallback((session: CustomSession) => !!user && session.authorId === user.id, [user])
 
   const value = useMemo(
-    () => ({ sessions, add, remove, admin, hasPin, signIn, signOut }),
-    [sessions, add, remove, admin, hasPin, signIn, signOut]
+    () => ({
+      sessions,
+      canEdit,
+      user,
+      ready,
+      configured: supabaseConfigured,
+      add,
+      remove,
+      signIn,
+      signUp,
+      signOut,
+    }),
+    [sessions, canEdit, user, ready, add, remove, signIn, signUp, signOut]
   )
 
   return <CustomContext.Provider value={value}>{children}</CustomContext.Provider>

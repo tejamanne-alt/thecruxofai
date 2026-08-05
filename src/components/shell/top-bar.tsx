@@ -46,7 +46,7 @@ export function TopBar() {
     label = courseById[courseMatch[1]]?.name ?? ''
     scope = scopeForCourseId(courseMatch[1])
   } else if (customMatch) {
-    const mine = sessions?.find((s) => s.id === customMatch[1])
+    const mine = sessions.find((s) => s.id === customMatch[1])
     if (mine) {
       label = mine.title
       scope = scopeForCustom(mine.id, mine.title, courseById[mine.courseId]?.name ?? '', mine.math)

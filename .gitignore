@@ -141,3 +141,6 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# ...but the example file documents the variable names and is safe to commit.
+!.env.example
