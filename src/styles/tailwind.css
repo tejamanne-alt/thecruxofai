@@ -1,0 +1,91 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-sans--font-feature-settings: 'cv11';
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/*
+ * The design has a single accent variable so the whole site can be re-tinted
+ * from one place. `--acc` is the raw hex (canvas and gradients need it),
+ * `--acc-*` are the pre-mixed tints used by nav rows, chips and borders.
+ * Offered alternates: #0284c7, #0d9488, #db2777.
+ */
+:root {
+  --acc: #4f46e5;
+  --acc-12: color-mix(in srgb, var(--acc) 12%, transparent);
+  --acc-35: color-mix(in srgb, var(--acc) 35%, transparent);
+  --acc-hover: color-mix(in srgb, var(--acc) 85%, black);
+}
+
+html,
+body {
+  background: #f4f4f5;
+  color: #09090b;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Sliders are drawn by hand rather than inheriting the browser accent: 6px
+ * track, the unfilled part in #b9bbc2 so it still reads against the #fafafa
+ * control panel, the filled part driven by a --pct custom property.
+ * Both the -webkit- and -moz- pseudo-elements are needed.
+ */
+input[type='range'].crux-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 18px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  cursor: pointer;
+}
+input[type='range'].crux-slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--acc) 0 var(--pct), #b9bbc2 var(--pct) 100%);
+}
+input[type='range'].crux-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -5px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--acc);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+}
+input[type='range'].crux-slider::-moz-range-track {
+  height: 6px;
+  border: 0;
+  border-radius: 999px;
+  background: #b9bbc2;
+}
+input[type='range'].crux-slider::-moz-range-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--acc);
+}
+input[type='range'].crux-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--acc);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+}
+
+/* Prose in the explainers wraps for shape, not just for width. */
+.crux-prose {
+  text-wrap: pretty;
+}
+
+/* The sidebar tree scrolls a lot; keep its scrollbar quiet. */
+.crux-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(9 9 11 / 0.18) transparent;
+}

@@ -1,0 +1,246 @@
+'use client'
+
+import clsx from 'clsx'
+import type React from 'react'
+
+/* ---------------------------------------------------------------- headings */
+
+export function SessionHeader({ eyebrow, title, intro }: { eyebrow: string; title: string; intro: React.ReactNode }) {
+  return (
+    <>
+      <p className="mb-1.5 text-xs font-semibold tracking-[0.08em] text-zinc-500 uppercase">{eyebrow}</p>
+      <h1 className="mb-2.5 text-[28px]/[1.2] font-semibold tracking-[-0.02em] text-zinc-950">{title}</h1>
+      <p className="crux-prose mb-5 max-w-[660px] text-[15px]/[1.6] text-zinc-700">{intro}</p>
+    </>
+  )
+}
+
+/* ------------------------------------------------------- the analogy block */
+
+/**
+ * Every session leads with the concrete story before any symbol appears. The
+ * three-column grid maps each control on the chart to something in the story.
+ */
+export function AnalogyCallout({
+  paragraphs,
+  mappings,
+  footnote,
+}: {
+  paragraphs: React.ReactNode[]
+  mappings: Array<{ title: string; body: string }>
+  footnote: string
+}) {
+  return (
+    <div className="mb-7 flex max-w-[780px] flex-col gap-3 rounded-lg border border-l-[3px] border-zinc-950/10 border-l-zinc-900 bg-zinc-50 px-[22px] py-5">
+      <div className="text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">
+        The story behind this chart
+      </div>
+      {paragraphs.map((p, i) => (
+        <p key={i} className="crux-prose text-[14px]/[1.65] text-zinc-800">
+          {p}
+        </p>
+      ))}
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 border-t border-zinc-950/[0.08] pt-3">
+        {mappings.map((m) => (
+          <div key={m.title}>
+            <div className="text-[13px] font-semibold text-zinc-950">{m.title}</div>
+            <div className="text-[12.5px]/[1.55] text-zinc-600">{m.body}</div>
+          </div>
+        ))}
+      </div>
+      <p className="text-[12.5px]/[1.6] text-zinc-500">{footnote}</p>
+    </div>
+  )
+}
+
+/* -------------------------------------------------------- chart + controls */
+
+export function ChartRow({ chart, panel }: { chart: React.ReactNode; panel: React.ReactNode }) {
+  return (
+    <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_300px]">
+      {chart}
+      <div className="flex flex-col gap-[18px] rounded-lg border border-zinc-950/10 bg-zinc-50 p-5">{panel}</div>
+    </div>
+  )
+}
+
+export function Slider({
+  label,
+  value,
+  display,
+  min,
+  max,
+  step,
+  hint,
+  onChange,
+}: {
+  label: string
+  value: number
+  display: string
+  min: number
+  max: number
+  step: number
+  hint: string
+  onChange: (v: number) => void
+}) {
+  const pct = `${Math.round(((value - min) / (max - min)) * 100)}%`
+  return (
+    <div>
+      <div className="mb-1.5 flex justify-between text-[13px] font-semibold">
+        <span>{label}</span>
+        <span className="text-zinc-500">{display}</span>
+      </div>
+      <input
+        type="range"
+        className="crux-slider"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(e) => onChange(parseFloat(e.target.value))}
+        style={{ '--pct': pct } as React.CSSProperties}
+        aria-label={label}
+      />
+      <p className="mt-1.5 text-xs text-zinc-500">{hint}</p>
+    </div>
+  )
+}
+
+/** A big live number in a white well — the panel read-out. */
+export function ReadOut({ label, value, note, tone }: { label: string; value: string; note?: string; tone?: string }) {
+  return (
+    <div className="rounded-lg border border-zinc-950/10 bg-white p-3.5">
+      <div className="text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">{label}</div>
+      <div className="text-[26px] font-semibold tracking-[-0.02em]" style={{ color: tone ?? '#09090b' }}>
+        {value}
+      </div>
+      {note && <div className="text-xs text-zinc-500">{note}</div>}
+    </div>
+  )
+}
+
+/** A compact grid of small read-outs, for the panels that show four at once. */
+export function ReadOutGrid({ items }: { items: Array<{ label: string; value: string }> }) {
+  return (
+    <div className="grid grid-cols-2 gap-2">
+      {items.map((it) => (
+        <div key={it.label} className="rounded-lg border border-zinc-950/10 bg-white p-2.5">
+          <div className="text-[10.5px] font-semibold tracking-[0.05em] text-zinc-500 uppercase">{it.label}</div>
+          <div className="font-mono text-[15px] font-semibold text-zinc-950">{it.value}</div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export function PanelNote({ children }: { children: React.ReactNode }) {
+  return <p className="text-xs/[1.55] text-zinc-600">{children}</p>
+}
+
+export function PanelButtons({ children }: { children: React.ReactNode }) {
+  return <div className="flex flex-wrap gap-2">{children}</div>
+}
+
+export function PanelButton({
+  children,
+  onClick,
+  primary,
+}: {
+  children: React.ReactNode
+  onClick: () => void
+  primary?: boolean
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={clsx(
+        'flex-1 cursor-pointer rounded-lg px-2.5 py-2 text-[13px] font-semibold whitespace-nowrap',
+        primary
+          ? 'border border-zinc-950/90 bg-zinc-900 text-white hover:bg-zinc-800'
+          : 'border border-zinc-950/10 bg-white text-zinc-950 hover:bg-zinc-950/[0.04]'
+      )}
+    >
+      {children}
+    </button>
+  )
+}
+
+/* ------------------------------------------------------------- explainers */
+
+export function Explainers({
+  plain,
+  breaks,
+  children,
+}: {
+  plain: React.ReactNode
+  breaks: React.ReactNode
+  children?: React.ReactNode
+}) {
+  return (
+    <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-4">
+      <div className="rounded-lg border border-zinc-950/[0.08] bg-zinc-50 p-[18px]">
+        <h3 className="mb-1.5 text-sm font-semibold">In plain English</h3>
+        <p className="text-[13px]/[1.6] text-zinc-700">{plain}</p>
+      </div>
+      <div className="rounded-lg border border-zinc-950/[0.08] bg-zinc-50 p-[18px]">
+        <h3 className="mb-1.5 text-sm font-semibold">Where it breaks</h3>
+        <p className="text-[13px]/[1.6] text-zinc-700">{breaks}</p>
+      </div>
+      {children}
+    </div>
+  )
+}
+
+/* -------------------------------------------------------- the maths block */
+
+export interface LegendEntry {
+  sym: React.ReactNode
+  name: string
+  note: string
+  /** Live — recomputed from the chart state on every render. */
+  val: string
+}
+
+export function MathBlock({
+  intro,
+  formulas,
+  legend,
+}: {
+  intro: string
+  formulas: Array<{ formula: React.ReactNode; reading: React.ReactNode }>
+  legend: LegendEntry[]
+}) {
+  return (
+    <div className="col-span-full rounded-lg border border-zinc-950 bg-zinc-950 p-5 text-zinc-50">
+      <h3 className="mb-1 text-sm font-semibold">The math, symbol by symbol</h3>
+      <p className="mb-3.5 text-xs/[1.6] text-zinc-400">{intro}</p>
+
+      <div className="mb-[18px] flex flex-col gap-2">
+        {formulas.map((f, i) => (
+          <div key={i} className="rounded-lg border border-zinc-800 bg-zinc-900 px-3.5 py-3">
+            <div className="overflow-x-auto font-mono text-[15px] text-zinc-50">{f.formula}</div>
+            <div className="mt-1 text-xs/[1.55] text-zinc-400">{f.reading}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mb-2 text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">Legend</div>
+      {/* 1px gaps over a zinc-800 background fake the hairlines between cells. */}
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-px overflow-hidden rounded-lg border border-zinc-800 bg-zinc-800">
+        {legend.map((l, i) => (
+          <div key={i} className="flex gap-3 bg-zinc-950 px-[13px] py-[11px]">
+            <span className="w-11 shrink-0 font-mono text-sm text-zinc-50">{l.sym}</span>
+            <span className="flex min-w-0 flex-col gap-[3px]">
+              <span className="text-[12.5px]/[1.5] text-zinc-200">{l.name}</span>
+              <span className="text-[11.5px]/[1.5] text-zinc-400">{l.note}</span>
+              <span className="font-mono text-[11.5px]" style={{ color: 'var(--acc)' }}>
+                {l.val}
+              </span>
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
