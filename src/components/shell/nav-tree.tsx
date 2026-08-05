@@ -61,7 +61,7 @@ export function NavTree({
   onAddSession?: (group: GroupId) => void
 }) {
   const pathname = usePathname()
-  const { sessions: custom, user } = useCustom()
+  const { sessions: custom, isAdmin } = useCustom()
 
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({ s1: true, s2: true })
   const [openCourses, setOpenCourses] = useState<Record<string, boolean>>({
@@ -98,7 +98,7 @@ export function NavTree({
     const mine = (customByCourse.get(course.id) ?? []).map((s) => ({
       href: `/my/${s.id}`,
       label: s.title,
-      tag: 'yours',
+      tag: 'added',
     }))
     return [...built, ...mine]
   }
@@ -157,7 +157,7 @@ export function NavTree({
                   <span className="min-w-0 flex-1 truncate">{g.label}</span>
                   <span className="shrink-0 text-[10.5px] font-medium text-zinc-500">{g.meta}</span>
                 </button>
-                {user && onAddSession && (
+                {isAdmin && onAddSession && (
                   <button
                     type="button"
                     title="Add a session to this section"

@@ -67,8 +67,8 @@ export function AuthDialog({ open, onClose }: { open: boolean; onClose: () => vo
       <DialogTitle>{mode === 'signin' ? 'Sign in' : 'Create an account'}</DialogTitle>
       <DialogDescription>
         {mode === 'signin'
-          ? 'Signing in lets you add your own session pages. Everything on the site is readable without an account.'
-          : 'An account lets you write session pages. You can only ever edit or delete the ones you wrote.'}
+          ? 'Everything on the site is readable without an account. Signing in is for the people who maintain it.'
+          : 'Accounts are for maintainers. Creating one does not grant write access on its own — an existing maintainer has to add you.'}
       </DialogDescription>
       <DialogBody>
         {!configured ? (

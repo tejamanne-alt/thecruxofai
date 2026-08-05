@@ -110,11 +110,11 @@ makes the accuracy, the "still wrong" count and the red rings on the chart disag
 
 ## Adding your own session
 
-Sign in (sidebar footer), then use the `+` on any semester header. You get a title, a course, a write-up, a
+Sign in (sidebar footer) as a maintainer, then use the `+` on any semester header. You get a title, a course, a write-up, a
 `symbol = meaning` list that becomes the page's legend and its cheat sheet, one of four chart templates, and a file
 upload.
 
-Uploads: images under 3.5 MB go to Supabase Storage under your own user prefix, the first text or markdown file
+Uploads: images under 3.5 MB go to Supabase Storage, the first text or markdown file
 pre-fills an empty write-up, and every filename and size is recorded as source material. **PDF and PPTX contents are not
 parsed** — they are recorded as sources only.
 
@@ -138,19 +138,47 @@ variable or in this repo.**
 ### Security is in the database, not the buttons
 
 The prototype's passcode gate was cosmetic and said so. It is gone. Supabase Auth issues the session, and Postgres
-enforces what that session can do:
+enforces what that session can do. The site is maintained by a small trusted group who all edit the same content, so
+**authorship is attribution and admin membership is permission**:
 
-| Who | Read | Create | Edit / delete |
+| Who | Read | Create | Edit / delete anything |
 |---|---|---|---|
 | Signed-out visitor | ✅ any session | ❌ | ❌ |
-| Signed-in user | ✅ any session | ✅ as themselves | ✅ their own only |
+| Signed-in, not a maintainer | ✅ any session | ❌ | ❌ |
+| Maintainer (`public.admins`) | ✅ any session | ✅ | ✅ including other people's pages |
 
-Hiding the `+` button and the delete button is a courtesy. The rules that matter are the four policies on
-`public.sessions` and the four on `storage.objects` — a crafted request from anyone else fails at the database. The
-policies are verified by `supabase/tests/rls.sql`, which asserts every row of that table.
+Flattening permissions this way does **not** remove the need for RLS. What it protects you from was never your
+co-maintainers — it is everyone else. The publishable key ships in the browser bundle, and Supabase grants
+`anon`/`authenticated` full DML on public tables by default; these policies are the only thing restricting it. Turn RLS
+off and `public.sessions` is world-writable.
 
-Storage paths are `session-images/<user id>/<uuid>.<ext>`, and the insert policy requires that first segment to equal
-the uploader's own id, so nobody can write into someone else's prefix.
+`author_id` is still recorded, and the insert policy still requires it to be you, so the trail of who wrote what
+survives even though anyone on the team can edit it afterwards.
+
+Hiding the `+` and delete buttons is a courtesy. The rules that matter are the policies on `public.sessions`,
+`public.admins` and `storage.objects` — verified by `supabase/tests/rls.sql`, which asserts every row of that table.
+
+### Granting the role
+
+There is deliberately no way to promote yourself through the app: `public.admins` has no insert policy, so membership is
+granted by hand with the service role. Have the person sign up first, then run this in the Supabase SQL editor:
+
+```sql
+insert into public.admins (user_id, note)
+select id, 'why they were added' from auth.users where email = 'them@example.com';
+```
+
+To revoke: `delete from public.admins where user_id = (select id from auth.users where email = '…');`
+
+Signing in without being a maintainer is a real, expected state — the sidebar says *"Read-only — not a maintainer"*
+rather than silently hiding the controls and leaving you guessing.
+
+### Storage
+
+Paths are `session-images/<user id>/<uuid>.<ext>`. The uid prefix is no longer a permission boundary — any maintainer
+can replace or delete any image, so deleting a colleague's session cleans up its picture instead of orphaning it. The
+prefix survives as a tidy, collision-free naming scheme. Uploading requires being a maintainer, so an account alone
+cannot be used as free file hosting.
 
 ### Schema
 
@@ -169,9 +197,10 @@ public.sessions
 
 ### Migrations and tests
 
-`supabase/migrations/` holds the four migrations that built the schema, in order, so the project can be rebuilt from
-scratch. `supabase/tests/rls.sql` is the policy test — it impersonates two users and the `anon` role and asserts all nine
-outcomes in the table above:
+`supabase/migrations/` holds the migrations that built the schema, in order, so the project can be rebuilt from
+scratch. `supabase/tests/rls.sql` is the policy test — it impersonates two maintainers, one signed-in non-maintainer and
+the `anon` role, and asserts fifteen outcomes covering every cell of the table above plus self-promotion and admin-list
+enumeration:
 
 ```bash
 psql "$DATABASE_URL" -f supabase/tests/rls.sql   # every row should read PASS
@@ -197,6 +226,9 @@ why the build reports every route as dynamic.
 2. **Author the quiz and exam banks** in Postgres too, instead of hard-coding them in `lib/data/knowledge.ts`.
 3. **Editing an existing session** — today you can create and delete, but not revise. The `UPDATE` policy is already in
    place for it.
+4. **An audit trail.** Now that any maintainer can edit anyone's page, ownership no longer stops two people clobbering
+   each other. An `updated_by` column and a `session_revisions` table written by a trigger would make surprising changes
+   traceable and reversible. Cheap in Postgres; worth doing before the content gets valuable.
 
 ## Design tokens
 

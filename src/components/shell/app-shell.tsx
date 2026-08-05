@@ -33,7 +33,7 @@ function SidebarContent({
   onAddSession: (g: GroupId) => void
   onAccountClick: () => void
 }) {
-  const { user, ready } = useCustom()
+  const { user, ready, isAdmin } = useCustom()
   const signedIn = !!user
 
   return (
@@ -46,7 +46,7 @@ function SidebarContent({
           onClick={onAccountClick}
           className="flex w-full cursor-pointer items-center gap-[9px] rounded-lg border px-2.5 py-2 text-left text-[12.5px] font-medium hover:border-zinc-950/30"
           style={
-            signedIn
+            isAdmin
               ? { background: 'var(--acc-12)', borderColor: 'var(--acc-35)', color: '#09090b' }
               : { background: '#fff', borderColor: 'rgba(9,9,11,0.12)', color: '#3f3f46' }
           }
@@ -54,17 +54,24 @@ function SidebarContent({
           <span
             className="grid size-5 shrink-0 place-items-center rounded-md text-[10px]"
             style={
-              signedIn
+              isAdmin
                 ? { background: 'var(--acc)', color: '#fff' }
                 : { background: 'rgba(9,9,11,0.08)', color: '#52525b' }
             }
           >
-            {signedIn ? '✓' : '⚿'}
+            {isAdmin ? '✓' : '⚿'}
           </span>
-          <span className="min-w-0 flex-1 truncate">
-            {!ready ? 'Checking session…' : signedIn ? (user.email ?? 'Signed in') : 'Sign in'}
+          <span className="flex min-w-0 flex-1 flex-col leading-tight">
+            <span className="truncate">
+              {!ready ? 'Checking session…' : signedIn ? (user.email ?? 'Signed in') : 'Sign in'}
+            </span>
+            {/* Signed in without maintainer rights is a real state, and a
+                confusing one if the UI stays silent about it. */}
+            {signedIn && !isAdmin && (
+              <span className="truncate text-[10.5px] font-normal text-zinc-500">Read-only — not a maintainer</span>
+            )}
           </span>
-          {signedIn && <span className="shrink-0 text-[10.5px] text-zinc-500">Sign out</span>}
+          {signedIn && <span className="shrink-0 self-center text-[10.5px] text-zinc-500">Sign out</span>}
         </button>
       </div>
     </div>
