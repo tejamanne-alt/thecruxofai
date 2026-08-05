@@ -1,7 +1,7 @@
 'use client'
 
 import { ChartCanvas, type HitTarget } from '@/components/charts/chart-canvas'
-import { dot, drawAxes, halo, palette, type Frame } from '@/lib/chart/frame'
+import { clamp, dot, drawAxes, halo, palette, type Frame } from '@/lib/chart/frame'
 import { kmData, seedCentroids, type Point } from '@/lib/model/dataset'
 import { assignToCentroids, inertiaOf, moveCentroids } from '@/lib/model/math'
 import { useState } from 'react'
@@ -142,6 +142,18 @@ export function KMeansSession() {
     targets[`c${i}y`] = c.y
   })
 
+  /**
+   * Moving a flag by hand is the point, not a convenience: it is the only way
+   * to set up a deliberately bad start and watch where it settles. The
+   * assignments are cleared because they belong to the old positions.
+   */
+  function moveCentroid(id: string, x: number, y: number) {
+    const idx = Number(id)
+    setCents((cs) => cs.map((c, i) => (i === idx ? { x: clamp(x, 0, 10), y: clamp(y, 0, 10) } : c)))
+    setAssign(null)
+    setPhase('assign')
+  }
+
   function changeK(nk: number) {
     setK(nk)
     setCents(seedCentroids(nk))
@@ -192,7 +204,18 @@ export function KMeansSession() {
       />
 
       <ChartRow
-        chart={<ChartCanvas draw={draw} candidates={candidates} tooltip={tooltip} targets={targets} jumpKey={jump} />}
+        chart={
+          <ChartCanvas
+            draw={draw}
+            candidates={candidates}
+            tooltip={tooltip}
+            targets={targets}
+            jumpKey={jump}
+            handles={(fr: Frame) => cents.map((c, i) => ({ id: String(i), px: fr.px(c.x), py: fr.py(c.y) }))}
+            onDragTo={moveCentroid}
+            caption="Drag a flag anywhere to set up a start on purpose, then settle it and see where it lands. Hover any dot for its distances."
+          />
+        }
         panel={
           <>
             <Slider

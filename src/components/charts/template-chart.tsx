@@ -2,10 +2,10 @@
 
 import { ChartCanvas, type HitTarget } from '@/components/charts/chart-canvas'
 import { PanelButton, PanelButtons, PanelNote, Slider } from '@/components/sessions/session-parts'
-import { accentColour, dot, drawAxes, halo, palette, type Frame } from '@/lib/chart/frame'
+import { accentColour, clamp, dot, drawAxes, grip, halo, palette, type Frame } from '@/lib/chart/frame'
 import type { ChartKind } from '@/lib/data/curriculum'
 import { kmData, lrData, pcData, seedCentroids, type Point } from '@/lib/model/dataset'
-import { assignToCentroids, grad, inertiaOf, loss, moveCentroids, trainEpoch } from '@/lib/model/math'
+import { assignToCentroids, grad, inertiaOf, loss, misclassified, moveCentroids, trainEpoch } from '@/lib/model/math'
 import { useState } from 'react'
 
 export const CHART_NOTES: Record<ChartKind, string> = {
@@ -73,6 +73,8 @@ function LineTemplate() {
     g.moveTo(f.px(0), f.py(db))
     g.lineTo(f.px(10), f.py(dw * 10 + db))
     g.stroke()
+    grip(g, f.px(0), f.py(db), accentColour())
+    grip(g, f.px(10), f.py(dw * 10 + db), accentColour())
     lrData.forEach((p, i) => {
       const on = hover?.kind === 'pt' && hover.i === i
       dot(g, f.px(p.x), f.py(p.y), on ? 6 : 4.5, '#18181b', on ? '#fff' : null)
@@ -106,6 +108,14 @@ function LineTemplate() {
           candidates={(f: Frame) => lrData.map((p, i) => ({ kind: 'pt', i, px: f.px(p.x), py: f.py(p.y) }))}
           tooltip={tooltip}
           targets={{ w, b }}
+          handles={(f: Frame) => [
+            { id: 'b', px: f.px(0), py: f.py(b) },
+            { id: 'w', px: f.px(10), py: f.py(w * 10 + b) },
+          ]}
+          onDragTo={(id, x, y) => {
+            if (id === 'b') setB(Math.round(clamp(y, -10, 25) * 4) / 4)
+            else setW(Math.round(clamp((y - b) / Math.max(1, x), -2, 8) * 20) / 20)
+          }}
         />
       }
       panel={
@@ -196,6 +206,12 @@ function BowlTemplate() {
             }
           }}
           targets={{ w }}
+          handles={(f: Frame) => [{ id: 'w', px: f.px(w), py: f.py(loss(w)), grab: 'anywhere' }]}
+          onDragTo={(_id, x) => {
+            const nw = Math.round(clamp(x, -2, 8) * 100) / 100
+            setW(nw)
+            setTrail([nw])
+          }}
         />
       }
       panel={
@@ -307,6 +323,13 @@ function ClustersTemplate() {
             }
           }}
           targets={targets}
+          handles={(f: Frame) => cents.map((c, i) => ({ id: String(i), px: f.px(c.x), py: f.py(c.y) }))}
+          onDragTo={(id, x, y) => {
+            const idx = Number(id)
+            setCents((cs) => cs.map((c, i) => (i === idx ? { x: clamp(x, 0, 10), y: clamp(y, 0, 10) } : c)))
+            setAssign(null)
+            setPhase('assign')
+          }}
         />
       }
       panel={
@@ -368,7 +391,25 @@ function ClustersTemplate() {
 function BoundaryTemplate() {
   const [w, setW] = useState<number[]>([0, 0])
   const [b, setB] = useState(0)
-  const [wrong, setWrong] = useState<number[]>([])
+
+  const untrained = w[0] === 0 && w[1] === 0
+  // Derived rather than stored, so the ringed dots stay honest while the
+  // boundary is being dragged rather than trained.
+  const wrong = untrained ? [] : misclassified(w, b)
+
+  /** Where the boundary crosses the middle of the plot — the grab point. */
+  function boundaryMid(): { x: number; y: number } | null {
+    if (untrained) return null
+    if (Math.abs(w[1]) > 1e-9) {
+      const y = -(w[0] * 5 + b) / w[1]
+      if (y >= 0 && y <= 10) return { x: 5, y }
+    }
+    if (Math.abs(w[0]) > 1e-9) {
+      const x = -(w[1] * 5 + b) / w[0]
+      if (x >= 0 && x <= 10) return { x, y: 5 }
+    }
+    return null
+  }
 
   const draw = (
     g: CanvasRenderingContext2D,
@@ -436,6 +477,19 @@ function BoundaryTemplate() {
             }
           }}
           targets={{ w0: w[0], w1: w[1], b }}
+          handles={(f: Frame) => {
+            const mid = boundaryMid()
+            return mid ? [{ id: 'boundary', px: f.px(mid.x), py: f.py(mid.y), radius: 24, grab: 'anywhere' }] : []
+          }}
+          onDragTo={(_id, x, y) => {
+            // Bias only: the line shifts without turning, which is exactly what b does.
+            if (!untrained) setB(clamp(-(w[0] * x + w[1] * y), -50, 50))
+          }}
+          caption={
+            untrained
+              ? 'Train a pass first — there is no boundary to move yet. Hover any dot for its numbers.'
+              : 'Drag the boundary, or press where you want it to pass through. Hover any dot for its numbers.'
+          }
         />
       }
       panel={
@@ -447,7 +501,6 @@ function BoundaryTemplate() {
                 const next = trainEpoch(w, b)
                 setW(next.w)
                 setB(next.b)
-                setWrong(next.wrong)
               }}
             >
               Train one pass
@@ -456,7 +509,6 @@ function BoundaryTemplate() {
               onClick={() => {
                 setW([0, 0])
                 setB(0)
-                setWrong([])
               }}
             >
               Forget everything

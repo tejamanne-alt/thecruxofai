@@ -1,7 +1,7 @@
 'use client'
 
 import { ChartCanvas, type HitTarget } from '@/components/charts/chart-canvas'
-import { accentColour, arrow, dot, drawPlane, halo, type Frame } from '@/lib/chart/frame'
+import { accentColour, arrow, clamp, dot, drawPlane, grip, halo, type Frame } from '@/lib/chart/frame'
 import { useState } from 'react'
 import { UsedInAiml } from './algebra'
 import {
@@ -84,6 +84,27 @@ export function LinearAlgebraSession() {
     setJump((v) => v + 1)
   }
 
+  /**
+   * The strongest interaction on the page: î and ĵ are literally the matrix's
+   * two columns, so dragging them *is* editing the matrix. The sliders and the
+   * arrows are two views of the same four numbers.
+   */
+  const snap = (v: number) => Math.round(clamp(v, -SPAN, SPAN) * 20) / 20
+
+  function dragTo(id: string, x: number, y: number) {
+    if (id === 'i') {
+      setA(snap(x))
+      setC(snap(y))
+    } else if (id === 'j') {
+      setB(snap(x))
+      setD(snap(y))
+    } else {
+      setVx(Math.round(clamp(x, -3, 3) * 10) / 10)
+      setVy(Math.round(clamp(y, -3, 3) * 10) / 10)
+    }
+    setNote(null)
+  }
+
   const draw = (
     ctx: CanvasRenderingContext2D,
     W: number,
@@ -149,6 +170,11 @@ export function LinearAlgebraSession() {
     ctx.setLineDash([3, 3])
     arrow(ctx, fr.px(0), fr.py(0), fr.px(vx), fr.py(vy), 'rgba(9,9,11,0.4)', 2)
     ctx.setLineDash([])
+    // Grips on the three things you can pick up: the two basis arrows and
+    // your own vector.
+    grip(ctx, fr.px(vx), fr.py(vy), '#71717a', 5)
+    grip(ctx, fr.px(eix), fr.py(eiy), acc, 5)
+    grip(ctx, fr.px(ejx), fr.py(ejy), '#0d9488', 5)
     arrow(ctx, fr.px(0), fr.py(0), fr.px(evx), fr.py(evy), '#d97706', 3)
     dot(ctx, fr.px(evx), fr.py(evy), 4, '#d97706')
     if (hover?.kind === 'v') halo(ctx, fr.px(evx), fr.py(evy), 4)
@@ -275,7 +301,13 @@ export function LinearAlgebraSession() {
             targets={{ a, b, c, d, vx, vy }}
             jumpKey={jump}
             height={460}
-            caption="Hover the arrow tips and the origin — each explains what the matrix did to it."
+            handles={(fr: Frame) => [
+              { id: 'i', px: fr.px(ix), py: fr.py(iy) },
+              { id: 'j', px: fr.px(jx), py: fr.py(jy) },
+              { id: 'v', px: fr.px(vx), py: fr.py(vy), radius: 16, grab: 'anywhere' },
+            ]}
+            onDragTo={dragTo}
+            caption="Drag î or ĵ to edit the matrix directly — they are its two columns. Drag the dashed arrow, or press anywhere, to move your vector."
           />
         }
         panel={

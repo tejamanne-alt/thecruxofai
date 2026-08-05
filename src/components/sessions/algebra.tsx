@@ -1,7 +1,7 @@
 'use client'
 
 import { ChartCanvas, type HitTarget } from '@/components/charts/chart-canvas'
-import { accentColour, dot, drawAxes, halo, type Frame } from '@/lib/chart/frame'
+import { accentColour, clamp, dot, drawAxes, halo, type Frame } from '@/lib/chart/frame'
 import { useState } from 'react'
 import {
   AnalogyCallout,
@@ -151,6 +151,11 @@ export function AlgebraSession() {
     return out
   }
 
+  // The marker only has one degree of freedom — it lives on the curve — so a
+  // drag reads the x and lets the curve decide the height. Vertical movement is
+  // deliberately ignored rather than fought with.
+  const moveTo = (x: number) => setX(Math.round(clamp(x, XMIN, XMAX) * 10) / 10)
+
   const tooltip = (hit: HitTarget) => {
     if (hit.kind === 'root') {
       return {
@@ -216,7 +221,17 @@ export function AlgebraSession() {
       />
 
       <ChartRow
-        chart={<ChartCanvas draw={draw} candidates={candidates} tooltip={tooltip} targets={{ x, a, b }} />}
+        chart={
+          <ChartCanvas
+            draw={draw}
+            candidates={candidates}
+            tooltip={tooltip}
+            targets={{ x, a, b }}
+            handles={(fr: Frame) => [{ id: 'x', px: fr.px(x), py: fr.py(y), grab: 'anywhere' }]}
+            onDragTo={(_id, dx) => moveTo(dx)}
+            caption="Press anywhere on the plot to send the marker there, or drag it along the curve. Hover any point for the arithmetic behind it."
+          />
+        }
         panel={
           <>
             <Slider

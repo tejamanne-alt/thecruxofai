@@ -9,6 +9,15 @@ export interface Frame {
   px: (v: number) => number
   /** data y → pixel y */
   py: (v: number) => number
+  /** pixel x → data x. The inverse of px, for turning a pointer into a value. */
+  ux: (p: number) => number
+  /** pixel y → data y. */
+  uy: (p: number) => number
+}
+
+/** Keep a dragged value inside the range the chart actually shows. */
+export function clamp(v: number, lo: number, hi: number) {
+  return v < lo ? lo : v > hi ? hi : v
 }
 
 export interface AxisSpec {
@@ -38,6 +47,8 @@ export function drawAxes(g: CanvasRenderingContext2D, W: number, H: number, spec
     B,
     px: (v) => L + ((v - xmin) / (xmax - xmin)) * (R - L),
     py: (v) => B - ((v - ymin) / (ymax - ymin)) * (B - T),
+    ux: (p) => xmin + ((p - L) / (R - L)) * (xmax - xmin),
+    uy: (p) => ymin + ((B - p) / (B - T)) * (ymax - ymin),
   }
 
   for (let i = 0; i <= 5; i++) {
@@ -116,6 +127,8 @@ export function drawPlane(g: CanvasRenderingContext2D, W: number, H: number, spa
     B: cy + size / 2,
     px: (v) => cx + v * scale,
     py: (v) => cy - v * scale,
+    ux: (p) => (p - cx) / scale,
+    uy: (p) => (cy - p) / scale,
   }
 
   g.save()
@@ -175,6 +188,20 @@ export function arrow(
   g.lineTo(x1 - ux * head + uy * head * 0.45, y1 - uy * head - ux * head * 0.45)
   g.closePath()
   g.fill()
+}
+
+/**
+ * A grip: the visual promise that something can be picked up. Without one, a
+ * draggable mark is a feature nobody discovers.
+ */
+export function grip(g: CanvasRenderingContext2D, x: number, y: number, colour: string, r = 6) {
+  g.beginPath()
+  g.arc(x, y, r, 0, Math.PI * 2)
+  g.fillStyle = '#fff'
+  g.fill()
+  g.lineWidth = 2.5
+  g.strokeStyle = colour
+  g.stroke()
 }
 
 /** The ring that marks whatever the pointer is nearest. */
