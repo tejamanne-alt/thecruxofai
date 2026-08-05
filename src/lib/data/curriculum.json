@@ -380,31 +380,37 @@
   "sessions": {
     "algebra": {
       "label": "Algebra",
-      "blurb": "A letter is just a box you have not filled in yet. Build a rule, then stack two rules and watch a curve appear."
+      "blurb": "A letter is just a box you have not filled in yet. Build a rule, then stack two rules and watch a curve appear.",
+      "kind": "concept"
     },
     "linalg": {
       "label": "Linear algebra",
-      "blurb": "A matrix is a machine that moves every arrow in the plane at once. Bend space with four numbers."
+      "blurb": "A matrix is a machine that moves every arrow in the plane at once. Bend space with four numbers.",
+      "kind": "concept"
     },
     "regression": {
       "label": "Linear regression",
       "chart": "line",
-      "blurb": "Drag a line through a cloud of dots and watch the error rise and fall."
+      "blurb": "Drag a line through a cloud of dots and watch the error rise and fall.",
+      "kind": "concept"
     },
     "gradient": {
       "label": "Gradient descent",
       "chart": "bowl",
-      "blurb": "Roll downhill in fog. Push the step size until the whole thing explodes."
+      "blurb": "Roll downhill in fog. Push the step size until the whole thing explodes.",
+      "kind": "concept"
     },
     "kmeans": {
       "label": "k-means clustering",
       "chart": "clusters",
-      "blurb": "Plant k flags, everyone joins the nearest one, flags move. Step through it."
+      "blurb": "Plant k flags, everyone joins the nearest one, flags move. Step through it.",
+      "kind": "concept"
     },
     "perceptron": {
       "label": "The perceptron",
       "chart": "boundary",
-      "blurb": "One neuron rotating a line into place, one mistake at a time."
+      "blurb": "One neuron rotating a line into place, one mistake at a time.",
+      "kind": "concept"
     }
   }
 }

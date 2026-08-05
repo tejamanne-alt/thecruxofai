@@ -39,6 +39,7 @@ export type Database = {
           group_id: string
           id: string
           image_path: string | null
+          kind: string
           math: string
           summary: string
           title: string
@@ -53,6 +54,7 @@ export type Database = {
           group_id: string
           id?: string
           image_path?: string | null
+          kind?: string
           math?: string
           summary?: string
           title: string
@@ -67,6 +69,7 @@ export type Database = {
           group_id?: string
           id?: string
           image_path?: string | null
+          kind?: string
           math?: string
           summary?: string
           title?: string

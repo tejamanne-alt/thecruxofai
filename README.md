@@ -60,11 +60,29 @@ src/
   lib/
     chart/frame.ts         axes, dots, halos, the accent colour
     data/                  curriculum.json + typed wrappers, the knowledge base, brochure copy
+                           (SessionKind — concept vs chapter — lives in curriculum.ts)
     model/                 seeded sample data and the actual maths
     custom/                user sessions: Supabase-backed store, server queries, shared types
     supabase/              browser + server clients, generated DB types, env guard
     scope.ts               what the four tabs act on
 ```
+
+### Concepts and Chapters
+
+Every course holds two buckets, both collapsible:
+
+| Bucket | What goes in it |
+|---|---|
+| **Concepts** | One idea, explained on its own terms — algebra, gradient descent, k-means. Reusable: the same concept underpins several courses. |
+| **Chapters** | The course's own material in the order it was actually taught. Tied to this course and nothing else. |
+
+The split is for revision. The night before an exam you want the **chapters**; when something refuses to click you want
+the **concept**. Everything built so far is a concept, so every Chapters bucket currently says *"Nothing here yet"* —
+which is the honest state, not a placeholder.
+
+The buckets appear only under courses that have at least one page. The forty-odd untaught courses stay single rows
+rather than sprouting two empty branches each; add a page to one and its buckets appear. A course with concepts but no
+chapters still shows both, so the empty slot is visible rather than implied.
 
 ### The four tabs, and what "scope" means
 
@@ -120,9 +138,9 @@ the idea appears by name in things already on the site.
 
 ## Adding your own session
 
-Sign in (sidebar footer) as a maintainer, then use the `+` on any semester header. You get a title, a course, a write-up, a
-`symbol = meaning` list that becomes the page's legend and its cheat sheet, one of four chart templates, and a file
-upload.
+Sign in (sidebar footer) as a maintainer, then use the `+` on any semester header. You get a title, a course, a bucket
+(**Concept** or **Chapter**), a write-up, a `symbol = meaning` list that becomes the page's legend and its cheat sheet,
+one of four chart templates, and a file upload.
 
 Uploads: images under 3.5 MB go to Supabase Storage, the first text or markdown file
 pre-fills an empty write-up, and every filename and size is recorded as source material. **PDF and PPTX contents are not
@@ -201,9 +219,13 @@ public.sessions
   title       text           chart       text (none|line|bowl|clusters|boundary)
   group_id    text           image_path  text  -> storage object path, not a data URL
   course_id   text           files       jsonb -> source filenames and sizes
-  summary     text           created_at  timestamptz
-  math        text           updated_at  timestamptz (trigger)
+  kind        text (concept|chapter)     created_at  timestamptz
+  summary     text           updated_at  timestamptz (trigger)
+  math        text
 ```
+
+`kind` defaults to `concept`, which is what every page written so far is — so the column needed no backfill and is not
+nullable.
 
 ### Migrations and tests
 

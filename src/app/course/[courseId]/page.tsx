@@ -2,7 +2,8 @@ import { CheatSheetTab } from '@/components/tabs/cheat-sheet-tab'
 import { ExamTab } from '@/components/tabs/exam-tab'
 import { QuizTab } from '@/components/tabs/quiz-tab'
 import { PageHeader } from '@/components/ui/page-header'
-import { courseById, courses, groupById, sessionById } from '@/lib/data/curriculum'
+import { fetchSessions } from '@/lib/custom/queries'
+import { courseById, courses, groupById, SESSION_KINDS, sessionById, topicsOfKind } from '@/lib/data/curriculum'
 import { scopeForCourse } from '@/lib/scope'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -35,7 +36,20 @@ export default async function CoursePage({
   if (tab === 'quiz') return <QuizTab scope={scope} />
   if (tab === 'exam') return <ExamTab scope={scope} />
 
-  const hasTopics = course.topics.length > 0
+  // Mirror the sidebar: the same two buckets, in the same order.
+  const written = (await fetchSessions()).filter((s) => s.courseId === course.id)
+  const buckets = SESSION_KINDS.map((k) => ({
+    ...k,
+    pages: [
+      ...topicsOfKind(course, k.id).map((t) => ({
+        href: `/session/${t}`,
+        label: sessionById[t].label,
+        blurb: sessionById[t].blurb,
+      })),
+      ...written.filter((w) => w.kind === k.id).map((w) => ({ href: `/my/${w.id}`, label: w.title, blurb: '' })),
+    ],
+  }))
+  const hasTopics = buckets.some((b) => b.pages.length > 0)
 
   return (
     <div>
@@ -64,19 +78,32 @@ export default async function CoursePage({
 
         <div className="flex flex-col gap-4">
           {hasTopics ? (
-            <div className="flex flex-col gap-2">
-              <div className="text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">
-                Interactive pages from this course
-              </div>
-              {course.topics.map((t) => (
-                <Link
-                  key={t}
-                  href={`/session/${t}`}
-                  className="flex flex-col gap-1 rounded-lg border border-zinc-950/10 bg-white p-3.5 hover:border-zinc-950/30"
-                >
-                  <span className="text-[13.5px] font-semibold text-zinc-950">{sessionById[t].label}</span>
-                  <span className="text-[12.5px]/[1.55] text-zinc-600">{sessionById[t].blurb}</span>
-                </Link>
+            <div className="flex flex-col gap-5">
+              {buckets.map((bk) => (
+                <div key={bk.id} className="flex flex-col gap-2">
+                  <div>
+                    <div className="text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">
+                      {bk.label}
+                    </div>
+                    <div className="text-[11.5px]/[1.5] text-zinc-400">{bk.blurb}</div>
+                  </div>
+                  {bk.pages.length === 0 ? (
+                    <p className="rounded-lg border border-dashed border-zinc-950/15 p-3 text-[12.5px]/[1.6] text-zinc-500">
+                      Nothing here yet.
+                    </p>
+                  ) : (
+                    bk.pages.map((pg) => (
+                      <Link
+                        key={pg.href}
+                        href={pg.href}
+                        className="flex flex-col gap-1 rounded-lg border border-zinc-950/10 bg-white p-3.5 hover:border-zinc-950/30"
+                      >
+                        <span className="text-[13.5px] font-semibold text-zinc-950">{pg.label}</span>
+                        {pg.blurb && <span className="text-[12.5px]/[1.55] text-zinc-600">{pg.blurb}</span>}
+                      </Link>
+                    ))
+                  )}
+                </div>
               ))}
             </div>
           ) : (
