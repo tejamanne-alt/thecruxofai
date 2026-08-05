@@ -1,7 +1,7 @@
 'use client'
 
 import { ChartCanvas, type HitTarget } from '@/components/charts/chart-canvas'
-import { accentColour, dot, drawAxes, halo, type Frame } from '@/lib/chart/frame'
+import { accentColour, clamp, dot, drawAxes, grip, halo, type Frame } from '@/lib/chart/frame'
 import { lrData } from '@/lib/model/dataset'
 import { bestFit, mse } from '@/lib/model/math'
 import { useState } from 'react'
@@ -82,6 +82,10 @@ export function LinearRegressionSession() {
     g.lineTo(f.px(10), f.py(dw * 10 + db))
     g.stroke()
 
+    // Grips at both ends: the left one slides the line, the right one tilts it.
+    grip(g, f.px(0), f.py(db), acc)
+    grip(g, f.px(10), f.py(dw * 10 + db), acc)
+
     lrData.forEach((p, i) => {
       const x = f.px(p.x)
       const y = f.py(p.y)
@@ -136,6 +140,23 @@ export function LinearRegressionSession() {
   }
 
   const targets = { w, b }
+
+  /**
+   * Two grips on the line rather than one: the left end sets the height, the
+   * right end sets the tilt. Dragging a whole line is ambiguous — those two
+   * points make it obvious which knob you are turning, and they are exactly
+   * the b and w of the formula.
+   */
+  function dragLine(id: string, x: number, y: number) {
+    if (id === 'b') {
+      setB(Math.round(clamp(y, -10, 25) * 4) / 4)
+      return
+    }
+    // Right grip: keep b fixed and solve for the slope through the pointer.
+    const at = Math.max(1, x)
+    setW(Math.round(clamp((y - b) / at, -2, 8) * 20) / 20)
+  }
+
   const errColor = m < bestMse * 1.15 ? '#0d9488' : m < bestMse * 3 ? '#09090b' : '#dc2626'
 
   return (
@@ -178,7 +199,20 @@ export function LinearRegressionSession() {
       />
 
       <ChartRow
-        chart={<ChartCanvas draw={draw} candidates={candidates} tooltip={tooltip} targets={targets} />}
+        chart={
+          <ChartCanvas
+            draw={draw}
+            candidates={candidates}
+            tooltip={tooltip}
+            targets={targets}
+            handles={(fr: Frame) => [
+              { id: 'b', px: fr.px(0), py: fr.py(b) },
+              { id: 'w', px: fr.px(10), py: fr.py(w * 10 + b) },
+            ]}
+            onDragTo={dragLine}
+            caption="Grab either end of the coloured line — the left end slides it up and down, the right end tilts it. Hover a dot for its own error."
+          />
+        }
         panel={
           <>
             <Slider

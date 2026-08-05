@@ -1,6 +1,7 @@
 'use client'
 
 import type { Frame } from '@/lib/chart/frame'
+import clsx from 'clsx'
 import { useEffect, useRef, useState } from 'react'
 
 /** A mark the pointer can land on, already projected into pixel space. */
@@ -17,6 +18,29 @@ export interface TipContent {
   title: string
   rows: Array<[string, string]>
 }
+
+/**
+ * A mark the pointer can pick up and move. Handles are hit-tested before
+ * anything else, so a handle sitting on top of a data point still wins.
+ */
+export interface DragHandle {
+  id: string
+  px: number
+  py: number
+  /** Grab radius in pixels. Generous by default — fingers are not precise. */
+  radius?: number
+  /**
+   * `anywhere` lets a press land nowhere near the mark and still pick it up:
+   * the mark jumps to the press and the drag carries on from there. That is the
+   * right behaviour for anything with one degree of freedom — a marker riding a
+   * curve, a boundary sliding along its normal — where the reader is pointing
+   * at a position, not at a dot. Handles found by proximity always win, so a
+   * chart can mix the two.
+   */
+  grab?: 'near' | 'anywhere'
+}
+
+const GRAB_RADIUS = 20
 
 /** Per-kind hit radius, in pixels. Centroids are big targets, curve samples small. */
 const HIT_RADIUS: Record<string, number> = { cent: 22, curve: 14 }
@@ -48,6 +72,17 @@ export interface ChartCanvasProps {
   jumpKey?: string | number
   height?: number
   caption?: string
+  /**
+   * Marks the reader can pick up. Supplying these turns the chart from
+   * something you watch into something you operate, which is the whole point
+   * of the site — so prefer adding a handle over adding another slider.
+   */
+  handles?: (f: Frame) => DragHandle[]
+  /**
+   * Where the handle was dragged to, in data coordinates. Clamp it to whatever
+   * range makes sense; the chart does not assume.
+   */
+  onDragTo?: (id: string, x: number, y: number) => void
 }
 
 export function ChartCanvas({
@@ -57,7 +92,9 @@ export function ChartCanvas({
   targets,
   jumpKey,
   height = 400,
-  caption = 'Hover anything on the chart — every dot, flag and marker explains itself.',
+  caption,
+  handles,
+  onDragTo,
 }: ChartCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const frameRef = useRef<Frame | null>(null)
@@ -71,6 +108,11 @@ export function ChartCanvas({
 
   const [size, setSize] = useState({ w: 700, h: height })
   const [hover, setHover] = useState<HitTarget | null>(null)
+  const [dragging, setDragging] = useState<string | null>(null)
+  const [overHandle, setOverHandle] = useState(false)
+  // Read by the touchstart listener, which is attached once and must not close
+  // over a stale handles function. Refreshed in the effect below.
+  const handlesRef = useRef(handles)
 
   function paint() {
     const c = canvasRef.current
@@ -128,6 +170,7 @@ export function ChartCanvas({
   useEffect(() => {
     paintRef.current = paint
     targetsRef.current = targets
+    handlesRef.current = handles
 
     if (jumpRef.current !== jumpKey) {
       jumpRef.current = jumpKey
@@ -161,21 +204,99 @@ export function ChartCanvas({
       paintRef.current()
     })
     ro.observe(node)
-    return () => ro.disconnect()
+
+    // A touch landing on a handle must not also start a page scroll. Doing it
+    // here, non-passively and only when a handle is actually under the finger,
+    // keeps the rest of the chart scrollable — `touch-action: none` on the
+    // canvas would trap the page behind a 400px-tall element on a phone.
+    const onTouchStart = (ev: TouchEvent) => {
+      const f = frameRef.current
+      const t = ev.touches[0]
+      if (!f || !t || !handlesRef.current) return
+      const r = node.getBoundingClientRect()
+      const mx = t.clientX - r.left
+      const my = t.clientY - r.top
+      const near = handlesRef.current(f).some((h) => {
+        const lim = h.radius ?? GRAB_RADIUS
+        return (h.px - mx) ** 2 + (h.py - my) ** 2 < lim * lim
+      })
+      if (near) ev.preventDefault()
+    }
+    node.addEventListener('touchstart', onTouchStart, { passive: false })
+
+    return () => {
+      ro.disconnect()
+      node.removeEventListener('touchstart', onTouchStart)
+    }
   }, [height])
 
-  function onMove(e: React.MouseEvent<HTMLCanvasElement>) {
+  /** Pointer position in canvas pixels. */
+  function local(e: { clientX: number; clientY: number }) {
     const c = canvasRef.current
-    const f = frameRef.current
-    if (!c || !f) return
+    if (!c) return null
     const r = c.getBoundingClientRect()
-    const mx = e.clientX - r.left
-    const my = e.clientY - r.top
+    return { mx: e.clientX - r.left, my: e.clientY - r.top }
+  }
+
+  function handleNear(f: Frame, mx: number, my: number) {
+    let best: DragHandle | null = null
+    let bd = Infinity
+    for (const h of handles?.(f) ?? []) {
+      const d = (h.px - mx) ** 2 + (h.py - my) ** 2
+      const lim = h.radius ?? GRAB_RADIUS
+      if (d < bd && d < lim * lim) {
+        bd = d
+        best = h
+      }
+    }
+    return best
+  }
+
+  function onPointerDown(e: React.PointerEvent<HTMLCanvasElement>) {
+    const f = frameRef.current
+    const at = local(e)
+    if (!f || !at || !onDragTo) return
+
+    const inPlot = at.mx >= f.L && at.mx <= f.R && at.my >= f.T && at.my <= f.B
+    const near = handleNear(f, at.mx, at.my)
+    // Falling back to a grab-anywhere handle is what makes "press the line and
+    // the marker comes to you" the same gesture as dragging it, rather than a
+    // separate one that stops the moment you move.
+    const grabbed = near ?? (inPlot ? (handles?.(f).find((h) => h.grab === 'anywhere') ?? null) : null)
+    if (!grabbed) return
+
+    onDragTo(grabbed.id, f.ux(at.mx), f.uy(at.my))
+
+    // A touch that started away from the mark stays a tap. The browser has
+    // already claimed that gesture for scrolling — only a touch landing on the
+    // handle itself gets preventDefault (see the touchstart listener) — and
+    // dragging while the page scrolls under the finger is worse than not
+    // dragging at all. Mouse and pen have no such conflict.
+    if (!near && e.pointerType === 'touch') return
+
+    // Capture so the drag survives the pointer leaving the canvas — letting go
+    // outside the chart should still end cleanly.
+    e.currentTarget.setPointerCapture(e.pointerId)
+    setDragging(grabbed.id)
+  }
+
+  function onPointerMove(e: React.PointerEvent<HTMLCanvasElement>) {
+    const f = frameRef.current
+    const at = local(e)
+    if (!f || !at) return
+
+    if (dragging && onDragTo) {
+      onDragTo(dragging, f.ux(at.mx), f.uy(at.my))
+      return
+    }
+
+    const near = handleNear(f, at.mx, at.my)
+    if (!!near !== overHandle) setOverHandle(!!near)
 
     let best: HitTarget | null = null
     let bd = Infinity
     for (const t of candidates(f)) {
-      const d = (t.px - mx) ** 2 + (t.py - my) ** 2
+      const d = (t.px - at.mx) ** 2 + (t.py - at.my) ** 2
       const lim = HIT_RADIUS[t.kind] ?? DEFAULT_RADIUS
       if (d < bd && d < lim * lim) {
         bd = d
@@ -189,6 +310,12 @@ export function ChartCanvas({
     if (!hover || hover.kind !== best.kind || hover.i !== best.i) setHover(best)
   }
 
+  function endDrag(e: React.PointerEvent<HTMLCanvasElement>) {
+    if (!dragging) return
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) e.currentTarget.releasePointerCapture(e.pointerId)
+    setDragging(null)
+  }
+
   const tip = hover ? tooltip(hover) : null
   const tipWidth = Math.max(150, Math.min(250, size.w - 20))
 
@@ -197,10 +324,19 @@ export function ChartCanvas({
       <div className="relative">
         <canvas
           ref={canvasRef}
-          onMouseMove={onMove}
-          onMouseLeave={() => hover && setHover(null)}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
+          onPointerLeave={() => {
+            if (!dragging && hover) setHover(null)
+            if (overHandle) setOverHandle(false)
+          }}
           style={{ height }}
-          className="block w-full cursor-crosshair"
+          className={clsx(
+            'block w-full touch-pan-y select-none',
+            dragging ? 'cursor-grabbing' : overHandle ? 'cursor-grab' : 'cursor-crosshair'
+          )}
         />
         {tip && hover && (
           <div
@@ -223,7 +359,12 @@ export function ChartCanvas({
           </div>
         )}
       </div>
-      <p className="text-[11.5px] text-zinc-400">{caption}</p>
+      <p className="text-[11.5px] text-zinc-400">
+        {caption ??
+          (handles
+            ? 'Drag the markers — or just press where you want one, and it comes to you. Hover anything for the numbers behind it.'
+            : 'Hover anything on the chart — every dot, flag and marker explains itself.')}
+      </p>
     </div>
   )
 }

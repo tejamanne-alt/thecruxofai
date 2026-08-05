@@ -1,9 +1,9 @@
 'use client'
 
 import { ChartCanvas, type HitTarget } from '@/components/charts/chart-canvas'
-import { accentColour, dot, drawAxes, halo, type Frame } from '@/lib/chart/frame'
+import { accentColour, clamp, dot, drawAxes, halo, type Frame } from '@/lib/chart/frame'
 import { pcData } from '@/lib/model/dataset'
-import { accuracyOf, trainEpoch } from '@/lib/model/math'
+import { accuracyOf, misclassified, trainEpoch } from '@/lib/model/math'
 import { useState } from 'react'
 import { ChartRow, Explainers, MathBlock, PanelButton, PanelButtons, PanelNote, SessionHeader } from './session-parts'
 
@@ -11,10 +11,12 @@ export function PerceptronSession() {
   const [w, setW] = useState<number[]>([0, 0])
   const [b, setB] = useState(0)
   const [epoch, setEpoch] = useState(0)
-  const [wrong, setWrong] = useState<number[]>([])
 
   const untrained = w[0] === 0 && w[1] === 0
   const acc = accuracyOf(w, b)
+  // Derived, not stored — see misclassified(). Dragging the boundary has to
+  // change the ringed dots as it moves, or the caption below the chart is lying.
+  const wrong = untrained ? [] : misclassified(w, b)
 
   const draw = (
     g: CanvasRenderingContext2D,
@@ -109,11 +111,37 @@ export function PerceptronSession() {
 
   const targets = { w0: w[0], w1: w[1], b }
 
+  /**
+   * Sliding the boundary changes the bias only — the direction w is left alone,
+   * so the line moves without turning. That is the honest correspondence: b is
+   * exactly the term that shifts a boundary without rotating it.
+   *
+   * Its value is that you can shove the line somewhere hopeless and then watch
+   * a pass or two drag it back.
+   */
+  function slideBoundary(_id: string, x: number, y: number) {
+    if (untrained) return
+    setB(clamp(-(w[0] * x + w[1] * y), -50, 50))
+  }
+
+  /** The midpoint of the boundary where it crosses the plot — the grab point. */
+  function boundaryMid(): { x: number; y: number } | null {
+    if (untrained) return null
+    if (Math.abs(w[1]) > 1e-9) {
+      const y = -(w[0] * 5 + b) / w[1]
+      if (y >= 0 && y <= 10) return { x: 5, y }
+    }
+    if (Math.abs(w[0]) > 1e-9) {
+      const x = -(w[1] * 5 + b) / w[0]
+      if (x >= 0 && x <= 10) return { x, y: 5 }
+    }
+    return null
+  }
+
   function trainOne() {
     const next = trainEpoch(w, b)
     setW(next.w)
     setB(next.b)
-    setWrong(next.wrong)
     setEpoch((e) => e + 1)
   }
 
@@ -126,7 +154,24 @@ export function PerceptronSession() {
       />
 
       <ChartRow
-        chart={<ChartCanvas draw={draw} candidates={candidates} tooltip={tooltip} targets={targets} />}
+        chart={
+          <ChartCanvas
+            draw={draw}
+            candidates={candidates}
+            tooltip={tooltip}
+            targets={targets}
+            handles={(fr: Frame) => {
+              const mid = boundaryMid()
+              return mid ? [{ id: 'boundary', px: fr.px(mid.x), py: fr.py(mid.y), radius: 24, grab: 'anywhere' }] : []
+            }}
+            onDragTo={slideBoundary}
+            caption={
+              untrained
+                ? 'Train a pass first — there is no boundary to move yet. Hover any dot for what the neuron thinks of it.'
+                : 'Drag the black boundary, or press where you want it to pass through, to shove it somewhere hopeless — then train a pass and watch it come back.'
+            }
+          />
+        }
         panel={
           <>
             <div className="rounded-lg border border-zinc-950/10 bg-white p-3.5">
@@ -164,7 +209,6 @@ export function PerceptronSession() {
                   setW([0, 0])
                   setB(0)
                   setEpoch(0)
-                  setWrong([])
                 }}
               >
                 Forget everything

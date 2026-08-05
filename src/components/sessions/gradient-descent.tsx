@@ -1,7 +1,7 @@
 'use client'
 
 import { ChartCanvas, type HitTarget } from '@/components/charts/chart-canvas'
-import { accentColour, dot, drawAxes, halo, type Frame } from '@/lib/chart/frame'
+import { accentColour, clamp, dot, drawAxes, halo, type Frame } from '@/lib/chart/frame'
 import { grad, loss } from '@/lib/model/math'
 import { useState } from 'react'
 import {
@@ -178,6 +178,16 @@ export function GradientDescentSession() {
 
   const targets = { w }
 
+  /**
+   * Dropping the ball somewhere new starts a fresh walk, so the trail resets to
+   * that point. Keeping the old trail would draw a line the ball never took.
+   */
+  function placeAt(next: number) {
+    const nw = Math.round(clamp(next, -2, 8) * 100) / 100
+    setW(nw)
+    setTrail([nw])
+  }
+
   function step() {
     const nw = w - lr * grad(w)
     setW(nw)
@@ -212,7 +222,17 @@ export function GradientDescentSession() {
       />
 
       <ChartRow
-        chart={<ChartCanvas draw={draw} candidates={candidates} tooltip={tooltip} targets={targets} />}
+        chart={
+          <ChartCanvas
+            draw={draw}
+            candidates={candidates}
+            tooltip={tooltip}
+            targets={targets}
+            handles={(fr: Frame) => [{ id: 'w', px: fr.px(w), py: fr.py(j), grab: 'anywhere' }]}
+            onDragTo={(_id, dx) => placeAt(dx)}
+            caption="Drag the ball along the bowl, or press anywhere to drop it there and start a fresh walk. Hover any step for its numbers."
+          />
+        }
         panel={
           <>
             <Slider

@@ -71,13 +71,13 @@ src/
 
 Every course holds two buckets, both collapsible:
 
-| Bucket | What goes in it |
-|---|---|
+| Bucket       | What goes in it                                                                                                                  |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------- |
 | **Concepts** | One idea, explained on its own terms — algebra, gradient descent, k-means. Reusable: the same concept underpins several courses. |
-| **Chapters** | The course's own material in the order it was actually taught. Tied to this course and nothing else. |
+| **Chapters** | The course's own material in the order it was actually taught. Tied to this course and nothing else.                             |
 
 The split is for revision. The night before an exam you want the **chapters**; when something refuses to click you want
-the **concept**. Everything built so far is a concept, so every Chapters bucket currently says *"Nothing here yet"* —
+the **concept**. Everything built so far is a concept, so every Chapters bucket currently says _"Nothing here yet"_ —
 which is the honest state, not a placeholder.
 
 The buckets appear only under courses that have at least one page. The forty-odd untaught courses stay single rows
@@ -88,11 +88,11 @@ chapters still shows both, so the empty slot is visible rather than implied.
 
 The tabs in the top bar act on whatever the tree has selected:
 
-| Selection | What the tabs show |
-|---|---|
-| A session (e.g. Linear regression) | that session's 5 formulas, 4 quiz questions, 2 exam questions |
-| A course (e.g. Machine Learning) | everything aggregated across its sessions |
-| A global page (Home, Programme, Curriculum, Assessment) | no tabs at all |
+| Selection                                               | What the tabs show                                            |
+| ------------------------------------------------------- | ------------------------------------------------------------- |
+| A session (e.g. Linear regression)                      | that session's 5 formulas, 4 quiz questions, 2 exam questions |
+| A course (e.g. Machine Learning)                        | everything aggregated across its sessions                     |
+| A global page (Home, Programme, Curriculum, Assessment) | no tabs at all                                                |
 
 The tab lives in the URL as `?tab=cheat|quiz|exam`, so any view is linkable. Navigating anywhere resets to Overview and
 clears quiz answers and expanded exam answers.
@@ -115,23 +115,45 @@ Two details worth keeping:
   on every load, which matters when you are comparing across sessions or across two people's screens. The three datasets
   share one stream, so keep them drawn in the order they are declared.
 
-### The perceptron ordering gotcha
+### Dragging: press and drag are one gesture
 
-`trainEpoch` recomputes the misclassified set **after** the epoch's weight updates land. Working it out during the pass
-makes the accuracy, the "still wrong" count and the red rings on the chart disagree with each other.
+Anything the reader can move gets a `DragHandle`. A handle with `grab: 'anywhere'` is picked up by a press anywhere in
+the plot — the mark jumps to the press and the drag carries straight on from there. Use it for every mark with one
+degree of freedom: a marker riding a curve, a boundary sliding along its normal. Those readers are pointing at a
+position, not at a dot, and asking them to hit a 20px target first is the bug this replaced. Handles found by
+proximity always win, so a chart can mix the two — linear algebra grabs î and ĵ precisely but takes a press anywhere
+for the vector.
+
+New charts should prefer a handle over another slider. If a value is visible on the plot, it should be draggable there.
+
+On touch this splits deliberately. The canvas is `touch-pan-y`, and a non-passive `touchstart` listener calls
+`preventDefault` **only** when a finger lands on a handle — so dragging the mark itself works, while a swipe anywhere
+else still scrolls the page instead of trapping it behind a 400px-tall chart. A press away from the mark therefore
+stays a tap: it positions, but does not begin a drag, because the browser has already claimed that gesture.
+
+### Derive what the chart shows, never store it
+
+`misclassified(w, b)` is a pure function, and the perceptron calls it on every render instead of keeping the count in
+state. The reader can drag the boundary as well as train it, and a stored count goes on describing the line they moved
+away from — while the caption underneath claims the rings are the ones it gets wrong _right now_. Same rule anywhere a
+read-out can be recomputed from the current state.
+
+`trainEpoch` returns only the new `w` and `b` for the same reason; the misclassified set is worked out afterwards, from
+the updated line. Computing it during the pass makes the accuracy, the "still wrong" count and the red rings on the
+chart disagree with each other.
 
 ## The sessions built so far
 
 The first two are the foundations everything else leans on, so they come first in the tree.
 
-| Session | Course | What you can do to it |
-|---|---|---|
-| Algebra | Mathematical Foundations | Turn a rate and a constant into a rule, then bolt on a second stage (ReLU, sigmoid, square) and watch a straight line become a curve |
-| Linear algebra | Mathematical Foundations | Set the four entries of a 2×2 matrix and watch the grid bend; squash the determinant to zero and see information vanish |
-| Linear regression | Machine Learning | Drag slope and intercept, watch MSE against the achievable floor, snap to the closed-form fit |
-| Gradient descent | Mathematical Foundations | Change η, step or run 20, push past η = 1 and watch it diverge |
-| k-means clustering | Machine Learning | Change k, alternate the assign and move steps, reseed to land in a different local minimum |
-| The perceptron | Deep Neural Networks | Train a pass at a time and watch the boundary rotate as the mistakes run out |
+| Session            | Course                   | What you can do to it                                                                                                                |
+| ------------------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Algebra            | Mathematical Foundations | Turn a rate and a constant into a rule, then bolt on a second stage (ReLU, sigmoid, square) and watch a straight line become a curve |
+| Linear algebra     | Mathematical Foundations | Set the four entries of a 2×2 matrix and watch the grid bend; squash the determinant to zero and see information vanish              |
+| Linear regression  | Machine Learning         | Drag slope and intercept, watch MSE against the achievable floor, snap to the closed-form fit                                        |
+| Gradient descent   | Mathematical Foundations | Change η, step or run 20, push past η = 1 and watch it diverge                                                                       |
+| k-means clustering | Machine Learning         | Change k, alternate the assign and move steps, reseed to land in a different local minimum                                           |
+| The perceptron     | Deep Neural Networks     | Train a pass at a time and watch the boundary rotate as the mistakes run out                                                         |
 
 Every session ends with a **Where this shows up in AI & ML** section — not "you will need this one day", but the places
 the idea appears by name in things already on the site.
@@ -169,11 +191,11 @@ The prototype's passcode gate was cosmetic and said so. It is gone. Supabase Aut
 enforces what that session can do. The site is maintained by a small trusted group who all edit the same content, so
 **authorship is attribution and admin membership is permission**:
 
-| Who | Read | Create | Edit / delete anything |
-|---|---|---|---|
-| Signed-out visitor | ✅ any session | ❌ | ❌ |
-| Signed-in, not a maintainer | ✅ any session | ❌ | ❌ |
-| Maintainer (`public.admins`) | ✅ any session | ✅ | ✅ including other people's pages |
+| Who                          | Read           | Create | Edit / delete anything            |
+| ---------------------------- | -------------- | ------ | --------------------------------- |
+| Signed-out visitor           | ✅ any session | ❌     | ❌                                |
+| Signed-in, not a maintainer  | ✅ any session | ❌     | ❌                                |
+| Maintainer (`public.admins`) | ✅ any session | ✅     | ✅ including other people's pages |
 
 Flattening permissions this way does **not** remove the need for RLS. What it protects you from was never your
 co-maintainers — it is everyone else. The publishable key ships in the browser bundle, and Supabase grants
@@ -198,7 +220,7 @@ select id, 'why they were added' from auth.users where email = 'them@example.com
 
 To revoke: `delete from public.admins where user_id = (select id from auth.users where email = '…');`
 
-Signing in without being a maintainer is a real, expected state — the sidebar says *"Read-only — not a maintainer"*
+Signing in without being a maintainer is a real, expected state — the sidebar says _"Read-only — not a maintainer"_
 rather than silently hiding the controls and leaving you guessing.
 
 ### Storage

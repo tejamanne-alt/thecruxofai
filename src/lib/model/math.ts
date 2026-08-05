@@ -96,7 +96,20 @@ export function predict(p: Point, w: number[], b: number) {
  * it out during the pass makes the accuracy, the "still wrong" count and the red
  * rings on the chart disagree with each other.
  */
-export function trainEpoch(w: number[], b: number): { w: number[]; b: number; wrong: number[] } {
+/**
+ * Which points this line gets wrong. A pure function of the line, deliberately:
+ * the reader can drag the boundary as well as train it, and a stored count
+ * would go on describing the line they moved away from.
+ */
+export function misclassified(w: number[], b: number) {
+  const wrong: number[] = []
+  pcData.forEach((p, i) => {
+    if (predict(p, w, b) !== p.c) wrong.push(i)
+  })
+  return wrong
+}
+
+export function trainEpoch(w: number[], b: number): { w: number[]; b: number } {
   const nw = [...w]
   let nb = b
   pcData.forEach((p: LabelledPoint) => {
@@ -106,11 +119,7 @@ export function trainEpoch(w: number[], b: number): { w: number[]; b: number; wr
       nb += PERCEPTRON_ETA * p.c
     }
   })
-  const wrong: number[] = []
-  pcData.forEach((p, i) => {
-    if (predict(p, nw, nb) !== p.c) wrong.push(i)
-  })
-  return { w: nw, b: nb, wrong }
+  return { w: nw, b: nb }
 }
 
 export function accuracyOf(w: number[], b: number) {
