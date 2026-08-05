@@ -6,18 +6,19 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 /**
- * Shown only to the author. The button being hidden is a courtesy — the actual
- * rule is the delete policy on the sessions table, so a crafted request from
- * anyone else fails at the database.
+ * Shown to any maintainer, not just whoever wrote the page — the site is kept
+ * by a small trusted group who all edit the same content. The button being
+ * hidden is a courtesy; the actual rule is the delete policy on the sessions
+ * table, so a crafted request from a non-admin fails at the database.
  */
 export function DeleteSessionButton({ session }: { session: CustomSession }) {
-  const { canEdit, remove } = useCustom()
+  const { isAdmin, remove } = useCustom()
   const router = useRouter()
   const [confirming, setConfirming] = useState(false)
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
 
-  if (!canEdit(session)) return null
+  if (!isAdmin) return null
 
   async function onDelete() {
     setBusy(true)

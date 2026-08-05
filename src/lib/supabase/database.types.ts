@@ -11,6 +11,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      admins: {
+        Row: {
+          added_at: string
+          note: string | null
+          user_id: string
+        }
+        Insert: {
+          added_at?: string
+          note?: string | null
+          user_id: string
+        }
+        Update: {
+          added_at?: string
+          note?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       sessions: {
         Row: {
           author_id: string
@@ -58,12 +76,15 @@ export type Database = {
       }
     }
     Views: Record<never, never>
-    Functions: Record<never, never>
+    Functions: {
+      is_admin: { Args: never; Returns: boolean }
+    }
     Enums: Record<never, never>
     CompositeTypes: Record<never, never>
   }
 }
 
+export type AdminRow = Database['public']['Tables']['admins']['Row']
 export type SessionRow = Database['public']['Tables']['sessions']['Row']
 export type SessionInsert = Database['public']['Tables']['sessions']['Insert']
 export type SessionUpdate = Database['public']['Tables']['sessions']['Update']

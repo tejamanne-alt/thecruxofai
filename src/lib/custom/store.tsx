@@ -23,8 +23,16 @@ export interface NewSession {
 
 interface CustomContextValue {
   sessions: CustomSession[]
-  /** Whether the signed-in user may edit a given session. */
-  canEdit: (session: CustomSession) => boolean
+  /**
+   * Whether the signed-in user maintains this site. The site is kept by a small
+   * trusted group who all edit the same content, so this is not per-session —
+   * an admin may change anything, including pages someone else wrote.
+   *
+   * Reading it here only decides whether to *show* the editing controls. The
+   * rule that matters is the policy on the table; hiding a button protects
+   * nothing on its own.
+   */
+  isAdmin: boolean
   user: User | null
   /** False until the auth state has been read, so the UI can avoid flicker. */
   ready: boolean
@@ -48,6 +56,7 @@ export function CustomProvider({
 }) {
   const [sessions, setSessions] = useState<CustomSession[]>(initialSessions)
   const [user, setUser] = useState<User | null>(null)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [ready, setReady] = useState(!supabaseConfigured)
 
   // useState only reads its initial value once, so a router.refresh() — which
@@ -62,19 +71,37 @@ export function CustomProvider({
   useEffect(() => {
     if (!supabaseConfigured) return
     const supabase = getSupabaseBrowserClient()
+    let cancelled = false
+
+    // is_admin() takes no arguments and reports only on the caller, so there is
+    // no way to probe anyone else's role with it. anon cannot call it at all.
+    async function resolve(nextUser: User | null) {
+      if (!nextUser) {
+        if (!cancelled) {
+          setUser(null)
+          setIsAdmin(false)
+          setReady(true)
+        }
+        return
+      }
+      const { data, error } = await supabase.rpc('is_admin')
+      if (cancelled) return
+      setUser(nextUser)
+      setIsAdmin(!error && data === true)
+      setReady(true)
+    }
 
     // getUser() revalidates against the auth server rather than trusting the
     // cookie, which is what makes it safe to gate the editing UI on.
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user ?? null)
-      setReady(true)
-    })
+    supabase.auth.getUser().then(({ data }) => resolve(data.user ?? null))
 
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-      setReady(true)
+      resolve(session?.user ?? null)
     })
-    return () => sub.subscription.unsubscribe()
+    return () => {
+      cancelled = true
+      sub.subscription.unsubscribe()
+    }
   }, [])
 
   const refresh = useCallback(async () => {
@@ -172,14 +199,13 @@ export function CustomProvider({
   const signOut = useCallback(async () => {
     await getSupabaseBrowserClient().auth.signOut()
     setUser(null)
+    setIsAdmin(false)
   }, [])
-
-  const canEdit = useCallback((session: CustomSession) => !!user && session.authorId === user.id, [user])
 
   const value = useMemo(
     () => ({
       sessions,
-      canEdit,
+      isAdmin,
       user,
       ready,
       configured: supabaseConfigured,
@@ -189,7 +215,7 @@ export function CustomProvider({
       signUp,
       signOut,
     }),
-    [sessions, canEdit, user, ready, add, remove, signIn, signUp, signOut]
+    [sessions, isAdmin, user, ready, add, remove, signIn, signUp, signOut]
   )
 
   return <CustomContext.Provider value={value}>{children}</CustomContext.Provider>
