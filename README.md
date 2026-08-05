@@ -30,8 +30,10 @@ Node 20+ is enough; it was built and tested on Node 22.
   the Supabase section below.
 - **Tailwind CSS v4**, configured from `src/styles/tailwind.css`.
 - **Catalyst UI kit** (`src/components/catalyst/`) — Tailwind Plus's React component set, used for the dialogs, form
-  fields, buttons and links. `link.tsx` is the one file changed from the shipped kit: it now wraps `next/link`, as the
-  Catalyst docs describe.
+  fields, buttons and links. Two files differ from the shipped kit, both marked with a comment:
+  - `link.tsx` wraps `next/link`, as the Catalyst docs describe.
+  - `dialog.tsx` adds `z-50` to its two fixed layers. The kit ships with no z-index, which assumes a dialog is the only
+    fixed element on the page; here it lost to the mobile nav and rendered behind it.
 - All charts are hand-drawn **Canvas 2D**. No chart library, no icon library — the glyphs are Unicode and the chevrons
   are CSS triangles.
 
@@ -49,10 +51,11 @@ src/
     session/[sessionId]/   one built session
     my/[id]/               a session someone wrote, served from Postgres
   components/
-    catalyst/              the UI kit, unmodified except link.tsx
+    catalyst/              the UI kit, unmodified except link.tsx and dialog.tsx
     charts/                ChartCanvas (hover, tooltips, easing) + the generic templates
     sessions/              the four built sessions and their shared parts
     shell/                 sidebar, nav tree, top bar, auth + add-session dialogs
+                           (stacking layers are documented at the top of app-shell.tsx)
     tabs/                  cheat sheet / quiz / exam tabs
   lib/
     chart/frame.ts         axes, dots, halos, the accent colour
