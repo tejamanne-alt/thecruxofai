@@ -4,6 +4,24 @@ export type GroupId = 's1' | 's2' | 'eg' | 'edl' | 'enlp' | 'eav' | 's4'
 export type TopicId = 'algebra' | 'linalg' | 'regression' | 'gradient' | 'kmeans' | 'perceptron'
 export type ChartKind = 'line' | 'bowl' | 'clusters' | 'boundary'
 
+/**
+ * Every page under a course sits in one of two buckets.
+ *
+ *   concept — one idea, explained on its own terms. Algebra, gradient descent.
+ *             Reusable: the same concept underpins several courses.
+ *   chapter — the course's own material as it was actually taught, in the
+ *             order it was taught. Tied to this course and nothing else.
+ *
+ * Keeping them apart matters for revision: before an exam you want the
+ * chapters, and when something will not click you want the concept.
+ */
+export type SessionKind = 'concept' | 'chapter'
+
+export const SESSION_KINDS: Array<{ id: SessionKind; label: string; blurb: string }> = [
+  { id: 'concept', label: 'Concepts', blurb: 'One idea, explained on its own terms.' },
+  { id: 'chapter', label: 'Chapters', blurb: 'The course material, in the order it was taught.' },
+]
+
 export interface Group {
   id: GroupId
   label: string
@@ -26,6 +44,7 @@ export interface SessionMeta {
   id: TopicId
   label: string
   blurb: string
+  kind: SessionKind
   /**
    * Only a hint about which template a session resembles. Built-in sessions
    * render their own bespoke component, so nothing reads this — the two
@@ -58,7 +77,7 @@ export const courses: Course[] = (
 }))
 
 export const sessions: SessionMeta[] = Object.entries(
-  raw.sessions as Record<string, { label: string; blurb: string; chart?: ChartKind }>
+  raw.sessions as Record<string, { label: string; blurb: string; kind: SessionKind; chart?: ChartKind }>
 ).map(([id, s]) => ({ id: id as TopicId, ...s }))
 
 export const sessionById = Object.fromEntries(sessions.map((s) => [s.id, s])) as Record<TopicId, SessionMeta>
@@ -71,6 +90,10 @@ export function coursesInGroup(id: GroupId) {
 
 export function courseOfTopic(topic: TopicId): Course | undefined {
   return courses.find((c) => c.topics.includes(topic))
+}
+
+export function topicsOfKind(course: Course, kind: SessionKind) {
+  return course.topics.filter((t) => sessionById[t].kind === kind)
 }
 
 export function isTopicId(value: string): value is TopicId {

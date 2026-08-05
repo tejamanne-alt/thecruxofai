@@ -1,4 +1,4 @@
-import type { ChartKind, GroupId } from '@/lib/data/curriculum'
+import type { ChartKind, GroupId, SessionKind } from '@/lib/data/curriculum'
 import type { SessionRow } from '@/lib/supabase/database.types'
 import { SUPABASE_URL } from '@/lib/supabase/env'
 
@@ -12,6 +12,8 @@ export interface CustomSession {
   title: string
   group: GroupId
   courseId: string
+  /** Which bucket it sits in under its course. */
+  kind: SessionKind
   summary: string
   /** One `symbol = meaning` per line. Becomes the legend and the cheat sheet. */
   math: string
@@ -36,6 +38,7 @@ export function rowToSession(row: SessionRow): CustomSession {
     title: row.title,
     group: row.group_id as GroupId,
     courseId: row.course_id,
+    kind: row.kind === 'chapter' ? 'chapter' : 'concept',
     summary: row.summary,
     math: row.math,
     chart: row.chart as ChartKind | 'none',

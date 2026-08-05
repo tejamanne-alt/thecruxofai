@@ -1,7 +1,7 @@
 'use client'
 
 import { IMAGE_BUCKET, MAX_IMAGE_BYTES, rowToSession, type CustomSession } from '@/lib/custom/session'
-import type { ChartKind, GroupId } from '@/lib/data/curriculum'
+import type { ChartKind, GroupId, SessionKind } from '@/lib/data/curriculum'
 import { getSupabaseBrowserClient } from '@/lib/supabase/client'
 import { supabaseConfigured } from '@/lib/supabase/env'
 import type { User } from '@supabase/supabase-js'
@@ -13,6 +13,7 @@ export interface NewSession {
   title: string
   group: GroupId
   courseId: string
+  kind: SessionKind
   summary: string
   math: string
   chart: ChartKind | 'none'
@@ -143,6 +144,7 @@ export function CustomProvider({
         title: draft.title.trim() || 'Untitled session',
         group_id: draft.group,
         course_id: draft.courseId,
+        kind: draft.kind,
         summary: draft.summary,
         math: draft.math,
         chart: draft.chart,

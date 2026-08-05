@@ -8,7 +8,7 @@ import { Select } from '@/components/catalyst/select'
 import { Textarea } from '@/components/catalyst/textarea'
 import { MAX_IMAGE_BYTES } from '@/lib/custom/session'
 import { useCustom } from '@/lib/custom/store'
-import { courses, groups, type ChartKind, type GroupId } from '@/lib/data/curriculum'
+import { courses, groups, SESSION_KINDS, type ChartKind, type GroupId, type SessionKind } from '@/lib/data/curriculum'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -30,6 +30,7 @@ export function AddSessionDialog({ open, group, onClose }: { open: boolean; grou
   const [summary, setSummary] = useState('')
   const [math, setMath] = useState('')
   const [chart, setChart] = useState<ChartKind | 'none'>('line')
+  const [kind, setKind] = useState<SessionKind>('concept')
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [files, setFiles] = useState<string[]>([])
   const [error, setError] = useState('')
@@ -67,7 +68,7 @@ export function AddSessionDialog({ open, group, onClose }: { open: boolean; grou
     setBusy(true)
     setError('')
 
-    const result = await add({ title, group: groupId, courseId, summary, math, chart, files, imageFile })
+    const result = await add({ title, group: groupId, courseId, kind, summary, math, chart, files, imageFile })
     setBusy(false)
 
     if ('error' in result) {
@@ -128,6 +129,21 @@ export function AddSessionDialog({ open, group, onClose }: { open: boolean; grou
               </Select>
             </Field>
           </div>
+
+          <Field>
+            <Label>Which bucket does it belong in?</Label>
+            <Select value={kind} onChange={(e) => setKind(e.target.value as SessionKind)}>
+              {SESSION_KINDS.map((k) => (
+                <option key={k.id} value={k.id}>
+                  {k.label} — {k.blurb}
+                </option>
+              ))}
+            </Select>
+            <Description>
+              A <strong>concept</strong> is one idea explained on its own terms, and often turns up in more than one
+              course. A <strong>chapter</strong> is this course&rsquo;s own material, in the order it was taught.
+            </Description>
+          </Field>
 
           <Field>
             <Label>Explain it the way you&rsquo;d explain it to a friend</Label>
