@@ -188,14 +188,14 @@ export const recallCards: Array<[string, string]> = [
 export const howToUse = [
   {
     title: 'How to use it before an exam',
-    body: 'Open a topic, break the model on purpose (huge learning rate, wrong k), then read the cheat sheet card for that topic. Breaking it is what makes the formula stick.',
+    body: 'Open a topic and break it on purpose — set a huge step size, or the wrong k. Then read the cheat sheet card for it. Watching it go wrong is what makes the formula stick.',
   },
   {
     title: 'How to use it with a friend',
-    body: 'Narrate the picture before you look at the formulas — say out loud what the dots and lines are doing. Drop into the symbol legend only when the story stalls.',
+    body: 'Say out loud what the dots and lines are doing before you look at any formula. Only open the list of symbols when you get stuck.',
   },
   {
     title: 'Growing each weekend',
-    body: '32 hours of live instruction per course, on weekends. Each session that lands becomes a page under its course in the tree.',
+    body: '32 hours of live teaching per course, on weekends. Every session that happens becomes a page under its course in the menu.',
   },
 ]

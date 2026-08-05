@@ -2,6 +2,7 @@
 
 import clsx from 'clsx'
 import type React from 'react'
+import { useState } from 'react'
 
 /* ---------------------------------------------------------------- headings */
 
@@ -163,6 +164,148 @@ export function PanelButton({
     >
       {children}
     </button>
+  )
+}
+
+/* --------------------------------------------------- expandable sub-sections */
+
+export interface SubSectionItem {
+  id: string
+  /** What this part is called. Keep it short and plain. */
+  title: string
+  /** One line, shown even when the section is shut, so you can find things fast. */
+  teaser: string
+  /** Which slides in the lecture this came from. */
+  slides?: string
+  body: React.ReactNode
+}
+
+/**
+ * A chapter is long, so it opens as a list of shut drawers with the first one
+ * open. You read one part, shut it, open the next. Before an exam you can open
+ * them all and scroll.
+ */
+export function SubSections({ items }: { items: SubSectionItem[] }) {
+  const [open, setOpen] = useState<string[]>(items.length ? [items[0].id] : [])
+
+  const toggle = (id: string) => setOpen((o) => (o.includes(id) ? o.filter((x) => x !== id) : [...o, id]))
+
+  return (
+    <div className="mt-7 flex flex-col gap-2.5">
+      <div className="flex items-center justify-between gap-3">
+        <h2 className="text-lg font-semibold tracking-[-0.02em]">What the lecture covered, part by part</h2>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => setOpen(items.map((i) => i.id))}
+            className="cursor-pointer rounded-md border border-zinc-950/10 bg-white px-2.5 py-1.5 text-[12px] font-semibold hover:bg-zinc-950/[0.04]"
+          >
+            Open all
+          </button>
+          <button
+            type="button"
+            onClick={() => setOpen([])}
+            className="cursor-pointer rounded-md border border-zinc-950/10 bg-white px-2.5 py-1.5 text-[12px] font-semibold hover:bg-zinc-950/[0.04]"
+          >
+            Shut all
+          </button>
+        </div>
+      </div>
+
+      {items.map((it, i) => {
+        const isOpen = open.includes(it.id)
+        return (
+          <div key={it.id} className="overflow-hidden rounded-lg border border-zinc-950/10 bg-white">
+            <button
+              type="button"
+              onClick={() => toggle(it.id)}
+              aria-expanded={isOpen}
+              aria-controls={`sub-${it.id}`}
+              className="flex w-full cursor-pointer items-start gap-3 px-4 py-3.5 text-left hover:bg-zinc-950/[0.02]"
+            >
+              <span
+                className="mt-px flex size-6 shrink-0 items-center justify-center rounded-md text-[12px] font-semibold"
+                style={{ background: 'var(--acc-12)', color: 'var(--acc)' }}
+              >
+                {i + 1}
+              </span>
+              <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                <span className="flex flex-wrap items-baseline gap-2">
+                  <span className="text-[14.5px] font-semibold text-zinc-950">{it.title}</span>
+                  {it.slides && <span className="text-[11px] text-zinc-400">{it.slides}</span>}
+                </span>
+                <span className="text-[12.5px]/[1.5] text-zinc-600">{it.teaser}</span>
+              </span>
+              {/* A CSS triangle, so the site still ships no icon library. */}
+              <span
+                className={clsx(
+                  'mt-1.5 size-0 shrink-0 border-x-[5px] border-t-[6px] border-x-transparent border-t-zinc-400 transition-transform',
+                  isOpen && 'rotate-180'
+                )}
+              />
+            </button>
+            {isOpen && (
+              <div id={`sub-${it.id}`} className="border-t border-zinc-950/[0.08] px-4 py-4">
+                {it.body}
+              </div>
+            )}
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+/** Plain paragraphs inside a sub-section. */
+export function Para({ children }: { children: React.ReactNode }) {
+  return <p className="crux-prose mb-3 max-w-[720px] text-[14px]/[1.7] text-zinc-700 last:mb-0">{children}</p>
+}
+
+/**
+ * The words that make a lecture hard to follow. Each one gets a plain meaning
+ * and, where it helps, how to say it out loud.
+ */
+export function Terms({ items }: { items: Array<{ term: string; say?: string; def: React.ReactNode }> }) {
+  return (
+    <div className="mt-4">
+      <div className="mb-2 text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">Words used here</div>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-2">
+        {items.map((t) => (
+          <div key={t.term} className="rounded-lg border border-zinc-950/[0.08] bg-zinc-50 p-3">
+            <div className="flex flex-wrap items-baseline gap-2">
+              <span className="font-mono text-[13px] font-semibold text-zinc-950">{t.term}</span>
+              {t.say && <span className="text-[11px] text-zinc-500">say &ldquo;{t.say}&rdquo;</span>}
+            </div>
+            <div className="mt-1 text-[12.5px]/[1.6] text-zinc-600">{t.def}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/** A worked example, kept visually apart from the explaining around it. */
+export function Worked({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="mt-4 rounded-lg border border-zinc-950/10 bg-zinc-50 p-4">
+      <div className="mb-2 text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">{title}</div>
+      <div className="crux-prose overflow-x-auto font-mono text-[12.5px]/[1.8] whitespace-pre text-zinc-800">
+        {children}
+      </div>
+    </div>
+  )
+}
+
+/** The one thing to remember from a sub-section. */
+export function Takeaway({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="mt-4 rounded-lg border border-l-[3px] border-zinc-950/10 px-4 py-3 text-[13px]/[1.65] text-zinc-800"
+      style={{ borderLeftColor: 'var(--acc)', background: 'var(--acc-12)' }}
+    >
+      <strong className="font-semibold">Worth remembering: </strong>
+      {children}
+    </div>
   )
 }
 

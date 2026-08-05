@@ -1,7 +1,7 @@
 import raw from './curriculum.json'
 
 export type GroupId = 's1' | 's2' | 'eg' | 'edl' | 'enlp' | 'eav' | 's4'
-export type TopicId = 'algebra' | 'linalg' | 'regression' | 'gradient' | 'kmeans' | 'perceptron'
+export type TopicId = 'algebra' | 'linalg' | 'regression' | 'gradient' | 'kmeans' | 'perceptron' | 'lec1'
 export type ChartKind = 'line' | 'bowl' | 'clusters' | 'boundary'
 
 /**

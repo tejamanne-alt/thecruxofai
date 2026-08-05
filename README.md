@@ -53,7 +53,7 @@ src/
   components/
     catalyst/              the UI kit, unmodified except link.tsx and dialog.tsx
     charts/                ChartCanvas (hover, tooltips, easing) + the generic templates
-    sessions/              the six built sessions and their shared parts
+    sessions/              the built sessions and chapters, plus their shared parts
     shell/                 sidebar, nav tree, top bar, auth + add-session dialogs
                            (stacking layers are documented at the top of app-shell.tsx)
     tabs/                  cheat sheet / quiz / exam tabs
@@ -77,22 +77,53 @@ Every course holds two buckets, both collapsible:
 | **Chapters** | The course's own material in the order it was actually taught. Tied to this course and nothing else.                             |
 
 The split is for revision. The night before an exam you want the **chapters**; when something refuses to click you want
-the **concept**. Everything built so far is a concept, so every Chapters bucket currently says _"Nothing here yet"_ —
-which is the honest state, not a placeholder.
+the **concept**.
 
 The buckets appear only under courses that have at least one page. The forty-odd untaught courses stay single rows
 rather than sprouting two empty branches each; add a page to one and its buckets appear. A course with concepts but no
 chapters still shows both, so the empty slot is visible rather than implied.
 
+### How a chapter is built from a lecture
+
+A chapter covers one lecture, slide by slide, and is written as a list of collapsible sub-sections
+(`SubSections` in `session-parts.tsx`) with **Open all** / **Shut all** above them. One sub-section is open on arrival;
+before an exam you open the lot and scroll.
+
+Each sub-section carries a plain title, a one-line teaser that stays visible when it is shut, and the slide numbers it
+came from — so a claim on the page can always be traced back to the deck. Inside, four things recur: `Para` for the
+explaining, `Terms` for the jargon (each word gets a plain meaning, and how to say it aloud where that helps), `Worked`
+for worked examples in a monospaced block, and `Takeaway` for the one line to remember.
+
+Interactive pieces are embedded in the sub-section that needs them rather than collected at the top. Lecture 1 has four:
+two lines you drag to see the only three outcomes a system can have, the column picture of `Ax = b`, a matrix product
+you click into, and a full Gaussian-elimination lab.
+
+Two rules learned building the first one:
+
+- **Never assert a classification the data does not support.** The elimination lab used to announce "endless answers"
+  before a single step, because counting pivots on a matrix that is not yet a staircase gives the wrong count with a
+  straight face. It now says _"Too early to say"_ until `isEchelon` passes. A contradiction row is the exception —
+  `0 = 5` is a contradiction at any stage.
+- **Use exact fractions, not floats.** `lib/model/fraction.ts` exists because elimination divides constantly, and three
+  steps of floating point turn the numbers to noise. A beginner cannot tell a real answer from a rounding error, which
+  defeats the point of showing the working.
+
+### Writing style
+
+Plain, everyday English everywhere the reader can see it. Short sentences, ordinary words, and the jargon introduced
+rather than assumed — a term gets defined the first time it appears, usually in a `Terms` block. The exam answer points
+in `knowledge.ts` are the one deliberate exception: those model what an examiner wants to read, so they use the proper
+vocabulary.
+
 ### The four tabs, and what "scope" means
 
 The tabs in the top bar act on whatever the tree has selected:
 
-| Selection                                               | What the tabs show                                            |
-| ------------------------------------------------------- | ------------------------------------------------------------- |
-| A session (e.g. Linear regression)                      | that session's 5 formulas, 4 quiz questions, 2 exam questions |
-| A course (e.g. Machine Learning)                        | everything aggregated across its sessions                     |
-| A global page (Home, Programme, Curriculum, Assessment) | no tabs at all                                                |
+| Selection                                               | What the tabs show                                     |
+| ------------------------------------------------------- | ------------------------------------------------------ |
+| A session (e.g. Linear regression)                      | that session's own formulas, quiz and exam questions   |
+| A course (e.g. Machine Learning)                        | everything from all of its sessions, gathered together |
+| A global page (Home, Programme, Curriculum, Assessment) | no tabs at all                                         |
 
 The tab lives in the URL as `?tab=cheat|quiz|exam`, so any view is linkable. Navigating anywhere resets to Overview and
 clears quiz answers and expanded exam answers.
@@ -154,6 +185,12 @@ The first two are the foundations everything else leans on, so they come first i
 | Gradient descent   | Mathematical Foundations | Change η, step or run 20, push past η = 1 and watch it diverge                                                                       |
 | k-means clustering | Machine Learning         | Change k, alternate the assign and move steps, reseed to land in a different local minimum                                           |
 | The perceptron     | Deep Neural Networks     | Train a pass at a time and watch the boundary rotate as the mistakes run out                                                         |
+
+And one chapter, covering a real lecture end to end:
+
+| Chapter                                                      | Course                   | What you can do to it                                                                                                                                                                                                                       |
+| ------------------------------------------------------------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Lecture 1 — Linear equations, matrices, Gaussian elimination | Mathematical Foundations | 18 collapsible parts. Drag two lines until they coincide; mix matrix columns to reach a target and watch it become unreachable; click into a matrix product; run elimination one legal row operation at a time on the lecture's own systems |
 
 Every session ends with a **Where this shows up in AI & ML** section — not "you will need this one day", but the places
 the idea appears by name in things already on the site.

@@ -52,7 +52,8 @@
       "topics": [
         "algebra",
         "linalg",
-        "gradient"
+        "gradient",
+        "lec1"
       ],
       "syllabus": "Linear algebra, calculus, probability and optimisation as used by machine learning. The brochure does not print a detailed syllabus for this course; the pages below cover the algebra and linear algebra that everything else is built on, and the gradient descent page comes from its optimisation sessions."
     },
@@ -411,6 +412,11 @@
       "chart": "boundary",
       "blurb": "One neuron rotating a line into place, one mistake at a time.",
       "kind": "concept"
+    },
+    "lec1": {
+      "label": "Lecture 1 — Linear equations & Gaussian elimination",
+      "blurb": "Straight-line rules that must all hold at once. Drag two lines to see why there are only ever three outcomes, then solve any system one legal move at a time.",
+      "kind": "chapter"
     }
   }
 }
