@@ -139,7 +139,7 @@ plot(x, y)`}
       </pre>
 
       <LabNote>
-        The <strong>colon</strong> builds a list: start, step, stop. Everything after that works on the whole list at
+        The <strong>colon</strong>{' '}builds a list: start, step, stop. Everything after that works on the whole list at
         once — you never write a loop. That habit is why Octave and MATLAB feel different from other languages.
       </LabNote>
     </LabBox>
@@ -280,7 +280,7 @@ export function OctaveConsole() {
       )}
 
       <LabNote>
-        It keeps exact fractions, so <span className="font-mono">inv(A)</span> comes back as things like 2/3 rather than
+        It keeps exact fractions, so <span className="font-mono">inv(A)</span>{' '}comes back as things like 2/3 rather than
         0.6667. Real Octave shows decimals; the fractions here are so you can check the arithmetic by hand.
       </LabNote>
     </LabBox>

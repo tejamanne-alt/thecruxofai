@@ -961,6 +961,412 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
     ],
   },
 
+  dotproduct: {
+    cheat: [
+      { formula: '⟨a, b⟩ = aᵀb = Σᵢ aᵢbᵢ', why: 'Multiply matching parts, add them up. Two vectors in, one plain number out.' },
+      { formula: 'sign of a·b', why: 'Positive: leaning the same way. Negative: opposite ways. Zero: at right angles.' },
+      { formula: '⟨ku + lv, w⟩ = k⟨u,w⟩ + l⟨v,w⟩', why: 'Linearity — you may split sums and pull plain numbers out.' },
+      { formula: '⟨u, v⟩ = ⟨v, u⟩', why: 'Symmetry. Unlike matrix multiplication, the order makes no difference.' },
+      { formula: '⟨u, u⟩ ≥ 0, = 0 only for u = 0', why: 'What makes the square root in the norm always safe to take.' },
+      { formula: '‖a‖ = √⟨a, a⟩', why: 'Length. Pythagoras, and it keeps working past three dimensions.' },
+      { formula: '|⟨a, b⟩| ≤ ‖a‖‖b‖', why: 'Cauchy–Schwarz. Equality only when the two lie along each other.' },
+      { formula: '‖a + b‖ ≤ ‖a‖ + ‖b‖', why: 'Triangle inequality. Straight there is never further than via a corner.' },
+      { formula: 'α = cos⁻¹(⟨a,b⟩ / (‖a‖‖b‖))', why: 'The angle. Cauchy–Schwarz is what keeps the fraction inside [−1, 1].' },
+      { formula: '⟨a, b⟩ = 0 ⟺ orthogonal', why: 'The test you actually use — no angle needs working out.' },
+      { formula: 'v = (v₂ᵀv₁ / v₁ᵀv₁) v₁', why: 'The projection of v₂ onto v₁ — its shadow on that line.' },
+      { formula: 'u = v₂ − v, with u·v₁ = 0', why: 'The leftover, perpendicular by construction. Model-fitting calls it the residual.' },
+    ],
+    quiz: [
+      {
+        q: 'What kind of thing is a·b?',
+        options: ['A vector', 'A matrix', 'A single number', 'It depends on the dimension'],
+        answer: 2,
+        explain:
+          'Always one plain number, whatever the dimension. That is why you cannot chain it — a·b·c is meaningless, because after the first dot product you no longer have a vector to work with.',
+      },
+      {
+        q: 'Two vectors have a dot product of zero. What does that mean?',
+        options: ['One of them is the zero vector', 'They point the same way', 'They are at right angles', 'They have the same length'],
+        answer: 2,
+        explain:
+          'Zero dot product means orthogonal. It can also happen if one is the zero vector, but for two genuine vectors it means exactly 90°. This is the check you use in practice, because it costs a few multiplications and needs no arccos.',
+      },
+      {
+        q: 'Why does cosine similarity divide by both norms instead of just using the dot product?',
+        options: [
+          'To make the arithmetic faster',
+          'To strip out length, so only direction is compared',
+          'To make the answer positive',
+          'To satisfy the triangle inequality',
+        ],
+        answer: 1,
+        explain:
+          'A long vector has a big dot product with almost anything, so raw dot products confuse "similar" with "large". Dividing by both lengths leaves only the angle, which is what carries the meaning — a long document and a short one about the same topic should count as similar.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define the inner product and norm, state the Cauchy–Schwarz inequality, and explain its role in defining the angle between two vectors.',
+        meta: 'Definitions plus the logical dependency · 6 marks',
+        points: [
+          'For a, b ∈ ℝⁿ the inner product is ⟨a, b⟩ = aᵀb = Σᵢ aᵢbᵢ.',
+          'It is linear in its first argument, symmetric, and positive definite: ⟨u, u⟩ ≥ 0 with equality only for u = 0.',
+          'The norm is ‖a‖ = √⟨a, a⟩, which is well defined precisely because ⟨a, a⟩ is never negative.',
+          'Cauchy–Schwarz: |⟨a, b⟩| ≤ ‖a‖‖b‖, with equality if and only if a and b are linearly dependent.',
+          'Consequently −1 ≤ ⟨a, b⟩/(‖a‖‖b‖) ≤ 1, so the quantity lies in the domain of cos⁻¹.',
+          'The angle is therefore defined as α = cos⁻¹(⟨a, b⟩/(‖a‖‖b‖)); without Cauchy–Schwarz this expression need not exist.',
+          'a and b are orthogonal when ⟨a, b⟩ = 0, equivalently α = π/2.',
+        ],
+      },
+    ],
+  },
+
+  covariance: {
+    cheat: [
+      { formula: 'μ = E[X] = Σ x p(x)', why: 'The balance point of a distribution. Need not be a value X can take.' },
+      { formula: 'σ² = E[(X − μ)²]', why: 'Average squared distance from the mean. Squaring stops the signs cancelling.' },
+      { formula: 'σ = √σ²', why: 'Standard deviation. Back in the original units, so it is the one to quote.' },
+      { formula: 'divide by n or by n − 1', why: 'n describes the collection you have; n − 1 treats it as a sample from something bigger.' },
+      { formula: 'cov(X,Y) = E[(X − μₓ)(Y − μᵧ)]', why: 'One product per point. Both above or both below their means gives a positive contribution.' },
+      { formula: 'cov(X, X) = σ²', why: 'Variance is just covariance of a variable with itself — the same formula.' },
+      { formula: 'corr = cov / (σₓ σᵧ)', why: 'Divides the units out and forces the answer into [−1, 1], so it can be compared across pairs.' },
+      { formula: 'cov ≈ 0 does not mean unrelated', why: 'It only rules out a straight-line pattern. An arch has an obvious relationship and near-zero covariance.' },
+    ],
+    quiz: [
+      {
+        q: 'Why does variance square the distances from the mean?',
+        options: [
+          'To make the number bigger',
+          'Because the signed distances always add to exactly zero',
+          'To keep the units the same as the data',
+          'Because squaring is faster to compute',
+        ],
+        answer: 1,
+        explain:
+          'The deviations above the mean exactly cancel the ones below, every time — their sum is always 0. Squaring removes the signs and makes far-away values count for more. It does change the units, which is why the standard deviation takes the root afterwards.',
+      },
+      {
+        q: 'Two variables have a covariance of 480. Is that a strong relationship?',
+        options: [
+          'Yes, it is a large number',
+          'No, it is too small',
+          'You cannot tell — covariance carries units, so its size means nothing on its own',
+          'Only if both variances are also 480',
+        ],
+        answer: 2,
+        explain:
+          'Covariance is measured in (units of X)×(units of Y). Switch from metres to centimetres and it changes by a factor of 10,000 with nothing real having changed. To judge strength you divide by both standard deviations, giving a correlation between −1 and 1.',
+      },
+      {
+        q: 'Points lie on a perfect symmetric arch. What does the covariance come out as?',
+        options: [
+          'Strongly positive',
+          'Strongly negative',
+          'Close to zero, despite the obvious pattern',
+          'Exactly 1',
+        ],
+        answer: 2,
+        explain:
+          'Covariance only detects straight-line association. On the rising half the products are positive, on the falling half they are negative, and they cancel. So near-zero covariance means "no linear pattern", not "no relationship" — which is why you always look at the scatter plot as well.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define variance and covariance, and discuss the interpretation and limitations of covariance.',
+        meta: 'Definitions plus critical interpretation · 6–8 marks',
+        points: [
+          'Variance: σ² = E[(X − μ)²], where μ = E[X]. From data it is (1/n)Σ(xᵢ − x̄)², or with divisor n − 1 for a sample estimate.',
+          'Squaring is necessary because Σ(xᵢ − x̄) = 0 identically, so the unsquared deviations carry no information about spread.',
+          'The standard deviation σ = √σ² restores the original units and is the quantity normally reported.',
+          'Covariance: cov(X, Y) = E[(X − E[X])(Y − E[Y])], computed as (1/n)Σ(xᵢ − x̄)(yᵢ − ȳ).',
+          'Note cov(X, X) = σ², so variance is the special case of covariance of a variable with itself.',
+          'Interpretation: the sign indicates the direction of linear association — positive when observations tend to lie on the same side of both means.',
+          'Limitation 1: the magnitude depends on the units of both variables and so is not comparable across pairs; dividing by σₓσᵧ gives the correlation, which lies in [−1, 1].',
+          'Limitation 2: it detects only linear association. A symmetric non-linear relationship can give covariance zero despite strong dependence, so zero covariance does not imply independence.',
+        ],
+      },
+    ],
+  },
+
+  lec0b: {
+    cheat: [
+      { formula: 'x + y = (x₁+y₁, …, xₙ+yₙ),  λx = (λx₁, …, λxₙ)', why: 'The only two things you may do to vectors. Both work one slot at a time.' },
+      { formula: 'c₁v₁ + ⋯ + cₘvₘ', why: 'A linear combination — the only expression adding and stretching lets you build.' },
+      {
+        formula: 'c₁v₁ + ⋯ + cₘvₘ = 0 only when every cᵢ = 0',
+        why: 'Linear independence. If any other mixture hits zero, the set is dependent.',
+      },
+      { formula: 'vⱼ = Σᵢ≠ⱼ (−cᵢ/cⱼ) vᵢ', why: 'What dependence means in practice: one vector is a mixture of the rest.' },
+      { formula: 'rank = p independent · rank < p dependent', why: 'Lay p vectors out as rows and count. Works at any size.' },
+      { formula: 'n < p ⟹ always dependent', why: 'More vectors than components. No arithmetic needed — there are not that many directions.' },
+      { formula: 'rank(A) = rank(Aᵀ)', why: 'Independent rows and independent columns always come to the same number.' },
+      { formula: 'pivot columns = the independent vectors', why: 'Vectors as columns, row-reduce. Non-pivot columns are mixtures of the pivots to their left.' },
+      { formula: '⟨a, b⟩ = aᵀb = Σᵢ aᵢbᵢ', why: 'The dot product. Two vectors in, one plain number out.' },
+      { formula: '⟨ku+lv, w⟩ = k⟨u,w⟩ + l⟨v,w⟩', why: 'Linearity. With symmetry ⟨u,v⟩ = ⟨v,u⟩ and ⟨u,u⟩ ≥ 0, these are the three properties.' },
+      { formula: '‖a‖ = √⟨a, a⟩', why: 'Length. Pythagoras, and it keeps working past three dimensions.' },
+      { formula: '|⟨a, b⟩| ≤ ‖a‖‖b‖', why: 'Cauchy–Schwarz. Equality only when the two lie along each other.' },
+      { formula: '‖a + b‖ ≤ ‖a‖ + ‖b‖', why: 'Triangle inequality. The direct route is never longer than the detour.' },
+      { formula: 'α = cos⁻¹(⟨a,b⟩ / (‖a‖‖b‖))', why: 'The angle. Cauchy–Schwarz is what keeps the fraction inside [−1, 1].' },
+      { formula: '⟨a, b⟩ = 0 ⟺ orthogonal', why: 'The check you actually use — no angle needs working out.' },
+      { formula: 'v = (v₂ᵀv₁ / v₁ᵀv₁) v₁', why: 'Projection of v₂ onto v₁. The leftover u = v₂ − v is at right angles by construction.' },
+      { formula: 'P(E) ≥ 0 · P(Ω) = 1 · P(∪Eᵢ) = ΣP(Eᵢ)', why: 'The three axioms. The third needs the events to be mutually exclusive.' },
+      { formula: 'p(x) = P(X = x),  Σ p(x) = 1', why: 'The pmf of a discrete variable. Each bar is an honest probability.' },
+      { formula: 'P[a ≤ X ≤ b] = ∫ₐᵇ f(x) dx', why: 'For a continuous variable only areas are probabilities — f itself is not one.' },
+      { formula: 'μ = E[X] = Σ x p(x)', why: 'Expectation: the balance point. Need not be a value X can actually take.' },
+      { formula: 'σ² = E[(X − μ)²],  σ = √σ²', why: 'Variance and standard deviation. This lecture divides by n, not n − 1.' },
+      { formula: 'cov(X,Y) = (1/n) Σ (xᵢ − x̄)(yᵢ − ȳ)', why: 'Do the two rise and fall together? Positive yes, negative opposite, zero no straight-line pattern.' },
+    ],
+    quiz: [
+      {
+        q: 'You have 5 vectors, each with 3 components. What can you say without doing any arithmetic?',
+        options: [
+          'They are linearly independent',
+          'They are linearly dependent',
+          'It depends on the numbers',
+          'The rank is 5',
+        ],
+        answer: 1,
+        explain:
+          'There are more vectors (5) than components (3). The rank can never be more than 3, so at least two of them must collapse — they are dependent. This is the n < p rule on slide 8, and it saves a lot of pointless working in exams.',
+      },
+      {
+        q: 'Vectors v₁ and v₂ are independent. You add v₃ = v₁ + v₂. What happens?',
+        options: [
+          'All three are now independent',
+          'All three are now dependent, but v₁ and v₂ still are not',
+          'v₁ and v₂ have become dependent',
+          'The rank goes up to 3',
+        ],
+        answer: 1,
+        explain:
+          'v₁ + v₂ − v₃ = 0 with coefficients 1, 1 and −1, so the set of three is dependent. But nothing happened to v₁ and v₂ themselves — they are still independent of each other. Dependence is a property of the collection, not of any one vector, which is exactly the point of the lecture’s Ex.1 and Ex.2.',
+      },
+      {
+        q: 'You put three vectors in as columns and row-reduce. Pivots land in columns 1 and 3. What is column 2?',
+        options: [
+          'The zero vector',
+          'A multiple of column 3',
+          'A mixture of the pivot columns to its left — so here, a multiple of column 1',
+          'Independent of the other two',
+        ],
+        answer: 2,
+        explain:
+          'A non-pivot column is always a combination of the pivot columns to its left. Column 2 only has column 1 to its left, so it must be a multiple of it. On slide 10 it is exactly twice column 1.',
+      },
+      {
+        q: 'a·b comes out negative. What does that tell you about the angle between a and b?',
+        options: ['Less than 90°', 'Exactly 90°', 'More than 90°', 'Nothing at all'],
+        answer: 2,
+        explain:
+          'cos α has the same sign as the dot product, since the two lengths on the bottom are always positive. A negative cosine means an obtuse angle, so the two vectors lean in broadly opposite directions.',
+      },
+      {
+        q: 'Which is the quick way to check whether two vectors in ℝ¹⁰⁰ are at right angles?',
+        options: [
+          'Work out the angle with cos⁻¹ and see if it is 90°',
+          'Check whether their dot product is zero',
+          'Draw them and look',
+          'Compare their norms',
+        ],
+        answer: 1,
+        explain:
+          'Orthogonal means the dot product is zero, so you never need the angle at all. It costs 100 multiplications and 99 additions, and it works in any number of dimensions — where "draw them and look" stopped being an option long ago.',
+      },
+      {
+        q: 'You project v₂ onto v₁ and get v. What is special about the leftover u = v₂ − v?',
+        options: [
+          'It is parallel to v₁',
+          'It is at right angles to v₁',
+          'It is the zero vector',
+          'It has the same length as v',
+        ],
+        answer: 1,
+        explain:
+          'That is the condition the formula was derived from. Slide 19 insists u·v₁ = 0 and rearranges to find the amount λ. So the right angle is not a happy accident — it is the requirement that produced the formula.',
+      },
+      {
+        q: 'A and B are two events with A ∩ B = {4, 6}. Are they mutually exclusive?',
+        options: [
+          'Yes, because they have some outcomes in common',
+          'No, because the intersection is not empty',
+          'Only if they are also exhaustive',
+          'You cannot tell without knowing Ω',
+        ],
+        answer: 1,
+        explain:
+          'Mutually exclusive means the events cannot both happen, so their intersection must be empty. Here rolling a 4 or a 6 would make both happen at once. Mutually exclusive and exhaustive are separate ideas: exclusive means no overlap, exhaustive means no gaps.',
+      },
+      {
+        q: 'Someone assigns probabilities to a die and they add to 0.9. Which axiom fails?',
+        options: [
+          'Axiom 1, non-negativity',
+          'Axiom 2, P(Ω) = 1',
+          'Axiom 3, adding up',
+          'None — it is a valid assignment',
+        ],
+        answer: 1,
+        explain:
+          'P(Ω) has to be exactly 1, because something is certain to happen. Adding to 0.9 means 10% of the probability has gone missing — usually an outcome that was forgotten. Nothing here is negative, so axiom 1 is fine.',
+      },
+      {
+        q: 'A coin is tossed three times and X is the number of heads. What is P(X = 1)?',
+        options: ['1/8', '3/8', '1/3', '1/2'],
+        answer: 1,
+        explain:
+          'Three of the eight equally likely outcomes give exactly one head: HTT, THT and TTH. So P(X = 1) = 3/8. Notice the count is 3 rather than 1 — the head can be in any of three positions, and it is easy to forget the other two.',
+      },
+      {
+        q: 'For a continuous random variable, what is P(X = 0.5)?',
+        options: ['f(0.5)', '0', 'It depends on the distribution', '1/2'],
+        answer: 1,
+        explain:
+          'Always zero, for any continuous variable. Probability comes from area under the density, and a single point has no width, so it encloses no area. This is why continuous variables are always asked about over ranges.',
+      },
+      {
+        q: 'A probability density f(x) has f(0.3) = 2. Is that a problem?',
+        options: [
+          'Yes — probabilities cannot be above 1',
+          'No — a density is not a probability, only areas under it are',
+          'Yes — it means the distribution is not valid',
+          'Only if the interval is longer than 1',
+        ],
+        answer: 1,
+        explain:
+          'A density can be as tall as it likes, as long as the total area is 1. Uniform(0, ½) has height 2 across its interval, and 2 × ½ = 1. Reading a probability off the height of a pdf is the most common mistake in this topic.',
+      },
+      {
+        q: 'A fair coin is tossed three times. E[number of heads] = 1.5. What does that mean?',
+        options: [
+          'You will usually get 1.5 heads',
+          '1.5 is the most likely number of heads',
+          'It is the long-run average, even though you can never get 1.5 heads',
+          'The calculation is wrong, since 1.5 heads is impossible',
+        ],
+        answer: 2,
+        explain:
+          'An expectation is a balance point, not a prediction. You will get 0, 1, 2 or 3 heads, never 1.5 — but averaged over many repeats the count settles at 1.5. The word "expected" is genuinely misleading here.',
+      },
+      {
+        q: 'Why does variance square the distances from the mean instead of just adding them up?',
+        options: [
+          'To make the answer bigger',
+          'Because the plain distances always add to exactly zero',
+          'Because squaring is easier to compute',
+          'To keep the units the same as the data',
+        ],
+        answer: 1,
+        explain:
+          'The deviations above the mean exactly cancel the ones below, every time — their sum is always 0, which measures nothing. Squaring removes the signs, and it also makes far-away values count for much more. It does change the units, which is why the standard deviation takes the square root afterwards.',
+      },
+      {
+        q: 'The lecture computes the variance of 2, 4, 6, 8 as 5. The Statistics course would get 20/3 ≈ 6.67. Who is right?',
+        options: [
+          'The lecture — you always divide by n',
+          'The Statistics course — you always divide by n − 1',
+          'Both — they are answering different questions',
+          'Neither — the data is wrong',
+        ],
+        answer: 2,
+        explain:
+          'Dividing by n describes the collection you have in front of you. Dividing by n − 1 treats those numbers as a sample from something bigger and corrects for the fact that a sample looks slightly tighter than the population it came from. Read the question and see which is being asked for.',
+      },
+      {
+        q: 'Points are arranged in a perfect arch: y rises then falls as x increases. What is the covariance?',
+        options: [
+          'Strongly positive, because there is a clear pattern',
+          'Strongly negative',
+          'Close to zero, even though the pattern is obvious',
+          'Exactly 1',
+        ],
+        answer: 2,
+        explain:
+          'Covariance only sees straight-line patterns. On the left of the arch the products are positive, on the right they are negative, and they cancel. So a covariance near zero does not mean "no relationship" — it means no straight-line relationship. Always look at the scatter plot.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define linear independence, and describe two ways of testing whether a set of vectors is independent.',
+        meta: 'Definition plus method · 6–8 marks',
+        points: [
+          'Vectors v₁, …, vₘ in ℝⁿ are linearly independent if c₁v₁ + ⋯ + cₘvₘ = 0 implies c₁ = ⋯ = cₘ = 0.',
+          'If some non-trivial choice of coefficients gives 0, the set is linearly dependent, and any vⱼ with cⱼ ≠ 0 can be written as vⱼ = Σᵢ≠ⱼ (−cᵢ/cⱼ)vᵢ.',
+          'Method 1 — rank of the row matrix: form the m × n matrix whose rows are the vectors and reduce to echelon form. The set is independent if and only if rank = m.',
+          'Method 2 — pivot columns: form the n × m matrix whose columns are the vectors and reduce. The vectors are independent if and only if every column is a pivot column.',
+          'The second method also identifies which vectors are redundant: each non-pivot column is a linear combination of the pivot columns to its left, with coefficients read from the reduced form.',
+          'Since rank(A) = rank(Aᵀ), the two methods necessarily agree.',
+          'If m > n the vectors are automatically dependent, since rank ≤ min(m, n) ≤ n < m.',
+        ],
+      },
+      {
+        q: 'State the defining properties of an inner product and use them to prove the parallelogram law ‖a+b‖² + ‖a−b‖² = 2‖a‖² + 2‖b‖².',
+        meta: 'Properties plus a short proof · 6 marks',
+        points: [
+          'Linearity: ⟨ku + lv, w⟩ = k⟨u, w⟩ + l⟨v, w⟩ for all scalars k, l.',
+          'Symmetry: ⟨u, v⟩ = ⟨v, u⟩.',
+          'Positive definiteness: ⟨u, u⟩ ≥ 0, with equality if and only if u = 0. This is what makes ‖u‖ = √⟨u, u⟩ well defined.',
+          'Expand: ‖a + b‖² = ⟨a + b, a + b⟩ = ⟨a,a⟩ + ⟨a,b⟩ + ⟨b,a⟩ + ⟨b,b⟩ = ‖a‖² + 2⟨a,b⟩ + ‖b‖², using symmetry to combine the cross terms.',
+          'Similarly ‖a − b‖² = ‖a‖² − 2⟨a,b⟩ + ‖b‖².',
+          'Adding the two expressions cancels the cross terms and gives 2‖a‖² + 2‖b‖², as required.',
+          'Geometric reading: in any parallelogram the sum of the squares of the diagonals equals the sum of the squares of the four sides.',
+        ],
+      },
+      {
+        q: 'Derive the formula for the projection of v₂ onto v₁ and state its significance.',
+        meta: 'Derivation from the orthogonality condition · 5–6 marks',
+        points: [
+          'Seek v lying along v₁, so v = λ v₁/‖v₁‖ for some scalar λ, such that u = v₂ − v is orthogonal to v₁.',
+          'Impose orthogonality: (v₂ − v)ᵀv₁ = 0, so v₂ᵀv₁ = vᵀv₁.',
+          'Substituting v = λv₁/‖v₁‖ gives vᵀv₁ = λ‖v₁‖, hence λ = v₂ᵀv₁ / ‖v₁‖.',
+          'Therefore v = (v₂ᵀv₁ / ‖v₁‖)(v₁/‖v₁‖) = (v₂ᵀv₁ / v₁ᵀv₁) v₁.',
+          'Worked check: v₁ = (3,0), v₂ = (2,4) give v = (6/9)(3,0) = (2,0) and u = (0,4), with u·v₁ = 0.',
+          'The decomposition v₂ = v + u splits any vector into a component along v₁ and a component orthogonal to it.',
+          'Significance: this is the basis of least squares — the fitted values are the projection of the data onto the span of the features, and u is the residual being minimised.',
+        ],
+      },
+      {
+        q: 'State the axioms of probability and derive P(Aᶜ) = 1 − P(A) and P(A ∪ B) = P(A) + P(B) − P(A ∩ B).',
+        meta: 'Axioms plus two standard derivations · 6–8 marks',
+        points: [
+          'Axiom 1: P(E) ≥ 0 for every event E in the algebra of events.',
+          'Axiom 2: P(Ω) = 1.',
+          'Axiom 3: for a sequence of mutually exclusive events E₁, E₂, …, P(∪Eᵢ) = Σ P(Eᵢ).',
+          'Complement: A and Aᶜ are mutually exclusive and A ∪ Aᶜ = Ω, so by axioms 3 and 2, P(A) + P(Aᶜ) = 1, giving P(Aᶜ) = 1 − P(A).',
+          'Setting A = Ω gives P(∅) = 0.',
+          'Addition rule: write A ∪ B as the disjoint union of A and B ∩ Aᶜ, so P(A ∪ B) = P(A) + P(B ∩ Aᶜ).',
+          'Also B is the disjoint union of B ∩ A and B ∩ Aᶜ, so P(B ∩ Aᶜ) = P(B) − P(A ∩ B). Substituting gives the result.',
+          'The subtraction is needed because axiom 3 only applies to mutually exclusive events; adding P(A) and P(B) directly would count A ∩ B twice.',
+        ],
+      },
+      {
+        q: 'Distinguish between a probability mass function and a probability density function, and explain why P(X = c) = 0 for a continuous random variable.',
+        meta: 'Definitions with the key distinction · 5–6 marks',
+        points: [
+          'A random variable is a real-valued function on the sample space Ω; it is discrete if its range is finite or countably infinite, and continuous if it takes values throughout an interval.',
+          'For a discrete X the pmf is p(x) = P(X = x), satisfying p(x) ≥ 0 and Σₓ p(x) = 1. Each value is an actual probability.',
+          'For a continuous X the pdf is an integrable f with f(x) ≥ 0 and ∫f(x)dx = 1 over ℝ, and P[a ≤ X ≤ b] = ∫ₐᵇ f(x)dx.',
+          'f(x) is a density, not a probability: it may exceed 1, as for Uniform(0, ½) where f = 2 throughout.',
+          'Since P(X = c) = ∫_c^c f(x)dx = 0, any single value has probability zero — the interval has zero width, so it encloses no area.',
+          'Consequently P(a ≤ X ≤ b) = P(a < X < b) for continuous variables: the endpoints contribute nothing.',
+          'Worked example: X ~ Uniform(0,1) gives P(0.3 ≤ X ≤ 0.7) = 0.7 − 0.3 = 0.4, while P(X = 0.5) = 0.',
+        ],
+      },
+      {
+        q: 'Define expectation, variance and covariance, and comment on what covariance does and does not tell you.',
+        meta: 'Three definitions plus interpretation · 6–8 marks',
+        points: [
+          'Expectation: μ = E[X] = Σₓ x p(x) for discrete X, or ∫ x f(x) dx for continuous X. It is the probability-weighted average, and need not be an attainable value.',
+          'Empirically the mean is x̄ = (1/n) Σ xᵢ, which is the same weighting with each observation given weight 1/n.',
+          'Variance: σ² = E[(X − μ)²] = Σₓ (x − μ)² p(x), computed from data as (1/n) Σ xᵢ² − x̄². Squaring is necessary because the signed deviations always sum to zero.',
+          'The standard deviation σ = √σ² restores the units of the original data, which is why it is the quantity usually quoted.',
+          'Covariance: cov(X, Y) = E[(X − E[X])(Y − E[Y])], computed as (1/n) Σ (xᵢ − x̄)(yᵢ − ȳ).',
+          'Its sign indicates the direction of any linear relationship: positive when the variables tend to lie on the same side of their means, negative when on opposite sides.',
+          'Its magnitude is not interpretable on its own, since it carries the product of the two units; dividing by σₓσᵧ gives the correlation, which lies in [−1, 1].',
+          'Covariance detects only linear association. A symmetric non-linear relationship, such as a parabola, can give a covariance of zero despite a strong dependence between the variables.',
+        ],
+      },
+    ],
+  },
+
   lec1: {
     cheat: [
       { formula: 'Ax = b', why: 'A whole system in three letters. A is the numbers, x the unknowns, b the answers.' },

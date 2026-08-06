@@ -10,6 +10,7 @@ import { CofactorLab, Det2Lab, DetRulesLab } from '@/components/charts/det-lab'
 import { GaussJordanInverseLab, Inverse2Lab } from '@/components/charts/inverse-lab'
 import { MultiplyLab, TransposeRulesLab } from '@/components/charts/matrix-algebra-lab'
 import { RankLab } from '@/components/charts/rowops-lab'
+import { IndependenceLab, RankVectorsLab } from '@/components/charts/vector-space-lab'
 import { OutcomesLab } from '@/components/charts/systems-lab'
 import Link from 'next/link'
 import { UsedInAiml } from './algebra'
@@ -63,8 +64,8 @@ export function MatrixMultiplyConcept() {
       <AnalogyCallout
         paragraphs={[
           <>
-            A café sells three drinks. You know how much <strong>coffee, milk and sugar</strong> each drink uses, and you
-            know the <strong>price</strong> of coffee, milk and sugar at four different suppliers. You want the cost of
+            A café sells three drinks. You know how much <strong>coffee, milk and sugar</strong>{' '}each drink uses, and you
+            know the <strong>price</strong>{' '}of coffee, milk and sugar at four different suppliers. You want the cost of
             each drink at each supplier.
           </>,
           <>
@@ -109,7 +110,7 @@ export function MatrixMultiplyConcept() {
       <P>
         And with ordinary numbers, if ab = 0 then one of them is 0. Not here — the third preset above has two matrices,
         neither of them zero, whose product is all zeros. Which also means you cannot cancel: AB = AC does{' '}
-        <em>not</em> give you B = C.
+        <em>not</em>{' '}give you B = C.
       </P>
 
       <H2>The transpose, and the reversal</H2>
@@ -240,10 +241,10 @@ export function DeterminantConcept() {
       <P>
         Past 2 × 2 there is no formula worth memorising. Instead, expand along a row or column: for each number, cross
         out its row and column, take the determinant of what is left, attach a sign from the{' '}
-        <span className="font-mono">+ − + −</span> checkerboard, and add everything up.
+        <span className="font-mono">+ − + −</span>{' '}checkerboard, and add everything up.
       </P>
       <P>
-        You may expand along <em>any</em> row or column, so pick the one with the most zeros. Each zero kills a whole
+        You may expand along <em>any</em>{' '}row or column, so pick the one with the most zeros. Each zero kills a whole
         smaller determinant.
       </P>
 
@@ -392,6 +393,38 @@ export function RankConcept() {
         <RankLab />
       </Lab>
 
+      <H2>The same count, said about vectors</H2>
+      <P>
+        There is a second way to say all of this, and it is the one Lecture 0b uses. A set of vectors is{' '}
+        <strong>linearly independent</strong>{' '}when the only way to mix them down to zero is to take none of any of them.
+        If some other mixture works, the set is <strong>dependent</strong>, and one of the vectors is a combination of
+        the rest.
+      </P>
+      <P>
+        Drag the two arrows below until one lies along the other. The shading collapses from the whole plane to a single
+        line, and the verdict flips — because the second arrow has stopped offering anywhere new to go.
+      </P>
+
+      <Lab>
+        <IndependenceLab />
+      </Lab>
+
+      <P>
+        That picture runs out at three dimensions. Rank is what replaces it. Lay p vectors out as the rows of a matrix
+        and take the rank: <strong>rank = p</strong> means independent, <strong>rank &lt; p</strong>{' '}means dependent.
+        Same count, no drawing required.
+      </P>
+
+      <Lab>
+        <RankVectorsLab />
+      </Lab>
+
+      <P>
+        One shortcut falls straight out and is worth having in an exam: if there are more vectors than components, they{' '}
+        <em>must</em>{' '}be dependent. Three vectors in ℝ² are always dependent, and so are five in ℝ⁴. There simply are
+        not that many independent directions to go round.
+      </P>
+
       <H2>What it decides</H2>
       <P>
         Stick the right-hand side of a system onto A as one extra column and work out two ranks: rank A, and rank of the
@@ -471,7 +504,9 @@ export function RankConcept() {
           { href: '/session/lec0a/rank', label: 'Lecture 0a · Rank' },
           { href: '/session/lec0a/rref', label: 'Reduced row echelon form' },
           { href: '/session/lec0a/outcomes', label: 'None, one, or endless' },
-          { href: '/session/lec0a/parameter', label: 'Five unknowns and a dial' },
+          { href: '/session/lec0b/independence', label: 'Lecture 0b · Independent or repeating?' },
+          { href: '/session/lec0b/rank', label: 'Rank does the counting' },
+          { href: '/session/lec0b/pivots', label: 'Pivot columns' },
         ]}
       />
     </div>

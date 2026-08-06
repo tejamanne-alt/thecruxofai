@@ -148,6 +148,123 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
     },
   ],
 
+  lec0b: [
+    {
+      id: 'vector',
+      title: 'What a vector is',
+      teaser: 'A list of numbers you can add and stretch. Drag two arrows and see you can never break out.',
+      slides: 'Slide 2',
+    },
+    {
+      id: 'combination',
+      title: 'Mixing vectors together',
+      teaser: 'Some of this one, some of that one. Press anywhere and read off the two amounts.',
+      slides: 'Slide 3',
+    },
+    {
+      id: 'independence',
+      title: 'Independent, or just repeating?',
+      teaser: 'Line two arrows up and watch the whole plane collapse to a line.',
+      slides: 'Slides 4–5',
+    },
+    {
+      id: 'examples',
+      title: 'The lecture’s three examples',
+      teaser: 'Two dependent sets and one independent one, with the parallelogram from slide 7.',
+      slides: 'Slides 6–7',
+    },
+    {
+      id: 'rank',
+      title: 'Rank does the counting for you',
+      teaser: 'The test that still works when there are five vectors in seven dimensions.',
+      slides: 'Slide 8',
+    },
+    {
+      id: 'pivots',
+      title: 'Pivot columns pick the survivors',
+      teaser: 'Stand the vectors up as columns. The ones with pivots are the independent ones.',
+      slides: 'Slides 9–10',
+    },
+    {
+      id: 'bigcheck',
+      title: 'A full check, one move at a time',
+      teaser: 'Three vectors with four components each — too big to draw, easy to decide.',
+      slides: 'Slides 11–12',
+    },
+    {
+      id: 'dot',
+      title: 'The dot product',
+      teaser: 'Two lists in, one plain number out. Its sign tells you which way they lean.',
+      slides: 'Slides 13–15',
+    },
+    {
+      id: 'norm',
+      title: 'Length, and two inequalities',
+      teaser: 'Pythagoras in disguise. Then try to break Cauchy–Schwarz by dragging.',
+      slides: 'Slides 16–17',
+    },
+    {
+      id: 'angle',
+      title: 'Angle, and what orthogonal means',
+      teaser: 'Get the dot product to land on exactly zero and watch the angle hit 90°.',
+      slides: 'Slide 18',
+    },
+    {
+      id: 'projection',
+      title: 'Projection: the shadow one vector casts',
+      teaser: 'Drag v₂ and watch its shadow slide. The leftover piece is always at a right angle.',
+      slides: 'Slides 19–20',
+    },
+    {
+      id: 'terms',
+      title: 'The words probability starts with',
+      teaser: 'Sample space, event, union, intersection, complement. Press the die faces and build them.',
+      slides: 'Slides 21–22',
+    },
+    {
+      id: 'axioms',
+      title: 'The three axioms',
+      teaser: 'The whole definition of probability, in three lines you can break with a slider.',
+      slides: 'Slides 23–24',
+    },
+    {
+      id: 'randomvar',
+      title: 'A random variable is a rule',
+      teaser: 'HTT is not a number. X turns it into one. Press an outcome and follow it through.',
+      slides: 'Slides 25–26',
+    },
+    {
+      id: 'pmf',
+      title: 'pmf and pdf',
+      teaser: 'Bars that add to 1, and an area that is a probability while the height is not.',
+      slides: 'Slides 27–29',
+    },
+    {
+      id: 'expectation',
+      title: 'Expectation: the balance point',
+      teaser: 'Load one side and watch the pivot slide. It is an average, not a prediction.',
+      slides: 'Slides 30–31',
+    },
+    {
+      id: 'variance',
+      title: 'Variance and standard deviation',
+      teaser: 'Every squared distance drawn as a real square. Drag one dot out and watch it take over.',
+      slides: 'Slides 32–33',
+    },
+    {
+      id: 'covariance',
+      title: 'Covariance: do two things move together?',
+      teaser: 'One rectangle per point, teal or red. The answer is their signed average.',
+      slides: 'Slides 34–35',
+    },
+    {
+      id: 'practice',
+      title: 'The six practice questions',
+      teaser: 'The sheet has no answer key, so every answer here was worked out and then checked.',
+      slides: 'Practice sheet',
+    },
+  ],
+
   lec1: [
     {
       id: 'what',

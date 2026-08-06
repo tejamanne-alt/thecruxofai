@@ -56,7 +56,10 @@
         "matmul",
         "determinant",
         "rank",
+        "dotproduct",
+        "covariance",
         "lec0a",
+        "lec0b",
         "lec1"
       ],
       "syllabus": "Linear algebra, calculus, probability and optimisation as used by machine learning. The brochure does not print a detailed syllabus for this course; the pages below cover the algebra and linear algebra that everything else is built on, and the gradient descent page comes from its optimisation sessions."
@@ -440,9 +443,24 @@
       "blurb": "Copy one row onto another and watch the count drop. Then compare two ranks and read off whether a system has no answer, one, or endlessly many.",
       "kind": "concept"
     },
+    "dotproduct": {
+      "label": "The dot product: length, angle and shadow",
+      "blurb": "Multiply matching parts and add. One number that gives you length, the angle between two vectors, a cheap test for right angles, and the shadow one casts on another.",
+      "kind": "concept"
+    },
+    "covariance": {
+      "label": "Spread, and whether two things move together",
+      "blurb": "Variance as squares you can grow, then covariance as one rectangle per point — teal when the two rise together, red when they pull apart.",
+      "kind": "concept"
+    },
     "lec0a": {
       "label": "Lecture 0a — Matrices, determinants and linear systems",
       "blurb": "The toolkit the rest of the course is built from. Multiply matrices by pressing a number and seeing where it came from, drag two arrows until the determinant hits zero, then turn [A | I] into [I | A⁻¹] one move at a time.",
+      "kind": "chapter"
+    },
+    "lec0b": {
+      "label": "Lecture 0b — Vectors, dot products and probability",
+      "blurb": "Two halves that turn out to be the same idea. Drag arrows until they stop being independent, get a dot product to land on exactly zero, then meet random variables, expectation and covariance — where the covariance is drawn as one rectangle per data point.",
       "kind": "chapter"
     },
     "lec1": {

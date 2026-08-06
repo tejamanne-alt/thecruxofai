@@ -182,7 +182,7 @@ export function DataTypeSorter() {
       ]}
       note={
         <>
-          The quick test: if you <strong>count</strong> it, it is discrete. If you <strong>measure</strong> it, it is
+          The quick test: if you <strong>count</strong> it, it is discrete. If you <strong>measure</strong>{' '}it, it is
           continuous. If you can do neither and are just naming a group, it is categorical.
         </>
       }
@@ -246,7 +246,7 @@ export function MeasurementLevelLab() {
         <>
           Three questions, in order. <strong>Can you put them in order?</strong> No, and it is nominal.{' '}
           <strong>Are the gaps equal and meaningful?</strong> No, and it is ordinal.{' '}
-          <strong>Does zero mean &ldquo;none of it&rdquo;?</strong> No, and it is interval. Yes to all three, and it is
+          <strong>Does zero mean &ldquo;none of it&rdquo;?</strong>{' '}No, and it is interval. Yes to all three, and it is
           ratio.
         </>
       }

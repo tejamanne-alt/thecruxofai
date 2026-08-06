@@ -277,7 +277,7 @@ export function ColumnPictureChart() {
           </PanelButtons>
 
           <PanelNote>
-            <strong>Break it</strong> lines the two arrows up. Now they only reach one line, and the target is not on it
+            <strong>Break it</strong>{' '}lines the two arrows up. Now they only reach one line, and the target is not on it
             — that is a system with no answer, and you can see exactly why.
           </PanelNote>
         </>

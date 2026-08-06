@@ -68,7 +68,7 @@ export function WorkshopLab() {
         })}
 
         <p className="mt-1 text-[12.5px]/[1.6] text-zinc-600">
-          The black line on each bar is the amount you have. You need to land on <strong>all four</strong> lines at the
+          The black line on each bar is the amount you have. You need to land on <strong>all four</strong>{' '}lines at the
           same time. Nudge one slider and watch three bars move at once.
         </p>
       </div>

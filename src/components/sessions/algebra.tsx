@@ -193,11 +193,11 @@ export function AlgebraSession() {
           <>
             Think of a coffee shop. A flat white costs <strong>₹200</strong>, and there is a <strong>₹30</strong>{' '}
             delivery fee no matter how many you order. If you order <em>x</em> coffees you pay{' '}
-            <strong>200x + 30</strong>. That&rsquo;s it — that is algebra. The letter <em>x</em> is not mysterious; it
+            <strong>200x + 30</strong>. That&rsquo;s it — that is algebra. The letter <em>x</em>{' '}is not mysterious; it
             is a box waiting for a number, and the sentence stays true whichever number you drop in.
           </>,
           <>
-            The chart below is that same idea drawn as a picture. <strong>Stage 1</strong> is your price rule: multiply
+            The chart below is that same idea drawn as a picture. <strong>Stage 1</strong>{' '}is your price rule: multiply
             by something, then add something. But real questions are rarely that straight, so <strong>stage 2</strong>{' '}
             does one more thing to the answer — squash it, or throw away the negatives. Two simple rules, one after the
             other, and a straight line becomes a curve.

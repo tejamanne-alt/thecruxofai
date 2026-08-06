@@ -4,11 +4,13 @@ import { Ism1Overview } from '@/components/sessions/ism1/overview'
 import { Ism2Overview } from '@/components/sessions/ism2/overview'
 import { KMeansSession } from '@/components/sessions/kmeans'
 import { Lecture0aOverview } from '@/components/sessions/lec0a/overview'
+import { Lecture0bOverview } from '@/components/sessions/lec0b/overview'
 import { Lecture1Overview } from '@/components/sessions/lec1/overview'
 import { LinearAlgebraSession } from '@/components/sessions/linear-algebra'
 import { LinearRegressionSession } from '@/components/sessions/linear-regression'
 import { DeterminantConcept, MatrixMultiplyConcept, RankConcept } from '@/components/sessions/matrix-concepts'
 import { PerceptronSession } from '@/components/sessions/perceptron'
+import { CovarianceConcept, DotProductConcept } from '@/components/sessions/vector-concepts'
 import {
   CentreConcept,
   EventsConcept,
@@ -34,7 +36,10 @@ const OVERVIEWS: Record<TopicId, () => React.ReactElement> = {
   matmul: MatrixMultiplyConcept,
   determinant: DeterminantConcept,
   rank: RankConcept,
+  dotproduct: DotProductConcept,
+  covariance: CovarianceConcept,
   lec0a: Lecture0aOverview,
+  lec0b: Lecture0bOverview,
   lec1: Lecture1Overview,
   ism1: Ism1Overview,
   ism2: Ism2Overview,

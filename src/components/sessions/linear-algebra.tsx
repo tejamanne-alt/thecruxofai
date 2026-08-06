@@ -264,12 +264,12 @@ export function LinearAlgebraSession() {
       <AnalogyCallout
         paragraphs={[
           <>
-            A spreadsheet row is a vector: <strong>[height, weight, age]</strong> is one person, three numbers, one row.
+            A spreadsheet row is a vector: <strong>[height, weight, age]</strong>{' '}is one person, three numbers, one row.
             You can add two rows, or double a row, and it means something sensible. That is all a vector is — a list you
             are allowed to do arithmetic on.
           </>,
           <>
-            A matrix is the next step up: a whole <strong>table</strong> of numbers that acts as an instruction. Feed it
+            A matrix is the next step up: a whole <strong>table</strong>{' '}of numbers that acts as an instruction. Feed it
             a vector and it hands you back a different vector. The picture below shows what that instruction really does
             — not to one arrow, but to <strong>every point in the plane at once</strong>, which is why the grid itself
             bends.
