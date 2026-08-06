@@ -19,6 +19,135 @@ export interface PartMeta {
 }
 
 export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
+  lec0a: [
+    {
+      id: 'octave',
+      title: 'Octave, the free tool',
+      teaser: 'Where the course does its sums. Drag a marker along a plot and see what a computer really draws.',
+      slides: 'Slides 2–4',
+    },
+    {
+      id: 'matrix',
+      title: 'What a matrix is',
+      teaser: 'A box of numbers in rows and columns. Change its shape and watch what it gets called.',
+      slides: 'Slides 5–8',
+    },
+    {
+      id: 'algebra',
+      title: 'Adding, and multiplying by a number',
+      teaser: 'The easy half. Give one box the wrong shape and see the whole thing refuse.',
+      slides: 'Slide 9',
+    },
+    {
+      id: 'multiply',
+      title: 'Multiplying two matrices',
+      teaser: 'The odd one. Press a number in the answer and see exactly where it came from.',
+      slides: 'Slides 10–12',
+    },
+    {
+      id: 'transpose',
+      title: 'Tipping a matrix over',
+      teaser: 'Rows become columns. One rule about it catches almost everyone out.',
+      slides: 'Slides 13–14',
+    },
+    {
+      id: 'special',
+      title: 'Matrices with a special shape',
+      teaser: 'Symmetric, triangular, diagonal, sparse. Type a number and watch the labels light up.',
+      slides: 'Slide 16',
+    },
+    {
+      id: 'posdef',
+      title: 'Positive definite',
+      teaser: 'A promise about every possible x. Drag one around a shaded map and try to break it.',
+      slides: 'Slide 17',
+    },
+    {
+      id: 'rowops',
+      title: 'The three moves you are allowed',
+      teaser: 'Do them yourself and watch the answer hold still. Then try the illegal one.',
+      slides: 'Slide 18',
+    },
+    {
+      id: 'echelon',
+      title: 'The staircase: row echelon form',
+      teaser: 'The lecture’s own example, one move per press, with the leading entries lit up.',
+      slides: 'Slides 19, 22',
+    },
+    {
+      id: 'rref',
+      title: 'The tidiest form, and why there is only one',
+      teaser: 'Take a different route on purpose and end up in exactly the same place.',
+      slides: 'Slides 20–21',
+    },
+    {
+      id: 'rank',
+      title: 'Rank: how many rows really count',
+      teaser: 'Copy one row onto another and watch the count drop. That is the whole idea.',
+      slides: 'Slides 23–25',
+    },
+    {
+      id: 'det',
+      title: 'The determinant of a small matrix',
+      teaser: 'ad − bc is an area. Drag two arrows together and watch it hit zero.',
+      slides: 'Slides 26–27',
+    },
+    {
+      id: 'bigdet',
+      title: 'Determinants of bigger matrices',
+      teaser: 'Pick the row with the most zeros, or skip the whole thing and row-reduce.',
+      slides: 'Slides 28–31',
+    },
+    {
+      id: 'detrules',
+      title: 'Six rules determinants obey',
+      teaser: 'Press a button, do the row move, and check the answer against what was promised.',
+      slides: 'Slides 32–35',
+    },
+    {
+      id: 'inverse',
+      title: 'The inverse: the undo button',
+      teaser: 'The 2 × 2 formula, then the trick that works at any size: [A | I] → [I | A⁻¹].',
+      slides: 'Slides 36–39',
+    },
+    {
+      id: 'console',
+      title: 'All of it in Octave',
+      teaser: 'A working console. Type det(A), inv(A), rref(A) and get real answers back.',
+      slides: 'Slides 15, 40',
+    },
+    {
+      id: 'systems',
+      title: 'Linear systems, homogeneous or not',
+      teaser: 'Set both right-hand sides to zero and watch both lines snap onto the origin.',
+      slides: 'Slides 41–42',
+    },
+    {
+      id: 'house',
+      title: 'A real one: predicting a house price',
+      teaser: 'Each house becomes one equation, and the unknowns are the weights. Then break it on purpose.',
+      slides: 'Slides 43–44',
+    },
+    {
+      id: 'outcomes',
+      title: 'None, one, or endless',
+      teaser: 'Two ranks tell you which. Then turn a dial and watch every equation stay true.',
+      slides: 'Slides 45–52, 61',
+    },
+    {
+      id: 'parameter',
+      title: 'Five unknowns and a dial',
+      teaser: 'One number decides whether the whole thing has an answer. Slide it and find out.',
+      slides: 'Slides 53–60',
+    },
+    {
+      id: 'practice',
+      title: 'The ten practice questions',
+      teaser: 'Every question from the sheet, worked out, with the tools to check each one.',
+      slides: 'Practice sheet',
+    },
+  ],
+
   lec1: [
     {
       id: 'what',

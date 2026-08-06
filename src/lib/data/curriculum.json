@@ -53,6 +53,10 @@
         "algebra",
         "linalg",
         "gradient",
+        "matmul",
+        "determinant",
+        "rank",
+        "lec0a",
         "lec1"
       ],
       "syllabus": "Linear algebra, calculus, probability and optimisation as used by machine learning. The brochure does not print a detailed syllabus for this course; the pages below cover the algebra and linear algebra that everything else is built on, and the gradient descent page comes from its optimisation sessions."
@@ -420,6 +424,26 @@
       "chart": "boundary",
       "blurb": "One neuron rotating a line into place, one mistake at a time.",
       "kind": "concept"
+    },
+    "matmul": {
+      "label": "Multiplying matrices",
+      "blurb": "Row of one meets column of the other. Press a number in the answer and watch both light up — then find two matrices that multiply to zero without either being zero.",
+      "kind": "concept"
+    },
+    "determinant": {
+      "label": "The determinant and the inverse",
+      "blurb": "One number that says whether a matrix can be undone. Drag two arrows until the box between them goes flat and watch the inverse disappear.",
+      "kind": "concept"
+    },
+    "rank": {
+      "label": "Rank: how much your data really says",
+      "blurb": "Copy one row onto another and watch the count drop. Then compare two ranks and read off whether a system has no answer, one, or endlessly many.",
+      "kind": "concept"
+    },
+    "lec0a": {
+      "label": "Lecture 0a — Matrices, determinants and linear systems",
+      "blurb": "The toolkit the rest of the course is built from. Multiply matrices by pressing a number and seeing where it came from, drag two arrows until the determinant hits zero, then turn [A | I] into [I | A⁻¹] one move at a time.",
+      "kind": "chapter"
     },
     "lec1": {
       "label": "Lecture 1 — Linear equations & Gaussian elimination",
