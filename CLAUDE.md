@@ -24,6 +24,24 @@ Build it as a **chapter** under the right course, in the **Chapters** bucket. Ne
    is a different cut through the same material, aimed at someone who has forgotten it rather than someone
    revising it.
 
+## Never print an answer you cannot verify
+
+This is the rule I care about most. A wrong answer on a revision site is worse than no page at all,
+because I will trust it the night before an exam.
+
+- **Read the slides an answer rests on. The actual slides, not a summary of them.** If you built a lab
+  from notes rather than from the page itself, go back and look at the page before you ship it.
+- **Where the source gives an answer, reproduce _that_ answer**, and make the interactive compute it, so
+  the page cannot drift away from the deck later.
+- **Where the source gives no answer** — practice sheets usually do not — you may work one out, but only
+  if you then _check_ it: substitute back into the original equations, or run it in one of the labs. Say
+  in the page that it was checked and how.
+- **If a question is ambiguous, or the source is simply wrong, print no answer.** Say plainly which part
+  cannot be settled and why, and leave it there. Do not guess at what was meant, do not "correct" the
+  question to something that works, and do not offer two answers and let the reader choose. Deleting the
+  claim is always better than dressing a guess up as an answer.
+- Never delete a question just because it is awkward. Keep the question, drop the unverifiable answer.
+
 ## How to write
 
 Plain, everyday English. The reader is a beginner and may not be a native speaker.
@@ -79,7 +97,8 @@ Report honestly. If something is broken or unfinished, say so plainly.
 - No chart library and no icon library. Charts are hand-drawn Canvas 2D; glyphs are Unicode; chevrons are
   CSS triangles.
 - The Catalyst UI kit stays unmodified except `link.tsx` and `dialog.tsx`, both marked with a comment.
-- Nothing is invented to fill space. A course with no session yet says so.
+- Nothing is invented to fill space. A course with no session yet says so, and a question whose answer
+  cannot be verified carries no answer.
 
 `README.md` carries the longer explanations of why these rules exist. Read it before changing an area you
 have not touched before.

@@ -143,7 +143,7 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
     {
       id: 'practice',
       title: 'The ten practice questions',
-      teaser: 'Every question from the sheet, worked out, with the tools to check each one.',
+      teaser: 'The sheet has no answer key, so every answer here was worked out and then checked.',
       slides: 'Practice sheet',
     },
   ],
