@@ -85,35 +85,65 @@ chapters still shows both, so the empty slot is visible rather than implied.
 
 ### How a chapter is built from a lecture
 
-A chapter covers one lecture, slide by slide, and is written as a list of collapsible sub-sections
-(`SubSections` in `session-parts.tsx`) with **Open all** / **Shut all** above them. One sub-section is open on arrival;
-before an exam you open the lot and scroll.
+A chapter covers one lecture. It is too much for a single page, so it is split into **parts**, and each part is its own
+route and its own row in the left menu. Lecture 1 has 18 of them.
 
-Each sub-section carries a plain title, a one-line teaser that stays visible when it is shut, and the slide numbers it
-came from — so a claim on the page can always be traced back to the deck. Inside, four things recur: `Para` for the
-explaining, `Terms` for the jargon (each word gets a plain meaning, and how to say it aloud where that helps), `Worked`
-for worked examples in a monospaced block, and `Takeaway` for the one line to remember.
+- `lib/data/lecture-parts.ts` holds the part names, teasers and slide numbers. **Names only, no components** — the left
+  menu imports this file, and the menu must not drag every chart on the site into its bundle.
+- `app/session/[sessionId]/page.tsx` renders the chapter's front page: the story, a card per part, and the shared maths
+  block.
+- `app/session/[sessionId]/[partId]/page.tsx` renders one part inside `PartShell`, which adds the breadcrumb, the
+  "part n of m" counter and the previous/next links. A chapter read start to finish never needs the left menu.
+- `components/sessions/lec1/parts.tsx` holds the bodies, keyed by part id.
 
-Interactive pieces are embedded in the sub-section that needs them rather than collected at the top. Lecture 1 has four:
-two lines you drag to see the only three outcomes a system can have, the column picture of `Ax = b`, a matrix product
-you click into, and a full Gaussian-elimination lab.
+The four tabs (cheat sheet, quiz, exam) act on the **whole chapter** from any part page. A cheat sheet for one part
+would be four lines long and useless the night before an exam.
 
-Two rules learned building the first one:
+**`parts.tsx` must not be a client module.** It only composes — every lab it renders is `'use client'` itself. Marking
+it `'use client'` turns `LEC1_PARTS` into a client _reference_ when the server route imports it, so the lookup comes
+back empty and every part page 404s. That is a confusing failure, because the build succeeds and the routes exist.
+
+Inside a part, four things recur: `Para` for the explaining, `Terms` for the jargon (each word gets a plain meaning,
+and how to say it aloud where that helps), `Worked` for worked examples in a monospaced block, and `Takeaway` for the
+one line to remember.
+
+### Every part has something to operate
+
+Not one shared demo at the top — a lab in the part that needs it. Lecture 1 ships fourteen, in five files:
+
+| File                    | What is in it                                                                                                                                                                   |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `vector-labs.tsx`       | Adding and stretching arrows; one line with a point you test against it; combining two equations while the crossing point refuses to move; sliding along the answer line with λ |
+| `workshop-lab.tsx`      | The furniture problem as four bars you try to land exactly on                                                                                                                   |
+| `planes-lab.tsx`        | Three equations as three sheets in a box you spin                                                                                                                               |
+| `matrix-basics-lab.tsx` | Shape and the name of each slot; adding and scaling; transpose; the same system written both ways                                                                               |
+| `echelon-labs.tsx`      | Click-the-pivots with instant marking; reading zero-recipes off the tidiest form; the two sweeps as a schematic                                                                 |
+
+Plus `two-lines-chart`, `column-picture-chart`, `matrix-lab` and `elimination-lab` from earlier work.
+
+Three rules learned building them:
 
 - **Never assert a classification the data does not support.** The elimination lab used to announce "endless answers"
   before a single step, because counting pivots on a matrix that is not yet a staircase gives the wrong count with a
   straight face. It now says _"Too early to say"_ until `isEchelon` passes. A contradiction row is the exception —
-  `0 = 5` is a contradiction at any stage.
+  `0 = 5` is false at any stage.
 - **Use exact fractions, not floats.** `lib/model/fraction.ts` exists because elimination divides constantly, and three
   steps of floating point turn the numbers to noise. A beginner cannot tell a real answer from a rounding error, which
   defeats the point of showing the working.
+- **Check the geometry actually reaches every case you claim.** The planes lab first offered a slider that was supposed
+  to produce all three outcomes. It could not: the first two normals span every vector whose 1st and 3rd parts match,
+  so sliding a sheet whose normal is outside that set never makes the determinant zero. The third sheet has to _tilt_,
+  not slide, so it became three presets — and the panel works its verdict out from the geometry rather than from which
+  button was pressed.
 
 ### Writing style
 
-Plain, everyday English everywhere the reader can see it. Short sentences, ordinary words, and the jargon introduced
-rather than assumed — a term gets defined the first time it appears, usually in a `Terms` block. The exam answer points
-in `knowledge.ts` are the one deliberate exception: those model what an examiner wants to read, so they use the proper
-vocabulary.
+Plain, everyday English everywhere the reader can see it. Short sentences. Ordinary words. Jargon is introduced, never
+assumed — a term gets defined the first time it appears, usually in a `Terms` block. Prefer "work out" to "determine",
+"so" to "therefore", "the same" to "identical". If a sentence needs a second read, rewrite it.
+
+The exam answer points in `knowledge.ts` are the one deliberate exception: those model what an examiner wants to read,
+so they use the proper vocabulary.
 
 ### The four tabs, and what "scope" means
 
@@ -186,11 +216,11 @@ The first two are the foundations everything else leans on, so they come first i
 | k-means clustering | Machine Learning         | Change k, alternate the assign and move steps, reseed to land in a different local minimum                                           |
 | The perceptron     | Deep Neural Networks     | Train a pass at a time and watch the boundary rotate as the mistakes run out                                                         |
 
-And one chapter, covering a real lecture end to end:
+And one chapter, covering a real lecture end to end. A chapter is split into parts — see below:
 
-| Chapter                                                      | Course                   | What you can do to it                                                                                                                                                                                                                       |
-| ------------------------------------------------------------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Lecture 1 — Linear equations, matrices, Gaussian elimination | Mathematical Foundations | 18 collapsible parts. Drag two lines until they coincide; mix matrix columns to reach a target and watch it become unreachable; click into a matrix product; run elimination one legal row operation at a time on the lecture's own systems |
+| Chapter                                                      | Course                   | What you can do to it                                                                                                                                                                                                                                                                                                                |
+| ------------------------------------------------------------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Lecture 1 — Linear equations, matrices, Gaussian elimination | Mathematical Foundations | 18 parts, each its own page and its own row in the left menu, each with something to operate. Drag two lines until they coincide; spin three sheets in a box; mix matrix columns until a target becomes unreachable; click the pivots and get marked; run elimination one legal row operation at a time on the lecture's own systems |
 
 Every session ends with a **Where this shows up in AI & ML** section — not "you will need this one day", but the places
 the idea appears by name in things already on the site.

@@ -256,6 +256,80 @@ export function SubSections({ items }: { items: SubSectionItem[] }) {
   )
 }
 
+/**
+ * One part of a chapter, on its own page. The header says where you are in the
+ * lecture, and the footer moves you on — a chapter read start to finish should
+ * never need the left menu.
+ */
+export function PartShell({
+  chapter,
+  chapterHref,
+  title,
+  teaser,
+  slides,
+  index,
+  total,
+  prev,
+  next,
+  children,
+}: {
+  chapter: string
+  chapterHref: string
+  title: string
+  teaser: string
+  slides?: string
+  index: number
+  total: number
+  prev?: { href: string; title: string }
+  next?: { href: string; title: string }
+  children: React.ReactNode
+}) {
+  return (
+    <div>
+      <div className="mb-1.5 flex flex-wrap items-center gap-2 text-xs">
+        <a href={chapterHref} className="font-semibold tracking-[0.06em] text-zinc-500 uppercase hover:text-zinc-800">
+          {chapter}
+        </a>
+        <span className="text-zinc-300">/</span>
+        <span className="text-zinc-500">
+          Part {index} of {total}
+        </span>
+        {slides && <span className="text-zinc-400">· {slides}</span>}
+      </div>
+
+      <h1 className="mb-2.5 text-[28px]/[1.2] font-semibold tracking-[-0.02em] text-zinc-950">{title}</h1>
+      <p className="crux-prose mb-6 max-w-[660px] text-[15px]/[1.6] text-zinc-700">{teaser}</p>
+
+      {children}
+
+      <div className="mt-10 grid gap-3 border-t border-zinc-950/[0.08] pt-5 sm:grid-cols-2">
+        {prev ? (
+          <a
+            href={prev.href}
+            className="flex flex-col gap-1 rounded-lg border border-zinc-950/10 bg-white p-4 hover:border-zinc-950/25"
+          >
+            <span className="text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">← Before this</span>
+            <span className="text-[14px] font-semibold text-zinc-950">{prev.title}</span>
+          </a>
+        ) : (
+          <span />
+        )}
+        {next && (
+          <a
+            href={next.href}
+            className="flex flex-col gap-1 rounded-lg border border-zinc-950/10 bg-white p-4 text-right hover:border-zinc-950/25"
+          >
+            <span className="text-[11px] font-semibold tracking-[0.06em] uppercase" style={{ color: 'var(--acc)' }}>
+              Next →
+            </span>
+            <span className="text-[14px] font-semibold text-zinc-950">{next.title}</span>
+          </a>
+        )}
+      </div>
+    </div>
+  )
+}
+
 /** Plain paragraphs inside a sub-section. */
 export function Para({ children }: { children: React.ReactNode }) {
   return <p className="crux-prose mb-3 max-w-[720px] text-[14px]/[1.7] text-zinc-700 last:mb-0">{children}</p>

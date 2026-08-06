@@ -1,6 +1,6 @@
 'use client'
 
-import { PanelButton, PanelButtons } from '@/components/sessions/session-parts'
+import { PanelButton, PanelButtons, PanelNote } from '@/components/sessions/session-parts'
 import {
   addRow,
   equationsOf,
@@ -361,5 +361,140 @@ function Go({ onClick }: { onClick: () => void }) {
     >
       Do it
     </button>
+  )
+}
+
+/* ========================================================================== */
+/* Getting the inverse out of the same method                                 */
+/* ========================================================================== */
+
+const INV_START = [
+  [2, 1, 1],
+  [1, 3, 2],
+  [1, 0, 0],
+]
+
+/**
+ * Put A next to the identity and run the very same procedure. When the left
+ * half turns into the identity, the right half has quietly become A inverse.
+ * Doing it in one grid is far more convincing than being told it works.
+ */
+export function InverseByElimination() {
+  const [a, setA] = useState<number[][]>(INV_START)
+  const n = a.length
+
+  const build = (m: number[][]) =>
+    startFrom(
+      m.map((row, i) => [...row, ...m.map((_, j) => (i === j ? 1 : 0))]),
+      n
+    )
+
+  const [state, setState] = useState<ElimState>(() => build(INV_START))
+  const det =
+    a[0][0] * (a[1][1] * a[2][2] - a[1][2] * a[2][1]) -
+    a[0][1] * (a[1][0] * a[2][2] - a[1][2] * a[2][0]) +
+    a[0][2] * (a[1][0] * a[2][1] - a[1][1] * a[2][0])
+
+  const leftIsIdentity = state.rows.every((row, i) =>
+    row.slice(0, n).every((v, j) => frStr(v) === (i === j ? '1' : '0'))
+  )
+
+  function edit(i: number, j: number, raw: string) {
+    const v = raw === '' || raw === '-' ? 0 : Number(raw)
+    if (!Number.isFinite(v)) return
+    const next = a.map((row, ri) => row.map((x, ci) => (ri === i && ci === j ? v : x)))
+    setA(next)
+    setState(build(next))
+  }
+
+  return (
+    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+      <p className="text-[13px]/[1.65] text-zinc-700">
+        The left half starts as your matrix A and the right half starts as the identity. Press <strong>Run it</strong>{' '}
+        and watch them swap jobs.
+      </p>
+
+      <div className="overflow-x-auto rounded-lg border border-zinc-950/10 bg-white p-4">
+        <table className="font-mono text-[13px]">
+          <tbody>
+            {state.rows.map((row, i) => (
+              <tr key={i}>
+                <td className="pr-3 text-[11px] font-semibold text-zinc-400">R{i + 1}</td>
+                {row.map((v, c) => (
+                  <td key={c} className={c === n ? 'border-l-2 border-zinc-300 pl-3' : ''}>
+                    <span
+                      className="inline-block min-w-[50px] rounded px-2 py-1.5 text-right tabular-nums"
+                      style={
+                        c >= n && leftIsIdentity
+                          ? { background: 'rgba(13,148,136,0.14)', color: '#0d9488', fontWeight: 700 }
+                          : undefined
+                      }
+                    >
+                      {frStr(v)}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="mt-2 flex gap-8 text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">
+          <span>{leftIsIdentity ? 'now the identity' : 'starts as A'}</span>
+          <span>{leftIsIdentity ? 'now A⁻¹' : 'starts as the identity'}</span>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap items-start gap-5">
+        <div>
+          <div className="mb-1.5 text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">
+            Change A and try again
+          </div>
+          <div className="inline-flex flex-col gap-1 rounded-lg border-2 border-zinc-300 p-2">
+            {a.map((row, i) => (
+              <div key={i} className="flex gap-1">
+                {row.map((v, j) => (
+                  <input
+                    key={j}
+                    value={v}
+                    onChange={(e) => edit(i, j, e.target.value)}
+                    inputMode="numeric"
+                    aria-label={`A row ${i + 1} column ${j + 1}`}
+                    className="w-[50px] rounded px-2 py-1.5 text-right font-mono text-[13px] tabular-nums outline-none hover:bg-zinc-950/[0.04]"
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <PanelButtons>
+            <PanelButton primary onClick={() => setState((s) => runToEnd(s))}>
+              Run it
+            </PanelButton>
+            <PanelButton onClick={() => setState((s) => step(s))}>One step</PanelButton>
+            <PanelButton onClick={() => setState(build(a))}>Start over</PanelButton>
+          </PanelButtons>
+          <div className="text-[12.5px]">
+            <span className="text-zinc-600">determinant of A: </span>
+            <span className="font-mono font-semibold" style={{ color: det === 0 ? '#dc2626' : '#09090b' }}>
+              {det}
+            </span>
+          </div>
+          <p className="max-w-[320px] text-[12.5px]/[1.6] text-zinc-600">
+            {det === 0
+              ? 'This one is zero, so there is no inverse. Run it anyway: the left half will never turn into the identity, because one column never gets a pivot.'
+              : leftIsIdentity
+                ? 'The left half is the identity, so the right half is A⁻¹. Multiply it by A on paper and you will get the identity back.'
+                : 'Not finished yet. Keep pressing.'}
+          </p>
+        </div>
+      </div>
+
+      <PanelNote>
+        Why does this work? Each column of A⁻¹ answers the little system Ax = (one column of the identity). They all
+        share the same A, so they need the same row moves — and doing them side by side does all of them at once.
+      </PanelNote>
+    </div>
   )
 }
