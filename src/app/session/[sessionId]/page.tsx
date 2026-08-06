@@ -3,9 +3,11 @@ import { GradientDescentSession } from '@/components/sessions/gradient-descent'
 import { Ism1Overview } from '@/components/sessions/ism1/overview'
 import { Ism2Overview } from '@/components/sessions/ism2/overview'
 import { KMeansSession } from '@/components/sessions/kmeans'
+import { Lecture0aOverview } from '@/components/sessions/lec0a/overview'
 import { Lecture1Overview } from '@/components/sessions/lec1/overview'
 import { LinearAlgebraSession } from '@/components/sessions/linear-algebra'
 import { LinearRegressionSession } from '@/components/sessions/linear-regression'
+import { DeterminantConcept, MatrixMultiplyConcept, RankConcept } from '@/components/sessions/matrix-concepts'
 import { PerceptronSession } from '@/components/sessions/perceptron'
 import {
   CentreConcept,
@@ -29,6 +31,10 @@ const OVERVIEWS: Record<TopicId, () => React.ReactElement> = {
   gradient: GradientDescentSession,
   kmeans: KMeansSession,
   perceptron: PerceptronSession,
+  matmul: MatrixMultiplyConcept,
+  determinant: DeterminantConcept,
+  rank: RankConcept,
+  lec0a: Lecture0aOverview,
   lec1: Lecture1Overview,
   ism1: Ism1Overview,
   ism2: Ism2Overview,

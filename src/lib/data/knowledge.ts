@@ -530,6 +530,437 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
     ],
   },
 
+  matmul: {
+    cheat: [
+      { formula: 'cⱼₖ = Σₗ aⱼₗ bₗₖ', why: 'Row j of the left meets column k of the right. Multiply the pairs, add them up.' },
+      { formula: '(m × n) · (n × p) = (m × p)', why: 'The inner two must match and then vanish. The outer two are the answer’s shape.' },
+      { formula: 'AB ≠ BA', why: 'Order is part of the meaning, and often only one of the two even exists.' },
+      { formula: 'AB = 0 does not give A = 0 or B = 0', why: 'So you cannot cancel: AB = AC does not give B = C.' },
+      { formula: 'AI = IA = A', why: 'The identity matrix is the matrix version of the number 1.' },
+      { formula: '(AB)ᵀ = BᵀAᵀ', why: 'Transpose each and reverse the order. Socks then shoes, undone shoes then socks.' },
+    ],
+    quiz: [
+      {
+        q: 'A is 3 × 4 and B is 4 × 2. What shape is AB?',
+        options: ['4 × 4', '3 × 2', '2 × 3', 'It is not defined'],
+        answer: 1,
+        explain:
+          'The inner numbers, both 4, match and disappear. What is left is the outer pair: 3 rows from A and 2 columns from B. BA would need 2 to match 3, so it does not exist at all.',
+      },
+      {
+        q: 'Why is (AB)ᵀ equal to BᵀAᵀ rather than AᵀBᵀ?',
+        options: [
+          'It is a convention with no reason behind it',
+          'Because transposing reverses which side each matrix sits on, and AᵀBᵀ usually will not even fit',
+          'Because A and B are square',
+          'They are actually the same thing',
+        ],
+        answer: 1,
+        explain:
+          'If A is 2 × 3 and B is 3 × 4, then Aᵀ is 3 × 2 and Bᵀ is 4 × 3. AᵀBᵀ would need 2 to match 4 — impossible. BᵀAᵀ is 4 × 3 times 3 × 2, which works and gives the 4 × 2 shape (AB)ᵀ needs.',
+      },
+      {
+        q: 'You find matrices A and B, neither of them zero, with AB = 0. What does that rule out?',
+        options: [
+          'Nothing — it is a normal thing for matrices to do',
+          'It means A or B was written down wrongly',
+          'It means A and B are both singular',
+          'It means AB = BA',
+        ],
+        answer: 0,
+        explain:
+          'It is perfectly normal. A = [1 1; 2 2] and B = [−1 1; 1 −1] do it. Both happen to be singular here, and that is no accident — but the point to take away is that the cancellation you rely on for ordinary numbers is simply not available.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define the product of two matrices, state the condition for it to exist, and explain why matrix multiplication is not commutative.',
+        meta: 'Definition with justification · 5–6 marks',
+        points: [
+          'For A of size m × n and B of size n × p, the product AB is the m × p matrix with entries cⱼₖ = Σₗ₌₁ⁿ aⱼₗ bₗₖ.',
+          'The product is defined only when the number of columns of A equals the number of rows of B.',
+          'Even when AB exists, BA may not: if A is 3 × 4 and B is 4 × 2 then BA requires 2 = 3 and is undefined.',
+          'When both exist they may have different shapes, and even for square matrices of the same size they generally differ — for example A = [1 2; 3 4] and B = [0 1; 0 0] give AB = [0 1; 0 3] but BA = [3 4; 0 0].',
+          'Consequences: AB = 0 does not imply A = 0 or B = 0, and AB = AC does not imply B = C unless A is invertible.',
+          'Multiplication is however associative and distributive over addition, and (AB)ᵀ = BᵀAᵀ.',
+        ],
+      },
+    ],
+  },
+
+  determinant: {
+    cheat: [
+      { formula: 'det A = ad − bc  (2 × 2)', why: 'The signed area of the box the two columns make.' },
+      { formula: 'det A = Σⱼ (−1)^(j+k) aⱼₖ Mⱼₖ', why: 'Cofactor expansion along any row or column — pick the one with the most zeros.' },
+      { formula: 'det(AB) = det A · det B', why: 'Determinants pass straight through multiplication. This is why AB = I forces both to be non-zero.' },
+      { formula: 'det Aᵀ = det A', why: 'So every rule about rows is also true about columns.' },
+      { formula: 'det(cA) = cⁿ det A', why: 'Each of the n rows gets scaled, so c comes out n times. Forgetting the power is the classic slip.' },
+      { formula: 'triangular ⟹ det = product of the diagonal', why: 'The reason row-reducing first beats cofactors for anything large.' },
+      { formula: 'A⁻¹ exists ⟺ det A ≠ 0 ⟺ rank A = n', why: 'Three ways of saying the same thing. Failing them is called singular.' },
+      { formula: '[ A | I ] → [ I | A⁻¹ ]', why: 'The moves that turn A into I are the moves that undo A.' },
+    ],
+    quiz: [
+      {
+        q: 'A is 3 × 3 with det A = 5. What is det(2A)?',
+        options: ['10', '25', '40', '5'],
+        answer: 2,
+        explain:
+          'Doubling the matrix doubles all three rows, and scaling one row multiplies the determinant by that amount. So the 2 comes out three times: 2³ × 5 = 40. In general det(cA) = cⁿ det A.',
+      },
+      {
+        q: 'Which row operation leaves the determinant exactly as it was?',
+        options: ['Swapping two rows', 'Multiplying a row by 4', 'Adding 3 times row 1 to row 2', 'All three do'],
+        answer: 2,
+        explain:
+          'A swap flips the sign, and scaling a row scales the determinant. Adding a multiple of one row to another changes nothing at all — which is precisely what makes the row-reduction method for determinants valid.',
+      },
+      {
+        q: 'You row-reduce [A | I] and a row on the left goes to all zeros. What follows?',
+        options: [
+          'You made an arithmetic slip',
+          'det A = 0 and A has no inverse',
+          'A⁻¹ is whatever the right half currently holds',
+          'You should try expanding along a different row',
+        ],
+        answer: 1,
+        explain:
+          'The left half can only become the identity if A has full rank. A zero row means the rank falls short, the determinant is 0, and no inverse exists. The method is reporting a fact, not failing.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define the determinant by cofactor expansion, state its main properties, and explain the connection with invertibility.',
+        meta: 'Definition, properties and the link to A⁻¹ · 7–8 marks',
+        points: [
+          'For a 2 × 2 matrix, det A = a₁₁a₂₂ − a₁₂a₂₁. For larger n, expand along any row or column: det A = Σₖ (−1)^(j+k) aⱼₖ Mⱼₖ, where Mⱼₖ is the minor obtained by deleting row j and column k.',
+          'The expansion gives the same value along every row and every column; choosing one with many zeros reduces the work.',
+          'Properties: det(AB) = det A · det B; det Aᵀ = det A; det(cA) = cⁿ det A; a row interchange changes the sign; scaling a row by c scales the determinant by c; adding a multiple of one row to another leaves it unchanged; two equal rows give 0.',
+          'Consequently a matrix can be reduced to triangular form using only the sign-preserving operation, after which det A is the product of the diagonal entries, adjusted by (−1) for each row interchange used.',
+          'A is invertible if and only if det A ≠ 0. If AB = I then det A · det B = det I = 1, so neither determinant can vanish.',
+          'Equivalently det A = 0 ⟺ rank A < n ⟺ the columns are linearly dependent ⟺ Ax = 0 has a non-trivial solution.',
+          'Geometrically |det A| is the volume scale factor of the map x ↦ Ax; a zero determinant means the image is squashed into a lower dimension, so no inverse can exist.',
+        ],
+      },
+    ],
+  },
+
+  rank: {
+    cheat: [
+      { formula: 'rank A = non-zero rows in echelon form', why: 'A count of genuinely different rows. Copies and combinations collapse to zero.' },
+      { formula: 'rank A ≤ min(m, n)', why: 'You can never have more independent rows than you have rows, or columns.' },
+      { formula: 'rank A ≠ rank [A|b] ⟹ no solution', why: 'A contradiction row has appeared. The system is inconsistent.' },
+      { formula: 'rank A = rank [A|b] ⟹ consistent', why: 'There is at least one answer. How many depends on the free variables.' },
+      { formula: 'free variables = n − rank A', why: 'Zero of them means one answer. One or more means endlessly many.' },
+      { formula: 'Ax = 0 always has x = 0', why: 'A homogeneous system is never inconsistent. It has others exactly when rank A < n.' },
+      { formula: 'RREF is unique', why: 'Which is what makes "the rank" a well-defined number rather than a matter of route.' },
+    ],
+    quiz: [
+      {
+        q: 'A system has 6 unknowns, rank A = 4 and rank [A|b] = 4. What is the outcome?',
+        options: ['No solution', 'Exactly one solution', 'Endlessly many, with 2 free variables', 'Endlessly many, with 4 free variables'],
+        answer: 2,
+        explain:
+          'The ranks match, so the system is consistent. Free variables = unknowns − rank = 6 − 4 = 2. Two dials you can set however you like, and every setting gives another genuine answer.',
+      },
+      {
+        q: 'You make row 3 of a matrix an exact copy of row 1. What happens to the rank?',
+        options: ['It goes up by one', 'It drops by one', 'It stays the same', 'It goes to zero'],
+        answer: 1,
+        explain:
+          'Row reduction subtracts row 1 from row 3 and the whole row goes to zero. It was never adding information. For a square matrix that also forces the determinant to 0 and kills the inverse.',
+      },
+      {
+        q: 'A homogeneous system Ax = 0 has 7 unknowns and 4 equations. What can you say for certain?',
+        options: [
+          'It might have no solution',
+          'It has exactly one solution',
+          'It has solutions other than all-zeros',
+          'It depends on the numbers in A',
+        ],
+        answer: 2,
+        explain:
+          'All-zeros always works, so it is consistent. The rank cannot exceed 4, and 7 − 4 = 3 at least, so there are at least three free variables. Consistent plus free variables means endlessly many. This is exactly why a model with more parameters than data points has infinitely many equally good fits.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define the rank of a matrix and state the conditions under which a linear system has no solution, a unique solution, or infinitely many.',
+        meta: 'Definition plus the consistency theorem · 6–8 marks',
+        points: [
+          'The rank of A is the number of non-zero rows in any row echelon form of A, equivalently the number of pivot positions.',
+          'Elementary row operations do not change the rank, and the reduced row echelon form of a matrix is unique, so the rank is well defined.',
+          'Given Ax = b with n unknowns, form the augmented matrix [A | b] and compare rank(A) with rank([A | b]).',
+          'rank(A) < rank([A | b]): inconsistent. Some row reads 0 = c with c ≠ 0, so no solution exists.',
+          'rank(A) = rank([A | b]) = n: unique solution. Every unknown is a pivot variable and is therefore determined.',
+          'rank(A) = rank([A | b]) = r < n: infinitely many solutions, with n − r free variables. The general solution is a particular solution plus an arbitrary combination of n − r independent solutions of Ax = 0.',
+          'For a homogeneous system b = 0 the ranks always agree, so it is always consistent; it has a non-trivial solution precisely when r < n.',
+          'For a square A, rank A = n is equivalent to det A ≠ 0 and to A being invertible.',
+        ],
+      },
+    ],
+  },
+
+  lec0a: {
+    cheat: [
+      {
+        formula: '(m × n) · (n × p) = (m × p)',
+        why: 'The shape rule for multiplying. The two inner numbers must match, and then they vanish.',
+      },
+      {
+        formula: 'cⱼₖ = Σₗ aⱼₗ bₗₖ',
+        why: 'Row j of the left meets column k of the right: multiply the pairs and add them up.',
+      },
+      { formula: 'AB ≠ BA', why: 'Order is part of the meaning. Often one of the two does not even exist.' },
+      { formula: '(AB)ᵀ = BᵀAᵀ,  (AB)⁻¹ = B⁻¹A⁻¹', why: 'Transposing or undoing a product reverses the order.' },
+      { formula: 'A = Aᵀ symmetric,  A = −Aᵀ skew', why: 'Skew forces zeros down the diagonal, since only 0 is its own negative.' },
+      {
+        formula: 'xᵀAx > 0 for all x ≠ 0',
+        why: 'Positive definite. For a 2 × 2, check the top-left entry and det A are both above zero.',
+      },
+      { formula: 'det A = ad − bc  (2 × 2)', why: 'The signed area of the box the two columns make. Zero area, no inverse.' },
+      {
+        formula: 'det A = Σⱼ (−1)^(j+k) aⱼₖ Mⱼₖ',
+        why: 'Cofactor expansion, along any row or column. Pick the one with the most zeros.',
+      },
+      {
+        formula: 'det(AB) = det A · det B,  det Aᵀ = det A',
+        why: 'Determinants sail straight through multiplication and through transposing.',
+      },
+      {
+        formula: 'swap ⟹ −det,  scale by c ⟹ c·det,  Rᵢ + βRⱼ ⟹ det unchanged',
+        why: 'The three row moves and what each does. The third is why row-reducing to triangular is safe.',
+      },
+      { formula: 'triangular ⟹ det = product of the diagonal', why: 'The fast route for anything bigger than 3 × 3.' },
+      { formula: '[ A | I ] → [ I | A⁻¹ ]', why: 'Row-reduce both halves together and the inverse appears on the right.' },
+      { formula: 'rank = non-zero rows in echelon form', why: 'A count of genuinely different rows. Copies collapse to zero.' },
+      {
+        formula: 'rank A ≠ rank [A|b] ⟹ no solution',
+        why: 'The ranks matching is exactly what "consistent" means.',
+      },
+      {
+        formula: 'free variables = n − rank',
+        why: 'Ranks match and this is 0 → one answer. Ranks match and this is more than 0 → endlessly many.',
+      },
+      { formula: 'Ax = 0 always has x = 0', why: 'A homogeneous system can never be inconsistent. The question is only whether there are others.' },
+    ],
+    quiz: [
+      {
+        q: 'A is 3 × 4 and B is 4 × 2. Which products are defined?',
+        options: ['AB only', 'BA only', 'Both AB and BA', 'Neither'],
+        answer: 0,
+        explain:
+          'AB works: the 4 columns of A meet the 4 rows of B, giving a 3 × 2 answer. BA would need the 2 columns of B to meet the 3 rows of A, and 2 ≠ 3, so it does not exist at all. This is the usual case — swapping the order often does not even give you a question, let alone a different answer.',
+      },
+      {
+        q: 'AB comes out as a matrix of all zeros. What can you conclude?',
+        options: [
+          'A must be the zero matrix',
+          'B must be the zero matrix',
+          'At least one of them must be the zero matrix',
+          'Nothing — neither of them has to be zero',
+        ],
+        answer: 3,
+        explain:
+          'With ordinary numbers ab = 0 forces one of them to be 0. Matrices do not obey that. A = [1 1; 2 2] and B = [−1 1; 1 −1] are both far from zero, but AB is all zeros. The same failure means you cannot cancel: AB = AC does not give B = C.',
+      },
+      {
+        q: 'Which of these is the transpose rule for a product?',
+        options: ['(AB)ᵀ = AᵀBᵀ', '(AB)ᵀ = BᵀAᵀ', '(AB)ᵀ = (BA)ᵀ', '(AB)ᵀ = AB'],
+        answer: 1,
+        explain:
+          'You transpose each one and reverse the order. Keeping the order gives AᵀBᵀ, which usually does not even have shapes that fit together. Socks then shoes is undone by shoes then socks — the same reversal shows up for inverses.',
+      },
+      {
+        q: 'A matrix is skew-symmetric, so A = −Aᵀ. What must be true of its diagonal?',
+        options: ['Every diagonal entry is 1', 'Every diagonal entry is 0', 'The diagonal entries add up to 1', 'Nothing in particular'],
+        answer: 1,
+        explain:
+          'A diagonal entry sits in the mirror line, so the rule forces aᵢᵢ = −aᵢᵢ. The only number equal to minus itself is zero, so the whole diagonal has to be zeros.',
+      },
+      {
+        q: 'For A = [2 6; 6 18], the quadratic form works out as 2(x₁ + 3x₂)². What is A?',
+        options: ['Positive definite', 'Positive semi-definite', 'Negative definite', 'Indefinite'],
+        answer: 1,
+        explain:
+          'A square is never negative, so xᵀAx is never below zero — but it hits exactly zero along the whole line x₁ = −3x₂, not just at the origin. "Definite" would need it above zero everywhere except the origin. Being zero somewhere else makes it semi-definite. Its determinant is 2·18 − 36 = 0, which is the same fact stated differently.',
+      },
+      {
+        q: 'Which of the three row moves is not allowed?',
+        options: [
+          'Swapping two rows',
+          'Multiplying a row by 0',
+          'Multiplying a row by −3',
+          'Adding 5 times row 1 to row 2',
+        ],
+        answer: 1,
+        explain:
+          'Multiplying by 0 wipes the row out and destroys the information in it, so the tidied system no longer means the same thing. Any other number is fine. Note that swapping two columns is also banned — but for a different reason: columns are the unknowns, so swapping them renames your variables mid-calculation.',
+      },
+      {
+        q: 'How many different reduced row echelon forms can one matrix have?',
+        options: ['Exactly one', 'One for each order you do the moves in', 'As many as there are rows', 'It depends on the rank'],
+        answer: 0,
+        explain:
+          'There are many row echelon forms — the staircase depends on which moves you pick. But there is exactly one reduced row echelon form, whatever route you take. That uniqueness is what lets rank be defined at all: if different routes gave different counts of non-zero rows, "the rank" would mean nothing.',
+      },
+      {
+        q: 'You row-reduce a 4 × 4 matrix and one row ends up all zeros. What is the rank?',
+        options: ['4', '3', 'You cannot tell without knowing the numbers', '0'],
+        answer: 1,
+        explain:
+          'Rank counts the non-zero rows left after tidying up. Three survive, so the rank is 3. That also tells you the determinant is 0 and there is no inverse — one row was a mixture of the others and was never saying anything new.',
+      },
+      {
+        q: 'det A = 5. What is det(2A) if A is 3 × 3?',
+        options: ['10', '20', '40', '5'],
+        answer: 2,
+        explain:
+          'Scaling a single row multiplies the determinant by that amount. Doubling the whole matrix doubles all three rows, so the factor of 2 comes out three times: 2³ × 5 = 40. In general det(cA) = cⁿ det A for an n × n matrix, and forgetting the power is the classic slip.',
+      },
+      {
+        q: 'Which row move leaves the determinant completely unchanged?',
+        options: ['Swapping two rows', 'Multiplying a row by 3', 'Adding 5 times row 1 to row 2', 'None of them'],
+        answer: 2,
+        explain:
+          'A swap flips the sign and scaling scales it, but adding a multiple of one row to another leaves it exactly as it was. That is the licence for the whole row-reduction method: reduce to triangular using only this move, then just multiply the diagonal.',
+      },
+      {
+        q: 'You are working out a 4 × 4 determinant by cofactor expansion. Which row or column should you expand along?',
+        options: [
+          'Always the first row',
+          'The one with the most zeros',
+          'The one with the largest numbers',
+          'It must be a row, never a column',
+        ],
+        answer: 1,
+        explain:
+          'Any row or column gives the same answer, so choose the cheapest. Each zero entry kills a whole 3 × 3 determinant you would otherwise have to work out. A column with three zeros turns four smaller determinants into one.',
+      },
+      {
+        q: 'You row-reduce [A | I] and a row of the left half goes to all zeros. What does that tell you?',
+        options: [
+          'You made an arithmetic mistake',
+          'A has no inverse',
+          'A⁻¹ is the right half as it stands',
+          'You need to swap two columns',
+        ],
+        answer: 1,
+        explain:
+          'The left half can only become the identity if A has full rank. A zero row means the rank is short, the determinant is 0, and no inverse exists. The method is being honest rather than failing — it never invents an answer.',
+      },
+      {
+        q: 'A system has 5 unknowns, rank A = 3 and rank [A|b] = 3. What is the outcome?',
+        options: ['No solution', 'Exactly one solution', 'Endlessly many, with 2 free variables', 'Endlessly many, with 3 free variables'],
+        answer: 2,
+        explain:
+          'The ranks match, so there is at least one answer. The number of free variables is (unknowns − rank) = 5 − 3 = 2. Two free variables means two dials you can set however you like, and every setting gives another valid answer.',
+      },
+      {
+        q: 'A homogeneous system Ax = 0 has more unknowns than equations. What can you say?',
+        options: [
+          'It might have no solution',
+          'It has exactly one solution',
+          'It has endlessly many solutions',
+          'You cannot tell without the numbers',
+        ],
+        answer: 2,
+        explain:
+          'Homogeneous systems can never be inconsistent — all-zeros always works. The rank cannot be bigger than the number of equations, so with more unknowns than equations there must be at least one free variable. Free variable plus consistent means endlessly many. This is exactly why an underdetermined model has infinitely many equally good fits.',
+      },
+      {
+        q: 'You fit y = w₁x₁ + w₂x₂ + b to four houses and the system turns out to be inconsistent. What does that mean about the data?',
+        options: [
+          'One of the prices was typed in wrong',
+          'No rule of that form fits all four houses exactly',
+          'You need a fifth house',
+          'The matrix is not square',
+        ],
+        answer: 1,
+        explain:
+          'The four houses contradict each other under that model. It does not mean anyone made a mistake — real data almost always does this, because prices depend on things you did not measure. With three unknowns you need at least four rows before disagreement is even possible; after that it is the normal case, and the usual response is to stop demanding an exact fit and find the weights that come closest instead.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define the rank of a matrix and explain how it decides the number of solutions of a linear system.',
+        meta: 'Definition plus the consistency theorem · 6–8 marks',
+        points: [
+          'Rank of A is the number of non-zero rows in any row echelon form of A; equivalently the number of pivots.',
+          'It is invariant under elementary row operations, and the RREF of a matrix is unique, so the rank is well defined.',
+          'Form the augmented matrix [A | b] and compare rank(A) with rank([A | b]).',
+          'If rank(A) < rank([A | b]) the system is inconsistent: some row reads 0 = c with c ≠ 0, so there is no solution.',
+          'If rank(A) = rank([A | b]) = r the system is consistent. With n unknowns, the number of free variables is n − r.',
+          'r = n gives a unique solution; r < n gives infinitely many, parameterised by the n − r free variables.',
+          'A homogeneous system is always consistent, since x = 0 satisfies it; it has a non-trivial solution precisely when r < n.',
+        ],
+      },
+      {
+        q: 'State the elementary row operations and justify why they do not change the solution set of a linear system.',
+        meta: 'Bookwork with justification · 5–6 marks',
+        points: [
+          'Rᵢ ↔ Rⱼ: interchange two rows.',
+          'Rₖ ← αRₖ with α ≠ 0: multiply a row by a non-zero scalar.',
+          'Rᵢ ← Rᵢ + βRⱼ: add a scalar multiple of one row to another.',
+          'Each corresponds to a legitimate manipulation of the equations themselves: reordering them, scaling both sides, or adding one true equation to another.',
+          'Each is reversible, so the original system can be recovered; hence the two systems have identical solution sets and are called row equivalent.',
+          'The restriction α ≠ 0 is essential — scaling by zero destroys an equation and loses information.',
+          'The operations must be applied to rows of the augmented matrix, not to columns: columns correspond to the variables, so a column interchange relabels the unknowns.',
+        ],
+      },
+      {
+        q: 'State the properties of determinants and use them to evaluate det(BCD) where B = 2A, C = Aᵀ, D = A⁻¹ for a 3 × 3 matrix A with det A = 3.',
+        meta: 'Properties applied to a standard exam calculation · 6 marks',
+        points: [
+          'Properties: det(AB) = det A · det B; det Aᵀ = det A; det(A⁻¹) = 1/det A; scaling one row by c multiplies the determinant by c; a row interchange changes the sign; two identical rows give determinant 0.',
+          'det(2A) = 2³ det A because each of the three rows is scaled by 2; so det B = 8 × 3 = 24.',
+          'det C = det(Aᵀ) = det A = 3.',
+          'det D = det(A⁻¹) = 1/det A = 1/3, which is well defined since det A ≠ 0.',
+          'By multiplicativity, det(BCD) = det B · det C · det D = 24 × 3 × 1/3 = 24.',
+          'Note the common error: writing det(2A) = 2 det A rather than 2ⁿ det A.',
+        ],
+      },
+      {
+        q: 'Explain how to compute A⁻¹ by the augmented-matrix method, and state when the method fails.',
+        meta: 'Method plus the failure condition · 5–6 marks',
+        points: [
+          'Form the n × 2n augmented matrix [A | I].',
+          'Apply Gauss–Jordan elimination to reduce the left block to reduced row echelon form.',
+          'If the left block reduces to I, the right block is A⁻¹; verify with AA⁻¹ = A⁻¹A = I.',
+          'Justification: the row operations correspond to left multiplication by elementary matrices E, so E[A | I] = [EA | E]; if EA = I then E = A⁻¹.',
+          'The method fails exactly when rank(A) < n, equivalently det A = 0: a zero row appears in the left block and it can never become I.',
+          'Only square matrices have inverses, and A⁻¹ is unique when it exists.',
+          'For 2 × 2 the closed form A⁻¹ = (1/(ad − bc))[d −b; −c a] is quicker; note (AB)⁻¹ = B⁻¹A⁻¹.',
+        ],
+      },
+      {
+        q: 'Define a positive definite matrix and determine the values of a for which A = [2 −1 0; −1 a −1; 0 −1 2] is positive definite.',
+        meta: 'Definition plus the leading-minor test · 6 marks',
+        points: [
+          'A symmetric matrix A is positive definite if xᵀAx > 0 for every non-zero vector x.',
+          'Sylvester’s criterion: A is positive definite if and only if every leading principal minor is strictly positive.',
+          'First minor: 2 > 0, satisfied for all a.',
+          'Second minor: det[2 −1; −1 a] = 2a − 1 > 0, requiring a > 1/2.',
+          'Third minor: det A = 2(2a − 1) − (−1)(−2) = 4a − 4 > 0, requiring a > 1.',
+          'All three hold simultaneously precisely when a > 1.',
+          'For a > 1, det A = 4a − 4 ≠ 0, so A is non-singular; in general every positive definite matrix is invertible because its determinant is a product of positive eigenvalues.',
+        ],
+      },
+      {
+        q: 'A dataset of house prices is modelled by y = w₁x₁ + w₂x₂ + b. Explain how this becomes a linear system, and discuss what happens as the number of data points grows.',
+        meta: 'Modelling question linking the lecture to machine learning · 6–8 marks',
+        points: [
+          'Each observation (x₁, x₂, y) substituted into the model yields one linear equation in the unknowns w₁, w₂, b.',
+          'With m observations this gives an m × 3 coefficient matrix A, unknown vector w = (w₁, w₂, b)ᵀ and right-hand side y, so Aw = y.',
+          'With three consistent observations the system has a unique solution; for the lecture’s data w₁ = 3, w₂ = 2, b = 1.',
+          'With m > 3 the system is overdetermined: rank(A) ≤ 3 < m, and generically rank(A) < rank([A | y]), so no exact solution exists.',
+          'The standard remedy is least squares: minimise ‖Aw − y‖², whose solution satisfies the normal equations AᵀAw = Aᵀy.',
+          'If two features are linearly dependent — for example the same measurement in different units — rank(A) < 3, AᵀA is singular, and the individual weights are not identifiable.',
+          'This is the motivation for regularisation, which restores a unique solution by adding a term that makes the system non-singular.',
+        ],
+      },
+    ],
+  },
+
   lec1: {
     cheat: [
       { formula: 'Ax = b', why: 'A whole system in three letters. A is the numbers, x the unknowns, b the answers.' },
