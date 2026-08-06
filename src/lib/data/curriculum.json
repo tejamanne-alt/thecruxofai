@@ -61,7 +61,9 @@
       "id": "stats",
       "group": "s1",
       "name": "Introduction to Statistical Methods",
-      "topics": [],
+      "topics": [
+        "ism1"
+      ],
       "syllabus": null
     },
     {
@@ -416,6 +418,11 @@
     "lec1": {
       "label": "Lecture 1 — Linear equations & Gaussian elimination",
       "blurb": "Straight-line rules that must all hold at once. Drag two lines to see why there are only ever three outcomes, then solve any system one legal move at a time.",
+      "kind": "chapter"
+    },
+    "ism1": {
+      "label": "Lecture 1 — Describing data: centre, spread and outliers",
+      "blurb": "Drag dots on a line and watch the mean chase them while the median stays put. Then square the distances, find the quartiles, and see what counts as an outlier.",
       "kind": "chapter"
     }
   }

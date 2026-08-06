@@ -87,11 +87,20 @@ export function NavTree({
   const pathname = usePathname()
   const { sessions: custom, isAdmin } = useCustom()
 
-  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({ s1: true, s2: true })
-  const [openCourses, setOpenCourses] = useState<Record<string, boolean>>({
-    ml: true,
-    mathfound: true,
-    dnn: true,
+  // The reveal below only fires when the path *changes*, so it does nothing on
+  // a fresh page load. Seeding the initial state from the current URL is what
+  // makes a deep link — or a hard refresh on one — arrive with its row already
+  // open. Hard-coding a list of courses here instead would silently leave every
+  // new course collapsed, which is exactly what happened when Statistics
+  // gained its first chapter.
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => {
+    const at = locate(pathname, custom)
+    return { s1: true, s2: true, ...(at ? { [at.course.group]: true } : {}) }
+  })
+  const [openCourses, setOpenCourses] = useState<Record<string, boolean>>(() => {
+    const at = locate(pathname, custom)
+    const withPages = Object.fromEntries(courses.filter((c) => c.topics.length > 0).map((c) => [c.id, true]))
+    return { ...withPages, ...(at ? { [at.course.id]: true } : {}) }
   })
   // Keyed `courseId:kind`. Undefined means "not touched yet" — a bucket with
   // pages starts open, an empty one starts closed, so the tree opens on

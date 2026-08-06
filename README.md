@@ -8,6 +8,9 @@ The organising idea: **the navigation mirrors the real curriculum**, not an inve
 programme brochure are in the tree. Courses that haven't been taught yet show their published syllabus and say plainly
 that there is no page yet. Nothing is fabricated to fill space.
 
+`CLAUDE.md` at the root holds the working agreements — how a lecture PDF becomes a chapter, how to write, how the
+interactives must behave, and what has to be verified before anything is called done. Read it first.
+
 ## Running it
 
 ```bash
@@ -62,6 +65,7 @@ src/
     data/                  curriculum.json + typed wrappers, the knowledge base, brochure copy
                            (SessionKind — concept vs chapter — lives in curriculum.ts)
     model/                 seeded sample data and the actual maths
+                           (stats.ts matches the lecture's own quartile rule — see below)
     custom/                user sessions: Supabase-backed store, server queries, shared types
     supabase/              browser + server clients, generated DB types, env guard
     scope.ts               what the four tabs act on
@@ -135,6 +139,27 @@ Three rules learned building them:
   so sliding a sheet whose normal is outside that set never makes the determinant zero. The third sheet has to _tilt_,
   not slide, so it became three presets — and the panel works its verdict out from the geometry rather than from which
   button was pressed.
+
+### Match the lecture's own numbers
+
+`lib/model/stats.ts` uses the quartile rule the ISM lecture taught: position = k(n+1)/4, then read between the two
+neighbouring values. Several rules are in circulation and they disagree, so software picked at random will hand back
+answers that do not match the homework. On the lecture's example (11 12 13 16 16 17 17 18 21) this one gives
+Q1 = 12.5 and Q3 = 17.5, exactly as the slide says.
+
+Everywhere a lecture publishes a worked answer, the tool must reproduce **that** answer. Both chapters are checked
+against theirs: the linear-algebra lab lands on slide 25's particular solution with the same two free variables, and
+the statistics labs reproduce SS = 44 / s = 2.345 for group 1 and SS = 134 / s = 4.093 for group 2.
+
+### Two traps in the interactives, both found by testing
+
+- **Do not let a chart's axis follow its own data during a drag.** The box plot first computed its window from the
+  live values. Dragging a dot right widened the axis, so the same pixel then meant a larger number, which widened it
+  again — the value ran away from the pointer and landed at 39 when it was aimed at 28. The window is now fixed when
+  a dataset loads.
+- **Seed the nav tree's open state from the URL, not from a hard-coded list.** The tree only revealed a row when the
+  path _changed_, and the initial state named three courses explicitly. A hard load of a deep link into any other
+  course arrived collapsed, which is exactly what happened the moment Statistics gained its first chapter.
 
 ### Writing style
 
@@ -216,11 +241,12 @@ The first two are the foundations everything else leans on, so they come first i
 | k-means clustering | Machine Learning         | Change k, alternate the assign and move steps, reseed to land in a different local minimum                                           |
 | The perceptron     | Deep Neural Networks     | Train a pass at a time and watch the boundary rotate as the mistakes run out                                                         |
 
-And one chapter, covering a real lecture end to end. A chapter is split into parts — see below:
+And two chapters, each covering a real lecture end to end. A chapter is split into parts — see below:
 
-| Chapter                                                      | Course                   | What you can do to it                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Lecture 1 — Linear equations, matrices, Gaussian elimination | Mathematical Foundations | 18 parts, each its own page and its own row in the left menu, each with something to operate. Drag two lines until they coincide; spin three sheets in a box; mix matrix columns until a target becomes unreachable; click the pivots and get marked; run elimination one legal row operation at a time on the lecture's own systems |
+| Chapter                                                      | Course                              | What you can do to it                                                                                                                                                                                                                                                                                                                |
+| ------------------------------------------------------------ | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Lecture 1 — Linear equations, matrices, Gaussian elimination | Mathematical Foundations            | 18 parts, each its own page and its own row in the left menu, each with something to operate. Drag two lines until they coincide; spin three sheets in a box; mix matrix columns until a target becomes unreachable; click the pivots and get marked; run elimination one legal row operation at a time on the lecture's own systems |
+| Lecture 1 — Describing data: centre, spread and outliers     | Introduction to Statistical Methods | 14 parts. Drag a dot and watch the mean chase it while the median stays put; grow the squared deviations as literal squares; take samples until the divide-by-n formula visibly lands short; count quartile positions the lecture's way; push a value past a fence and watch it flag                                                 |
 
 Every session ends with a **Where this shows up in AI & ML** section — not "you will need this one day", but the places
 the idea appears by name in things already on the site.
