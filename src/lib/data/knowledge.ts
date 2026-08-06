@@ -776,4 +776,397 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       },
     ],
   },
+
+  ism2: {
+    cheat: [
+      { formula: 'S = { all possible outcomes }', why: 'The sample space. Write it down before working anything out.' },
+      { formula: 'P(A) = |A| / |S|', why: 'Classical probability. Only valid when the outcomes are equally likely.' },
+      { formula: 'P(S) = 1,  0 ≤ P(E) ≤ 1', why: 'Something happens, and nothing is beyond impossible or certain.' },
+      { formula: 'P(A) + P(Aᶜ) = 1', why: 'The complement rule. "At least one" nearly always means: do the opposite.' },
+      {
+        formula: 'P(A ∪ B) = P(A) + P(B) − P(A ∩ B)',
+        why: 'The addition rule. Subtract because the overlap was counted twice.',
+      },
+      {
+        formula: 'mutually exclusive ⟺ P(A ∩ B) = 0',
+        why: 'They cannot both happen, so the rule loses its last term.',
+      },
+      {
+        formula: 'independent ⟺ P(A ∩ B) = P(A)·P(B)',
+        why: 'One tells you nothing about the other. Independent events usually still overlap.',
+      },
+      { formula: 'C(n,k) = n! / (k!(n−k)!)', why: 'Ways to choose k from n when order does not matter.' },
+    ],
+    quiz: [
+      {
+        q: 'Two dice are thrown. What is the probability the sum is greater than 8?',
+        options: ['4/11', '5/18', '1/6', '1/3'],
+        answer: 1,
+        explain:
+          'There are 36 equally likely outcomes, not 11. Sums of 9, 10, 11 and 12 happen in 4 + 3 + 2 + 1 = 10 of them, so the answer is 10/36 = 5/18. Treating the eleven possible sums as equally likely is the classic trap here.',
+      },
+      {
+        q: 'A and B are mutually exclusive, and both have probability greater than zero. Are they independent?',
+        options: ['Yes, always', 'No — never, in this case', 'Only if P(A) = P(B)', 'It depends on the sample space'],
+        answer: 1,
+        explain:
+          'Independence needs P(A ∩ B) = P(A)P(B). Mutually exclusive means P(A ∩ B) = 0, while P(A)P(B) is greater than zero. So they cannot match. In fact exclusive events are strongly dependent: learning A happened tells you B definitely did not.',
+      },
+      {
+        q: 'Four mutually exclusive outcomes are assigned 1/2, 1/4, 1/8 and 1/16. Is this permissible?',
+        options: [
+          'Yes — every value is between 0 and 1',
+          'No — they add to 15/16, not 1',
+          'No — probabilities must be decimals',
+          'Yes, provided the outcomes are equally likely',
+        ],
+        answer: 1,
+        explain:
+          'Each value is legal on its own, but the four outcomes are everything that can happen, so their probabilities must total exactly 1. These come to 15/16, leaving 1/16 of probability with nowhere to go.',
+      },
+      {
+        q: '75% of investors buy annuities, 45% buy stocks, and 85% buy at least one. What percentage buy both?',
+        options: ['20%', '35%', '30%', '55%'],
+        answer: 1,
+        explain:
+          'Rearrange the addition rule: P(A ∩ B) = P(A) + P(B) − P(A ∪ B) = 0.75 + 0.45 − 0.85 = 0.35. Most exam questions of this type hand you three of the four quantities and ask for the fourth.',
+      },
+      {
+        q: 'Why is the complement rule so often the fastest route to an answer?',
+        options: [
+          'It avoids fractions',
+          'Because "at least one" is usually far harder to count directly than "none at all"',
+          'Because complements are always more likely',
+          'It only works for dice problems',
+        ],
+        answer: 1,
+        explain:
+          '"At least one head in ten flips" covers a great many outcomes. Its complement, "no heads at all", is a single outcome. Work that out and subtract from 1.',
+      },
+    ],
+    exam: [
+      {
+        q: 'State the axioms of probability and use them to explain why the addition rule contains a subtraction.',
+        meta: 'State & explain · ~8 marks',
+        points: [
+          'Axioms: P(S) = 1; 0 ≤ P(E) ≤ 1; and for disjoint E₁, E₂, P(E₁ ∪ E₂) = P(E₁) + P(E₂).',
+          'Decompose A ∪ B into three disjoint pieces: A∩Bᶜ, A∩B and Aᶜ∩B, then apply axiom 3.',
+          'Note P(A) = P(A∩Bᶜ) + P(A∩B) and similarly for B, so P(A) + P(B) counts P(A∩B) twice.',
+          'Conclude P(A ∪ B) = P(A) + P(B) − P(A ∩ B), reducing to plain addition when A ∩ B = ∅.',
+        ],
+      },
+      {
+        q: 'Distinguish mutually exclusive events from independent events. Show they cannot both hold for events of non-zero probability.',
+        meta: 'Compare & prove · ~8 marks',
+        points: [
+          'Mutually exclusive: A ∩ B = ∅, hence P(A ∩ B) = 0 — a statement about co-occurrence.',
+          'Independent: P(A ∩ B) = P(A)P(B) — a statement about information; knowing A leaves P(B) unchanged.',
+          'Suppose both hold with P(A), P(B) > 0. Then P(A)P(B) = 0, contradicting both being positive.',
+          'Interpretation: exclusivity is an extreme form of dependence, since A occurring determines that B did not.',
+          'Give an example of each: two faces of one die roll are exclusive; a coin flip and a die roll are independent and can co-occur.',
+        ],
+      },
+      {
+        q: 'A committee of 5 is chosen at random from 8 men and 4 women. Find the probability that women form a majority.',
+        meta: 'Computation · ~8 marks',
+        points: [
+          'Total selections: C(12,5) = 792, with each equally likely since the choice is random.',
+          'Majority of 5 means 3 or more women; with only 4 women available the cases are exactly 3W2M and 4W1M.',
+          'C(4,3)·C(8,2) = 4 × 28 = 112 and C(4,4)·C(8,1) = 1 × 8 = 8.',
+          'The cases are mutually exclusive, so add: 120 favourable selections.',
+          'P = 120/792 = 5/33 ≈ 0.1515.',
+        ],
+      },
+    ],
+  },
+
+  centre: {
+    cheat: [
+      { formula: 'x̄ = Σx / n', why: 'The mean. Uses every value, so every value can pull it.' },
+      { formula: 'x̄ = Σ(f·x) / N', why: 'The mean when values come with counts.' },
+      { formula: 'Σ(x − x̄) = 0', why: 'The mean is a balance point. Distances either side always cancel.' },
+      {
+        formula: 'median = middle value in order',
+        why: 'Even n: average the two middle ones. Ignores size, so it is robust.',
+      },
+      {
+        formula: 'mode = most frequent value',
+        why: 'The only measure that works on categories. Can be none, one or several.',
+      },
+      { formula: 'mean > median > mode', why: 'Tail to the right. Reverse for left. All equal means even.' },
+    ],
+    quiz: [
+      {
+        q: 'Which measure of centre can be used on nominal data such as eye colour?',
+        options: ['The mean', 'The median', 'The mode', 'All three'],
+        answer: 2,
+        explain:
+          'The mean needs arithmetic and the median needs an order. Nominal data has neither — brown is not bigger than blue. Counting which value turns up most still works, so the mode is the only option.',
+      },
+      {
+        q: 'A dataset is right-skewed. Which is true?',
+        options: ['mean < median', 'mean > median', 'mean = median', 'It depends on the mode'],
+        answer: 1,
+        explain:
+          'A right skew means a long tail of large values. Those values pull the mean up while barely moving the median, so the mean ends up above it. That gap is a quick test for skew.',
+      },
+      {
+        q: 'Why does the sum of the deviations from the mean always come to zero?',
+        options: [
+          'Because deviations are always positive',
+          'Because the mean is a balance point — values above pull exactly as hard as values below',
+          'Because of rounding',
+          'It does not; only for symmetric data',
+        ],
+        answer: 1,
+        explain:
+          'Σ(x − x̄) = Σx − nx̄ = 0 for any data at all. This is why measuring spread needs the squaring step — averaging the raw distances would give zero every time.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Compare mean, median and mode as measures of central tendency, stating the level of measurement each requires and how each responds to outliers.',
+        meta: 'Compare & contrast · ~8 marks',
+        points: [
+          'Mean: interval or ratio data; uses every observation; highly sensitive to outliers through Σx.',
+          'Median: ordinal or above; depends only on rank; robust, as extreme values change position by at most one place.',
+          'Mode: any level including nominal; unaffected by outliers; may be absent or non-unique.',
+          'Note Σ(x − x̄) = 0 characterises the mean as a balance point and explains its sensitivity.',
+          'Recommendation: median for skewed or outlier-prone data; mean where the data is symmetric and further statistics are wanted.',
+        ],
+      },
+    ],
+  },
+
+  spread: {
+    cheat: [
+      { formula: 'range = max − min', why: 'Quick, and built from the two values most likely to be odd.' },
+      { formula: 'SS = Σ(x − x̄)²', why: 'Square first so the distances stop cancelling, then add.' },
+      {
+        formula: 's² = SS/(n − 1)',
+        why: 'Sample variance. The n − 1 corrects for measuring around the sample’s own mean.',
+      },
+      { formula: 'σ² = SS/N', why: 'Population variance. Divide by N when you have measured everything.' },
+      { formula: 's = √s²', why: 'Standard deviation. Back in the original units, so you can picture it.' },
+      { formula: 'IQR = Q3 − Q1', why: 'The robust alternative. Ignores the ends entirely.' },
+    ],
+    quiz: [
+      {
+        q: 'Two datasets have the same mean, median and mode. What can you conclude?',
+        options: [
+          'They are the same dataset',
+          'Almost nothing — they may have completely different spreads',
+          'They must both be symmetric',
+          'Their standard deviations are equal',
+        ],
+        answer: 1,
+        explain:
+          'The lecture’s two groups both have mean, median and mode of 5, but sums of squares of 44 and 134. Centre and spread are independent questions, which is why you always report both.',
+      },
+      {
+        q: 'Why is the standard deviation usually reported rather than the variance?',
+        options: [
+          'It is easier to compute',
+          'It is in the original units, so it can be pictured; variance is in squared units',
+          'It is always smaller',
+          'Variance can be negative',
+        ],
+        answer: 1,
+        explain:
+          'If your data is in minutes, the variance is in square minutes — a quantity nobody can picture. Taking the square root puts it back into minutes, where it answers "how far is a typical value from the average?".',
+      },
+      {
+        q: 'A single value is moved twice as far from the mean. What happens to its contribution to the sum of squares?',
+        options: ['It doubles', 'It quadruples', 'It is unchanged', 'It halves'],
+        answer: 1,
+        explain:
+          'The contribution is the squared distance, so doubling the distance multiplies it by four. This is why one extreme value can dominate the standard deviation, and why squared-error models are so sensitive to outliers.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Explain why measures of central tendency alone are insufficient, and derive the sample standard deviation from first principles.',
+        meta: 'Explain & derive · ~10 marks',
+        points: [
+          'Give a counter-example: two datasets with identical mean, median and mode but different dispersion (44 vs 134 sum of squares).',
+          'Show Σ(x − x̄) = 0, so the mean deviation carries no information.',
+          'Square to remove sign: SS = Σ(x − x̄)²; average to obtain variance.',
+          'Sample correction: deviations are about x̄ rather than μ and Σ(x − x̄)² is minimised at x̄, so SS/n is biased low; divide by n − 1.',
+          'Take the square root to restore original units; note the correction is negligible for large n and substantial for small n.',
+        ],
+      },
+    ],
+  },
+
+  outliers: {
+    cheat: [
+      { formula: 'position of Q1 = (n + 1)/4', why: 'Q3 at 3(n+1)/4. Interpolate if it lands between two values.' },
+      { formula: 'five-point summary', why: 'min, Q1, median, Q3, max. Everything a box plot draws.' },
+      { formula: 'IQR = Q3 − Q1', why: 'The width of the middle half. Extremes cannot touch it.' },
+      { formula: 'QD = IQR / 2', why: 'The quartile deviation.' },
+      {
+        formula: 'fences: Q1 − 1.5·IQR, Q3 + 1.5·IQR',
+        why: 'Outside means flagged for a look — not automatically wrong.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'For 11 12 13 16 16 17 17 18 21, what is Q1?',
+        options: ['12', '12.5', '13', '11.5'],
+        answer: 1,
+        explain:
+          'n = 9, so Q1 sits at position (9+1)/4 = 2.5 — halfway between the 2nd and 3rd values, which are 12 and 13. That gives 12.5. Note other software may use a different rule and get a slightly different answer.',
+      },
+      {
+        q: 'A value falls outside the 1.5 × IQR fences. What is the right response?',
+        options: [
+          'Delete it',
+          'Investigate it — it may be an error, or it may be the most interesting point in the data',
+          'Replace it with the median',
+          'Recompute the fences without it',
+        ],
+        answer: 1,
+        explain:
+          'The rule flags values worth checking. Some are typos or broken sensors; others are the rare events you were looking for. Deleting on sight destroys information and biases everything downstream.',
+      },
+      {
+        q: 'Why is the IQR preferred to the range for messy data?',
+        options: [
+          'It is easier to calculate',
+          'It measures the middle half only, so extreme values cannot affect it',
+          'It is always larger',
+          'It works on categorical data',
+        ],
+        answer: 1,
+        explain:
+          'The range is built from the two most extreme values — precisely the ones most likely to be wrong. The IQR is built from positions inside the data, so pushing an end value further out does not change it at all.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Construct a five-number summary and box plot for a given dataset, apply the outlier rule, and comment on skew.',
+        meta: 'Computation & interpretation · ~10 marks',
+        points: [
+          'Order the data; state n; identify minimum and maximum.',
+          'Locate the median and the quartiles by position, stating the rule used since conventions differ.',
+          'Compute IQR = Q3 − Q1 and the fences at Q1 − 1.5·IQR and Q3 + 1.5·IQR.',
+          'Identify values outside the fences; draw the box from Q1 to Q3 with the median marked, whiskers to the furthest values inside the fences, and flagged points plotted separately.',
+          'Comment on skew from the position of the median within the box and the relative whisker lengths; note flagged values require investigation, not automatic deletion.',
+        ],
+      },
+    ],
+  },
+
+  probability: {
+    cheat: [
+      { formula: 'P(A) = |A| / |S|', why: 'Classical. Count favourable over total — needs equally likely outcomes.' },
+      { formula: 'P(A) ≈ hits / trials', why: 'Empirical. Gets closer to the truth the more runs you do.' },
+      { formula: 'P(S) = 1', why: 'Axiom one. Something in the sample space happens.' },
+      { formula: '0 ≤ P(E) ≤ 1', why: 'Axiom two. Nothing beyond impossible or certain.' },
+      { formula: 'disjoint ⇒ P(E₁ ∪ E₂) = P(E₁) + P(E₂)', why: 'Axiom three. Everything else is built on it.' },
+    ],
+    quiz: [
+      {
+        q: 'When does the classical definition of probability fail?',
+        options: [
+          'When the sample space is infinite only',
+          'Whenever the outcomes are not equally likely',
+          'When there are more than six outcomes',
+          'It never fails',
+        ],
+        answer: 1,
+        explain:
+          'Counting favourable over total assumes each outcome carries the same weight. It is true for a fair die and false for almost everything else — which is why the eleven sums of two dice cannot be counted that way.',
+      },
+      {
+        q: 'You flip a fair coin five times and get five heads. What is the probability the next flip is heads?',
+        options: ['Less than 1/2', 'Exactly 1/2', 'More than 1/2', 'Impossible to say'],
+        answer: 1,
+        explain:
+          'The coin has no memory. Probability describes the long run, not a correction owed to you — expecting tails "to balance it out" is the gambler’s fallacy. The long-run fraction settles near 1/2 by swamping early runs, not by reversing them.',
+      },
+      {
+        q: 'What does the axiomatic approach actually define?',
+        options: [
+          'A formula for calculating any probability',
+          'Nothing — it states the rules any probability must obey and works from those',
+          'Probability as a long-run frequency',
+          'Probability as a degree of belief',
+        ],
+        answer: 1,
+        explain:
+          'It deliberately sidesteps the question of what a probability is. By stating only the properties it must satisfy, the same mathematics covers counted, measured and subjective probabilities alike.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Compare the classical, empirical and axiomatic definitions of probability, giving the conditions under which each applies.',
+        meta: 'Compare & contrast · ~8 marks',
+        points: [
+          'Classical: |A|/|S|, requires finitely many equally likely outcomes; fails for loaded dice or unequal outcomes.',
+          'Empirical: limiting relative frequency over repeated trials; requires repeatability and a large number of trials.',
+          'Axiomatic: probability is any measure satisfying P(S) = 1, 0 ≤ P(E) ≤ 1 and countable additivity on disjoint events.',
+          'Note the axiomatic approach subsumes the others and permits subjective probability for non-repeatable events.',
+          'Reference the law of large numbers as the link between the empirical and classical values.',
+        ],
+      },
+    ],
+  },
+
+  events: {
+    cheat: [
+      { formula: 'A ⊆ S', why: 'An event is part of the sample space, including ∅ and S themselves.' },
+      { formula: 'A ∪ B — or', why: 'In A, or B, or both. The "or" includes both, unlike everyday speech.' },
+      { formula: 'A ∩ B — and', why: 'In both at once. The overlap.' },
+      { formula: 'P(A) + P(Aᶜ) = 1', why: 'The complement rule. Count the easy side and subtract.' },
+      { formula: 'P(A ∪ B) = P(A) + P(B) − P(A ∩ B)', why: 'Subtract because the overlap was counted twice.' },
+      { formula: 'exclusive: P(A∩B)=0 · independent: P(A∩B)=P(A)P(B)', why: 'Different questions. Rarely both true.' },
+    ],
+    quiz: [
+      {
+        q: 'In probability, what does "A or B" mean?',
+        options: ['Exactly one of them, not both', 'A, or B, or both', 'Both of them', 'It depends on the context'],
+        answer: 1,
+        explain:
+          'The union is inclusive. In conversation "tea or coffee" usually rules out having both, and carrying that habit into probability is one of the most common mistakes made. "Exactly one" is a different event: P(A) + P(B) − 2P(A ∩ B).',
+      },
+      {
+        q: 'Which is the fastest way to find "at least one head in ten flips"?',
+        options: [
+          'Add up the probabilities of one head, two heads, and so on',
+          'Work out the probability of no heads at all, then subtract from 1',
+          'Multiply the probabilities together',
+          'Use the addition rule ten times',
+        ],
+        answer: 1,
+        explain:
+          '"At least one" covers a great many outcomes; its complement, "no heads at all", is a single one. Spotting that phrase and reaching for the complement rule saves a large amount of work.',
+      },
+      {
+        q: 'Two events overlap. Can they still be independent?',
+        options: [
+          'No — overlapping means dependent',
+          'Yes — independence is about whether one changes the odds of the other, not whether they can co-occur',
+          'Only if the overlap is exactly half',
+          'Only for dice problems',
+        ],
+        answer: 1,
+        explain:
+          'Independent events usually do overlap. Flip a coin and roll a die: heads and a six are independent and happen together one time in twelve. Independence requires P(A ∩ B) = P(A)P(B), which is generally not zero.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define union, intersection and complement for events, and prove the addition rule from the axioms.',
+        meta: 'Define & prove · ~8 marks',
+        points: [
+          'A ∪ B is the set of outcomes in A, in B, or in both; A ∩ B the set in both; Aᶜ the outcomes of S not in A.',
+          'Partition A ∪ B into the disjoint pieces A∩Bᶜ, A∩B and Aᶜ∩B; apply the additivity axiom.',
+          'Write P(A) = P(A∩Bᶜ) + P(A∩B) and P(B) = P(Aᶜ∩B) + P(A∩B); substitute.',
+          'Obtain P(A ∪ B) = P(A) + P(B) − P(A ∩ B); note the special case when A ∩ B = ∅.',
+          'Derive P(Aᶜ) = 1 − P(A) from S = A ∪ Aᶜ with A ∩ Aᶜ = ∅ and P(S) = 1.',
+        ],
+      },
+    ],
+  },
 }

@@ -1,11 +1,19 @@
 import { AlgebraSession } from '@/components/sessions/algebra'
 import { GradientDescentSession } from '@/components/sessions/gradient-descent'
-import { KMeansSession } from '@/components/sessions/kmeans'
 import { Ism1Overview } from '@/components/sessions/ism1/overview'
+import { Ism2Overview } from '@/components/sessions/ism2/overview'
+import { KMeansSession } from '@/components/sessions/kmeans'
 import { Lecture1Overview } from '@/components/sessions/lec1/overview'
 import { LinearAlgebraSession } from '@/components/sessions/linear-algebra'
 import { LinearRegressionSession } from '@/components/sessions/linear-regression'
 import { PerceptronSession } from '@/components/sessions/perceptron'
+import {
+  CentreConcept,
+  EventsConcept,
+  OutliersConcept,
+  ProbabilityConcept,
+  SpreadConcept,
+} from '@/components/sessions/stats-concepts'
 import { CheatSheetTab } from '@/components/tabs/cheat-sheet-tab'
 import { ExamTab } from '@/components/tabs/exam-tab'
 import { QuizTab } from '@/components/tabs/quiz-tab'
@@ -23,6 +31,12 @@ const OVERVIEWS: Record<TopicId, () => React.ReactElement> = {
   perceptron: PerceptronSession,
   lec1: Lecture1Overview,
   ism1: Ism1Overview,
+  ism2: Ism2Overview,
+  centre: CentreConcept,
+  spread: SpreadConcept,
+  outliers: OutliersConcept,
+  probability: ProbabilityConcept,
+  events: EventsConcept,
 }
 
 export function generateStaticParams() {
