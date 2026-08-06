@@ -681,7 +681,7 @@ export function SpecialMatrixLab() {
       </div>
 
       <LabNote>
-        Try this: press <strong>Skew-symmetric</strong> and then change a number on the diagonal to anything other than
+        Try this: press <strong>Skew-symmetric</strong>{' '}and then change a number on the diagonal to anything other than
         0. The badge goes out. A skew-symmetric matrix has to satisfy a<sub>ii</sub> = −a<sub>ii</sub>, and zero is the
         only number that can do that.
       </LabNote>

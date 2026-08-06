@@ -324,9 +324,9 @@ export function SystemMatrixLab() {
       </div>
 
       <p className="text-[13px]/[1.65] text-zinc-700">
-        These two are the same thing. Hover a row on either side and its partner lights up. <strong>A</strong> holds the
+        These two are the same thing. Hover a row on either side and its partner lights up. <strong>A</strong>{' '}holds the
         numbers in front of the unknowns, one row per equation. <strong>x</strong> is the column of unknowns.{' '}
-        <strong>b</strong> is what each row has to add up to. Change any number and both sides change together.
+        <strong>b</strong>{' '}is what each row has to add up to. Change any number and both sides change together.
       </p>
 
       <PanelNote>

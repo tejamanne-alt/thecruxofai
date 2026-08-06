@@ -433,7 +433,7 @@ export function ConvergeLab() {
           <PanelNote>
             Run it once and the answer is 0% or 100% — useless. Run it a few times and it lurches about. Run it a
             thousand times and it settles onto the counted answer. That is the difference between the{' '}
-            <strong>empirical</strong> and the <strong>classical</strong> definitions, and why one needs a lot of data.
+            <strong>empirical</strong> and the <strong>classical</strong>{' '}definitions, and why one needs a lot of data.
           </PanelNote>
         </>
       }

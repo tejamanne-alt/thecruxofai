@@ -171,7 +171,7 @@ export function PositiveDefiniteLab() {
           </div>
 
           <PanelNote>
-            The quick test for a 2 × 2: the top-left number and the determinant must <em>both</em> be above zero. Here
+            The quick test for a 2 × 2: the top-left number and the determinant must <em>both</em>{' '}be above zero. Here
             they are {a} and {det}.
           </PanelNote>
         </div>

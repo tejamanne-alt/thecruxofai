@@ -24,7 +24,7 @@ export function Ism2Overview() {
             become counting questions.
           </>,
           <>
-            The rest of the lecture is about combining those lists. What if I want A <em>or</em> B? A <em>and</em> B?
+            The rest of the lecture is about combining those lists. What if I want A <em>or</em> B? A <em>and</em>{' '}B?
             Not A? Each one is a set operation with a probability attached, and there are only a few rules to learn —
             plus two words, <strong>mutually exclusive</strong> and <strong>independent</strong>, that sound alike and
             mean entirely different things.

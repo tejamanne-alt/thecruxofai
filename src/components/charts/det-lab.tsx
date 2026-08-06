@@ -214,7 +214,7 @@ export function Det3Lab() {
 
       <LabNote>
         Walk along the top row. For each number, cross out its row and its column, work out the little 2 × 2
-        determinant that is left, and multiply. Then <strong>add, subtract, add</strong> — the signs alternate, and that
+        determinant that is left, and multiply. Then <strong>add, subtract, add</strong>{' '}— the signs alternate, and that
         alternating is the only bit people forget. Press the three buttons to see each term on its own.
       </LabNote>
       <LabNote>
@@ -319,12 +319,12 @@ export function CofactorLab() {
       </div>
 
       <LabNote>
-        You may expand along <strong>any</strong> row or column you like and the answer never changes. So pick the one
+        You may expand along <strong>any</strong>{' '}row or column you like and the answer never changes. So pick the one
         with the most zeros — every zero kills a whole 3 × 3 determinant you would otherwise have to work out. Column 2
         here has three zeros, which turns four small determinants into one.
       </LabNote>
       <LabNote>
-        The sign is <span className="font-mono">(−1)</span> to the power of (row + column). That gives the checkerboard
+        The sign is <span className="font-mono">(−1)</span>{' '}to the power of (row + column). That gives the checkerboard
         + − + − starting from the top-left, and the signed minor has its own name: the <strong>cofactor</strong>.
       </LabNote>
     </LabBox>

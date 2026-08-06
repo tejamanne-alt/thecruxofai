@@ -163,8 +163,8 @@ export function HomogeneousLab() {
       </Verdict>
 
       <LabNote>
-        <strong>Homogeneous</strong> just means every right-hand side is 0. Written as Ax = 0. The useful thing about it
-        is that it can never have <em>no</em> answer: putting every unknown to zero always works. So the only question
+        <strong>Homogeneous</strong>{' '}just means every right-hand side is 0. Written as Ax = 0. The useful thing about it
+        is that it can never have <em>no</em>{' '}answer: putting every unknown to zero always works. So the only question
         left is whether there are others, and that comes down to rank.
       </LabNote>
     </LabBox>
@@ -316,13 +316,13 @@ export function HousePriceLab() {
       </LabNote>
       <LabNote>
         Now break it. Change the fourth price from 11 to 12 and the houses start contradicting each other — no rule of
-        this shape fits all four exactly. Notice you needed a <em>fourth</em> house to do that: with three houses and
+        this shape fits all four exactly. Notice you needed a <em>fourth</em>{' '}house to do that: with three houses and
         three unknowns there is always exactly one answer, whatever prices you type.
       </LabNote>
       <LabNote>
         Real datasets are all like that fourth row, thousands of times over: far more equations than unknowns, and no
         way to satisfy them all. So people stop demanding an exact fit and look for the weights that come{' '}
-        <em>closest</em> instead. That is linear regression, and this is the problem it exists to solve.
+        <em>closest</em>{' '}instead. That is linear regression, and this is the problem it exists to solve.
       </LabNote>
     </LabBox>
   )
@@ -601,8 +601,8 @@ export function ParameterLab() {
       )}
 
       <LabNote>
-        The unknowns split into two kinds. <strong>Pivot</strong> unknowns — x₁, x₃ and x₄ here — are forced once you
-        have chosen the others. <strong>Free</strong> unknowns — x₂ and x₅ — are yours to pick. The count of free ones
+        The unknowns split into two kinds. <strong>Pivot</strong>{' '}unknowns — x₁, x₃ and x₄ here — are forced once you
+        have chosen the others. <strong>Free</strong>{' '}unknowns — x₂ and x₅ — are yours to pick. The count of free ones
         is just (number of unknowns) − (rank), which is why rank is worth working out.
       </LabNote>
     </LabBox>
@@ -668,7 +668,7 @@ export function ParameterKLab() {
         }}
       />
       <LabNote>
-        <strong>{q.ask}</strong> Drag k across its whole range and watch the two ranks. The interesting value is
+        <strong>{q.ask}</strong>{' '}Drag k across its whole range and watch the two ranks. The interesting value is
         wherever they stop agreeing — or start.
       </LabNote>
 

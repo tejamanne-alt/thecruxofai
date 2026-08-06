@@ -120,7 +120,7 @@ export function PivotLab() {
       </div>
 
       <p className="text-[13px]/[1.65] text-zinc-700">
-        Click every number you think is a <strong>pivot</strong> — the first number in its row that is not zero. Then
+        Click every number you think is a <strong>pivot</strong>{' '}— the first number in its row that is not zero. Then
         press Check.
       </p>
 
@@ -185,7 +185,7 @@ export function PivotLab() {
           ) : (
             <p className="text-zinc-700">
               This one is a proper staircase, so the pivots do mean something. Columns{' '}
-              <span className="font-mono font-semibold">{pivotCols.map((c) => puzzle.vars[c]).join(', ')}</span> have a
+              <span className="font-mono font-semibold">{pivotCols.map((c) => puzzle.vars[c]).join(', ')}</span>{' '}have a
               pivot, so those unknowns are <strong>forced</strong>.{' '}
               {freeCols.length === 0 ? (
                 <>Nothing is left over, so there is exactly one answer.</>
@@ -246,7 +246,7 @@ export function NullspaceLab() {
     <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
       <p className="text-[13px]/[1.65] text-zinc-700">
         This matrix is as tidy as it gets: every pivot is a 1, and it is the only number that is not zero in its column.
-        Click one of the two <strong>orange</strong> columns — the ones with no pivot.
+        Click one of the two <strong>orange</strong>{' '}columns — the ones with no pivot.
       </p>
 
       <div className="overflow-x-auto">

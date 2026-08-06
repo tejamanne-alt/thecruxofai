@@ -32,7 +32,7 @@ export function Inverse2Lab() {
           <NumBox m={g} onEdit={(i, j, v) => setG(g.map((r, ri) => r.map((x, ci) => (ri === i && ci === j ? v : x))))} />
         </Titled>
         <div className="pt-5 font-mono text-[15px] text-zinc-500">
-          A⁻¹ = <span className="text-[13px]">1/{frStr(det)}</span> ×
+          A⁻¹ = <span className="text-[13px]">1/{frStr(det)}</span>{' '}×
         </div>
         <Titled title="swap the diagonal, flip the other two">
           <NumBox m={swapped} readOnly />
@@ -85,7 +85,7 @@ export function Inverse2Lab() {
       <LabNote>
         Two moves and you are done: swap the two numbers on the main diagonal, flip the sign of the other two, then
         divide everything by <span className="font-mono">ad − bc</span>. Try setting A to{' '}
-        <span className="font-mono">[1 2; 2 4]</span> — the second row is just double the first, the determinant goes to
+        <span className="font-mono">[1 2; 2 4]</span>{' '}— the second row is just double the first, the determinant goes to
         zero, and the inverse vanishes.
       </LabNote>
     </LabBox>
@@ -259,7 +259,7 @@ export function GaussJordanInverseLab() {
       <LabNote>
         Why this works: turning [A | I] into [I | A⁻¹] means finding the moves that undo A. Doing those same moves to I
         records them, and what you end up with is a matrix that undoes A — which is what A⁻¹ means. Try{' '}
-        <strong>One with no inverse</strong> and watch the method fail honestly rather than produce nonsense.
+        <strong>One with no inverse</strong>{' '}and watch the method fail honestly rather than produce nonsense.
       </LabNote>
     </LabBox>
   )
