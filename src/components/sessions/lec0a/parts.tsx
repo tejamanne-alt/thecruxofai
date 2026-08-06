@@ -1549,8 +1549,14 @@ Then with x₂ = s and x₅ = t free:
   practice: (
     <>
       <Para>
-        All ten questions from the practice sheet, with the working. Two of them — Q1 and Q7 — turn on a single letter,
-        so start by finding the special value yourself rather than reading it.
+        The practice sheet comes with <strong>no answer key</strong>. So everything below was worked out from scratch
+        and then checked — by putting the answer back into the original equations, or by running it in the console in
+        part 16. Where a question cannot be pinned down from its wording, this page says so and prints no answer rather
+        than guessing. That happens once, in Q10(ii).
+      </Para>
+      <Para>
+        Two of them — Q1 and Q7 — turn on a single letter, so start by finding the special value yourself rather than
+        reading it.
       </Para>
 
       <Lab>
@@ -1676,13 +1682,17 @@ R3 ← R3 −  R1       3y + 9z = 23
 R3 ← R3 − 3R2            0 =  8
 
 The system as printed is inconsistent — there is no answer.
-Its rank A = 2 but rank [A|b] = 3, which is the mismatch case
+rank A = 2 but rank [A|b] = 3, which is the mismatch case
 from part 19.
 
-Worth knowing: if the last right-hand side were 21 instead of 29
-the system would be consistent with the single answer
-x = 3, y = 2, z = 1. Try both in the console and see.`}
+That is the answer: "inconsistent, because rank A ≠ rank [A|b]".`}
       </Worked>
+
+      <Para>
+        The sheet comes with no answer key, so there is no way to tell whether Q6 was meant to come out that way or
+        whether a number was mistyped. This page does not guess at what was intended — the working above is for the
+        numbers as printed, and it is checkable in the console. Worth raising in the tutorial.
+      </Para>
 
       <Worked title="Q7 — for which k are there infinitely many answers?">
         {` x +  y +  z =  3
@@ -1754,7 +1764,7 @@ A = ⎢ −1  3  1 ⎥    B = ⎢ 2  0  3 ⎥
       both are non-singular: each has an inverse and full rank 3.`}
       </Worked>
 
-      <Worked title="Q10 — RREF, rank, and how much work it took">
+      <Worked title="Q10(i) — RREF and rank">
         {`    ⎡ 1  2   3 ⎤
 A = ⎢ 2  5   8 ⎥
     ⎣ 3  8  13 ⎦
@@ -1766,33 +1776,27 @@ R1 ← R1 − 2R2     [1 0 −1]
 
        ⎡ 1  0 −1 ⎤
 RREF = ⎢ 0  1  2 ⎥        rank A = 2
-       ⎣ 0  0  0 ⎦
-
-(ii) Counting the arithmetic. Each move Rᵢ ← Rᵢ − c·Rⱼ costs one
-     multiplication and one addition per column.
-
-     R2 ← R2 − 2R1    3 columns  →  3 mults, 3 adds
-     R3 ← R3 − 3R1    3 columns  →  3 mults, 3 adds
-     R3 ← R3 − 2R2    3 columns  →  3 mults, 3 adds
-     R1 ← R1 − 2R2    3 columns  →  3 mults, 3 adds
-
-     12 multiplications and 12 additions in total.
-
-     (In practice you skip the column you are clearing, since you
-     already know it becomes 0. That saves 4 of each, leaving 8
-     and 8. Either count is fine as long as you say which you used.)`}
+       ⎣ 0  0  0 ⎦`}
       </Worked>
 
       <Para>
-        The general point behind Q10(ii): elimination on an n × n matrix costs roughly n³/3 multiplications. That is why
-        it is fine for a 1000 × 1000 system and hopeless for a 10,000,000 × 10,000,000 one, and why so much of numerical
+        <strong>Q10(ii) asks for the number of operations, and this page does not answer it.</strong> The number depends
+        entirely on a convention the sheet never states: does clearing a column count, when you already know it goes to
+        zero? Is a multiply-and-add one operation or two? Do you count the row you scale to make a leading 1? Each
+        reasonable reading gives a different total, and there is no answer key to say which was wanted.
+      </Para>
+      <Para>
+        So take the count you are given in the tutorial and use that. The part worth carrying away is the shape of the
+        answer rather than the number: elimination on an n × n matrix costs roughly n³/3 multiplications. That is why it
+        is fine for a 1000 × 1000 system and hopeless for a ten-million-square one, and why so much of numerical
         computing is about avoiding the full method.
       </Para>
 
       <Takeaway>
-        Two of these — Q6 as printed, and Q1 at k = 1 — do not have the tidy answer the wording seems to expect. Saying
-        so is the right answer. An exam will accept &ldquo;inconsistent, because rank A ≠ rank [A|b]&rdquo; and will not
-        accept a made-up number.
+        The sheet came with no answers. Everything above was worked out and checked — by substituting back, or by
+        running it in the console in part 16 — except Q10(ii), which cannot be pinned down from the wording, so no
+        number is printed for it. Q6 is not a mistake on your part either: as printed it is genuinely inconsistent, and
+        &ldquo;no solution, because rank A ≠ rank [A|b]&rdquo; is the answer.
       </Takeaway>
     </>
   ),
