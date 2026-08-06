@@ -649,4 +649,131 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       },
     ],
   },
+
+  ism1: {
+    cheat: [
+      { formula: 'x̄ = Σx / n', why: 'The mean. Add everything up, divide by how many. It is a balance point.' },
+      {
+        formula: 'Σ(x − x̄) = 0',
+        why: 'Distances from the mean always cancel. That is why you cannot just average them.',
+      },
+      {
+        formula: 'median = middle value in order',
+        why: 'Odd n, take the middle. Even n, average the two middle ones.',
+      },
+      {
+        formula: 'mean > median > mode ⇒ right skew',
+        why: 'Reverse it for left skew. All three equal means symmetric.',
+      },
+      { formula: 'SS = Σ(x − x̄)²', why: 'Sum of squares. Square first so the negatives stop cancelling.' },
+      {
+        formula: 's² = SS/(n − 1),  σ² = SS/N',
+        why: 'Sample divides by n − 1, population by N. A sample hugs its own mean too closely.',
+      },
+      {
+        formula: 'position of Q1 = (n + 1)/4',
+        why: 'Q3 is 3(n + 1)/4. Read between the neighbours if it lands part-way.',
+      },
+      { formula: 'IQR = Q3 − Q1', why: 'The spread of the middle half. Extreme values cannot touch it.' },
+      {
+        formula: 'fences: Q1 − 1.5·IQR, Q3 + 1.5·IQR',
+        why: 'Anything outside is a possible outlier — worth a look, not automatically wrong.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'A dataset of salaries has a few very high earners. Which measure of centre best describes a typical salary?',
+        options: ['The mean', 'The median', 'The mode', 'The range'],
+        answer: 1,
+        explain:
+          'The mean gets dragged upwards by the few large values, so it ends up describing almost nobody. The median only cares about order, so a handful of huge salaries barely move it. That is why salary and house price figures are nearly always medians.',
+      },
+      {
+        q: 'Why do we square the distances from the mean instead of just averaging them?',
+        options: [
+          'Squaring makes the arithmetic easier',
+          'Because the plain distances always add up to zero, so their average is always zero',
+          'To convert the units into something comparable',
+          'It is a convention with no real reason',
+        ],
+        answer: 1,
+        explain:
+          'The mean is a balance point, so the values above it pull exactly as hard as those below. The distances cancel out for every dataset. Squaring makes them all positive so nothing cancels — at the cost of letting far-away values count for a great deal more.',
+      },
+      {
+        q: 'Why does the sample variance divide by n − 1 rather than n?',
+        options: [
+          'To make the number bigger and be safe',
+          'Because a sample is measured around its own mean, which sits closer to those values than the true mean does, so dividing by n comes out too small',
+          'Because samples always contain outliers',
+          'It only applies when n is small',
+        ],
+        answer: 1,
+        explain:
+          'The sample mean has already shifted to the middle of the sampled values, so they look tighter than the population really is. Dividing by n − 1 corrects that. The correction is large for small samples and almost nothing for big ones.',
+      },
+      {
+        q: 'Temperature in degrees Celsius is which level of measurement?',
+        options: ['Nominal', 'Ordinal', 'Interval', 'Ratio'],
+        answer: 2,
+        explain:
+          'The gaps are real and equal — 20° to 30° is the same jump as 30° to 40° — so it is at least interval. But 0°C does not mean "no temperature", so ratios do not work: 40°C is not twice as hot as 20°C. That missing true zero is what stops it being ratio.',
+      },
+      {
+        q: 'Data in order: 11 12 13 16 16 17 17 18 21. What is the IQR?',
+        options: ['4', '5', '5.5', '10'],
+        answer: 1,
+        explain:
+          'n = 9, so Q1 sits at position (9+1)/4 = 2.5, halfway between 12 and 13, giving 12.5. Q3 sits at 3(9+1)/4 = 7.5, halfway between 17 and 18, giving 17.5. IQR = 17.5 − 12.5 = 5.',
+      },
+      {
+        q: 'A value is flagged by the 1.5 × IQR rule. What should you do?',
+        options: [
+          'Delete it — it is an error',
+          'Investigate it. It might be a mistake, or it might be the most interesting point you have',
+          'Replace it with the mean',
+          'Nothing — the rule is only decorative',
+        ],
+        answer: 1,
+        explain:
+          'The rule points at values worth checking. Some turn out to be typos or broken instruments; others are the genuine rare events you most wanted to find. Deleting on sight throws away real information and quietly biases everything you do next.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define the mean, median and mode. Explain, with an example, which you would report for a heavily skewed dataset and why.',
+        meta: 'Explain · ~8 marks',
+        points: [
+          'Mean = Σx/n, uses every value; median = middle value of the ordered data; mode = most frequent value.',
+          'State the mean is a balance point: Σ(x − x̄) = 0, so every observation exerts leverage proportional to its distance.',
+          'For right-skewed data mean > median > mode; a few large values inflate the mean.',
+          'Recommend the median, since it depends only on rank and is unaffected by the magnitude of extreme values — hence its use for income and house prices.',
+          'Note the mode is the only measure available for nominal data.',
+        ],
+      },
+      {
+        q: 'Derive the need for squaring in the definition of variance, and explain why the sample formula uses n − 1.',
+        meta: 'Derivation · ~8 marks',
+        points: [
+          'Show Σ(x − x̄) = Σx − nx̄ = 0, so the mean deviation is identically zero and carries no information.',
+          'Squaring removes the sign; define SS = Σ(x − x̄)² and variance as the mean squared deviation.',
+          'Note variance is in squared units, so the standard deviation s = √(SS/(n−1)) restores the original units.',
+          'Sample correction: deviations are taken about x̄ rather than μ, and Σ(x − x̄)² is minimised at x̄, so SS/n underestimates σ².',
+          'Dividing by n − 1 (the degrees of freedom) gives an unbiased estimator; note the correction shrinks as n grows.',
+        ],
+      },
+      {
+        q: 'For the data 11, 12, 13, 16, 16, 17, 17, 18, 21: construct the five-number summary, compute the IQR, apply the outlier rule and describe the box plot.',
+        meta: 'Computation · ~10 marks',
+        points: [
+          'Data is already ordered; n = 9. Minimum 11, maximum 21.',
+          'Median at position (9+1)/2 = 5 ⇒ 16.',
+          'Q1 at position (9+1)/4 = 2.5 ⇒ halfway between 12 and 13 ⇒ 12.5. Q3 at 3(9+1)/4 = 7.5 ⇒ 17.5.',
+          'IQR = 17.5 − 12.5 = 5; QD = 2.5.',
+          'Fences: 12.5 − 7.5 = 5 and 17.5 + 7.5 = 25. All values lie inside, so there are no outliers.',
+          'Box from 12.5 to 17.5 with the median line at 16; whiskers to 11 and 21; state the quartile rule used, since conventions differ.',
+        ],
+      },
+    ],
+  },
 }

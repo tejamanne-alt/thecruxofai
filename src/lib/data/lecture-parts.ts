@@ -129,6 +129,93 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
       slides: 'Slide 31',
     },
   ],
+
+  ism1: [
+    {
+      id: 'course',
+      title: 'What this course is about',
+      teaser: 'Six modules, three books, and what statistics is actually for.',
+      slides: 'Slides 3–8',
+    },
+    {
+      id: 'types',
+      title: 'Categorical or numerical?',
+      teaser: 'The first question to ask about any column of data. Have a go at sorting eight of them.',
+      slides: 'Slide 9',
+    },
+    {
+      id: 'levels',
+      title: 'The four levels of measurement',
+      teaser: 'Nominal, ordinal, interval, ratio. Three questions tell you which one you have.',
+      slides: 'Slides 10–12',
+    },
+    {
+      id: 'mean',
+      title: 'The mean',
+      teaser: 'The balance point of the data. Drag a dot and watch it tip.',
+      slides: 'Slides 13–17',
+    },
+    {
+      id: 'mode',
+      title: 'The mode',
+      teaser: 'The value that turns up most. The only one that works for eye colour.',
+      slides: 'Slides 18–19',
+    },
+    {
+      id: 'median',
+      title: 'The median',
+      teaser: 'The middle one. Drag a value to the far end and watch it barely move.',
+      slides: 'Slides 20–22',
+    },
+    {
+      id: 'shape',
+      title: 'Symmetric and skewed',
+      teaser: 'Where the three measures end up tells you which way the data leans.',
+      slides: 'Slide 23',
+    },
+    {
+      id: 'notenough',
+      title: 'Why the centre is not enough',
+      teaser: 'Two groups with the same mean, median and mode, and nothing else in common.',
+      slides: 'Slides 24–28',
+    },
+    {
+      id: 'range',
+      title: 'The range',
+      teaser: 'Biggest take smallest. Quick, useful, and easily fooled.',
+      slides: 'Slide 29',
+    },
+    {
+      id: 'variance',
+      title: 'Variance and standard deviation',
+      teaser: 'Why the distances get squared — drawn as actual squares you can grow.',
+      slides: 'Slides 30–34',
+    },
+    {
+      id: 'sample',
+      title: 'Why a sample divides by n − 1',
+      teaser: 'Take samples yourself and watch one formula land short every time.',
+      slides: 'Slides 35–42',
+    },
+    {
+      id: 'fivepoint',
+      title: 'Quartiles and the five-point summary',
+      teaser: 'Counting positions the way the lecture counts them, so your homework matches.',
+      slides: 'Slides 43–44',
+    },
+    {
+      id: 'boxplot',
+      title: 'Box plots and outliers',
+      teaser: 'Build the box, put up the fences, and drag a dot past one.',
+      slides: 'Slides 45–48',
+    },
+    {
+      id: 'practice',
+      title: 'The practice problems',
+      teaser: 'All four datasets from the slides, worked out in full.',
+      slides: 'Slides 50–54',
+    },
+  ],
 }
 
 export function partsOf(topic: TopicId): PartMeta[] {

@@ -92,6 +92,63 @@ export function drawAxes(g: CanvasRenderingContext2D, W: number, H: number, spec
   return frame
 }
 
+/**
+ * A single horizontal axis with the values laid along it, for statistics where
+ * there is only one measurement and no second variable to plot against. The
+ * frame's y range is a stack height in dots, so repeated values can pile up.
+ */
+export function drawNumberLine(
+  g: CanvasRenderingContext2D,
+  W: number,
+  H: number,
+  spec: { xmin: number; xmax: number; xlab: string; stacks?: number; baseline?: number }
+): Frame {
+  const { xmin, xmax, xlab } = spec
+  const stacks = spec.stacks ?? 8
+  const L = 30
+  const R = W - 22
+  const T = 16
+  // The axis sits low, leaving the room above it for the stacked dots.
+  const B = spec.baseline ?? H - 46
+
+  const frame: Frame = {
+    L,
+    R,
+    T,
+    B,
+    px: (v) => L + ((v - xmin) / (xmax - xmin)) * (R - L),
+    py: (v) => B - (v / stacks) * (B - T),
+    ux: (p) => xmin + ((p - L) / (R - L)) * (xmax - xmin),
+    uy: (p) => ((B - p) / (B - T)) * stacks,
+  }
+
+  g.strokeStyle = 'rgba(9,9,11,0.28)'
+  g.lineWidth = 1.5
+  g.beginPath()
+  g.moveTo(L, B)
+  g.lineTo(R, B)
+  g.stroke()
+
+  // Six ticks, chosen so the numbers under them stay readable.
+  for (let i = 0; i <= 5; i++) {
+    const v = xmin + (i / 5) * (xmax - xmin)
+    const x = frame.px(v)
+    g.strokeStyle = 'rgba(9,9,11,0.28)'
+    g.beginPath()
+    g.moveTo(x, B)
+    g.lineTo(x, B + 5)
+    g.stroke()
+    g.fillStyle = '#a1a1aa'
+    g.textAlign = 'center'
+    g.fillText(fmtTick(v), x, B + 15)
+  }
+
+  g.fillStyle = '#71717a'
+  g.textAlign = 'center'
+  g.fillText(xlab, (L + R) / 2, B + 33)
+  return frame
+}
+
 export function dot(g: CanvasRenderingContext2D, x: number, y: number, r: number, fill: string, ring?: string | null) {
   g.beginPath()
   g.arc(x, y, r, 0, Math.PI * 2)
