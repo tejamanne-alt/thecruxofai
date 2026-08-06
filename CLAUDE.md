@@ -62,7 +62,9 @@ Report honestly. If something is broken or unfinished, say so plainly.
 
 - Develop on `claude/aiml-learning-website-058p9o`. Never push anywhere else without being asked.
 - If the branch's last PR was merged, restart from `main` rather than stacking on merged history.
-- Do not raise a PR unless I ask for one.
+- **When the work is built and verified, raise the PR and squash-merge it to main.** Do not wait to be asked.
+  Verification comes first — never merge something you have not run in a browser.
+- Say in the reply what was merged and what is still outstanding.
 
 ## Things that must not change
 
