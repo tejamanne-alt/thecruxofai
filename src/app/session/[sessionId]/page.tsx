@@ -1,6 +1,7 @@
 import { AlgebraSession } from '@/components/sessions/algebra'
 import { GradientDescentSession } from '@/components/sessions/gradient-descent'
 import { KMeansSession } from '@/components/sessions/kmeans'
+import { Lecture1Session } from '@/components/sessions/lec1-linear-systems'
 import { LinearAlgebraSession } from '@/components/sessions/linear-algebra'
 import { LinearRegressionSession } from '@/components/sessions/linear-regression'
 import { PerceptronSession } from '@/components/sessions/perceptron'
@@ -19,6 +20,7 @@ const OVERVIEWS: Record<TopicId, () => React.ReactElement> = {
   gradient: GradientDescentSession,
   kmeans: KMeansSession,
   perceptron: PerceptronSession,
+  lec1: Lecture1Session,
 }
 
 export function generateStaticParams() {

@@ -10,7 +10,7 @@ export default function HomePage() {
         eyebrow="Weekend session log · M.Tech AIML"
         title="Machine learning, one knob at a time"
         large
-        intro="Notes from a four-semester M.Tech in AI & ML, rebuilt as things you can drag. The left menu mirrors the actual curriculum — 12 courses across three semesters, then a dissertation. Each session I attend turns into an interactive page under its course."
+        intro="Notes from a four-semester M.Tech in AI & ML, turned into things you can drag. The left menu follows the real course list — 12 courses across three semesters, then a dissertation. Every class I sit in becomes a page you can play with."
       />
 
       <div className="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-3">
@@ -34,8 +34,8 @@ export default function HomePage() {
 
       <h2 className="mt-10 mb-1.5 text-lg font-semibold tracking-[-0.02em]">Interactive sessions so far</h2>
       <p className="mb-4 max-w-[660px] text-[14px]/[1.6] text-zinc-600">
-        {sessions.length} built from semester 1 and 2 material, starting with the two the rest of the maths rests on.
-        The remainder of the curriculum is in the menu, waiting for its weekend.
+        {sessions.length} built from semester 1 and 2 material, starting with the ones everything else leans on. The
+        rest of the course list is in the menu, waiting for its weekend.
       </p>
 
       <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">

@@ -341,7 +341,7 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
         ],
         answer: 1,
         explain:
-          'The step is η × gradient. Near the bottom the gradient tends to zero, so the movement does too — no schedule required for a well-behaved convex surface.',
+          'The step is η × gradient. Near the bottom the gradient tends to zero, so the movement does too — on a simple bowl-shaped surface you never have to shrink the step by hand.',
       },
       {
         q: 'What is the practical difference between batch gradient descent and stochastic gradient descent?',
@@ -395,20 +395,20 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       {
         q: 'Two runs on identical data with the same k produce different clusters. Why?',
         options: [
-          'The algorithm is non-deterministic by design',
+          'The method deliberately throws dice every time',
           'Different random initial centroids lead to different local minima',
           'The data changed between runs',
           'k-means never converges',
         ],
         answer: 1,
         explain:
-          'Assignment and update only guarantee a decrease in J, not the global optimum. k-means++ seeding or multiple restarts with the best inertia are the standard fixes.',
+          'Each round is guaranteed to make the score better, but not to find the best answer overall — so where you start decides where you end up. The usual fixes are a smarter starting spread (k-means++) or just running it several times and keeping the best.',
       },
       {
         q: 'Why can you not choose k by picking the value that minimises inertia?',
         options: [
           'Inertia is not computable for large k',
-          'Inertia decreases monotonically with k, reaching zero when k = n',
+          'The score always falls as k grows, and hits zero when every point is its own cluster',
           'Inertia is unrelated to cluster quality',
           'Because k must be prime',
         ],
@@ -464,9 +464,9 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       { formula: 'z = 0 is the boundary', why: 'A line in 2D, a hyperplane in general. w is its normal.' },
       {
         formula: 'separable ⇒ finite updates',
-        why: 'The perceptron convergence theorem. Non-separable data never settles.',
+        why: 'The perceptron convergence theorem. If no straight line can split the data, it never settles.',
       },
-      { formula: 'XOR is not separable', why: 'The canonical failure that motivates hidden layers.' },
+      { formula: 'XOR is not separable', why: 'The classic example that hidden layers were invented to fix.' },
     ],
     quiz: [
       {
@@ -525,6 +525,126 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
           'Logistic regression: sigmoid output, cross-entropy loss, gradient-based, gives calibrated probabilities, converges on non-separable data.',
           'Linear SVM: hinge loss with regularisation, maximises the margin, supports slack variables for overlap.',
           'Conclude on the practical criterion: probabilities, margin, or simplicity.',
+        ],
+      },
+    ],
+  },
+
+  lec1: {
+    cheat: [
+      { formula: 'Ax = b', why: 'A whole system in three letters. A is the numbers, x the unknowns, b the answers.' },
+      {
+        formula: 'Ax = x₁c₁ + x₂c₂ + … ',
+        why: 'The same thing read down the columns: x is a recipe for mixing them to reach b.',
+      },
+      {
+        formula: 'zero, one, or endlessly many',
+        why: 'The only three outcomes a linear system can have. Never any other number.',
+      },
+      {
+        formula: 'Rᵢ ↔ Rⱼ · Rₖ ← αRₖ (α ≠ 0) · Rᵢ ← Rᵢ + βRⱼ',
+        why: 'The three legal moves. None of them changes which values solve the system.',
+      },
+      {
+        formula: 'x = xₚ + λ₁h₁ + λ₂h₂ + …',
+        why: 'All the answers: any one answer, plus everything that adds up to zero.',
+      },
+      {
+        formula: 'A⁻¹ exists ⟺ det A ≠ 0',
+        why: 'For 2 × 2, det = ad − bc. The inverse formula divides by it, so zero kills it.',
+      },
+      {
+        formula: '[ A | I ] → [ I | A⁻¹ ]',
+        why: 'Run elimination on A beside the identity and the inverse appears on the right.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'A system of linear equations turns out to have more than one answer. How many does it have?',
+        options: ['Exactly two', 'Endlessly many', 'At most as many as there are unknowns', 'It depends on the matrix'],
+        answer: 1,
+        explain:
+          'If two different answers exist, the difference between them adds up to zero, so you can add any amount of that difference and stay on an answer. That gives endlessly many straight away — which is why "exactly two" can never happen.',
+      },
+      {
+        q: 'Why is multiplying a row by zero not one of the allowed moves?',
+        options: [
+          'It makes the arithmetic harder',
+          'It turns the equation into 0 = 0, throwing away a constraint and letting in answers the original system did not have',
+          'It is allowed, but only on the last row',
+          'It changes the determinant',
+        ],
+        answer: 1,
+        explain:
+          'The three moves are safe because each one can be undone. Multiplying by zero cannot be undone — the equation is gone, and the system you are left with is a different, looser one.',
+      },
+      {
+        q: 'Looking at the columns of A as arrows, when does Ax = b have no answer?',
+        options: [
+          'When A is not square',
+          'When b is the zero vector',
+          'When b lies outside everything the columns can reach by mixing',
+          'When A has more rows than columns',
+        ],
+        answer: 2,
+        explain:
+          'x is a recipe for mixing the columns. If b is outside their reach — their span — then no recipe lands on it, and the system has no answer. That is the column picture of "no solution".',
+      },
+      {
+        q: 'After elimination, a column has no pivot. What does that tell you?',
+        options: [
+          'The system has no answer',
+          'That variable is free — you may choose it, and the rest adjust around your choice',
+          'The matrix is not square',
+          'You made an arithmetic mistake',
+        ],
+        answer: 1,
+        explain:
+          'A pivot pins a variable down. No pivot means nothing pins it down, so it becomes a free dial and the system has endlessly many answers — one for each setting.',
+      },
+      {
+        q: 'What tells you the system has no answer at all?',
+        options: [
+          'A row of all zeros',
+          'A row that is all zeros on the left but not zero on the right',
+          'Two identical rows',
+          'A zero on the diagonal',
+        ],
+        answer: 1,
+        explain:
+          'That row reads 0 = something-not-zero, which can never be true. A row of zeros all the way across is harmless — it just means that equation repeated what the others already said.',
+      },
+    ],
+    exam: [
+      {
+        q: 'A linear system can have zero, one, or infinitely many solutions. Justify why no other number is possible, and describe each case geometrically for two unknowns.',
+        meta: 'Explain · ~8 marks',
+        points: [
+          'Suppose two distinct solutions x and y exist. Then A(x − y) = b − b = 0, so d = x − y is a non-zero solution of the homogeneous system.',
+          'Then x + λd is a solution for every real λ, and all are distinct because d ≠ 0 — so two solutions immediately force infinitely many.',
+          'Geometry with two unknowns: each equation is a line. Lines crossing once = one solution; parallel and distinct = none; identical = infinitely many.',
+          'Note the same three cases persist in higher dimensions with planes and hyperplanes, even though the picture stops being drawable.',
+        ],
+      },
+      {
+        q: 'State the three elementary row operations and prove that they do not change the solution set of a system.',
+        meta: 'State & prove · ~8 marks',
+        points: [
+          'ERO1 swap Rᵢ ↔ Rⱼ; ERO2 scale Rₖ ← αRₖ with α ≠ 0; ERO3 add Rᵢ ← Rᵢ + βRⱼ.',
+          'Each corresponds to an operation on the equations themselves: reordering them, restating one as an equivalent multiple, or replacing one with a valid consequence.',
+          'Key argument: each operation is reversible (swap back, scale by 1/α, subtract βRⱼ), so any solution of the new system is a solution of the old and vice versa.',
+          'Explain why α ≠ 0 is required: scaling by zero is not reversible, discards a constraint, and can enlarge the solution set.',
+        ],
+      },
+      {
+        q: 'Explain how the general solution of Ax = b is built from a particular solution and the solutions of Ax = 0, using an example with at least one free variable.',
+        meta: 'Explain with example · ~10 marks',
+        points: [
+          'Find any particular xₚ with Axₚ = b — often readable straight off the reduced row-echelon form.',
+          'Solve the homogeneous system Ax = 0; each non-pivot (free) column contributes one independent solution hᵢ.',
+          'General solution x = xₚ + Σ λᵢhᵢ. Show it works: A(xₚ + Σλᵢhᵢ) = b + 0 = b.',
+          'Show completeness: if Ax = b then A(x − xₚ) = 0, so x − xₚ is in the homogeneous solution set.',
+          'Note neither xₚ nor the choice of hᵢ is unique, though the set of solutions they describe is.',
         ],
       },
     ],
