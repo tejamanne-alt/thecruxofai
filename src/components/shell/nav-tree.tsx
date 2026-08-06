@@ -11,6 +11,7 @@ import {
   type SessionKind,
   type TopicId,
 } from '@/lib/data/curriculum'
+import { partsOf } from '@/lib/data/lecture-parts'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -96,6 +97,9 @@ export function NavTree({
   // pages starts open, an empty one starts closed, so the tree opens on
   // something rather than on two shut doors.
   const [openBuckets, setOpenBuckets] = useState<Record<string, boolean>>({})
+  // Keyed by the page href. Undefined means "not touched", and a chapter opens
+  // itself when you are standing on one of its parts.
+  const [openPages, setOpenPages] = useState<Record<string, boolean>>({})
 
   // Landing straight on a deep link should reveal that row, not hide it. Done
   // during render on a path change so the row is already open on first paint.
@@ -121,10 +125,17 @@ export function NavTree({
   function pagesOf(course: Course, kind: SessionKind) {
     const built = course.topics
       .filter((t) => sessionById[t].kind === kind)
-      .map((t) => ({ href: `/session/${t}`, label: sessionById[t].label, tag: '' }))
+      .map((t) => ({
+        href: `/session/${t}`,
+        label: sessionById[t].label,
+        tag: '',
+        // A chapter covers a whole lecture, so it opens one level further into
+        // its parts. Sessions have none and stay leaves.
+        parts: partsOf(t).map((p) => ({ href: `/session/${t}/${p.id}`, label: p.title })),
+      }))
     const mine = (customByCourse.get(course.id) ?? [])
       .filter((s) => s.kind === kind)
-      .map((s) => ({ href: `/my/${s.id}`, label: s.title, tag: 'added' }))
+      .map((s) => ({ href: `/my/${s.id}`, label: s.title, tag: 'added', parts: [] }))
     return [...built, ...mine]
   }
 
@@ -282,30 +293,82 @@ export function NavTree({
                                       <div className="mb-1 ml-2 flex flex-col gap-px border-l border-zinc-950/[0.06] pl-2">
                                         {bk.pages.map((s) => {
                                           const active = pathname === s.href
+                                          const partActive = s.parts.some((pt) => pathname === pt.href)
+                                          const pageOpen = openPages[s.href] ?? partActive
                                           return (
-                                            <Link
-                                              key={s.href}
-                                              href={s.href}
-                                              onClick={onNavigate}
-                                              className={clsx(
-                                                'flex w-full items-center gap-[7px] rounded-md px-2 py-[5px] text-left text-xs',
-                                                active
-                                                  ? 'font-semibold text-zinc-950'
-                                                  : 'font-normal text-zinc-700 hover:bg-zinc-950/[0.05]'
+                                            <div key={s.href} className="flex flex-col">
+                                              <div className="flex items-center">
+                                                {s.parts.length > 0 ? (
+                                                  <button
+                                                    type="button"
+                                                    aria-label={`Toggle the parts of ${s.label}`}
+                                                    onClick={() => setOpenPages((o) => ({ ...o, [s.href]: !pageOpen }))}
+                                                    className="grid w-[15px] shrink-0 cursor-pointer place-items-center py-[5px] hover:opacity-60"
+                                                  >
+                                                    <Caret open={pageOpen} size={4} />
+                                                  </button>
+                                                ) : (
+                                                  <span
+                                                    className="mx-[5px] size-[5px] shrink-0 rounded-full"
+                                                    style={{ background: active ? 'var(--acc)' : 'rgba(9,9,11,0.25)' }}
+                                                  />
+                                                )}
+                                                <Link
+                                                  href={s.href}
+                                                  onClick={onNavigate}
+                                                  className={clsx(
+                                                    'flex min-w-0 flex-1 items-center gap-[7px] rounded-md px-1.5 py-[5px] text-left text-xs',
+                                                    active || partActive
+                                                      ? 'font-semibold text-zinc-950'
+                                                      : 'font-normal text-zinc-700 hover:bg-zinc-950/[0.05]'
+                                                  )}
+                                                  style={active ? { background: 'var(--acc-12)' } : undefined}
+                                                >
+                                                  <span className="min-w-0 flex-1 truncate">{s.label}</span>
+                                                  {s.parts.length > 0 && (
+                                                    <span className="shrink-0 text-[9px] font-medium text-zinc-400">
+                                                      {s.parts.length}
+                                                    </span>
+                                                  )}
+                                                  {s.tag && (
+                                                    <span className="shrink-0 text-[9px] font-semibold tracking-[0.04em] text-zinc-400 uppercase">
+                                                      {s.tag}
+                                                    </span>
+                                                  )}
+                                                </Link>
+                                              </div>
+
+                                              {/* Level 5 — the parts of a chapter, numbered so the order is plain. */}
+                                              {pageOpen && s.parts.length > 0 && (
+                                                <div className="mb-1 ml-[15px] flex flex-col gap-px border-l border-zinc-950/[0.06] pl-1.5">
+                                                  {s.parts.map((pt, i) => {
+                                                    const on = pathname === pt.href
+                                                    return (
+                                                      <Link
+                                                        key={pt.href}
+                                                        href={pt.href}
+                                                        onClick={onNavigate}
+                                                        className={clsx(
+                                                          'flex w-full items-baseline gap-1.5 rounded-md px-1.5 py-1 text-left text-[11.5px]/[1.4]',
+                                                          on
+                                                            ? 'font-semibold text-zinc-950'
+                                                            : 'font-normal text-zinc-600 hover:bg-zinc-950/[0.05]'
+                                                        )}
+                                                        style={on ? { background: 'var(--acc-12)' } : undefined}
+                                                      >
+                                                        <span
+                                                          className="w-3.5 shrink-0 text-right text-[9.5px] font-semibold tabular-nums"
+                                                          style={{ color: on ? 'var(--acc)' : '#a1a1aa' }}
+                                                        >
+                                                          {i + 1}
+                                                        </span>
+                                                        <span className="min-w-0 flex-1">{pt.label}</span>
+                                                      </Link>
+                                                    )
+                                                  })}
+                                                </div>
                                               )}
-                                              style={active ? { background: 'var(--acc-12)' } : undefined}
-                                            >
-                                              <span
-                                                className="size-[5px] shrink-0 rounded-full"
-                                                style={{ background: active ? 'var(--acc)' : 'rgba(9,9,11,0.25)' }}
-                                              />
-                                              <span className="min-w-0 flex-1 truncate">{s.label}</span>
-                                              {s.tag && (
-                                                <span className="shrink-0 text-[9px] font-semibold tracking-[0.04em] text-zinc-400 uppercase">
-                                                  {s.tag}
-                                                </span>
-                                              )}
-                                            </Link>
+                                            </div>
                                           )
                                         })}
                                       </div>
