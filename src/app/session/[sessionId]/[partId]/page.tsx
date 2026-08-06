@@ -1,5 +1,6 @@
-import { LEC1_PARTS } from '@/components/sessions/lec1/parts'
 import { ISM1_PARTS } from '@/components/sessions/ism1/parts'
+import { ISM2_PARTS } from '@/components/sessions/ism2/parts'
+import { LEC1_PARTS } from '@/components/sessions/lec1/parts'
 import { PartShell } from '@/components/sessions/session-parts'
 import { CheatSheetTab } from '@/components/tabs/cheat-sheet-tab'
 import { ExamTab } from '@/components/tabs/exam-tab'
@@ -11,7 +12,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 /** One body per part id. Only chapters have these. */
-const BODIES: Record<string, Record<string, React.ReactNode>> = { lec1: LEC1_PARTS, ism1: ISM1_PARTS }
+const BODIES: Record<string, Record<string, React.ReactNode>> = { lec1: LEC1_PARTS, ism1: ISM1_PARTS, ism2: ISM2_PARTS }
 
 export function generateStaticParams() {
   return Object.entries(LECTURE_PARTS).flatMap(([sessionId, parts]) =>

@@ -216,6 +216,93 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
       slides: 'Slides 50–54',
     },
   ],
+
+  ism2: [
+    {
+      id: 'experiment',
+      title: 'What a random experiment is',
+      teaser: 'Anything where you cannot say the answer in advance. Run one and watch.',
+      slides: 'Slides 4–5',
+    },
+    {
+      id: 'space',
+      title: 'The sample space',
+      teaser: 'Write down everything that could possibly happen. That set is where all of probability lives.',
+      slides: 'Slide 6',
+    },
+    {
+      id: 'event',
+      title: 'An event is part of that list',
+      teaser: 'Click the outcomes you care about. That is an event, and counting gives its probability.',
+      slides: 'Slide 7',
+    },
+    {
+      id: 'complement',
+      title: 'The complement — everything else',
+      teaser: 'Aᶜ is whatever A is not. Their probabilities always add to 1, which is often the quick way in.',
+      slides: 'Slide 8',
+    },
+    {
+      id: 'setops',
+      title: 'Union and intersection: or, and',
+      teaser: 'Two circles you drag. The overlap is a real area, so the maths is visible.',
+      slides: 'Slide 9',
+    },
+    {
+      id: 'exclusive',
+      title: 'Mutually exclusive events',
+      teaser: 'Events that cannot both happen. Pull the circles apart until they stop touching.',
+      slides: 'Slide 10',
+    },
+    {
+      id: 'define',
+      title: 'Three ways to define probability',
+      teaser: 'Count it, measure it, or state the rules. Run a die a thousand times and watch two of them meet.',
+      slides: 'Slides 11–14',
+    },
+    {
+      id: 'axioms',
+      title: 'The axioms, and what breaks them',
+      teaser: 'Five candidate assignments from the slides. Four are illegal — find out which rule each one breaks.',
+      slides: 'Slide 13, Example 1',
+    },
+    {
+      id: 'addition',
+      title: 'The addition rule',
+      teaser: 'Add the two, take the overlap off once. Why you subtract, seen rather than memorised.',
+      slides: 'Slides 15–16',
+    },
+    {
+      id: 'independent',
+      title: 'Independent is not the same as exclusive',
+      teaser: 'The most-confused pair in the lecture, on one set of numbers you control.',
+      slides: 'Slides 17–18',
+    },
+    {
+      id: 'dice',
+      title: 'Two dice, all 36 outcomes',
+      teaser: 'Example 2 laid out as a grid. Pick a condition and count the squares.',
+      slides: 'Examples 2, 7',
+    },
+    {
+      id: 'worked',
+      title: 'Working backwards to the overlap',
+      teaser: 'Exams give you three of the four numbers. Examples 3, 4 and 6, rearranged.',
+      slides: 'Examples 3–6',
+    },
+    {
+      id: 'counting',
+      title: 'Counting: choosing a committee',
+      teaser: 'When the outcomes are too many to list, count them instead. Example 8 in full.',
+      slides: 'Example 8',
+    },
+    {
+      id: 'practice',
+      title: 'The practice problems',
+      teaser: 'All nine from the slides, with the tools to work them out.',
+      slides: 'Slides 34–39',
+    },
+  ],
 }
 
 export function partsOf(topic: TopicId): PartMeta[] {

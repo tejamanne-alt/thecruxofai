@@ -62,7 +62,13 @@
       "group": "s1",
       "name": "Introduction to Statistical Methods",
       "topics": [
-        "ism1"
+        "centre",
+        "spread",
+        "outliers",
+        "probability",
+        "events",
+        "ism1",
+        "ism2"
       ],
       "syllabus": null
     },
@@ -424,6 +430,36 @@
       "label": "Lecture 1 — Describing data: centre, spread and outliers",
       "blurb": "Drag dots on a line and watch the mean chase them while the median stays put. Then square the distances, find the quartiles, and see what counts as an outlier.",
       "kind": "chapter"
+    },
+    "ism2": {
+      "label": "Lecture 2 — Probability: events, axioms and the addition rule",
+      "blurb": "Drag two circles until they overlap and watch the addition rule explain itself. Then roll 36 dice outcomes, test the axioms, and sort out independent from mutually exclusive.",
+      "kind": "chapter"
+    },
+    "centre": {
+      "label": "Averages: mean, median and mode",
+      "blurb": "Three answers to \"where is the middle?\". Drag one dot to the far end and see which of them chases it.",
+      "kind": "concept"
+    },
+    "spread": {
+      "label": "Spread: how far apart the numbers are",
+      "blurb": "Two sets can share a mean and have nothing else in common. Square the distances and watch why one odd value dominates.",
+      "kind": "concept"
+    },
+    "outliers": {
+      "label": "Outliers and the box plot",
+      "blurb": "Five numbers describe a whole dataset. Put up the fences and drag a value past one.",
+      "kind": "concept"
+    },
+    "probability": {
+      "label": "Probability: what the number actually means",
+      "blurb": "Count the outcomes, or run it a thousand times. Two definitions of the same number, and they meet in the middle.",
+      "kind": "concept"
+    },
+    "events": {
+      "label": "Events as sets: and, or, not",
+      "blurb": "Every probability question is a set question first. Build events by hand, then let area do the arithmetic.",
+      "kind": "concept"
     }
   }
 }

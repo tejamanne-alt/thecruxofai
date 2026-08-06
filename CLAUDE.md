@@ -17,6 +17,12 @@ Build it as a **chapter** under the right course, in the **Chapters** bucket. Ne
 4. **Record where it came from.** Each part carries the slide numbers it was built from, so any claim on the
    page can be traced back to the deck.
 5. **Write the cheat sheet, quiz and exam entries** into `knowledge.ts` for the chapter.
+6. **Then look at the Concepts bucket.** A chapter follows one lecture in the order it was taught. A concept takes
+   one reusable idea and explains it on its own terms, so it can be reached from anywhere and used by a later
+   course. After adding a chapter, add or extend the concepts the lecture introduced — one page each, reusing the
+   chapter's labs, ending with links back to the parts it was drawn from. Do not duplicate the chapter; a concept
+   is a different cut through the same material, aimed at someone who has forgotten it rather than someone
+   revising it.
 
 ## How to write
 
@@ -27,7 +33,7 @@ Plain, everyday English. The reader is a beginner and may not be a native speake
   "use" not "utilise".
 - Introduce jargon, never assume it. A term gets a plain meaning the first time it appears, usually in a
   `Terms` block, with how to say it aloud where that helps.
-- Say what a thing *is* before saying what it is *called*.
+- Say what a thing _is_ before saying what it is _called_.
 - The exam answer points in `knowledge.ts` are the one exception: those model what an examiner wants to
   read, so they use the proper vocabulary.
 

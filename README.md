@@ -161,6 +161,17 @@ the statistics labs reproduce SS = 44 / s = 2.345 for group 1 and SS = 134 / s =
   path _changed_, and the initial state named three courses explicitly. A hard load of a deep link into any other
   course arrived collapsed, which is exactly what happened the moment Statistics gained its first chapter.
 
+### A chapter and a concept are different cuts
+
+A **chapter** follows one lecture in the order it was taught, so it is what you want the night before an exam. A
+**concept** takes one reusable idea and explains it on its own terms, so it is what you want when something refuses
+to click — and a later course can link straight to it.
+
+They share their labs. `stats-concepts.tsx` renders the same `CentreLab`, `VarianceLab`, `BoxPlotLab`, `VennLab`,
+`ConvergeLab` and `SampleSpaceLab` that the chapters use, with different words around them, and each concept ends
+with links back to the chapter parts it was drawn from. The rule is: no duplicated explanation. If the concept page
+starts restating the chapter, it is aimed at the wrong reader.
+
 ### Writing style
 
 Plain, everyday English everywhere the reader can see it. Short sentences. Ordinary words. Jargon is introduced, never
@@ -241,12 +252,22 @@ The first two are the foundations everything else leans on, so they come first i
 | k-means clustering | Machine Learning         | Change k, alternate the assign and move steps, reseed to land in a different local minimum                                           |
 | The perceptron     | Deep Neural Networks     | Train a pass at a time and watch the boundary rotate as the mistakes run out                                                         |
 
-And two chapters, each covering a real lecture end to end. A chapter is split into parts — see below:
+And three chapters, each covering a real lecture end to end. A chapter is split into parts — see below:
 
 | Chapter                                                      | Course                              | What you can do to it                                                                                                                                                                                                                                                                                                                |
 | ------------------------------------------------------------ | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Lecture 1 — Linear equations, matrices, Gaussian elimination | Mathematical Foundations            | 18 parts, each its own page and its own row in the left menu, each with something to operate. Drag two lines until they coincide; spin three sheets in a box; mix matrix columns until a target becomes unreachable; click the pivots and get marked; run elimination one legal row operation at a time on the lecture's own systems |
 | Lecture 1 — Describing data: centre, spread and outliers     | Introduction to Statistical Methods | 14 parts. Drag a dot and watch the mean chase it while the median stays put; grow the squared deviations as literal squares; take samples until the divide-by-n formula visibly lands short; count quartile positions the lecture's way; push a value past a fence and watch it flag                                                 |
+
+Concepts drawn from those chapters, each reusing the chapter's own labs and linking back to the parts it came from:
+
+| Concept                               | From                           |
+| ------------------------------------- | ------------------------------ |
+| Averages: mean, median and mode       | ISM Lecture 1, parts 4–7       |
+| Spread: how far apart the numbers are | ISM Lecture 1, parts 8–11      |
+| Outliers and the box plot             | ISM Lecture 1, parts 9, 12–13  |
+| Probability: what the number means    | ISM Lecture 2, parts 1, 7–8    |
+| Events as sets: and, or, not          | ISM Lecture 2, parts 4–6, 9–10 |
 
 Every session ends with a **Where this shows up in AI & ML** section — not "you will need this one day", but the places
 the idea appears by name in things already on the site.
