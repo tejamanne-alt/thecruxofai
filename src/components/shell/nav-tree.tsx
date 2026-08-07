@@ -87,25 +87,32 @@ export function NavTree({
   const pathname = usePathname()
   const { sessions: custom, isAdmin } = useCustom()
 
-  // The reveal below only fires when the path *changes*, so it does nothing on
-  // a fresh page load. Seeding the initial state from the current URL is what
-  // makes a deep link — or a hard refresh on one — arrive with its row already
-  // open. Hard-coding a list of courses here instead would silently leave every
-  // new course collapsed, which is exactly what happened when Statistics
-  // gained its first chapter.
+  /*
+   * Every row starts shut. The tree is five levels deep and most of it is
+   * irrelevant to whatever you are reading, so opening it all by default buries
+   * the menu items you actually want under a long scroll.
+   *
+   * The one exception is the path down to the page you are currently on. You
+   * asked for that page, so revealing where it sits is on demand rather than a
+   * default — and without it a deep link, or a refresh on one, would leave you
+   * with no idea where you are. Everything else waits to be clicked.
+   *
+   * The reveal further down only fires when the path *changes*, so it does
+   * nothing on a fresh load. That is why the same locate() runs here too.
+   */
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => {
     const at = locate(pathname, custom)
-    return { s1: true, s2: true, ...(at ? { [at.course.group]: true } : {}) }
+    return at ? { [at.course.group]: true } : {}
   })
   const [openCourses, setOpenCourses] = useState<Record<string, boolean>>(() => {
     const at = locate(pathname, custom)
-    const withPages = Object.fromEntries(courses.filter((c) => c.topics.length > 0).map((c) => [c.id, true]))
-    return { ...withPages, ...(at ? { [at.course.id]: true } : {}) }
+    return at ? { [at.course.id]: true } : {}
   })
-  // Keyed `courseId:kind`. Undefined means "not touched yet" — a bucket with
-  // pages starts open, an empty one starts closed, so the tree opens on
-  // something rather than on two shut doors.
-  const [openBuckets, setOpenBuckets] = useState<Record<string, boolean>>({})
+  // Keyed `courseId:kind`. Only the bucket holding the current page starts open.
+  const [openBuckets, setOpenBuckets] = useState<Record<string, boolean>>(() => {
+    const at = locate(pathname, custom)
+    return at?.kind ? { [`${at.course.id}:${at.kind}`]: true } : {}
+  })
   // Keyed by the page href. Undefined means "not touched", and a chapter opens
   // itself when you are standing on one of its parts.
   const [openPages, setOpenPages] = useState<Record<string, boolean>>({})
@@ -275,7 +282,7 @@ export function NavTree({
                           <div className="mt-px mb-1 ml-[18px] flex flex-col border-l border-zinc-950/[0.08] pl-2">
                             {buckets.map((bk) => {
                               const key = `${c.id}:${bk.id}`
-                              const bucketOpen = openBuckets[key] ?? bk.pages.length > 0
+                              const bucketOpen = !!openBuckets[key]
                               return (
                                 <div key={bk.id} className="flex flex-col">
                                   <button
