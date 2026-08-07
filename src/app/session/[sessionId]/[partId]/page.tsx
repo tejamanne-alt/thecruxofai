@@ -3,6 +3,7 @@ import { LEC0A_PARTS } from '@/components/sessions/lec0a/parts'
 import { LEC0B_PARTS } from '@/components/sessions/lec0b/parts'
 import { ISM2_PARTS } from '@/components/sessions/ism2/parts'
 import { LEC1_PARTS } from '@/components/sessions/lec1/parts'
+import { LEC2_PARTS } from '@/components/sessions/lec2/parts'
 import { PartShell } from '@/components/sessions/session-parts'
 import { CheatSheetTab } from '@/components/tabs/cheat-sheet-tab'
 import { ExamTab } from '@/components/tabs/exam-tab'
@@ -18,6 +19,7 @@ const BODIES: Record<string, Record<string, React.ReactNode>> = {
   lec0a: LEC0A_PARTS,
   lec0b: LEC0B_PARTS,
   lec1: LEC1_PARTS,
+  lec2: LEC2_PARTS,
   ism1: ISM1_PARTS,
   ism2: ISM2_PARTS,
 }

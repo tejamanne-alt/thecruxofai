@@ -1088,6 +1088,194 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
     ],
   },
 
+  vectorspace: {
+    cheat: [
+      { formula: '+ : 𝒱 × 𝒱 → 𝒱', why: 'The inner operation. Two members in, one member out — the arrow is the closure requirement.' },
+      { formula: '· : ℝ × 𝒱 → 𝒱', why: 'The outer operation. A plain number and a member in, a member out. The number lives outside the set.' },
+      { formula: '(𝒱, +) is an Abelian group', why: 'Closed, associative, has 0, has negatives, and x + y = y + x. Half the definition in one clause.' },
+      { formula: 'λ(x+y) = λx + λy,  (λ+ψ)x = λx + ψx', why: 'Distributivity both ways. Stretching spreads over adding vectors and over adding scalars.' },
+      { formula: 'λ(ψx) = (λψ)x,  1x = x', why: 'The other two rules for the outer operation. Easy to forget, easy to break in a made-up example.' },
+      { formula: 'ℝⁿ · ℝᵐˣⁿ · polynomials', why: 'All vector spaces. Nothing in the definition says a vector has to be a column.' },
+      { formula: 'U ⊆ V subspace ⟺ U ≠ ∅,  x+y ∈ U,  λx ∈ U', why: 'The short test. U inherits every other rule from V, so only closure can go wrong.' },
+      { formula: 'U ≠ ∅ and λx ∈ U ⟹ 0 ∈ U', why: 'Take λ = 0. Any set missing the origin is out at once, however straight it looks.' },
+      { formula: '{x : Ax = 0} is a subspace', why: 'The nullspace. Non-empty since x = 0 works, and both closures follow from A being linear.' },
+      { formula: 'Ax = b, Ay = b ⟹ A(x+y) = 2b', why: 'Why b ≠ 0 gives no space. The solution set is a shifted copy of the nullspace, and the shift breaks it.' },
+    ],
+    quiz: [
+      {
+        q: 'Which of these is a subspace of ℝ²?',
+        options: ['The line y = x + 1', 'The line y = 2x', 'The square −1 ≤ x, y ≤ 1', 'The first quadrant x ≥ 0, y ≥ 0'],
+        answer: 1,
+        explain:
+          'y = 2x passes through the origin and both closures hold — add two of its points or stretch one and you stay on it. The shifted line misses the origin. The square is bounded, so stretching escapes it. The quadrant is closed under adding but not under scaling by a negative number.',
+      },
+      {
+        q: 'A subset U of a vector space is non-empty and closed under scalar multiplication. What follows?',
+        options: ['Nothing in particular', '0 ∈ U, by taking λ = 0', 'U is a subspace', 'U is closed under addition'],
+        answer: 1,
+        explain:
+          'Pick any x in U and scale it by 0. The result is the zero vector, and closure says it must be in U. This is why "contains the origin" is a consequence of the test, not a fourth thing to check — and why a set missing the origin fails immediately.',
+      },
+      {
+        q: 'Why is the set of 2 × 2 matrices a vector space?',
+        options: [
+          'It is not — vectors have to be columns',
+          'Because matrix addition and scalar multiplication are element-wise and never leave the set',
+          'Because matrices can be multiplied together',
+          'Only if the matrices are invertible',
+        ],
+        answer: 1,
+        explain:
+          'The definition asks for one operation that adds two members and one that scales a member, plus some ordinary rules. Element-wise addition and scaling supply both. Matrix multiplication is irrelevant here — it is not one of the two operations. Note the invertible matrices are not a space: their sum can be singular.',
+      },
+      {
+        q: 'Why do the solutions of Ax = b form a vector space only when b = 0?',
+        options: [
+          'Because b ≠ 0 makes the system inconsistent',
+          'Because Ax = b and Ay = b give A(x + y) = 2b, which is not b unless b = 0',
+          'Because only b = 0 gives a unique solution',
+          'Because b ≠ 0 systems have too many answers',
+        ],
+        answer: 1,
+        explain:
+          'Adding two solutions doubles the right-hand side, so the set is not closed under addition. It also fails to contain 0, since A0 = 0 ≠ b. With b = 0 both problems disappear, and the solution set is the nullspace.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define a real-valued vector space, state the test for a subset to be a subspace, and explain why the test is shorter than the definition.',
+        meta: 'Definition plus the subspace criterion · 6–8 marks',
+        points: [
+          'A real-valued vector space is V = (𝒱, +, ·) with an inner operation + : 𝒱 × 𝒱 → 𝒱 and an outer operation · : ℝ × 𝒱 → 𝒱.',
+          '(𝒱, +) must be an Abelian group: closed, associative, commutative, with neutral element the zero vector 0 = [0, …, 0]ᵀ and an inverse −x for each x.',
+          'Distributivity: λ·(x + y) = λ·x + λ·y and (λ + ψ)·x = λ·x + ψ·x.',
+          'Associativity of the outer operation: λ·(ψ·x) = (λψ)·x. Neutral element of the outer operation: 1·x = x.',
+          'Examples include ℝⁿ, the m × n matrices under element-wise operations, and the polynomials of bounded degree.',
+          'Subspace test: a non-empty U ⊆ 𝒱 is a subspace if λx ∈ U for all λ ∈ ℝ, x ∈ U, and x + y ∈ U for all x, y ∈ U.',
+          'The test is shorter because associativity, commutativity, distributivity and the neutral element are universally quantified over 𝒱, hence hold automatically on any subset. Only closure can be lost by passing to a subset.',
+          'Non-emptiness with closure under scaling gives 0 ∈ U, taking λ = 0. Hence any subset avoiding the origin fails.',
+          'Illustrations in ℝ²: the y-axis is a subspace; the line x = 1 is not, since scaling leaves it; the square −1 ≤ x, y ≤ 1 is not, since 2·(1,1) = (2,2) lies outside.',
+        ],
+      },
+      {
+        q: 'Show that the nullspace {x : Ax = 0} is a vector subspace, and explain why the solution set of Ax = b with b ≠ 0 is not.',
+        meta: 'Verification against the three-part test · 5–6 marks',
+        points: [
+          'Non-empty: A0 = 0, so the zero vector always lies in the nullspace.',
+          'Closed under addition: Ax = 0 and Ay = 0 give A(x + y) = Ax + Ay = 0.',
+          'Closed under scaling: Ax = 0 gives A(λx) = λ(Ax) = 0 for every λ ∈ ℝ.',
+          'All three conditions of the subspace test hold, so the nullspace is a subspace of ℝⁿ.',
+          'For b ≠ 0, if Ax = b and Ay = b then A(x + y) = 2b ≠ b, so the solution set is not closed under addition.',
+          'Similarly A(λx) = λb ≠ b unless λ = 1, and 0 is not in the set since A0 = 0 ≠ b.',
+          'Structurally the solution set is x_p + N(A), a translate of the nullspace by any particular solution. Translation destroys both closures unless the translation is by 0.',
+        ],
+      },
+    ],
+  },
+
+  basis: {
+    cheat: [
+      { formula: 'span{x₁,…,xₖ} = { Σ λᵢxᵢ }', why: 'Everything reachable by mixing. Always a subspace, and the smallest one holding all the xᵢ.' },
+      { formula: '0 = Σ λᵢxᵢ with some λᵢ ≠ 0 ⟹ dependent', why: 'Dependence. Independence is the denial: only the all-zeros mixture reaches 0.' },
+      { formula: 'any set containing 0 is dependent', why: 'Give the zero vector a non-zero λ and everything else zero. This is why the definition is written the awkward way.' },
+      { formula: 'all non-zero: dependent ⟺ one is a mixture of the others', why: 'The readable version of the definition, valid only once the zero vector is ruled out.' },
+      { formula: 'columns → REF → all pivots ⟺ independent', why: 'The test you actually run. Non-pivot columns are mixtures of the pivots to their left.' },
+      { formula: 'm vectors from k ingredients, m > k ⟹ dependent', why: 'At most k pivots across m columns leaves a spare column, every time. No arithmetic needed.' },
+      { formula: 'generating set: every v ∈ V is a mixture of it', why: 'Reaches everything. May be far bigger than it needs to be.' },
+      { formula: 'basis = independent generating set', why: 'Also: minimal generating set, and maximal independent set. All three describe the same thing.' },
+      { formula: 'x = Σ λᵢbᵢ uniquely', why: 'Coefficients over a basis are one of a kind. Σλᵢbᵢ = Σψᵢbᵢ forces λᵢ = ψᵢ.' },
+      { formula: 'dim V = number of vectors in a basis', why: 'The same count for every basis of the space, so it belongs to the space and not to your choice.' },
+      { formula: 'dim ≠ number of components', why: 'span{(0,1)} sits in ℝ² and has dimension 1. Its vectors are still written with two numbers.' },
+      { formula: 'U ⊆ V ⟹ dim U ≤ dim V, equal only if U = V', why: 'A subspace cannot be larger, and cannot match without being the whole thing.' },
+      { formula: 'basis of a span: columns → REF → keep the pivot vectors', why: 'The three-step recipe. Keep your original vectors, not the reduced columns.' },
+    ],
+    quiz: [
+      {
+        q: 'Two vectors in ℝ² are dragged until one is exactly twice the other. What happens to their span?',
+        options: ['It stays the whole plane', 'It collapses to a line through the origin', 'It becomes just the origin', 'It becomes a half-plane'],
+        answer: 1,
+        explain:
+          'Every mixture c₁v₁ + c₂v₂ now reduces to a single multiple of v₁, so you can only reach points along that one direction. Two vectors span the plane exactly when they are independent.',
+      },
+      {
+        q: 'A set of vectors includes the zero vector. What can you say straight away?',
+        options: ['It is independent', 'It is dependent', 'It depends on the other vectors', 'It is a basis'],
+        answer: 1,
+        explain:
+          'Give the zero vector any non-zero coefficient and everything else zero. The mixture is 0, and it is non-trivial, so the set is dependent. This case is exactly why "one is a mixture of the others" is not used as the definition.',
+      },
+      {
+        q: 'You build 5 vectors as combinations of 3 independent ingredients. Are the 5 independent?',
+        options: ['Yes', 'No, whatever the coefficients are', 'It depends on the coefficients', 'Only if the ingredients are orthogonal'],
+        answer: 1,
+        explain:
+          'The coefficient matrix is 3 × 5, so it has at most 3 pivots and at least two columns are not pivots. Each of those gives a non-trivial mixture reaching zero. More vectors than ingredients is always dependent.',
+      },
+      {
+        q: 'Three linearly independent vectors in ℝ⁴. Are they a basis of ℝ⁴?',
+        options: [
+          'Yes — independence is what a basis needs',
+          'No — they cannot span a 4-dimensional space',
+          'Yes, if none of them is zero',
+          'Only if they are mutually orthogonal',
+        ],
+        answer: 1,
+        explain:
+          'A basis has to do two jobs: reach everything and carry nothing spare. These do the second job perfectly and fail the first, since three vectors can never span a space of dimension 4.',
+      },
+      {
+        q: 'What is the dimension of span{(0,1)} inside ℝ²?',
+        options: ['2, because each vector has two components', '1', '0', 'Undefined'],
+        answer: 1,
+        explain:
+          'The basis is the single vector (0,1), so the dimension is 1 — even though everything in the space is written with two numbers. Dimension counts basis vectors, not components.',
+      },
+      {
+        q: 'You reduce the matrix of spanning vectors and find pivots in columns 1 and 3. What is a basis of the span?',
+        options: [
+          'The reduced columns 1 and 3',
+          'The original vectors x₁ and x₃',
+          'All the original vectors',
+          'The non-zero rows of the reduced matrix',
+        ],
+        answer: 1,
+        explain:
+          'Elimination only tells you which of your vectors to keep. The reduced columns are not vectors from your space, so the basis is your original x₁ and x₃, and the dimension of the span is 2.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define linear combination, span and linear independence, and describe how Gaussian elimination is used to test a set of vectors.',
+        meta: 'Definitions plus method · 6–8 marks',
+        points: [
+          'For x₁, …, xₖ in a vector space V, a linear combination is v = λ₁x₁ + ⋯ + λₖxₖ with λᵢ ∈ ℝ.',
+          'The span of {x₁, …, xₖ} is the set of all such combinations. It is always a subspace of V, and it is the smallest subspace containing every xᵢ.',
+          'The vectors are linearly dependent if 0 = Σλᵢxᵢ for some choice with at least one λᵢ ≠ 0, and linearly independent otherwise.',
+          'The trivial combination with all λᵢ = 0 always gives 0, so only non-trivial combinations carry information.',
+          'Special cases: any set containing the zero vector is dependent; among non-zero vectors, dependence holds if and only if one is a combination of the others.',
+          'Method: write the vectors as the columns of a matrix and reduce to row echelon form. The vectors are independent precisely when every column is a pivot column.',
+          'Each non-pivot column is a combination of the pivot columns to its left, with coefficients read from the reduced form, so the method also identifies which vectors are redundant.',
+          'Counting argument: m vectors expressed over k independent ingredients give a k × m coefficient matrix with at most k pivots, so m > k forces dependence.',
+        ],
+      },
+      {
+        q: 'Define generating set, basis and dimension, state the equivalent characterizations of a basis, and give the procedure for finding a basis of a span.',
+        meta: 'Definitions, equivalences and method · 8 marks',
+        points: [
+          '𝒜 = {x₁, …, xₖ} ⊆ 𝒱 is a generating set of V if every v ∈ V is a linear combination of its members; the set of all such combinations is the span, and V = span[𝒜].',
+          'A generating set is minimal if no proper subset of it still spans V. Every linearly independent generating set is minimal and is called a basis.',
+          'Equivalent characterizations: ℬ is a basis; ℬ is a minimal generating set; ℬ is a maximal linearly independent set, so adjoining any further vector makes it dependent; every x ∈ V has a unique expansion over ℬ.',
+          'Uniqueness of coefficients: if Σλᵢbᵢ = Σψᵢbᵢ then subtracting gives Σ(λᵢ − ψᵢ)bᵢ = 0, and independence forces λᵢ = ψᵢ for every i.',
+          'A basis is not unique. ℝ³ admits the canonical basis, and also (1,0,0), (1,1,0), (1,1,1), among infinitely many others.',
+          'The dimension dim V is the number of vectors in a basis; this is well defined because all bases of V have the same size.',
+          'dim V is not the number of components of its vectors: span{(0,1)} ⊆ ℝ² has dimension 1 while its vectors have two components.',
+          'If U ⊆ V then dim U ≤ dim V, with equality if and only if U = V.',
+          'To find a basis of U = span{x₁, …, xₘ} ⊆ ℝⁿ: write the spanning vectors as the columns of A; reduce A to row echelon form; the original spanning vectors in the pivot columns form a basis of U, and their number is dim U.',
+        ],
+      },
+    ],
+  },
+
   lec0b: {
     cheat: [
       { formula: 'x + y = (x₁+y₁, …, xₙ+yₙ),  λx = (λx₁, …, λxₙ)', why: 'The only two things you may do to vectors. Both work one slot at a time.' },
@@ -1362,6 +1550,345 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
           'Its sign indicates the direction of any linear relationship: positive when the variables tend to lie on the same side of their means, negative when on opposite sides.',
           'Its magnitude is not interpretable on its own, since it carries the product of the two units; dividing by σₓσᵧ gives the correlation, which lies in [−1, 1].',
           'Covariance detects only linear association. A symmetric non-linear relationship, such as a parabola, can give a covariance of zero despite a strong dependence between the variables.',
+        ],
+      },
+    ],
+  },
+
+  lec2: {
+    cheat: [
+      {
+        formula: 'Ax = 0, Ay = 0 ⟹ A(x+y) = 0 and A(λx) = 0',
+        why: 'Why the subject moves on. Answers to a homogeneous system survive adding and stretching, so they form a space.',
+      },
+      {
+        formula: 'group: closure · associativity · neutral e · inverse',
+        why: 'The four properties of (G, ⊗). Add commutativity x ⊗ y = y ⊗ x and it is an Abelian group.',
+      },
+      { formula: '(ℤ, +) is Abelian · (ℕ₀, +) is not · (ℤ, ·) is not', why: 'The lecture’s three tests. ℕ₀ has no inverses; ℤ under product has 1 but almost nothing has an inverse.' },
+      {
+        formula: 'V = (𝒱, +, ·) with + : 𝒱×𝒱 → 𝒱 and · : ℝ×𝒱 → 𝒱',
+        why: 'A vector space is one inner operation and one outer one. (𝒱, +) must be an Abelian group.',
+      },
+      { formula: 'λ·(x+y) = λx + λy,  (λ+ψ)·x = λx + ψx', why: 'Distributivity, both ways round. The outer operation spreads over both kinds of addition.' },
+      { formula: 'λ·(ψ·x) = (λψ)·x,  1·x = x', why: 'Associativity and the neutral element for the outer operation. The last one is easy to forget and easy to break.' },
+      { formula: '0 = [0, 0, …, 0]ᵀ', why: 'The neutral element of (𝒱, +). Every vector space, and every subspace, has to contain it.' },
+      { formula: 'ℝⁿ · ℝᵐˣⁿ · polynomials', why: 'All vector spaces. A “vector” is anything you can add and stretch — matrices qualify.' },
+      {
+        formula: 'U ⊆ V subspace ⟺ U ≠ ∅,  λx ∈ U,  x + y ∈ U',
+        why: 'The short test. U inherits associativity, distributivity and the rest from V, so only these three need checking.',
+      },
+      { formula: 'U ≠ ∅ and λx ∈ U ⟹ 0 ∈ U', why: 'Take λ = 0. This is why any set missing the origin — the line x = 1, for instance — fails at once.' },
+      { formula: 'nullspace {x : Ax = 0} is a subspace', why: 'The subspace the lecture is really after. Non-empty because x = 0 is always in it.' },
+      {
+        formula: 'v = λ₁x₁ + λ₂x₂ + ⋯ + λₖxₖ',
+        why: 'A linear combination. 0 is always one of them with every λ = 0 — the trivial one, which never proves anything.',
+      },
+      {
+        formula: '0 = Σ λᵢxᵢ with some λᵢ ≠ 0 ⟹ dependent',
+        why: 'Linear dependence. Independent means the trivial combination is the only one reaching 0.',
+      },
+      { formula: 'any set containing 0 is dependent', why: 'Give the zero vector a non-zero λ and everything else zero. The sum is still 0.' },
+      {
+        formula: 'all non-zero: dependent ⟺ one is a combination of the others',
+        why: 'Slide 17. The “all non-zero” condition matters — the previous line is the case it rules out.',
+      },
+      { formula: 'columns → Gaussian elimination → pivot columns', why: 'The practical test. Pivot columns are the independent vectors; every column a pivot means the whole set is independent.' },
+      { formula: 'non-pivot column = combination of the pivots to its left', why: 'For [[1,2,3],[2,4,4]] the REF is [[1,2,3],[0,0,−2]]: column 2 is twice column 1.' },
+      { formula: 'REF is not unique · RREF is', why: 'Two correct elimination routes can end at different staircases. The pivot positions, the rank and the RREF are the same either way.' },
+      { formula: 'm vectors from k ingredients, m > k ⟹ dependent', why: 'A k × m matrix has at most k pivots, so with m > k some column is not a pivot. No arithmetic needed.' },
+      { formula: '𝒜 generates V ⟺ V = span[𝒜]', why: 'A generating set reaches everything. It may be far bigger than it needs to be.' },
+      { formula: 'basis = independent generating set = minimal generating set', why: 'Also: a maximal independent set — add one more vector and it becomes dependent.' },
+      { formula: 'x = Σ λᵢbᵢ uniquely', why: 'The coefficients over a basis are one of a kind. If Σλᵢbᵢ = Σψᵢbᵢ then λᵢ = ψᵢ for every i.' },
+      { formula: 'a basis is not unique', why: 'ℝ³ has the canonical one, and (1,0,0),(1,1,0),(1,1,1), and (0.5,0.8,0.4),(1.8,0.3,0.3),(−2.2,−3.3,1.5). All three are bases.' },
+      { formula: 'independent ⇏ basis', why: 'Three independent vectors in ℝ⁴ are too few to reach everything. Independence alone is not enough.' },
+      { formula: 'dim V = number of vectors in a basis', why: 'The same number whichever basis you choose, so it belongs to the space rather than to your choice.' },
+      { formula: 'dim ≠ number of components', why: 'span{(0,1)} sits in ℝ² and has dimension 1. Its vectors still have two numbers each.' },
+      { formula: 'U ⊆ V ⟹ dim U ≤ dim V, equal only if U = V', why: 'A subspace cannot be bigger, and cannot match without being the whole thing.' },
+      { formula: 'basis of span{x₁…xₘ}: columns → REF → pivot columns', why: 'The three-step recipe on slide 40. Keep the original vectors the pivots point at, not the reduced ones.' },
+    ],
+    quiz: [
+      {
+        q: 'Why does the lecture say the solutions of Ax = b only form a space when b = 0?',
+        options: [
+          'Because b ≠ 0 makes the system harder to solve',
+          'Because if Ax = b and Ay = b then A(x+y) = 2b, which is not b unless b = 0',
+          'Because b ≠ 0 systems have no solutions',
+          'Because only b = 0 gives a unique solution',
+        ],
+        answer: 1,
+        explain:
+          'Adding two solutions doubles the right-hand side. That only lands back on b when b is 0, so for any other b the answer set is not closed under addition and cannot be a vector space. This is the observation the whole lecture is built on.',
+      },
+      {
+        q: 'Which group property does (ℕ₀, +) fail?',
+        options: ['Closure', 'Associativity', 'A neutral element', 'Inverses'],
+        answer: 3,
+        explain:
+          '0 is there and adding stays inside ℕ₀, so closure, associativity and the neutral element are all fine. But 3 needs −3 to undo it, and −3 is not a natural number. Slide 4 gives exactly this example.',
+      },
+      {
+        q: '(ℤ, ·) — the integers under multiplication. What goes wrong?',
+        options: [
+          'There is no identity element',
+          'It is not closed',
+          'The identity is 1, but most elements have no integer inverse',
+          'Nothing — it is a group',
+        ],
+        answer: 2,
+        explain:
+          'Multiplying integers gives integers, and 1 acts as the identity. But 3 would need 1/3 to undo it, and that is not an integer. Only 1 and −1 have inverses inside ℤ, so it is not a group.',
+      },
+      {
+        q: 'Is the set of 2 × 3 matrices, with the usual addition and scalar multiplication, a vector space?',
+        options: [
+          'No — vectors have to be columns',
+          'Yes — you can add them and scale them element-wise, which is all that is required',
+          'Only if they are square',
+          'Only if they are invertible',
+        ],
+        answer: 1,
+        explain:
+          'Slide 8 makes this point deliberately. Nothing in the definition mentions columns: you need one operation that adds two members and one that scales a member, and matrix addition and scalar multiplication do both element-wise. The same is true of polynomials.',
+      },
+      {
+        q: 'Is the line y = x + 1 in ℝ² a subspace?',
+        options: [
+          'Yes — it is a straight line',
+          'No — it does not contain the origin, so it fails both closures',
+          'Yes, but only for positive x',
+          'It depends on which two points you pick',
+        ],
+        answer: 1,
+        explain:
+          'A subspace must be non-empty and closed under scaling, and taking λ = 0 forces 0 into it. This line misses the origin. Concretely, (0,1) and (1,2) are both on it but their sum (1,3) is not. Being straight is not enough — it has to pass through the origin.',
+      },
+      {
+        q: 'Why is the square −1 ≤ x ≤ 1, −1 ≤ y ≤ 1 not a subspace of ℝ²?',
+        options: [
+          'It does not contain the origin',
+          'Adding two of its points can leave it',
+          'Scaling by a big enough λ leaves it — 2·(1,1) = (2,2) is outside',
+          'It is not a straight line',
+        ],
+        answer: 2,
+        explain:
+          'The origin is in it, and it is non-empty. It falls at the outer operation: stretch (1,1) by 2 and you are outside the square. Any bounded set fails for this reason, because scaling can always push a non-zero vector past the boundary.',
+      },
+      {
+        q: 'Why is the nullspace {x : Ax = 0} always a subspace?',
+        options: [
+          'Because A is always invertible',
+          'Because it contains x = 0, and Ax = 0 with Ay = 0 gives A(x+y) = 0 and A(λx) = 0',
+          'Because it is the same as the column space',
+          'Because every solution set is a subspace',
+        ],
+        answer: 1,
+        explain:
+          'It is non-empty because x = 0 always solves it, and the two closures follow straight from A being linear. That is the whole three-part test on slide 10, and it is why this particular subspace matters to the course.',
+      },
+      {
+        q: 'Someone shows you that 0·x₁ + 0·x₂ + 0·x₃ = 0 and concludes the vectors are dependent. What is wrong?',
+        options: [
+          'Nothing — that proves dependence',
+          'The trivial combination always gives 0, for any vectors at all. Dependence needs some λᵢ ≠ 0',
+          'They should have used 1 instead of 0',
+          'It only works if the vectors are non-zero',
+        ],
+        answer: 1,
+        explain:
+          'Taking none of anything reaches zero whatever the vectors are, so it tells you nothing. Slide 14 flags this: the interesting question is whether there is a non-trivial combination. Independence means there is not.',
+      },
+      {
+        q: 'A set of five vectors includes the zero vector. What can you say?',
+        options: [
+          'Nothing without doing the arithmetic',
+          'They are dependent — give the zero vector any non-zero λ and the others zero',
+          'They are independent',
+          'It depends on the other four',
+        ],
+        answer: 1,
+        explain:
+          'Take λ = 7 for the zero vector and 0 for everything else. The sum is 7·0 = 0, which is a non-trivial combination reaching zero, so the set is dependent. Slide 17 states this, and it is a free mark in an exam.',
+      },
+      {
+        q: 'The matrix [[1,2,3],[2,4,4]] reduces to [[1,2,3],[0,0,−2]]. Which columns are independent?',
+        options: [
+          'All three',
+          'Columns 1 and 2',
+          'Columns 1 and 3 — column 2 is twice column 1',
+          'Only column 1',
+        ],
+        answer: 2,
+        explain:
+          'The pivots sit in columns 1 and 3, so those are the independent ones. Column 2 is not a pivot column, so it is a combination of the pivot columns to its left — here just column 1, and indeed (2,4) = 2·(1,2).',
+      },
+      {
+        q: 'Two students row-reduce the same matrix by different legal routes and get different echelon forms. Who made a mistake?',
+        options: [
+          'The one whose answer has more zeros',
+          'Neither — echelon form is not unique. The pivot positions, the rank and the RREF still agree',
+          'Both, since the answer is unique',
+          'You cannot tell without redoing it',
+        ],
+        answer: 1,
+        explain:
+          'Different orders of operations reach different staircases, and both are correct echelon forms. What does not change is where the pivots land, how many there are, and the reduced form you get if you carry on tidying. Only the RREF is unique.',
+      },
+      {
+        q: 'You have 4 vectors, each built as a combination of 3 independent ingredients. What follows?',
+        options: [
+          'They are independent',
+          'They are dependent, whatever the coefficients are',
+          'It depends on the coefficients',
+          'The rank is 4',
+        ],
+        answer: 1,
+        explain:
+          'The coefficient matrix is 3 × 4, so it has at most 3 pivots and at least one column is not a pivot. That non-pivot column gives a non-trivial combination reaching zero. Slide 31: m > k always means dependent.',
+      },
+      {
+        q: 'Which of these is a basis of ℝ³?',
+        options: [
+          '(1,0,0), (0,1,0)',
+          '(1,0,0), (1,1,0), (1,1,1)',
+          '(1,0,0), (0,1,0), (0,0,1), (1,1,1)',
+          '(1,2,3), (2,4,6), (0,0,1)',
+        ],
+        answer: 1,
+        explain:
+          'Three independent vectors in ℝ³, so they reach everything — slide 36 lists exactly this set. The first has too few to span; the third has four vectors in a 3-dimensional space, so it must be dependent; and in the fourth the second vector is twice the first.',
+      },
+      {
+        q: 'Are (1,2,3,4), (2,−1,0,2) and (1,1,0,4) a basis of ℝ⁴?',
+        options: [
+          'Yes, if they are independent',
+          'No — three vectors can never span ℝ⁴, however independent they are',
+          'Yes, because they are in ℝ⁴',
+          'Only if a fourth is added',
+        ],
+        answer: 1,
+        explain:
+          'Slide 37 asks this exactly. A basis has to do two jobs: reach everything and carry nothing spare. Three vectors are too few for the first job in a 4-dimensional space, so independence alone does not make them a basis.',
+      },
+      {
+        q: 'What is the dimension of span{(0,1)} inside ℝ²?',
+        options: ['2, because the vectors have two components', '1', '0', 'It has no dimension'],
+        answer: 1,
+        explain:
+          'The basis is the single vector (0,1), so the dimension is 1 — even though every vector in the space is written with two numbers. Slide 39 makes this point on purpose: dimension counts basis vectors, not components.',
+      },
+      {
+        q: 'U is a subspace of V and dim U = dim V. What follows?',
+        options: [
+          'U is a proper subset of V',
+          'U = V',
+          'Nothing — they can still differ',
+          'V has dimension 0',
+        ],
+        answer: 1,
+        explain:
+          'A subspace can never have a bigger dimension, and matching the dimension leaves no room to be smaller: a basis of U is already independent in V and big enough to span it. Slide 38 states it as an if-and-only-if.',
+      },
+      {
+        q: 'You put spanning vectors in as columns, reduce, and find pivots in columns 1 and 3. What is the basis?',
+        options: [
+          'The reduced columns 1 and 3',
+          'The original vectors x₁ and x₃',
+          'All the original vectors',
+          'The non-zero rows of the reduced matrix',
+        ],
+        answer: 1,
+        explain:
+          'The third step on slide 40 says the spanning vectors associated with the pivot columns form the basis. Elimination is only there to tell you which of your original vectors to keep — the reduced columns are not vectors from your space.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define a group and an Abelian group, and determine whether (ℤ, +), (ℕ₀, +) and (ℤ, ·) are groups.',
+        meta: 'Definition plus three tests · 5–6 marks',
+        points: [
+          'A group is a set G with an operation ⊗ : G × G → G satisfying four properties.',
+          'Closure: ∀x, y ∈ G, x ⊗ y ∈ G.',
+          'Associativity: ∀x, y, z ∈ G, (x ⊗ y) ⊗ z = x ⊗ (y ⊗ z).',
+          'Neutral (identity) element: ∃e ∈ G such that ∀x ∈ G, x ⊗ e = x.',
+          'Inverse element: ∀x ∈ G, ∃y ∈ G with x ⊗ y = y ⊗ x = e.',
+          'If in addition x ⊗ y = y ⊗ x for all x, y, the group is called Abelian.',
+          '(ℤ, +) is an Abelian group: sums of integers are integers, addition is associative and commutative, e = 0, and the inverse of x is −x.',
+          '(ℕ₀, +) is not a group: closure, associativity and e = 0 all hold, but no positive n has an inverse in ℕ₀, since −n ∉ ℕ₀.',
+          '(ℤ, ·) is not a group: it is closed and associative and has identity 1, but the only elements with multiplicative inverses in ℤ are 1 and −1.',
+        ],
+      },
+      {
+        q: 'Define a real-valued vector space, and state the test for a subset to be a subspace. Explain why the test is shorter than the definition.',
+        meta: 'Definition plus the subspace criterion · 6–8 marks',
+        points: [
+          'A real-valued vector space is V = (𝒱, +, ·) with an inner operation + : 𝒱 × 𝒱 → 𝒱 and an outer operation · : ℝ × 𝒱 → 𝒱.',
+          '(𝒱, +) must be an Abelian group; its neutral element is the zero vector 0 = [0, …, 0]ᵀ.',
+          'Distributivity: λ·(x + y) = λ·x + λ·y and (λ + ψ)·x = λ·x + ψ·x, for all λ, ψ ∈ ℝ and x, y ∈ 𝒱.',
+          'Associativity of the outer operation: λ·(ψ·x) = (λψ)·x.',
+          'Neutral element of the outer operation: 1·x = x for all x ∈ 𝒱.',
+          'Subspace test: U ⊆ 𝒱 with U ≠ ∅ is a subspace of V if λx ∈ U for all λ ∈ ℝ, x ∈ U, and x + y ∈ U for all x, y ∈ U.',
+          'The test is shorter because associativity, distributivity, commutativity and the neutral element are statements holding for all x ∈ 𝒱, hence automatically for all x ∈ U ⊆ 𝒱. Only closure can fail on passing to a subset.',
+          'Non-emptiness combined with closure under the outer operation forces 0 ∈ U, by taking λ = 0.',
+          'Example: in ℝ² the y-axis is a subspace, while the shifted line x = 1 is not, since scaling leaves it; the square −1 ≤ x, y ≤ 1 is not, for the same reason.',
+        ],
+      },
+      {
+        q: 'Show that the nullspace of a matrix A, that is {x : Ax = 0}, is a vector subspace, and explain why the solution set of Ax = b with b ≠ 0 is not.',
+        meta: 'Verification against the three-part test · 5–6 marks',
+        points: [
+          'Non-empty: x = 0 satisfies A0 = 0, so the nullspace always contains at least the zero vector.',
+          'Closed under addition: if Ax = 0 and Ay = 0 then A(x + y) = Ax + Ay = 0 + 0 = 0, so x + y is again in the nullspace.',
+          'Closed under scalar multiplication: if Ax = 0 then A(λx) = λ(Ax) = λ0 = 0 for every λ ∈ ℝ.',
+          'All three parts of the subspace test hold, so the nullspace is a subspace of ℝⁿ.',
+          'For b ≠ 0: if Ax = b and Ay = b then A(x + y) = 2b ≠ b, so the solution set is not closed under addition.',
+          'Likewise A(λx) = λb ≠ b unless λ = 1, so it is not closed under scaling either.',
+          'It also fails to contain 0, since A0 = 0 ≠ b. Geometrically the solution set is a shifted copy of the nullspace, and the shift is what destroys the structure.',
+        ],
+      },
+      {
+        q: 'Define linear combination and linear independence, and describe how Gaussian elimination is used to test a set of vectors.',
+        meta: 'Definitions plus method · 6–8 marks',
+        points: [
+          'For x₁, …, xₖ in a vector space V, a linear combination is v = λ₁x₁ + λ₂x₂ + ⋯ + λₖxₖ with λᵢ ∈ ℝ.',
+          '0 can always be written trivially, with every λᵢ = 0; only non-trivial combinations carry information.',
+          'The vectors are linearly dependent if 0 = Σᵢ λᵢxᵢ for some choice with at least one λᵢ ≠ 0; they are linearly independent if the trivial choice is the only one.',
+          'Interpretation: dependence means one vector can be written in terms of the others and is therefore redundant; independence means each vector contributes something the others collectively cannot supply.',
+          'Two special cases: any set containing the zero vector is dependent, choosing a non-zero λ for it and 0 elsewhere. Among non-zero vectors, dependence holds if and only if one is a linear combination of the others.',
+          'Method: write the vectors as the columns of a matrix and reduce to row-echelon form by Gaussian elimination.',
+          'The pivot columns identify a linearly independent subset; the vectors are independent precisely when every column is a pivot column.',
+          'Each non-pivot column can be expressed as a linear combination of the pivot columns to its left, and the coefficients are read off the reduced form.',
+          'Worked example: [[1,2,3],[2,4,4]] reduces to [[1,2,3],[0,0,−2]], so columns 1 and 3 are pivots and column 2 equals twice column 1.',
+        ],
+      },
+      {
+        q: 'Prove that m vectors, each written as a linear combination of k linearly independent vectors, must be linearly dependent whenever m > k.',
+        meta: 'Argument from the pivot count · 5–6 marks',
+        points: [
+          'Let b₁, …, b_k be linearly independent and let each xⱼ = Σᵢ aᵢⱼbᵢ for j = 1, …, m.',
+          'Collect the coefficients into a k × m matrix A whose j-th column holds the coefficients of xⱼ.',
+          'Because the bᵢ are independent, a combination Σⱼ λⱼxⱼ equals 0 if and only if the corresponding combination of the columns of A equals 0. The question about the xⱼ reduces to a question about the columns of A.',
+          'Reduce A to row-echelon form. The number of pivots cannot exceed the number of non-zero rows, so it is at most k.',
+          'With m > k columns and at most k pivots, at least one column is a non-pivot column.',
+          'A non-pivot column is a linear combination of the pivot columns to its left, which gives a non-trivial combination of the columns of A equal to 0.',
+          'Transferring back, the same coefficients give a non-trivial combination of the xⱼ equal to 0, so the xⱼ are linearly dependent.',
+          'Consequence: in ℝⁿ any set of more than n vectors is dependent, since the canonical basis provides k = n independent ingredients.',
+        ],
+      },
+      {
+        q: 'Define generating set, basis and dimension, state the equivalent characterizations of a basis, and give the procedure for finding a basis of a span.',
+        meta: 'Definitions, equivalences and method · 8 marks',
+        points: [
+          'For V = (𝒱, +, ·) and 𝒜 = {x₁, …, xₖ} ⊆ 𝒱, 𝒜 is a generating set of V if every v ∈ V is a linear combination of its members. The set of all such combinations is the span, written V = span[𝒜].',
+          'A generating set 𝒜 is minimal if no proper subset of it still spans V. Every linearly independent generating set is minimal and is called a basis.',
+          'Equivalent characterizations: ℬ is a basis; ℬ is a minimal generating set; ℬ is a maximal linearly independent set, so adding any further vector makes it dependent; every x ∈ V has a unique expansion over ℬ, meaning Σλᵢbᵢ = Σψᵢbᵢ forces λᵢ = ψᵢ for all i.',
+          'A basis is not unique: ℝ³ admits the canonical basis, and also (1,0,0), (1,1,0), (1,1,1), among infinitely many others.',
+          'The dimension dim V is the number of vectors in a basis. It is well defined because every basis of V has the same size.',
+          'dim V is not the number of components: span{(0,1)} ⊆ ℝ² has dimension 1 although its vectors have two components.',
+          'If U ⊆ V then dim U ≤ dim V, with equality if and only if U = V.',
+          'Independence alone is insufficient: three linearly independent vectors in ℝ⁴ form no basis, since they cannot span a 4-dimensional space.',
+          'To find a basis of U = span{x₁, …, xₘ} ⊆ ℝⁿ: write the spanning vectors as the columns of a matrix A; reduce A to row-echelon form; the original spanning vectors sitting in the pivot columns form a basis of U, and their number is dim U.',
         ],
       },
     ],

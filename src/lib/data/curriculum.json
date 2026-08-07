@@ -58,9 +58,12 @@
         "rank",
         "dotproduct",
         "covariance",
+        "vectorspace",
+        "basis",
         "lec0a",
         "lec0b",
-        "lec1"
+        "lec1",
+        "lec2"
       ],
       "syllabus": "Linear algebra, calculus, probability and optimisation as used by machine learning. The brochure does not print a detailed syllabus for this course; the pages below cover the algebra and linear algebra that everything else is built on, and the gradient descent page comes from its optimisation sessions."
     },
@@ -453,6 +456,16 @@
       "blurb": "Variance as squares you can grow, then covariance as one rectangle per point — teal when the two rise together, red when they pull apart.",
       "kind": "concept"
     },
+    "vectorspace": {
+      "label": "Vector spaces and subspaces",
+      "blurb": "A set you cannot fall out of. Drag two answers until their sum leaves the line, then try to break six candidate subsets and find which promise each one fails.",
+      "kind": "concept"
+    },
+    "basis": {
+      "label": "Span, basis and dimension",
+      "blurb": "What a handful of vectors can reach, whether any of them is carrying nothing, and why every honest shelf for the same space has the same length.",
+      "kind": "concept"
+    },
     "lec0a": {
       "label": "Lecture 0a — Matrices, determinants and linear systems",
       "blurb": "The toolkit the rest of the course is built from. Multiply matrices by pressing a number and seeing where it came from, drag two arrows until the determinant hits zero, then turn [A | I] into [I | A⁻¹] one move at a time.",
@@ -466,6 +479,11 @@
     "lec1": {
       "label": "Lecture 1 — Linear equations & Gaussian elimination",
       "blurb": "Straight-line rules that must all hold at once. Drag two lines to see why there are only ever three outcomes, then solve any system one legal move at a time.",
+      "kind": "chapter"
+    },
+    "lec2": {
+      "label": "Lecture 2 — Vector spaces, independence and basis",
+      "blurb": "What a space has to promise before you can call it one. Break a subset by dragging until a sum falls outside it, watch a span collapse from a plane to a line, and end on the deck's own unfinished example — worked out and checked.",
       "kind": "chapter"
     },
     "ism1": {
