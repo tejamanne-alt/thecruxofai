@@ -2,7 +2,7 @@
 
 import { ChartCanvas } from '@/components/charts/chart-canvas'
 import { Btn, Chip, LabBox, LabNote, NumBox, Presets, Titled, Verdict } from '@/components/charts/matrix-ui'
-import { PanelNote, ReadOutGrid } from '@/components/sessions/session-parts'
+import { PanelNote, RangeInput, ReadOutGrid } from '@/components/sessions/session-parts'
 import { accentColour, arrow, clamp, drawPlane, grip, type Frame } from '@/lib/chart/frame'
 import { useState } from 'react'
 
@@ -562,16 +562,14 @@ export function OrthogonalSolveLab() {
 
       <div className="flex flex-wrap items-center gap-3">
         <span className="text-[13px] text-zinc-600">k =</span>
-        <input
-          type="range"
+        <RangeInput
+          label="the value of k"
           min={-12}
           max={12}
           step={1}
           value={k3}
-          onChange={(ev) => setK3(Number(ev.target.value))}
-          className="crux-slider w-[220px]"
-          style={{ '--pct': `${((k3 + 12) / 24) * 100}%` } as React.CSSProperties}
-          aria-label="the value of k"
+          onChange={setK3}
+          className="w-[220px]"
         />
         <span className="w-24 font-mono font-semibold">{k3 % 3 === 0 ? String(k3 / 3) : `${k3}/3`}</span>
       </div>

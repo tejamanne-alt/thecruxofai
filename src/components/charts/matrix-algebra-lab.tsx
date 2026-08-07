@@ -1,5 +1,6 @@
 'use client'
 
+import { RangeInput } from '@/components/sessions/session-parts'
 import { Btn, Chip, FrBox, LabBox, LabNote, NumBox, Presets, Sign, Titled, Verdict, type Cell } from '@/components/charts/matrix-ui'
 import { frStr } from '@/lib/model/fraction'
 import {
@@ -261,16 +262,14 @@ export function MatrixLawsLab() {
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2 text-[13px]">
             <span className="text-zinc-600">c =</span>
-            <input
-              type="range"
+            <RangeInput
+              label="the number c"
               min={-3}
               max={5}
               step={1}
               value={k1}
-              onChange={(e) => setK1(Number(e.target.value))}
-              className="crux-slider w-[150px]"
-              style={{ '--pct': `${((k1 + 3) / 8) * 100}%` } as React.CSSProperties}
-              aria-label="the number c"
+              onChange={setK1}
+              className="w-[150px]"
             />
             <span className="w-6 font-mono font-semibold">{k1}</span>
           </div>
@@ -291,16 +290,14 @@ export function MatrixLawsLab() {
         {law === 'dist2' && (
           <div className="mt-3 flex items-center gap-2 text-[13px]">
             <span className="text-zinc-600">k =</span>
-            <input
-              type="range"
+            <RangeInput
+              label="the number k"
               min={-4}
               max={4}
               step={1}
               value={k2}
-              onChange={(e) => setK2(Number(e.target.value))}
-              className="crux-slider w-[150px]"
-              style={{ '--pct': `${((k2 + 4) / 8) * 100}%` } as React.CSSProperties}
-              aria-label="the number k"
+              onChange={setK2}
+              className="w-[150px]"
             />
             <span className="w-6 font-mono font-semibold">{k2}</span>
           </div>

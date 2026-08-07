@@ -14,8 +14,19 @@
  */
 :root {
   --acc: #4f46e5;
+  /*
+   * Each tint is declared twice on purpose. `color-mix` follows the accent
+   * wherever it is set, but an engine that does not know the function throws
+   * the whole declaration away and leaves the variable unset — which renders as
+   * transparent, not as a wrong colour. The plain rgb line above it is the
+   * safety net: it is the same tint of the default accent, so a browser without
+   * `color-mix` still gets a visible chip rather than an invisible one.
+   */
+  --acc-12: rgb(79 70 229 / 0.12);
   --acc-12: color-mix(in srgb, var(--acc) 12%, transparent);
+  --acc-35: rgb(79 70 229 / 0.35);
   --acc-35: color-mix(in srgb, var(--acc) 35%, transparent);
+  --acc-hover: #433cc3;
   --acc-hover: color-mix(in srgb, var(--acc) 85%, black);
 }
 
@@ -27,56 +38,102 @@ body {
 }
 
 /*
- * Sliders are drawn by hand rather than inheriting the browser accent: 6px
- * track, the unfilled part in #b9bbc2 so it still reads against the #fafafa
- * control panel, the filled part driven by a --pct custom property.
- * Both the -webkit- and -moz- pseudo-elements are needed.
+ * Sliders draw their bar as two ordinary elements — a grey track with a filled
+ * span inside it — instead of as a background on the vendor track
+ * pseudo-element.
+ *
+ * That indirection is deliberate. The track pseudo-element is the part of a
+ * range input browsers disagree about most, and the old version painted the bar
+ * with `linear-gradient(… var(--pct) …)` inside it. A custom property that does
+ * not reach the browser's own shadow tree makes that gradient invalid, and an
+ * invalid background is dropped entirely — so the bar vanished while the thumb
+ * kept its colour. That is exactly what Edge showed. Real elements cannot fail
+ * that way, in any engine.
+ *
+ * The input still sits on top, transparent apart from its thumb, so keyboard,
+ * mouse and touch behaviour stays the browser's own.
  */
-input[type='range'].crux-slider {
-  -webkit-appearance: none;
-  appearance: none;
+.crux-range {
+  position: relative;
+  display: block;
+  height: 18px;
+}
+.crux-range-track {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 6px;
+  margin-top: -3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #b9bbc2;
+  /* Clicks belong to the input above, not to the decoration. */
+  pointer-events: none;
+}
+.crux-range-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: #4f46e5;
+  background: var(--acc);
+}
+.crux-range-input {
+  position: relative;
+  display: block;
   width: 100%;
   height: 18px;
+  margin: 0;
+  padding: 0;
   border: 0;
   outline: 0;
+  -webkit-appearance: none;
+  appearance: none;
   background: transparent;
   cursor: pointer;
 }
-input[type='range'].crux-slider::-webkit-slider-runnable-track {
+/* Every engine draws a track of its own as well. Hide all of them. */
+.crux-range-input::-webkit-slider-runnable-track {
   height: 6px;
   border: 0;
-  border-radius: 999px;
-  background: linear-gradient(to right, var(--acc) 0 var(--pct), #b9bbc2 var(--pct) 100%);
+  background: transparent;
 }
-input[type='range'].crux-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
+.crux-range-input::-moz-range-track {
+  height: 6px;
+  border: 0;
+  background: transparent;
+}
+.crux-range-input::-moz-range-progress {
+  height: 6px;
+  background: transparent;
+}
+.crux-range-input::-webkit-slider-thumb {
   width: 16px;
   height: 16px;
   margin-top: -5px;
   border: 0;
   border-radius: 999px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #4f46e5;
   background: var(--acc);
   box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
 }
-input[type='range'].crux-slider::-moz-range-track {
-  height: 6px;
-  border: 0;
-  border-radius: 999px;
-  background: #b9bbc2;
-}
-input[type='range'].crux-slider::-moz-range-progress {
-  height: 6px;
-  border-radius: 999px;
-  background: var(--acc);
-}
-input[type='range'].crux-slider::-moz-range-thumb {
+.crux-range-input::-moz-range-thumb {
   width: 16px;
   height: 16px;
   border: 0;
   border-radius: 999px;
+  background: #4f46e5;
   background: var(--acc);
   box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+}
+/* The old rule removed the focus ring without replacing it. */
+.crux-range-input:focus-visible {
+  border-radius: 999px;
+  outline: 2px solid #4f46e5;
+  outline: 2px solid var(--acc);
+  outline-offset: 3px;
 }
 
 /* Prose in the explainers wraps for shape, not just for width. */
@@ -84,8 +141,23 @@ input[type='range'].crux-slider::-moz-range-thumb {
   text-wrap: pretty;
 }
 
-/* The sidebar tree scrolls a lot; keep its scrollbar quiet. */
+/*
+ * The sidebar tree scrolls a lot; keep its scrollbar quiet. The standard
+ * properties are ignored by WebKit and by Chromium before 121, so the
+ * -webkit- rules below say the same thing for those.
+ */
 .crux-scroll {
   scrollbar-width: thin;
   scrollbar-color: rgb(9 9 11 / 0.18) transparent;
+}
+.crux-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.crux-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.crux-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgb(9 9 11 / 0.18);
 }

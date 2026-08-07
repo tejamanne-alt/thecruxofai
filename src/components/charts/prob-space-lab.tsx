@@ -1,6 +1,6 @@
 'use client'
 
-import { PanelButton, PanelButtons, PanelNote } from '@/components/sessions/session-parts'
+import { PanelButton, PanelButtons, PanelNote, RangeInput } from '@/components/sessions/session-parts'
 import clsx from 'clsx'
 import { useState } from 'react'
 
@@ -362,20 +362,13 @@ export function IndependenceLab() {
               <span>{label as string}</span>
               <span className="text-zinc-500">{pct(val as number)}</span>
             </div>
-            <input
-              type="range"
+            <RangeInput
+              label={label as string}
               min={lo as number}
               max={hi as number}
               step={0.01}
               value={val as number}
-              onChange={(e) => (set as (v: number) => void)(Number(e.target.value))}
-              className="crux-slider"
-              style={
-                {
-                  '--pct': `${(((val as number) - (lo as number)) / ((hi as number) - (lo as number))) * 100}%`,
-                } as React.CSSProperties
-              }
-              aria-label={label as string}
+              onChange={set as (v: number) => void}
             />
           </div>
         ))}
@@ -384,20 +377,13 @@ export function IndependenceLab() {
             <span>P(A ∩ B) — the overlap</span>
             <span className="text-zinc-500">{pct(clamped)}</span>
           </div>
-          <input
-            type="range"
+          <RangeInput
+            label="overlap"
             min={minBoth}
             max={maxBoth}
             step={0.005}
             value={clamped}
-            onChange={(e) => setBoth(Number(e.target.value))}
-            className="crux-slider"
-            style={
-              {
-                '--pct': `${maxBoth > minBoth ? ((clamped - minBoth) / (maxBoth - minBoth)) * 100 : 0}%`,
-              } as React.CSSProperties
-            }
-            aria-label="overlap"
+            onChange={setBoth}
           />
           <p className="mt-1.5 text-xs text-zinc-500">
             It cannot go below {pct(minBoth)} or above {pct(maxBoth)} — the four boxes have to stay positive.

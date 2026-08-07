@@ -69,6 +69,27 @@ Plain, everyday English. The reader is a beginner and may not be a native speake
 - **Check the interaction can actually reach every case you claim it can.** Work the maths through before
   trusting a slider to demonstrate three outcomes.
 
+## It has to work in every browser, not just yours
+
+I open this on Chrome, on Edge and on my phone. A control that is invisible in one of them is broken, and
+I will not find out until I am mid-revision.
+
+- **Never let a control's visible parts live in a browser's own shadow DOM.** `::-webkit-slider-runnable-track`,
+  `::-moz-range-progress` and their relatives are the least portable things in CSS. Draw the bar, the fill,
+  the tick — whatever the reader has to see — as ordinary elements you control, and lay the native input
+  over the top, transparent, so the browser keeps handling keyboard, mouse and touch. This is exactly how
+  the slider vanished in Edge: its bar was a gradient painted on the vendor track.
+- **Never put `var(--x)` where a browser dropping the variable would erase the whole thing.** An invalid
+  value takes the entire declaration with it, so a missing variable inside a `background` does not give you
+  a wrong colour, it gives you nothing at all. Where a variable is doing load-bearing work, write the plain
+  value on the line above as a fallback.
+- **One component per control.** Every slider on the site goes through `RangeInput`. A call site that
+  hand-rolls its own input will drift, and a fix then has to be found in eight places instead of one.
+- **Keep the focus ring.** If you remove an outline, put one back under `:focus-visible`.
+- **Anything new and shiny needs a fallback or a shrug.** `text-wrap: pretty` degrades to normal wrapping
+  and costs nothing. `color-mix` and `scrollbar-color` do not degrade — they disappear — so they get a
+  plain-value line before them.
+
 ## Before you say it is done
 
 Run the real thing in a browser and prove it works:
@@ -77,6 +98,9 @@ Run the real thing in a browser and prove it works:
 - Every new page loads (200, not 404) and renders real content.
 - Every new lab responds to a real click or drag, checked by asserting the state changed — not by counting
   elements on the page.
+- Every control the reader has to *see* is checked by reading its size and colour back out of the page, not
+  by trusting that the CSS applied. A pseudo-element that silently paints nothing looks fine in a
+  screenshot test and wrong on a laptop.
 - Where the lecture gives an answer, the tool must reproduce **that** answer.
 - No page errors in the console.
 
