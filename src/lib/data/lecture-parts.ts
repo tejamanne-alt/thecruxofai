@@ -376,6 +376,93 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
     },
   ],
 
+  lec2: [
+    {
+      id: 'why',
+      title: 'Why the subject moves on',
+      teaser: 'Set b to zero and the answers become a space. Set it to anything else and adding two of them falls off the line.',
+      slides: 'Slide 2',
+    },
+    {
+      id: 'groups',
+      title: 'Groups: the smallest useful structure',
+      teaser: 'A set, one operation, four promises. Press through five candidates and see which promise fails.',
+      slides: 'Slides 3–4',
+    },
+    {
+      id: 'spaces',
+      title: 'What a vector space is',
+      teaser: 'An inner operation and an outer one. Check each axiom on numbers you choose.',
+      slides: 'Slides 5–6',
+    },
+    {
+      id: 'examples',
+      title: 'What else counts as a vector',
+      teaser: 'Columns, matrices, polynomials. Same two operations, so the same theory covers all of them.',
+      slides: 'Slides 7–8',
+    },
+    {
+      id: 'subspaces',
+      title: 'A space inside a space',
+      teaser: 'Six candidate subsets. Drag two arrows and try to break each one.',
+      slides: 'Slides 9–12',
+    },
+    {
+      id: 'span',
+      title: 'Span: everything you can reach',
+      teaser: 'Line the two generators up and watch the whole plane collapse to a line.',
+      slides: 'Slides 13–14',
+    },
+    {
+      id: 'independence',
+      title: 'Independent, or carrying nothing',
+      teaser: 'The definition looks awkward on purpose. Three facts, each one draggable.',
+      slides: 'Slides 15–17',
+    },
+    {
+      id: 'pivots',
+      title: 'Checking it with elimination',
+      teaser: 'Two correct routes, two different staircases, the same pivot columns.',
+      slides: 'Slides 18–21',
+    },
+    {
+      id: 'coords',
+      title: 'Vectors built from other vectors',
+      teaser: 'Test the coefficients instead of the vectors. Edit them and watch both verdicts move together.',
+      slides: 'Slides 22–25',
+    },
+    {
+      id: 'worked',
+      title: 'The four-vector example',
+      teaser: 'The deck finds a combination reaching zero. Load it and watch every coefficient cancel.',
+      slides: 'Slides 26–29',
+    },
+    {
+      id: 'counting',
+      title: 'When the shape decides for you',
+      teaser: 'More vectors than ingredients is always dependent. Move two dials and see why.',
+      slides: 'Slides 30–31',
+    },
+    {
+      id: 'basis',
+      title: 'Generating set, and basis',
+      teaser: 'Big enough to reach everything, small enough that nothing repeats. Three bases of ℝ³ that look nothing alike.',
+      slides: 'Slides 32–37',
+    },
+    {
+      id: 'dimension',
+      title: 'Dimension is not the number of components',
+      teaser: 'A line inside ℝ³ is one-dimensional, and its vectors still have three numbers each.',
+      slides: 'Slides 38–39',
+    },
+    {
+      id: 'findbasis',
+      title: 'Finding a basis, and the deck’s last example',
+      teaser: 'Three steps. Then the example the slides pose and never answer, worked out and checked.',
+      slides: 'Slides 40–41',
+    },
+  ],
+
   ism1: [
     {
       id: 'course',
