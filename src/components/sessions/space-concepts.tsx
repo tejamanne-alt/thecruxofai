@@ -158,7 +158,8 @@ export function VectorSpaceConcept() {
             },
             {
               formula: '· : ℝ × 𝒱 → 𝒱',
-              reading: 'The outer operation. A plain number and a member in, a member out. The number is not in the set.',
+              reading:
+                'The outer operation. A plain number and a member in, a member out. The number is not in the set.',
             },
             {
               formula: 'λ(x + y) = λx + λy,  (λ + ψ)x = λx + ψx,  λ(ψx) = (λψ)x,  1x = x',
@@ -166,7 +167,8 @@ export function VectorSpaceConcept() {
             },
             {
               formula: 'U ⊆ V subspace ⟺ U ≠ ∅,  x + y ∈ U,  λx ∈ U',
-              reading: 'The short test. Non-empty plus scaling forces 0 ∈ U, so that is a consequence, not a fourth condition.',
+              reading:
+                'The short test. Non-empty plus scaling forces 0 ∈ U, so that is a consequence, not a fourth condition.',
             },
             {
               formula: 'Ax = 0, Ay = 0 ⟹ A(x + y) = 0, A(λx) = 0',
@@ -174,9 +176,19 @@ export function VectorSpaceConcept() {
             },
           ]}
           legend={[
-            { sym: '𝒱', name: 'The underlying set', note: 'Columns, matrices, polynomials — whatever the members are.', val: 'space' },
+            {
+              sym: '𝒱',
+              name: 'The underlying set',
+              note: 'Columns, matrices, polynomials — whatever the members are.',
+              val: 'space',
+            },
             { sym: 'λ, ψ', name: 'Scalars', note: 'Plain real numbers. They live outside 𝒱.', val: 'outer' },
-            { sym: '0', name: 'The zero vector', note: 'The neutral element of adding. Compulsory in every subspace.', val: 'inner' },
+            {
+              sym: '0',
+              name: 'The zero vector',
+              note: 'The neutral element of adding. Compulsory in every subspace.',
+              val: 'inner',
+            },
             { sym: 'U ⊆ V', name: 'Subspace', note: 'A space inside a space. Three things to check.', val: 'subspace' },
           ]}
         />
@@ -258,8 +270,8 @@ export function BasisConcept() {
 
       <H2>Span: what you can reach</H2>
       <P>
-        Take vectors x₁ … xₖ and mix them: λ₁x₁ + λ₂x₂ + ⋯ + λₖxₖ, with the λ&rsquo;s any numbers you like. Every
-        point you can hit this way is the <strong>span</strong>.
+        Take vectors x₁ … xₖ and mix them: λ₁x₁ + λ₂x₂ + ⋯ + λₖxₖ, with the λ&rsquo;s any numbers you like. Every point
+        you can hit this way is the <strong>span</strong>.
       </P>
       <P>
         Two arrows in the plane usually span the whole plane. But line them up — make one a multiple of the other — and
@@ -350,7 +362,8 @@ export function BasisConcept() {
             },
             {
               formula: '0 = Σ λᵢxᵢ with some λᵢ ≠ 0  ⟹  dependent',
-              reading: 'Dependence. Independence is the denial of it: the trivial mixture is the only one that reaches zero.',
+              reading:
+                'Dependence. Independence is the denial of it: the trivial mixture is the only one that reaches zero.',
             },
             {
               formula: 'columns → REF → every column a pivot ⟺ independent',
@@ -358,21 +371,29 @@ export function BasisConcept() {
             },
             {
               formula: 'm > k ⟹ dependent',
-              reading: 'm vectors built from k ingredients. At most k pivots across m columns leaves a spare, every time.',
+              reading:
+                'm vectors built from k ingredients. At most k pivots across m columns leaves a spare, every time.',
             },
             {
               formula: 'basis = independent generating set = minimal generating set',
-              reading: 'Also a maximal independent set: add one more vector and it becomes dependent. Coefficients over it are unique.',
+              reading:
+                'Also a maximal independent set: add one more vector and it becomes dependent. Coefficients over it are unique.',
             },
             {
               formula: 'dim V = |B|,   U ⊆ V ⟹ dim U ≤ dim V',
-              reading: 'The dimension, and the one comparison that always holds. Equality happens only when U is all of V.',
+              reading:
+                'The dimension, and the one comparison that always holds. Equality happens only when U is all of V.',
             },
           ]}
           legend={[
             { sym: 'span', name: 'The reachable set', note: 'Everything mixable from the given vectors.', val: 'span' },
             { sym: 'λᵢ', name: 'Coefficients', note: 'How much of each vector the mixture takes.', val: 'mixing' },
-            { sym: 'pivot', name: 'A step of the staircase', note: 'Its column marks a vector worth keeping.', val: 'test' },
+            {
+              sym: 'pivot',
+              name: 'A step of the staircase',
+              note: 'Its column marks a vector worth keeping.',
+              val: 'test',
+            },
             { sym: 'B', name: 'A basis', note: 'Independent and generating. Not unique.', val: 'basis' },
             { sym: 'dim V', name: 'Dimension', note: 'The size of any basis. Unique.', val: 'dimension' },
           ]}

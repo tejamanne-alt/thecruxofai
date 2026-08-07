@@ -10,8 +10,8 @@ import { CofactorLab, Det2Lab, DetRulesLab } from '@/components/charts/det-lab'
 import { GaussJordanInverseLab, Inverse2Lab } from '@/components/charts/inverse-lab'
 import { MultiplyLab, TransposeRulesLab } from '@/components/charts/matrix-algebra-lab'
 import { RankLab } from '@/components/charts/rowops-lab'
-import { IndependenceLab, RankVectorsLab } from '@/components/charts/vector-space-lab'
 import { OutcomesLab } from '@/components/charts/systems-lab'
+import { IndependenceLab, RankVectorsLab } from '@/components/charts/vector-space-lab'
 import Link from 'next/link'
 import { UsedInAiml } from './algebra'
 import { AnalogyCallout, Explainers, MathBlock, SessionHeader } from './session-parts'
@@ -64,9 +64,9 @@ export function MatrixMultiplyConcept() {
       <AnalogyCallout
         paragraphs={[
           <>
-            A café sells three drinks. You know how much <strong>coffee, milk and sugar</strong>{' '}each drink uses, and you
-            know the <strong>price</strong>{' '}of coffee, milk and sugar at four different suppliers. You want the cost of
-            each drink at each supplier.
+            A café sells three drinks. You know how much <strong>coffee, milk and sugar</strong> each drink uses, and
+            you know the <strong>price</strong> of coffee, milk and sugar at four different suppliers. You want the cost
+            of each drink at each supplier.
           </>,
           <>
             To cost one drink at one supplier, you walk along that drink&rsquo;s recipe and down that supplier&rsquo;s
@@ -109,8 +109,8 @@ export function MatrixMultiplyConcept() {
       </P>
       <P>
         And with ordinary numbers, if ab = 0 then one of them is 0. Not here — the third preset above has two matrices,
-        neither of them zero, whose product is all zeros. Which also means you cannot cancel: AB = AC does{' '}
-        <em>not</em>{' '}give you B = C.
+        neither of them zero, whose product is all zeros. Which also means you cannot cancel: AB = AC does <em>not</em>{' '}
+        give you B = C.
       </P>
 
       <H2>The transpose, and the reversal</H2>
@@ -148,14 +148,25 @@ export function MatrixMultiplyConcept() {
             },
             {
               formula: '(AB)ᵀ = BᵀAᵀ,    (AB)⁻¹ = B⁻¹A⁻¹',
-              reading: 'Transposing or undoing a product reverses the order. Keeping the order usually will not even fit.',
+              reading:
+                'Transposing or undoing a product reverses the order. Keeping the order usually will not even fit.',
             },
           ]}
           legend={[
-            { sym: 'aⱼₗ', name: 'Left matrix entry', note: 'Row j, column l. Rows are always said first.', val: 'the recipe' },
+            {
+              sym: 'aⱼₗ',
+              name: 'Left matrix entry',
+              note: 'Row j, column l. Rows are always said first.',
+              val: 'the recipe',
+            },
             { sym: 'bₗₖ', name: 'Right matrix entry', note: 'Row l, column k.', val: 'the price' },
             { sym: 'cⱼₖ', name: 'Answer entry', note: 'The sum of all the matching products.', val: 'the cost' },
-            { sym: 'n', name: 'The inner dimension', note: 'Columns on the left, rows on the right. Must match.', val: 'the ingredients' },
+            {
+              sym: 'n',
+              name: 'The inner dimension',
+              note: 'Columns on the left, rows on the right. Must match.',
+              val: 'the ingredients',
+            },
             { sym: 'I', name: 'Identity', note: 'AI = IA = A. The matrix that does nothing.', val: 'multiplying by 1' },
             { sym: 'Aᵀ', name: 'Transpose', note: 'Rows become columns. (Aᵀ)ᵀ = A.', val: 'tip it over' },
           ]}
@@ -220,9 +231,18 @@ export function DeterminantConcept() {
           </>,
         ]}
         mappings={[
-          { title: 'The two columns', body: 'Where the machine sends the two directions of the plane. They become the two edges of the box.' },
-          { title: 'The determinant', body: 'The area of that box. It says how much the machine stretches or shrinks things.' },
-          { title: 'Zero determinant', body: 'The box is flat. Information has been destroyed, so no undo button exists.' },
+          {
+            title: 'The two columns',
+            body: 'Where the machine sends the two directions of the plane. They become the two edges of the box.',
+          },
+          {
+            title: 'The determinant',
+            body: 'The area of that box. It says how much the machine stretches or shrinks things.',
+          },
+          {
+            title: 'Zero determinant',
+            body: 'The box is flat. Information has been destroyed, so no undo button exists.',
+          },
         ]}
         footnote="For a 3 × 3 it is a volume rather than an area, and the same story holds: zero volume means the machine has squashed space into a flat sheet."
       />
@@ -241,10 +261,10 @@ export function DeterminantConcept() {
       <P>
         Past 2 × 2 there is no formula worth memorising. Instead, expand along a row or column: for each number, cross
         out its row and column, take the determinant of what is left, attach a sign from the{' '}
-        <span className="font-mono">+ − + −</span>{' '}checkerboard, and add everything up.
+        <span className="font-mono">+ − + −</span> checkerboard, and add everything up.
       </P>
       <P>
-        You may expand along <em>any</em>{' '}row or column, so pick the one with the most zeros. Each zero kills a whole
+        You may expand along <em>any</em> row or column, so pick the one with the most zeros. Each zero kills a whole
         smaller determinant.
       </P>
 
@@ -305,15 +325,48 @@ export function DeterminantConcept() {
               formula: 'A⁻¹ exists  ⟺  det A ≠ 0  ⟺  rank A = n',
               reading: 'Three ways of saying the same thing. A matrix that fails them is called singular.',
             },
-            { formula: '[ A | I ]  →  [ I | A⁻¹ ]', reading: 'The moves that turn A into I are the moves that undo A. Doing them to I writes them down.' },
+            {
+              formula: '[ A | I ]  →  [ I | A⁻¹ ]',
+              reading: 'The moves that turn A into I are the moves that undo A. Doing them to I writes them down.',
+            },
           ]}
           legend={[
-            { sym: 'det A', name: 'Determinant', note: 'One number from a square matrix. Also written |A|.', val: 'the area' },
-            { sym: 'Mⱼₖ', name: 'Minor', note: 'The determinant left after crossing out row j and column k.', val: 'one term' },
-            { sym: 'Cⱼₖ', name: 'Cofactor', note: 'The minor with its checkerboard sign attached.', val: '(−1)^(j+k) Mⱼₖ' },
-            { sym: 'I', name: 'Identity', note: 'det I = 1, which is what makes the AB = I argument work.', val: 'do nothing' },
-            { sym: 'A⁻¹', name: 'Inverse', note: 'Undoes A. Square matrices only, and only when det A ≠ 0.', val: 'the undo button' },
-            { sym: 'singular', name: 'No inverse', note: 'det A = 0, rank below full, columns not independent.', val: 'the flat case' },
+            {
+              sym: 'det A',
+              name: 'Determinant',
+              note: 'One number from a square matrix. Also written |A|.',
+              val: 'the area',
+            },
+            {
+              sym: 'Mⱼₖ',
+              name: 'Minor',
+              note: 'The determinant left after crossing out row j and column k.',
+              val: 'one term',
+            },
+            {
+              sym: 'Cⱼₖ',
+              name: 'Cofactor',
+              note: 'The minor with its checkerboard sign attached.',
+              val: '(−1)^(j+k) Mⱼₖ',
+            },
+            {
+              sym: 'I',
+              name: 'Identity',
+              note: 'det I = 1, which is what makes the AB = I argument work.',
+              val: 'do nothing',
+            },
+            {
+              sym: 'A⁻¹',
+              name: 'Inverse',
+              note: 'Undoes A. Square matrices only, and only when det A ≠ 0.',
+              val: 'the undo button',
+            },
+            {
+              sym: 'singular',
+              name: 'No inverse',
+              note: 'det A = 0, rank below full, columns not independent.',
+              val: 'the flat case',
+            },
           ]}
         />
       </Explainers>
@@ -376,8 +429,14 @@ export function RankConcept() {
           </>,
         ]}
         mappings={[
-          { title: 'Each row', body: 'One equation, or one witness statement. Whether it adds anything is the whole question.' },
-          { title: 'A row going to zero', body: 'That row was already implied by the others. It was never adding information.' },
+          {
+            title: 'Each row',
+            body: 'One equation, or one witness statement. Whether it adds anything is the whole question.',
+          },
+          {
+            title: 'A row going to zero',
+            body: 'That row was already implied by the others. It was never adding information.',
+          },
           { title: 'The rank', body: 'How many rows survive. Never more than the number of rows, or of columns.' },
         ]}
         footnote="Rank works down the columns too, and gives the same number — which is a genuinely surprising fact worth knowing, even though this course does not prove it."
@@ -396,7 +455,7 @@ export function RankConcept() {
       <H2>The same count, said about vectors</H2>
       <P>
         There is a second way to say all of this, and it is the one Lecture 0b uses. A set of vectors is{' '}
-        <strong>linearly independent</strong>{' '}when the only way to mix them down to zero is to take none of any of them.
+        <strong>linearly independent</strong> when the only way to mix them down to zero is to take none of any of them.
         If some other mixture works, the set is <strong>dependent</strong>, and one of the vectors is a combination of
         the rest.
       </P>
@@ -411,7 +470,7 @@ export function RankConcept() {
 
       <P>
         That picture runs out at three dimensions. Rank is what replaces it. Lay p vectors out as the rows of a matrix
-        and take the rank: <strong>rank = p</strong> means independent, <strong>rank &lt; p</strong>{' '}means dependent.
+        and take the rank: <strong>rank = p</strong> means independent, <strong>rank &lt; p</strong> means dependent.
         Same count, no drawing required.
       </P>
 
@@ -421,7 +480,7 @@ export function RankConcept() {
 
       <P>
         One shortcut falls straight out and is worth having in an exam: if there are more vectors than components, they{' '}
-        <em>must</em>{' '}be dependent. Three vectors in ℝ² are always dependent, and so are five in ℝ⁴. There simply are
+        <em>must</em> be dependent. Three vectors in ℝ² are always dependent, and so are five in ℝ⁴. There simply are
         not that many independent directions to go round.
       </P>
 
@@ -468,12 +527,32 @@ export function RankConcept() {
             },
           ]}
           legend={[
-            { sym: 'rank', name: 'The count', note: 'Non-zero rows after tidying. Genuinely different rows.', val: 'the witnesses' },
-            { sym: '[A | b]', name: 'Augmented matrix', note: 'A with the right-hand side stuck on as one more column.', val: 'part 8' },
+            {
+              sym: 'rank',
+              name: 'The count',
+              note: 'Non-zero rows after tidying. Genuinely different rows.',
+              val: 'the witnesses',
+            },
+            {
+              sym: '[A | b]',
+              name: 'Augmented matrix',
+              note: 'A with the right-hand side stuck on as one more column.',
+              val: 'part 8',
+            },
             { sym: 'full rank', name: 'As big as possible', note: 'min(m, n). Nothing repeats.', val: 'the good case' },
-            { sym: 'singular', name: 'Rank below full', note: 'For a square matrix: det A = 0 and no inverse.', val: 'the flat case' },
+            {
+              sym: 'singular',
+              name: 'Rank below full',
+              note: 'For a square matrix: det A = 0 and no inverse.',
+              val: 'the flat case',
+            },
             { sym: 'free variable', name: 'One you choose', note: 'An unknown no pivot landed on.', val: 'a dial' },
-            { sym: 'Ax = 0', name: 'Homogeneous', note: 'Always consistent. Has answers beyond zero exactly when rank < n.', val: 'always at least one' },
+            {
+              sym: 'Ax = 0',
+              name: 'Homogeneous',
+              note: 'Always consistent. Has answers beyond zero exactly when rank < n.',
+              val: 'always at least one',
+            },
           ]}
         />
       </Explainers>

@@ -136,7 +136,7 @@ export function VectorBasicsLab() {
       <LabNote>
         A vector is a list of numbers — the lecture writes a point of ℝⁿ as{' '}
         <span className="font-mono">(x₁, …, xₙ)</span>, standing up as a column or lying flat as a row. The two things
-        you may do to it are right here: <strong>add</strong> two of them, and <strong>stretch</strong>{' '}one by a plain
+        you may do to it are right here: <strong>add</strong> two of them, and <strong>stretch</strong> one by a plain
         number. Everything else in this lecture is built out of those two moves.
       </LabNote>
     </LabBox>
@@ -204,8 +204,26 @@ export function CombinationLab() {
           caption="Press anywhere to move the black dot. The two amounts underneath change to whatever gets you there."
         />
         <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 bg-zinc-50 p-5">
-          <Slider label="c₁" value={c1} display={String(c1)} min={-4} max={4} step={0.5} hint="how much of v₁" onChange={setC1} />
-          <Slider label="c₂" value={c2} display={String(c2)} min={-4} max={4} step={0.5} hint="how much of v₂" onChange={setC2} />
+          <Slider
+            label="c₁"
+            value={c1}
+            display={String(c1)}
+            min={-4}
+            max={4}
+            step={0.5}
+            hint="how much of v₁"
+            onChange={setC1}
+          />
+          <Slider
+            label="c₂"
+            value={c2}
+            display={String(c2)}
+            min={-4}
+            max={4}
+            step={0.5}
+            hint="how much of v₂"
+            onChange={setC2}
+          />
           <ReadOutGrid
             items={[
               { label: 'v₁', value: '(1, 3)' },
@@ -232,7 +250,7 @@ export function CombinationLab() {
       </Verdict>
 
       <LabNote>
-        A <strong>linear combination</strong>{' '}is just this: take some of one vector, some of another, and add them. The
+        A <strong>linear combination</strong> is just this: take some of one vector, some of another, and add them. The
         coloured arrow is c₁ lots of v₁; the orange one carries on from there by c₂ lots of v₂. There is no other
         operation involved — no multiplying two vectors together, no squaring. That restraint is what makes everything
         else in linear algebra work.
@@ -246,9 +264,30 @@ export function CombinationLab() {
 /* ========================================================================== */
 
 const INDEP_PRESETS = [
-  { id: 'ex2', label: 'Ex.2 — independent', v: [{ x: 1, y: 3 }, { x: 1, y: 0 }] },
-  { id: 'same', label: 'One is a copy of the other', v: [{ x: 2, y: 1 }, { x: 4, y: 2 }] },
-  { id: 'zero', label: 'One of them is the zero vector', v: [{ x: 2, y: 3 }, { x: 0, y: 0 }] },
+  {
+    id: 'ex2',
+    label: 'Ex.2 — independent',
+    v: [
+      { x: 1, y: 3 },
+      { x: 1, y: 0 },
+    ],
+  },
+  {
+    id: 'same',
+    label: 'One is a copy of the other',
+    v: [
+      { x: 2, y: 1 },
+      { x: 4, y: 2 },
+    ],
+  },
+  {
+    id: 'zero',
+    label: 'One of them is the zero vector',
+    v: [
+      { x: 2, y: 3 },
+      { x: 0, y: 0 },
+    ],
+  },
 ] as const
 type IndepId = (typeof INDEP_PRESETS)[number]['id']
 
@@ -323,7 +362,10 @@ export function IndependenceLab() {
             items={[
               { label: 'v₁', value: `(${p.x}, ${p.y})` },
               { label: 'v₂', value: `(${q.x}, ${q.y})` },
-              { label: 'they reach', value: independent ? 'the whole plane' : bothZero ? 'only the origin' : 'one line' },
+              {
+                label: 'they reach',
+                value: independent ? 'the whole plane' : bothZero ? 'only the origin' : 'one line',
+              },
               { label: 'verdict', value: independent ? 'independent' : 'dependent' },
             ]}
           />
@@ -337,23 +379,24 @@ export function IndependenceLab() {
       <Verdict ok={independent}>
         {independent ? (
           <>
-            <strong>Linearly independent.</strong>{' '}The only way to make c₁v₁ + c₂v₂ = 0 is to take none of either:
-            c₁ = c₂ = 0. Neither one can be built from the other, so each is carrying information the other does not.
+            <strong>Linearly independent.</strong> The only way to make c₁v₁ + c₂v₂ = 0 is to take none of either: c₁ =
+            c₂ = 0. Neither one can be built from the other, so each is carrying information the other does not.
           </>
         ) : bothZero ? (
           <>
-            <strong>Linearly dependent.</strong>{' '}Both are the zero vector, so any amounts at all add to zero — for
+            <strong>Linearly dependent.</strong> Both are the zero vector, so any amounts at all add to zero — for
             instance 1·v₁ + 1·v₂ = 0. Any set containing the zero vector is dependent, always.
           </>
         ) : qZero ? (
           <>
-            <strong>Linearly dependent.</strong>{' '}v₂ is the zero vector, so 0·v₁ + 1·v₂ = 0 with a coefficient that is
+            <strong>Linearly dependent.</strong> v₂ is the zero vector, so 0·v₁ + 1·v₂ = 0 with a coefficient that is
             not zero. That is exactly the definition of dependent.
           </>
         ) : (
           <>
-            <strong>Linearly dependent.</strong> v₂ is {k !== null ? `${Number.isInteger(k) ? k : k.toFixed(2)} times` : 'a multiple of'}{' '}
-            v₁, so {k !== null ? `${Number.isInteger(k) ? k : k.toFixed(2)}` : 'some multiple of'}·v₁ − 1·v₂ = 0 with
+            <strong>Linearly dependent.</strong> v₂ is{' '}
+            {k !== null ? `${Number.isInteger(k) ? k : k.toFixed(2)} times` : 'a multiple of'} v₁, so{' '}
+            {k !== null ? `${Number.isInteger(k) ? k : k.toFixed(2)}` : 'some multiple of'}·v₁ − 1·v₂ = 0 with
             coefficients that are not all zero. Adding v₂ to the collection tells you nothing new.
           </>
         )}
@@ -361,9 +404,9 @@ export function IndependenceLab() {
 
       <LabNote>
         The definition on slide 4 sounds fussy but says something simple. Write c₁v₁ + ⋯ + cₘvₘ = 0. Choosing every c to
-        be 0 always works, and is no news. The question is whether there is <em>any other</em>{' '}way. If there is not,
-        the vectors are <strong>independent</strong>. If there is, they are <strong>dependent</strong>, and slide 5
-        shows why: you can then rearrange it to write one of the vectors in terms of the others.
+        be 0 always works, and is no news. The question is whether there is <em>any other</em> way. If there is not, the
+        vectors are <strong>independent</strong>. If there is, they are <strong>dependent</strong>, and slide 5 shows
+        why: you can then rearrange it to write one of the vectors in terms of the others.
       </LabNote>
     </LabBox>
   )
@@ -452,8 +495,8 @@ Ex.3   [1,2]ᵀ, [5,1]ᵀ, [6,3]ᵀ    [1,2]ᵀ + [5,1]ᵀ = [6,3]ᵀ      → d
       </div>
 
       <LabNote>
-        Notice the pattern in Ex.1 and Ex.3. In both, a third vector turned up that was already reachable from the
-        first two. That is what dependence looks like in practice — not something exotic, just a vector that repeats
+        Notice the pattern in Ex.1 and Ex.3. In both, a third vector turned up that was already reachable from the first
+        two. That is what dependence looks like in practice — not something exotic, just a vector that repeats
         information you already had.
       </LabNote>
     </LabBox>
@@ -575,8 +618,8 @@ export function RankVectorsLab() {
 
       {n < p && (
         <Verdict ok={false}>
-          There are more vectors ({p}) than components ({n}). That alone forces dependence — you cannot have more than
-          n independent directions when each vector only has n numbers in it. No arithmetic needed.
+          There are more vectors ({p}) than components ({n}). That alone forces dependence — you cannot have more than n
+          independent directions when each vector only has n numbers in it. No arithmetic needed.
         </Verdict>
       )}
 
@@ -729,7 +772,7 @@ export function PivotColumnsLab() {
       )}
 
       <LabNote>
-        This is the practical recipe from slide 9. Stand your vectors up as the <strong>columns</strong>{' '}of a matrix and
+        This is the practical recipe from slide 9. Stand your vectors up as the <strong>columns</strong> of a matrix and
         row-reduce. The columns that end up carrying a pivot are the independent ones, and they are always the leftmost
         ones. Every other column is a mixture of the pivot columns to its left — and the tidied matrix hands you the
         exact amounts, as printed above.
@@ -838,9 +881,10 @@ export function BigCheckLab() {
       <Verdict ok={done}>
         {done ? (
           <>
-            Three pivot columns, and the matrix has three columns. They match, so <strong>x₁, x₂ and x₃ are linearly
-            independent</strong>{' '}— which is the conclusion on slide 12. The row of zeros at the bottom is not a problem:
-            it only says that four rows could never all be independent when there are three columns.
+            Three pivot columns, and the matrix has three columns. They match, so{' '}
+            <strong>x₁, x₂ and x₃ are linearly independent</strong> — which is the conclusion on slide 12. The row of
+            zeros at the bottom is not a problem: it only says that four rows could never all be independent when there
+            are three columns.
           </>
         ) : (
           <>

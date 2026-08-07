@@ -140,8 +140,8 @@ export function AddSessionDialog({ open, group, onClose }: { open: boolean; grou
               ))}
             </Select>
             <Description>
-              A <strong>concept</strong>{' '}is one idea explained on its own terms, and often turns up in more than one
-              course. A <strong>chapter</strong>{' '}is this course&rsquo;s own material, in the order it was taught.
+              A <strong>concept</strong> is one idea explained on its own terms, and often turns up in more than one
+              course. A <strong>chapter</strong> is this course&rsquo;s own material, in the order it was taught.
             </Description>
           </Field>
 

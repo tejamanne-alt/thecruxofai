@@ -24,8 +24,8 @@ export function Lecture1Overview() {
       <AnalogyCallout
         paragraphs={[
           <>
-            Picture a small furniture workshop. You have <strong>9 units of wood</strong>, <strong>8 hours</strong>{' '}of
-            labour, <strong>7 hours</strong> of machine time and <strong>11 units</strong>{' '}of shipping effort. You build
+            Picture a small furniture workshop. You have <strong>9 units of wood</strong>, <strong>8 hours</strong> of
+            labour, <strong>7 hours</strong> of machine time and <strong>11 units</strong> of shipping effort. You build
             three things: chair kits, table kits and cabinet kits. Each one uses a different amount of each resource.
             You want to use everything up, with nothing left over.
           </>,

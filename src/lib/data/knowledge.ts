@@ -532,12 +532,21 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
 
   matmul: {
     cheat: [
-      { formula: 'cⱼₖ = Σₗ aⱼₗ bₗₖ', why: 'Row j of the left meets column k of the right. Multiply the pairs, add them up.' },
-      { formula: '(m × n) · (n × p) = (m × p)', why: 'The inner two must match and then vanish. The outer two are the answer’s shape.' },
+      {
+        formula: 'cⱼₖ = Σₗ aⱼₗ bₗₖ',
+        why: 'Row j of the left meets column k of the right. Multiply the pairs, add them up.',
+      },
+      {
+        formula: '(m × n) · (n × p) = (m × p)',
+        why: 'The inner two must match and then vanish. The outer two are the answer’s shape.',
+      },
       { formula: 'AB ≠ BA', why: 'Order is part of the meaning, and often only one of the two even exists.' },
       { formula: 'AB = 0 does not give A = 0 or B = 0', why: 'So you cannot cancel: AB = AC does not give B = C.' },
       { formula: 'AI = IA = A', why: 'The identity matrix is the matrix version of the number 1.' },
-      { formula: '(AB)ᵀ = BᵀAᵀ', why: 'Transpose each and reverse the order. Socks then shoes, undone shoes then socks.' },
+      {
+        formula: '(AB)ᵀ = BᵀAᵀ',
+        why: 'Transpose each and reverse the order. Socks then shoes, undone shoes then socks.',
+      },
     ],
     quiz: [
       {
@@ -591,12 +600,27 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
   determinant: {
     cheat: [
       { formula: 'det A = ad − bc  (2 × 2)', why: 'The signed area of the box the two columns make.' },
-      { formula: 'det A = Σⱼ (−1)^(j+k) aⱼₖ Mⱼₖ', why: 'Cofactor expansion along any row or column — pick the one with the most zeros.' },
-      { formula: 'det(AB) = det A · det B', why: 'Determinants pass straight through multiplication. This is why AB = I forces both to be non-zero.' },
+      {
+        formula: 'det A = Σⱼ (−1)^(j+k) aⱼₖ Mⱼₖ',
+        why: 'Cofactor expansion along any row or column — pick the one with the most zeros.',
+      },
+      {
+        formula: 'det(AB) = det A · det B',
+        why: 'Determinants pass straight through multiplication. This is why AB = I forces both to be non-zero.',
+      },
       { formula: 'det Aᵀ = det A', why: 'So every rule about rows is also true about columns.' },
-      { formula: 'det(cA) = cⁿ det A', why: 'Each of the n rows gets scaled, so c comes out n times. Forgetting the power is the classic slip.' },
-      { formula: 'triangular ⟹ det = product of the diagonal', why: 'The reason row-reducing first beats cofactors for anything large.' },
-      { formula: 'A⁻¹ exists ⟺ det A ≠ 0 ⟺ rank A = n', why: 'Three ways of saying the same thing. Failing them is called singular.' },
+      {
+        formula: 'det(cA) = cⁿ det A',
+        why: 'Each of the n rows gets scaled, so c comes out n times. Forgetting the power is the classic slip.',
+      },
+      {
+        formula: 'triangular ⟹ det = product of the diagonal',
+        why: 'The reason row-reducing first beats cofactors for anything large.',
+      },
+      {
+        formula: 'A⁻¹ exists ⟺ det A ≠ 0 ⟺ rank A = n',
+        why: 'Three ways of saying the same thing. Failing them is called singular.',
+      },
       { formula: '[ A | I ] → [ I | A⁻¹ ]', why: 'The moves that turn A into I are the moves that undo A.' },
     ],
     quiz: [
@@ -646,18 +670,44 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
 
   rank: {
     cheat: [
-      { formula: 'rank A = non-zero rows in echelon form', why: 'A count of genuinely different rows. Copies and combinations collapse to zero.' },
-      { formula: 'rank A ≤ min(m, n)', why: 'You can never have more independent rows than you have rows, or columns.' },
-      { formula: 'rank A ≠ rank [A|b] ⟹ no solution', why: 'A contradiction row has appeared. The system is inconsistent.' },
-      { formula: 'rank A = rank [A|b] ⟹ consistent', why: 'There is at least one answer. How many depends on the free variables.' },
-      { formula: 'free variables = n − rank A', why: 'Zero of them means one answer. One or more means endlessly many.' },
-      { formula: 'Ax = 0 always has x = 0', why: 'A homogeneous system is never inconsistent. It has others exactly when rank A < n.' },
-      { formula: 'RREF is unique', why: 'Which is what makes "the rank" a well-defined number rather than a matter of route.' },
+      {
+        formula: 'rank A = non-zero rows in echelon form',
+        why: 'A count of genuinely different rows. Copies and combinations collapse to zero.',
+      },
+      {
+        formula: 'rank A ≤ min(m, n)',
+        why: 'You can never have more independent rows than you have rows, or columns.',
+      },
+      {
+        formula: 'rank A ≠ rank [A|b] ⟹ no solution',
+        why: 'A contradiction row has appeared. The system is inconsistent.',
+      },
+      {
+        formula: 'rank A = rank [A|b] ⟹ consistent',
+        why: 'There is at least one answer. How many depends on the free variables.',
+      },
+      {
+        formula: 'free variables = n − rank A',
+        why: 'Zero of them means one answer. One or more means endlessly many.',
+      },
+      {
+        formula: 'Ax = 0 always has x = 0',
+        why: 'A homogeneous system is never inconsistent. It has others exactly when rank A < n.',
+      },
+      {
+        formula: 'RREF is unique',
+        why: 'Which is what makes "the rank" a well-defined number rather than a matter of route.',
+      },
     ],
     quiz: [
       {
         q: 'A system has 6 unknowns, rank A = 4 and rank [A|b] = 4. What is the outcome?',
-        options: ['No solution', 'Exactly one solution', 'Endlessly many, with 2 free variables', 'Endlessly many, with 4 free variables'],
+        options: [
+          'No solution',
+          'Exactly one solution',
+          'Endlessly many, with 2 free variables',
+          'Endlessly many, with 4 free variables',
+        ],
         answer: 2,
         explain:
           'The ranks match, so the system is consistent. Free variables = unknowns − rank = 6 − 4 = 2. Two dials you can set however you like, and every setting gives another genuine answer.',
@@ -712,12 +762,18 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       },
       { formula: 'AB ≠ BA', why: 'Order is part of the meaning. Often one of the two does not even exist.' },
       { formula: '(AB)ᵀ = BᵀAᵀ,  (AB)⁻¹ = B⁻¹A⁻¹', why: 'Transposing or undoing a product reverses the order.' },
-      { formula: 'A = Aᵀ symmetric,  A = −Aᵀ skew', why: 'Skew forces zeros down the diagonal, since only 0 is its own negative.' },
+      {
+        formula: 'A = Aᵀ symmetric,  A = −Aᵀ skew',
+        why: 'Skew forces zeros down the diagonal, since only 0 is its own negative.',
+      },
       {
         formula: 'xᵀAx > 0 for all x ≠ 0',
         why: 'Positive definite. For a 2 × 2, check the top-left entry and det A are both above zero.',
       },
-      { formula: 'det A = ad − bc  (2 × 2)', why: 'The signed area of the box the two columns make. Zero area, no inverse.' },
+      {
+        formula: 'det A = ad − bc  (2 × 2)',
+        why: 'The signed area of the box the two columns make. Zero area, no inverse.',
+      },
       {
         formula: 'det A = Σⱼ (−1)^(j+k) aⱼₖ Mⱼₖ',
         why: 'Cofactor expansion, along any row or column. Pick the one with the most zeros.',
@@ -731,8 +787,14 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
         why: 'The three row moves and what each does. The third is why row-reducing to triangular is safe.',
       },
       { formula: 'triangular ⟹ det = product of the diagonal', why: 'The fast route for anything bigger than 3 × 3.' },
-      { formula: '[ A | I ] → [ I | A⁻¹ ]', why: 'Row-reduce both halves together and the inverse appears on the right.' },
-      { formula: 'rank = non-zero rows in echelon form', why: 'A count of genuinely different rows. Copies collapse to zero.' },
+      {
+        formula: '[ A | I ] → [ I | A⁻¹ ]',
+        why: 'Row-reduce both halves together and the inverse appears on the right.',
+      },
+      {
+        formula: 'rank = non-zero rows in echelon form',
+        why: 'A count of genuinely different rows. Copies collapse to zero.',
+      },
       {
         formula: 'rank A ≠ rank [A|b] ⟹ no solution',
         why: 'The ranks matching is exactly what "consistent" means.',
@@ -741,7 +803,10 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
         formula: 'free variables = n − rank',
         why: 'Ranks match and this is 0 → one answer. Ranks match and this is more than 0 → endlessly many.',
       },
-      { formula: 'Ax = 0 always has x = 0', why: 'A homogeneous system can never be inconsistent. The question is only whether there are others.' },
+      {
+        formula: 'Ax = 0 always has x = 0',
+        why: 'A homogeneous system can never be inconsistent. The question is only whether there are others.',
+      },
     ],
     quiz: [
       {
@@ -772,7 +837,12 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       },
       {
         q: 'A matrix is skew-symmetric, so A = −Aᵀ. What must be true of its diagonal?',
-        options: ['Every diagonal entry is 1', 'Every diagonal entry is 0', 'The diagonal entries add up to 1', 'Nothing in particular'],
+        options: [
+          'Every diagonal entry is 1',
+          'Every diagonal entry is 0',
+          'The diagonal entries add up to 1',
+          'Nothing in particular',
+        ],
         answer: 1,
         explain:
           'A diagonal entry sits in the mirror line, so the rule forces aᵢᵢ = −aᵢᵢ. The only number equal to minus itself is zero, so the whole diagonal has to be zeros.',
@@ -798,7 +868,12 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       },
       {
         q: 'How many different reduced row echelon forms can one matrix have?',
-        options: ['Exactly one', 'One for each order you do the moves in', 'As many as there are rows', 'It depends on the rank'],
+        options: [
+          'Exactly one',
+          'One for each order you do the moves in',
+          'As many as there are rows',
+          'It depends on the rank',
+        ],
         answer: 0,
         explain:
           'There are many row echelon forms — the staircase depends on which moves you pick. But there is exactly one reduced row echelon form, whatever route you take. That uniqueness is what lets rank be defined at all: if different routes gave different counts of non-zero rows, "the rank" would mean nothing.',
@@ -850,7 +925,12 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       },
       {
         q: 'A system has 5 unknowns, rank A = 3 and rank [A|b] = 3. What is the outcome?',
-        options: ['No solution', 'Exactly one solution', 'Endlessly many, with 2 free variables', 'Endlessly many, with 3 free variables'],
+        options: [
+          'No solution',
+          'Exactly one solution',
+          'Endlessly many, with 2 free variables',
+          'Endlessly many, with 3 free variables',
+        ],
         answer: 2,
         explain:
           'The ranks match, so there is at least one answer. The number of free variables is (unknowns − rank) = 5 − 3 = 2. Two free variables means two dials you can set however you like, and every setting gives another valid answer.',
@@ -963,18 +1043,33 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
 
   dotproduct: {
     cheat: [
-      { formula: '⟨a, b⟩ = aᵀb = Σᵢ aᵢbᵢ', why: 'Multiply matching parts, add them up. Two vectors in, one plain number out.' },
-      { formula: 'sign of a·b', why: 'Positive: leaning the same way. Negative: opposite ways. Zero: at right angles.' },
+      {
+        formula: '⟨a, b⟩ = aᵀb = Σᵢ aᵢbᵢ',
+        why: 'Multiply matching parts, add them up. Two vectors in, one plain number out.',
+      },
+      {
+        formula: 'sign of a·b',
+        why: 'Positive: leaning the same way. Negative: opposite ways. Zero: at right angles.',
+      },
       { formula: '⟨ku + lv, w⟩ = k⟨u,w⟩ + l⟨v,w⟩', why: 'Linearity — you may split sums and pull plain numbers out.' },
       { formula: '⟨u, v⟩ = ⟨v, u⟩', why: 'Symmetry. Unlike matrix multiplication, the order makes no difference.' },
       { formula: '⟨u, u⟩ ≥ 0, = 0 only for u = 0', why: 'What makes the square root in the norm always safe to take.' },
       { formula: '‖a‖ = √⟨a, a⟩', why: 'Length. Pythagoras, and it keeps working past three dimensions.' },
       { formula: '|⟨a, b⟩| ≤ ‖a‖‖b‖', why: 'Cauchy–Schwarz. Equality only when the two lie along each other.' },
-      { formula: '‖a + b‖ ≤ ‖a‖ + ‖b‖', why: 'Triangle inequality. Straight there is never further than via a corner.' },
-      { formula: 'α = cos⁻¹(⟨a,b⟩ / (‖a‖‖b‖))', why: 'The angle. Cauchy–Schwarz is what keeps the fraction inside [−1, 1].' },
+      {
+        formula: '‖a + b‖ ≤ ‖a‖ + ‖b‖',
+        why: 'Triangle inequality. Straight there is never further than via a corner.',
+      },
+      {
+        formula: 'α = cos⁻¹(⟨a,b⟩ / (‖a‖‖b‖))',
+        why: 'The angle. Cauchy–Schwarz is what keeps the fraction inside [−1, 1].',
+      },
       { formula: '⟨a, b⟩ = 0 ⟺ orthogonal', why: 'The test you actually use — no angle needs working out.' },
       { formula: 'v = (v₂ᵀv₁ / v₁ᵀv₁) v₁', why: 'The projection of v₂ onto v₁ — its shadow on that line.' },
-      { formula: 'u = v₂ − v, with u·v₁ = 0', why: 'The leftover, perpendicular by construction. Model-fitting calls it the residual.' },
+      {
+        formula: 'u = v₂ − v, with u·v₁ = 0',
+        why: 'The leftover, perpendicular by construction. Model-fitting calls it the residual.',
+      },
     ],
     quiz: [
       {
@@ -986,7 +1081,12 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       },
       {
         q: 'Two vectors have a dot product of zero. What does that mean?',
-        options: ['One of them is the zero vector', 'They point the same way', 'They are at right angles', 'They have the same length'],
+        options: [
+          'One of them is the zero vector',
+          'They point the same way',
+          'They are at right angles',
+          'They have the same length',
+        ],
         answer: 2,
         explain:
           'Zero dot product means orthogonal. It can also happen if one is the zero vector, but for two genuine vectors it means exactly 90°. This is the check you use in practice, because it costs a few multiplications and needs no arccos.',
@@ -1024,13 +1124,28 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
   covariance: {
     cheat: [
       { formula: 'μ = E[X] = Σ x p(x)', why: 'The balance point of a distribution. Need not be a value X can take.' },
-      { formula: 'σ² = E[(X − μ)²]', why: 'Average squared distance from the mean. Squaring stops the signs cancelling.' },
+      {
+        formula: 'σ² = E[(X − μ)²]',
+        why: 'Average squared distance from the mean. Squaring stops the signs cancelling.',
+      },
       { formula: 'σ = √σ²', why: 'Standard deviation. Back in the original units, so it is the one to quote.' },
-      { formula: 'divide by n or by n − 1', why: 'n describes the collection you have; n − 1 treats it as a sample from something bigger.' },
-      { formula: 'cov(X,Y) = E[(X − μₓ)(Y − μᵧ)]', why: 'One product per point. Both above or both below their means gives a positive contribution.' },
+      {
+        formula: 'divide by n or by n − 1',
+        why: 'n describes the collection you have; n − 1 treats it as a sample from something bigger.',
+      },
+      {
+        formula: 'cov(X,Y) = E[(X − μₓ)(Y − μᵧ)]',
+        why: 'One product per point. Both above or both below their means gives a positive contribution.',
+      },
       { formula: 'cov(X, X) = σ²', why: 'Variance is just covariance of a variable with itself — the same formula.' },
-      { formula: 'corr = cov / (σₓ σᵧ)', why: 'Divides the units out and forces the answer into [−1, 1], so it can be compared across pairs.' },
-      { formula: 'cov ≈ 0 does not mean unrelated', why: 'It only rules out a straight-line pattern. An arch has an obvious relationship and near-zero covariance.' },
+      {
+        formula: 'corr = cov / (σₓ σᵧ)',
+        why: 'Divides the units out and forces the answer into [−1, 1], so it can be compared across pairs.',
+      },
+      {
+        formula: 'cov ≈ 0 does not mean unrelated',
+        why: 'It only rules out a straight-line pattern. An arch has an obvious relationship and near-zero covariance.',
+      },
     ],
     quiz: [
       {
@@ -1059,12 +1174,7 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       },
       {
         q: 'Points lie on a perfect symmetric arch. What does the covariance come out as?',
-        options: [
-          'Strongly positive',
-          'Strongly negative',
-          'Close to zero, despite the obvious pattern',
-          'Exactly 1',
-        ],
+        options: ['Strongly positive', 'Strongly negative', 'Close to zero, despite the obvious pattern', 'Exactly 1'],
         answer: 2,
         explain:
           'Covariance only detects straight-line association. On the rising half the products are positive, on the falling half they are negative, and they cancel. So near-zero covariance means "no linear pattern", not "no relationship" — which is why you always look at the scatter plot as well.',
@@ -1090,21 +1200,56 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
 
   vectorspace: {
     cheat: [
-      { formula: '+ : 𝒱 × 𝒱 → 𝒱', why: 'The inner operation. Two members in, one member out — the arrow is the closure requirement.' },
-      { formula: '· : ℝ × 𝒱 → 𝒱', why: 'The outer operation. A plain number and a member in, a member out. The number lives outside the set.' },
-      { formula: '(𝒱, +) is an Abelian group', why: 'Closed, associative, has 0, has negatives, and x + y = y + x. Half the definition in one clause.' },
-      { formula: 'λ(x+y) = λx + λy,  (λ+ψ)x = λx + ψx', why: 'Distributivity both ways. Stretching spreads over adding vectors and over adding scalars.' },
-      { formula: 'λ(ψx) = (λψ)x,  1x = x', why: 'The other two rules for the outer operation. Easy to forget, easy to break in a made-up example.' },
-      { formula: 'ℝⁿ · ℝᵐˣⁿ · polynomials', why: 'All vector spaces. Nothing in the definition says a vector has to be a column.' },
-      { formula: 'U ⊆ V subspace ⟺ U ≠ ∅,  x+y ∈ U,  λx ∈ U', why: 'The short test. U inherits every other rule from V, so only closure can go wrong.' },
-      { formula: 'U ≠ ∅ and λx ∈ U ⟹ 0 ∈ U', why: 'Take λ = 0. Any set missing the origin is out at once, however straight it looks.' },
-      { formula: '{x : Ax = 0} is a subspace', why: 'The nullspace. Non-empty since x = 0 works, and both closures follow from A being linear.' },
-      { formula: 'Ax = b, Ay = b ⟹ A(x+y) = 2b', why: 'Why b ≠ 0 gives no space. The solution set is a shifted copy of the nullspace, and the shift breaks it.' },
+      {
+        formula: '+ : 𝒱 × 𝒱 → 𝒱',
+        why: 'The inner operation. Two members in, one member out — the arrow is the closure requirement.',
+      },
+      {
+        formula: '· : ℝ × 𝒱 → 𝒱',
+        why: 'The outer operation. A plain number and a member in, a member out. The number lives outside the set.',
+      },
+      {
+        formula: '(𝒱, +) is an Abelian group',
+        why: 'Closed, associative, has 0, has negatives, and x + y = y + x. Half the definition in one clause.',
+      },
+      {
+        formula: 'λ(x+y) = λx + λy,  (λ+ψ)x = λx + ψx',
+        why: 'Distributivity both ways. Stretching spreads over adding vectors and over adding scalars.',
+      },
+      {
+        formula: 'λ(ψx) = (λψ)x,  1x = x',
+        why: 'The other two rules for the outer operation. Easy to forget, easy to break in a made-up example.',
+      },
+      {
+        formula: 'ℝⁿ · ℝᵐˣⁿ · polynomials',
+        why: 'All vector spaces. Nothing in the definition says a vector has to be a column.',
+      },
+      {
+        formula: 'U ⊆ V subspace ⟺ U ≠ ∅,  x+y ∈ U,  λx ∈ U',
+        why: 'The short test. U inherits every other rule from V, so only closure can go wrong.',
+      },
+      {
+        formula: 'U ≠ ∅ and λx ∈ U ⟹ 0 ∈ U',
+        why: 'Take λ = 0. Any set missing the origin is out at once, however straight it looks.',
+      },
+      {
+        formula: '{x : Ax = 0} is a subspace',
+        why: 'The nullspace. Non-empty since x = 0 works, and both closures follow from A being linear.',
+      },
+      {
+        formula: 'Ax = b, Ay = b ⟹ A(x+y) = 2b',
+        why: 'Why b ≠ 0 gives no space. The solution set is a shifted copy of the nullspace, and the shift breaks it.',
+      },
     ],
     quiz: [
       {
         q: 'Which of these is a subspace of ℝ²?',
-        options: ['The line y = x + 1', 'The line y = 2x', 'The square −1 ≤ x, y ≤ 1', 'The first quadrant x ≥ 0, y ≥ 0'],
+        options: [
+          'The line y = x + 1',
+          'The line y = 2x',
+          'The square −1 ≤ x, y ≤ 1',
+          'The first quadrant x ≥ 0, y ≥ 0',
+        ],
         answer: 1,
         explain:
           'y = 2x passes through the origin and both closures hold — add two of its points or stretch one and you stay on it. The shifted line misses the origin. The square is bounded, so stretching escapes it. The quadrant is closed under adding but not under scaling by a negative number.',
@@ -1175,24 +1320,68 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
 
   basis: {
     cheat: [
-      { formula: 'span{x₁,…,xₖ} = { Σ λᵢxᵢ }', why: 'Everything reachable by mixing. Always a subspace, and the smallest one holding all the xᵢ.' },
-      { formula: '0 = Σ λᵢxᵢ with some λᵢ ≠ 0 ⟹ dependent', why: 'Dependence. Independence is the denial: only the all-zeros mixture reaches 0.' },
-      { formula: 'any set containing 0 is dependent', why: 'Give the zero vector a non-zero λ and everything else zero. This is why the definition is written the awkward way.' },
-      { formula: 'all non-zero: dependent ⟺ one is a mixture of the others', why: 'The readable version of the definition, valid only once the zero vector is ruled out.' },
-      { formula: 'columns → REF → all pivots ⟺ independent', why: 'The test you actually run. Non-pivot columns are mixtures of the pivots to their left.' },
-      { formula: 'm vectors from k ingredients, m > k ⟹ dependent', why: 'At most k pivots across m columns leaves a spare column, every time. No arithmetic needed.' },
-      { formula: 'generating set: every v ∈ V is a mixture of it', why: 'Reaches everything. May be far bigger than it needs to be.' },
-      { formula: 'basis = independent generating set', why: 'Also: minimal generating set, and maximal independent set. All three describe the same thing.' },
-      { formula: 'x = Σ λᵢbᵢ uniquely', why: 'Coefficients over a basis are one of a kind. Σλᵢbᵢ = Σψᵢbᵢ forces λᵢ = ψᵢ.' },
-      { formula: 'dim V = number of vectors in a basis', why: 'The same count for every basis of the space, so it belongs to the space and not to your choice.' },
-      { formula: 'dim ≠ number of components', why: 'span{(0,1)} sits in ℝ² and has dimension 1. Its vectors are still written with two numbers.' },
-      { formula: 'U ⊆ V ⟹ dim U ≤ dim V, equal only if U = V', why: 'A subspace cannot be larger, and cannot match without being the whole thing.' },
-      { formula: 'basis of a span: columns → REF → keep the pivot vectors', why: 'The three-step recipe. Keep your original vectors, not the reduced columns.' },
+      {
+        formula: 'span{x₁,…,xₖ} = { Σ λᵢxᵢ }',
+        why: 'Everything reachable by mixing. Always a subspace, and the smallest one holding all the xᵢ.',
+      },
+      {
+        formula: '0 = Σ λᵢxᵢ with some λᵢ ≠ 0 ⟹ dependent',
+        why: 'Dependence. Independence is the denial: only the all-zeros mixture reaches 0.',
+      },
+      {
+        formula: 'any set containing 0 is dependent',
+        why: 'Give the zero vector a non-zero λ and everything else zero. This is why the definition is written the awkward way.',
+      },
+      {
+        formula: 'all non-zero: dependent ⟺ one is a mixture of the others',
+        why: 'The readable version of the definition, valid only once the zero vector is ruled out.',
+      },
+      {
+        formula: 'columns → REF → all pivots ⟺ independent',
+        why: 'The test you actually run. Non-pivot columns are mixtures of the pivots to their left.',
+      },
+      {
+        formula: 'm vectors from k ingredients, m > k ⟹ dependent',
+        why: 'At most k pivots across m columns leaves a spare column, every time. No arithmetic needed.',
+      },
+      {
+        formula: 'generating set: every v ∈ V is a mixture of it',
+        why: 'Reaches everything. May be far bigger than it needs to be.',
+      },
+      {
+        formula: 'basis = independent generating set',
+        why: 'Also: minimal generating set, and maximal independent set. All three describe the same thing.',
+      },
+      {
+        formula: 'x = Σ λᵢbᵢ uniquely',
+        why: 'Coefficients over a basis are one of a kind. Σλᵢbᵢ = Σψᵢbᵢ forces λᵢ = ψᵢ.',
+      },
+      {
+        formula: 'dim V = number of vectors in a basis',
+        why: 'The same count for every basis of the space, so it belongs to the space and not to your choice.',
+      },
+      {
+        formula: 'dim ≠ number of components',
+        why: 'span{(0,1)} sits in ℝ² and has dimension 1. Its vectors are still written with two numbers.',
+      },
+      {
+        formula: 'U ⊆ V ⟹ dim U ≤ dim V, equal only if U = V',
+        why: 'A subspace cannot be larger, and cannot match without being the whole thing.',
+      },
+      {
+        formula: 'basis of a span: columns → REF → keep the pivot vectors',
+        why: 'The three-step recipe. Keep your original vectors, not the reduced columns.',
+      },
     ],
     quiz: [
       {
         q: 'Two vectors in ℝ² are dragged until one is exactly twice the other. What happens to their span?',
-        options: ['It stays the whole plane', 'It collapses to a line through the origin', 'It becomes just the origin', 'It becomes a half-plane'],
+        options: [
+          'It stays the whole plane',
+          'It collapses to a line through the origin',
+          'It becomes just the origin',
+          'It becomes a half-plane',
+        ],
         answer: 1,
         explain:
           'Every mixture c₁v₁ + c₂v₂ now reduces to a single multiple of v₁, so you can only reach points along that one direction. Two vectors span the plane exactly when they are independent.',
@@ -1206,7 +1395,12 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       },
       {
         q: 'You build 5 vectors as combinations of 3 independent ingredients. Are the 5 independent?',
-        options: ['Yes', 'No, whatever the coefficients are', 'It depends on the coefficients', 'Only if the ingredients are orthogonal'],
+        options: [
+          'Yes',
+          'No, whatever the coefficients are',
+          'It depends on the coefficients',
+          'Only if the ingredients are orthogonal',
+        ],
         answer: 1,
         explain:
           'The coefficient matrix is 3 × 5, so it has at most 3 pivots and at least two columns are not pivots. Each of those gives a non-trivial mixture reaching zero. More vectors than ingredients is always dependent.',
@@ -1278,31 +1472,79 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
 
   lec0b: {
     cheat: [
-      { formula: 'x + y = (x₁+y₁, …, xₙ+yₙ),  λx = (λx₁, …, λxₙ)', why: 'The only two things you may do to vectors. Both work one slot at a time.' },
-      { formula: 'c₁v₁ + ⋯ + cₘvₘ', why: 'A linear combination — the only expression adding and stretching lets you build.' },
+      {
+        formula: 'x + y = (x₁+y₁, …, xₙ+yₙ),  λx = (λx₁, …, λxₙ)',
+        why: 'The only two things you may do to vectors. Both work one slot at a time.',
+      },
+      {
+        formula: 'c₁v₁ + ⋯ + cₘvₘ',
+        why: 'A linear combination — the only expression adding and stretching lets you build.',
+      },
       {
         formula: 'c₁v₁ + ⋯ + cₘvₘ = 0 only when every cᵢ = 0',
         why: 'Linear independence. If any other mixture hits zero, the set is dependent.',
       },
-      { formula: 'vⱼ = Σᵢ≠ⱼ (−cᵢ/cⱼ) vᵢ', why: 'What dependence means in practice: one vector is a mixture of the rest.' },
-      { formula: 'rank = p independent · rank < p dependent', why: 'Lay p vectors out as rows and count. Works at any size.' },
-      { formula: 'n < p ⟹ always dependent', why: 'More vectors than components. No arithmetic needed — there are not that many directions.' },
-      { formula: 'rank(A) = rank(Aᵀ)', why: 'Independent rows and independent columns always come to the same number.' },
-      { formula: 'pivot columns = the independent vectors', why: 'Vectors as columns, row-reduce. Non-pivot columns are mixtures of the pivots to their left.' },
+      {
+        formula: 'vⱼ = Σᵢ≠ⱼ (−cᵢ/cⱼ) vᵢ',
+        why: 'What dependence means in practice: one vector is a mixture of the rest.',
+      },
+      {
+        formula: 'rank = p independent · rank < p dependent',
+        why: 'Lay p vectors out as rows and count. Works at any size.',
+      },
+      {
+        formula: 'n < p ⟹ always dependent',
+        why: 'More vectors than components. No arithmetic needed — there are not that many directions.',
+      },
+      {
+        formula: 'rank(A) = rank(Aᵀ)',
+        why: 'Independent rows and independent columns always come to the same number.',
+      },
+      {
+        formula: 'pivot columns = the independent vectors',
+        why: 'Vectors as columns, row-reduce. Non-pivot columns are mixtures of the pivots to their left.',
+      },
       { formula: '⟨a, b⟩ = aᵀb = Σᵢ aᵢbᵢ', why: 'The dot product. Two vectors in, one plain number out.' },
-      { formula: '⟨ku+lv, w⟩ = k⟨u,w⟩ + l⟨v,w⟩', why: 'Linearity. With symmetry ⟨u,v⟩ = ⟨v,u⟩ and ⟨u,u⟩ ≥ 0, these are the three properties.' },
+      {
+        formula: '⟨ku+lv, w⟩ = k⟨u,w⟩ + l⟨v,w⟩',
+        why: 'Linearity. With symmetry ⟨u,v⟩ = ⟨v,u⟩ and ⟨u,u⟩ ≥ 0, these are the three properties.',
+      },
       { formula: '‖a‖ = √⟨a, a⟩', why: 'Length. Pythagoras, and it keeps working past three dimensions.' },
       { formula: '|⟨a, b⟩| ≤ ‖a‖‖b‖', why: 'Cauchy–Schwarz. Equality only when the two lie along each other.' },
       { formula: '‖a + b‖ ≤ ‖a‖ + ‖b‖', why: 'Triangle inequality. The direct route is never longer than the detour.' },
-      { formula: 'α = cos⁻¹(⟨a,b⟩ / (‖a‖‖b‖))', why: 'The angle. Cauchy–Schwarz is what keeps the fraction inside [−1, 1].' },
+      {
+        formula: 'α = cos⁻¹(⟨a,b⟩ / (‖a‖‖b‖))',
+        why: 'The angle. Cauchy–Schwarz is what keeps the fraction inside [−1, 1].',
+      },
       { formula: '⟨a, b⟩ = 0 ⟺ orthogonal', why: 'The check you actually use — no angle needs working out.' },
-      { formula: 'v = (v₂ᵀv₁ / v₁ᵀv₁) v₁', why: 'Projection of v₂ onto v₁. The leftover u = v₂ − v is at right angles by construction.' },
-      { formula: 'P(E) ≥ 0 · P(Ω) = 1 · P(∪Eᵢ) = ΣP(Eᵢ)', why: 'The three axioms. The third needs the events to be mutually exclusive.' },
-      { formula: 'p(x) = P(X = x),  Σ p(x) = 1', why: 'The pmf of a discrete variable. Each bar is an honest probability.' },
-      { formula: 'P[a ≤ X ≤ b] = ∫ₐᵇ f(x) dx', why: 'For a continuous variable only areas are probabilities — f itself is not one.' },
-      { formula: 'μ = E[X] = Σ x p(x)', why: 'Expectation: the balance point. Need not be a value X can actually take.' },
-      { formula: 'σ² = E[(X − μ)²],  σ = √σ²', why: 'Variance and standard deviation. This lecture divides by n, not n − 1.' },
-      { formula: 'cov(X,Y) = (1/n) Σ (xᵢ − x̄)(yᵢ − ȳ)', why: 'Do the two rise and fall together? Positive yes, negative opposite, zero no straight-line pattern.' },
+      {
+        formula: 'v = (v₂ᵀv₁ / v₁ᵀv₁) v₁',
+        why: 'Projection of v₂ onto v₁. The leftover u = v₂ − v is at right angles by construction.',
+      },
+      {
+        formula: 'P(E) ≥ 0 · P(Ω) = 1 · P(∪Eᵢ) = ΣP(Eᵢ)',
+        why: 'The three axioms. The third needs the events to be mutually exclusive.',
+      },
+      {
+        formula: 'p(x) = P(X = x),  Σ p(x) = 1',
+        why: 'The pmf of a discrete variable. Each bar is an honest probability.',
+      },
+      {
+        formula: 'P[a ≤ X ≤ b] = ∫ₐᵇ f(x) dx',
+        why: 'For a continuous variable only areas are probabilities — f itself is not one.',
+      },
+      {
+        formula: 'μ = E[X] = Σ x p(x)',
+        why: 'Expectation: the balance point. Need not be a value X can actually take.',
+      },
+      {
+        formula: 'σ² = E[(X − μ)²],  σ = √σ²',
+        why: 'Variance and standard deviation. This lecture divides by n, not n − 1.',
+      },
+      {
+        formula: 'cov(X,Y) = (1/n) Σ (xᵢ − x̄)(yᵢ − ȳ)',
+        why: 'Do the two rise and fall together? Positive yes, negative opposite, zero no straight-line pattern.',
+      },
     ],
     quiz: [
       {
@@ -1565,21 +1807,42 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
         formula: 'group: closure · associativity · neutral e · inverse',
         why: 'The four properties of (G, ⊗). Add commutativity x ⊗ y = y ⊗ x and it is an Abelian group.',
       },
-      { formula: '(ℤ, +) is Abelian · (ℕ₀, +) is not · (ℤ, ·) is not', why: 'The lecture’s three tests. ℕ₀ has no inverses; ℤ under product has 1 but almost nothing has an inverse.' },
+      {
+        formula: '(ℤ, +) is Abelian · (ℕ₀, +) is not · (ℤ, ·) is not',
+        why: 'The lecture’s three tests. ℕ₀ has no inverses; ℤ under product has 1 but almost nothing has an inverse.',
+      },
       {
         formula: 'V = (𝒱, +, ·) with + : 𝒱×𝒱 → 𝒱 and · : ℝ×𝒱 → 𝒱',
         why: 'A vector space is one inner operation and one outer one. (𝒱, +) must be an Abelian group.',
       },
-      { formula: 'λ·(x+y) = λx + λy,  (λ+ψ)·x = λx + ψx', why: 'Distributivity, both ways round. The outer operation spreads over both kinds of addition.' },
-      { formula: 'λ·(ψ·x) = (λψ)·x,  1·x = x', why: 'Associativity and the neutral element for the outer operation. The last one is easy to forget and easy to break.' },
-      { formula: '0 = [0, 0, …, 0]ᵀ', why: 'The neutral element of (𝒱, +). Every vector space, and every subspace, has to contain it.' },
-      { formula: 'ℝⁿ · ℝᵐˣⁿ · polynomials', why: 'All vector spaces. A “vector” is anything you can add and stretch — matrices qualify.' },
+      {
+        formula: 'λ·(x+y) = λx + λy,  (λ+ψ)·x = λx + ψx',
+        why: 'Distributivity, both ways round. The outer operation spreads over both kinds of addition.',
+      },
+      {
+        formula: 'λ·(ψ·x) = (λψ)·x,  1·x = x',
+        why: 'Associativity and the neutral element for the outer operation. The last one is easy to forget and easy to break.',
+      },
+      {
+        formula: '0 = [0, 0, …, 0]ᵀ',
+        why: 'The neutral element of (𝒱, +). Every vector space, and every subspace, has to contain it.',
+      },
+      {
+        formula: 'ℝⁿ · ℝᵐˣⁿ · polynomials',
+        why: 'All vector spaces. A “vector” is anything you can add and stretch — matrices qualify.',
+      },
       {
         formula: 'U ⊆ V subspace ⟺ U ≠ ∅,  λx ∈ U,  x + y ∈ U',
         why: 'The short test. U inherits associativity, distributivity and the rest from V, so only these three need checking.',
       },
-      { formula: 'U ≠ ∅ and λx ∈ U ⟹ 0 ∈ U', why: 'Take λ = 0. This is why any set missing the origin — the line x = 1, for instance — fails at once.' },
-      { formula: 'nullspace {x : Ax = 0} is a subspace', why: 'The subspace the lecture is really after. Non-empty because x = 0 is always in it.' },
+      {
+        formula: 'U ≠ ∅ and λx ∈ U ⟹ 0 ∈ U',
+        why: 'Take λ = 0. This is why any set missing the origin — the line x = 1, for instance — fails at once.',
+      },
+      {
+        formula: 'nullspace {x : Ax = 0} is a subspace',
+        why: 'The subspace the lecture is really after. Non-empty because x = 0 is always in it.',
+      },
       {
         formula: 'v = λ₁x₁ + λ₂x₂ + ⋯ + λₖxₖ',
         why: 'A linear combination. 0 is always one of them with every λ = 0 — the trivial one, which never proves anything.',
@@ -1588,24 +1851,66 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
         formula: '0 = Σ λᵢxᵢ with some λᵢ ≠ 0 ⟹ dependent',
         why: 'Linear dependence. Independent means the trivial combination is the only one reaching 0.',
       },
-      { formula: 'any set containing 0 is dependent', why: 'Give the zero vector a non-zero λ and everything else zero. The sum is still 0.' },
+      {
+        formula: 'any set containing 0 is dependent',
+        why: 'Give the zero vector a non-zero λ and everything else zero. The sum is still 0.',
+      },
       {
         formula: 'all non-zero: dependent ⟺ one is a combination of the others',
         why: 'Slide 17. The “all non-zero” condition matters — the previous line is the case it rules out.',
       },
-      { formula: 'columns → Gaussian elimination → pivot columns', why: 'The practical test. Pivot columns are the independent vectors; every column a pivot means the whole set is independent.' },
-      { formula: 'non-pivot column = combination of the pivots to its left', why: 'For [[1,2,3],[2,4,4]] the REF is [[1,2,3],[0,0,−2]]: column 2 is twice column 1.' },
-      { formula: 'REF is not unique · RREF is', why: 'Two correct elimination routes can end at different staircases. The pivot positions, the rank and the RREF are the same either way.' },
-      { formula: 'm vectors from k ingredients, m > k ⟹ dependent', why: 'A k × m matrix has at most k pivots, so with m > k some column is not a pivot. No arithmetic needed.' },
-      { formula: '𝒜 generates V ⟺ V = span[𝒜]', why: 'A generating set reaches everything. It may be far bigger than it needs to be.' },
-      { formula: 'basis = independent generating set = minimal generating set', why: 'Also: a maximal independent set — add one more vector and it becomes dependent.' },
-      { formula: 'x = Σ λᵢbᵢ uniquely', why: 'The coefficients over a basis are one of a kind. If Σλᵢbᵢ = Σψᵢbᵢ then λᵢ = ψᵢ for every i.' },
-      { formula: 'a basis is not unique', why: 'ℝ³ has the canonical one, and (1,0,0),(1,1,0),(1,1,1), and (0.5,0.8,0.4),(1.8,0.3,0.3),(−2.2,−3.3,1.5). All three are bases.' },
-      { formula: 'independent ⇏ basis', why: 'Three independent vectors in ℝ⁴ are too few to reach everything. Independence alone is not enough.' },
-      { formula: 'dim V = number of vectors in a basis', why: 'The same number whichever basis you choose, so it belongs to the space rather than to your choice.' },
-      { formula: 'dim ≠ number of components', why: 'span{(0,1)} sits in ℝ² and has dimension 1. Its vectors still have two numbers each.' },
-      { formula: 'U ⊆ V ⟹ dim U ≤ dim V, equal only if U = V', why: 'A subspace cannot be bigger, and cannot match without being the whole thing.' },
-      { formula: 'basis of span{x₁…xₘ}: columns → REF → pivot columns', why: 'The three-step recipe on slide 40. Keep the original vectors the pivots point at, not the reduced ones.' },
+      {
+        formula: 'columns → Gaussian elimination → pivot columns',
+        why: 'The practical test. Pivot columns are the independent vectors; every column a pivot means the whole set is independent.',
+      },
+      {
+        formula: 'non-pivot column = combination of the pivots to its left',
+        why: 'For [[1,2,3],[2,4,4]] the REF is [[1,2,3],[0,0,−2]]: column 2 is twice column 1.',
+      },
+      {
+        formula: 'REF is not unique · RREF is',
+        why: 'Two correct elimination routes can end at different staircases. The pivot positions, the rank and the RREF are the same either way.',
+      },
+      {
+        formula: 'm vectors from k ingredients, m > k ⟹ dependent',
+        why: 'A k × m matrix has at most k pivots, so with m > k some column is not a pivot. No arithmetic needed.',
+      },
+      {
+        formula: '𝒜 generates V ⟺ V = span[𝒜]',
+        why: 'A generating set reaches everything. It may be far bigger than it needs to be.',
+      },
+      {
+        formula: 'basis = independent generating set = minimal generating set',
+        why: 'Also: a maximal independent set — add one more vector and it becomes dependent.',
+      },
+      {
+        formula: 'x = Σ λᵢbᵢ uniquely',
+        why: 'The coefficients over a basis are one of a kind. If Σλᵢbᵢ = Σψᵢbᵢ then λᵢ = ψᵢ for every i.',
+      },
+      {
+        formula: 'a basis is not unique',
+        why: 'ℝ³ has the canonical one, and (1,0,0),(1,1,0),(1,1,1), and (0.5,0.8,0.4),(1.8,0.3,0.3),(−2.2,−3.3,1.5). All three are bases.',
+      },
+      {
+        formula: 'independent ⇏ basis',
+        why: 'Three independent vectors in ℝ⁴ are too few to reach everything. Independence alone is not enough.',
+      },
+      {
+        formula: 'dim V = number of vectors in a basis',
+        why: 'The same number whichever basis you choose, so it belongs to the space rather than to your choice.',
+      },
+      {
+        formula: 'dim ≠ number of components',
+        why: 'span{(0,1)} sits in ℝ² and has dimension 1. Its vectors still have two numbers each.',
+      },
+      {
+        formula: 'U ⊆ V ⟹ dim U ≤ dim V, equal only if U = V',
+        why: 'A subspace cannot be bigger, and cannot match without being the whole thing.',
+      },
+      {
+        formula: 'basis of span{x₁…xₘ}: columns → REF → pivot columns',
+        why: 'The three-step recipe on slide 40. Keep the original vectors the pivots point at, not the reduced ones.',
+      },
     ],
     quiz: [
       {
@@ -1713,12 +2018,7 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       },
       {
         q: 'The matrix [[1,2,3],[2,4,4]] reduces to [[1,2,3],[0,0,−2]]. Which columns are independent?',
-        options: [
-          'All three',
-          'Columns 1 and 2',
-          'Columns 1 and 3 — column 2 is twice column 1',
-          'Only column 1',
-        ],
+        options: ['All three', 'Columns 1 and 2', 'Columns 1 and 3 — column 2 is twice column 1', 'Only column 1'],
         answer: 2,
         explain:
           'The pivots sit in columns 1 and 3, so those are the independent ones. Column 2 is not a pivot column, so it is a combination of the pivot columns to its left — here just column 1, and indeed (2,4) = 2·(1,2).',
@@ -1780,12 +2080,7 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       },
       {
         q: 'U is a subspace of V and dim U = dim V. What follows?',
-        options: [
-          'U is a proper subset of V',
-          'U = V',
-          'Nothing — they can still differ',
-          'V has dimension 0',
-        ],
+        options: ['U is a proper subset of V', 'U = V', 'Nothing — they can still differ', 'V has dimension 0'],
         answer: 1,
         explain:
           'A subspace can never have a bigger dimension, and matching the dimension leaves no room to be smaller: a basis of U is already independent in V and big enough to span it. Slide 38 states it as an if-and-only-if.',

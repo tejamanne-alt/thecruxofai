@@ -1,7 +1,7 @@
 'use client'
 
 import { ChartCanvas } from '@/components/charts/chart-canvas'
-import { Btn, Chip, LabBox, LabNote, Presets, Titled, Verdict } from '@/components/charts/matrix-ui'
+import { Btn, Chip, LabBox, LabNote, Presets, Verdict } from '@/components/charts/matrix-ui'
 import { PanelNote, ReadOutGrid, Slider } from '@/components/sessions/session-parts'
 import { accentColour, clamp, drawAxes, type Frame } from '@/lib/chart/frame'
 import clsx from 'clsx'
@@ -40,9 +40,8 @@ export function EventsAlgebraLab() {
   return (
     <LabBox>
       <LabNote>
-        Roll one die. The <strong>sample space</strong> Ω is everything that could come up. An{' '}
-        <strong>event</strong>{' '}is any part of that list. Press the faces to build two events and watch the three
-        operations follow.
+        Roll one die. The <strong>sample space</strong> Ω is everything that could come up. An <strong>event</strong> is
+        any part of that list. Press the faces to build two events and watch the three operations follow.
       </LabNote>
 
       <Presets
@@ -144,9 +143,9 @@ export function EventsAlgebraLab() {
       </Verdict>
 
       <LabNote>
-        <strong>Exhaustive</strong>{' '}means the events between them cover the whole of Ω, so something in the collection
+        <strong>Exhaustive</strong> means the events between them cover the whole of Ω, so something in the collection
         is bound to happen. Slide 22&rsquo;s example is A₁ = {'{1,2}'}, A₂ = {'{3,4}'}, A₃ = {'{5,6}'} — three events
-        that are mutually exclusive <em>and</em>{' '}exhaustive, which is the tidiest way to carve up a sample space.
+        that are mutually exclusive <em>and</em> exhaustive, which is the tidiest way to carve up a sample space.
       </LabNote>
     </LabBox>
   )
@@ -189,7 +188,14 @@ export function AxiomsLab() {
   const additive = Math.abs(together - (even + one)) < 1e-9
 
   function draw(g: CanvasRenderingContext2D, W: number, H: number): Frame {
-    const f = drawAxes(g, W, H, { xmin: 0.5, xmax: 6.5, ymin: Math.min(-0.2, ...p) - 0.05, ymax: 0.7, xlab: 'face', ylab: 'P' })
+    const f = drawAxes(g, W, H, {
+      xmin: 0.5,
+      xmax: 6.5,
+      ymin: Math.min(-0.2, ...p) - 0.05,
+      ymax: 0.7,
+      xlab: 'face',
+      ylab: 'P',
+    })
     const acc = accentColour()
     p.forEach((v, i) => {
       const x = f.px(i + 1)
@@ -260,7 +266,10 @@ export function AxiomsLab() {
 
       <div className="grid gap-3 sm:grid-cols-3">
         <Verdict ok={nonNeg}>
-          <strong>Axiom 1 — never negative.</strong> {nonNeg ? 'Every P(E) is 0 or more.' : 'One of them is below zero, which is not allowed. A probability cannot be negative — there is no such thing as less impossible than impossible.'}
+          <strong>Axiom 1 — never negative.</strong>{' '}
+          {nonNeg
+            ? 'Every P(E) is 0 or more.'
+            : 'One of them is below zero, which is not allowed. A probability cannot be negative — there is no such thing as less impossible than impossible.'}
         </Verdict>
         <Verdict ok={sumsToOne}>
           <strong>Axiom 2 — P(Ω) = 1.</strong>{' '}
@@ -269,14 +278,14 @@ export function AxiomsLab() {
             : `They add to ${total.toFixed(3)}, not 1. Either some outcome is missing, or the numbers are counting the same thing twice.`}
         </Verdict>
         <Verdict ok={additive}>
-          <strong>Axiom 3 — adding up.</strong>{' '}For events that cannot both happen, the probability of either one is
-          the sum. Here P(even or 1) = {together.toFixed(3)} and P(even) + P(1) = {(even + one).toFixed(3)}.
+          <strong>Axiom 3 — adding up.</strong> For events that cannot both happen, the probability of either one is the
+          sum. Here P(even or 1) = {together.toFixed(3)} and P(even) + P(1) = {(even + one).toFixed(3)}.
         </Verdict>
       </div>
 
       <LabNote>
         Notice what axiom 3 does <em>not</em> say. It only lets you add probabilities when the events are{' '}
-        <strong>mutually exclusive</strong>{' '}— when they cannot both happen. If they could overlap, adding would count
+        <strong>mutually exclusive</strong> — when they cannot both happen. If they could overlap, adding would count
         the shared outcomes twice, and you would have to subtract the overlap back off.
       </LabNote>
       <LabNote>
@@ -299,7 +308,13 @@ export function RandomVarLab() {
   const [rule, setRule] = useState<'heads' | 'runs' | 'first'>('heads')
 
   const valueOf = (s: string) =>
-    rule === 'heads' ? headsIn(s) : rule === 'first' ? (s[0] === 'H' ? 1 : 0) : s.split('').filter((c, i) => i > 0 && c === s[i - 1]).length
+    rule === 'heads'
+      ? headsIn(s)
+      : rule === 'first'
+        ? s[0] === 'H'
+          ? 1
+          : 0
+        : s.split('').filter((c, i) => i > 0 && c === s[i - 1]).length
 
   const values = [...new Set(TOSSES.map(valueOf))].sort((a, b) => a - b)
   const counts = values.map((v) => ({ v, outcomes: TOSSES.filter((s) => valueOf(s) === v) }))
@@ -317,8 +332,8 @@ export function RandomVarLab() {
       />
 
       <LabNote>
-        Toss a coin three times. The sample space has eight outcomes, and they are <em>not</em>{' '}numbers — HTT is not a
-        number. A <strong>random variable</strong>{' '}is a rule that attaches a number to each one. Press an outcome to
+        Toss a coin three times. The sample space has eight outcomes, and they are <em>not</em> numbers — HTT is not a
+        number. A <strong>random variable</strong> is a rule that attaches a number to each one. Press an outcome to
         follow it through.
       </LabNote>
 
@@ -347,7 +362,7 @@ export function RandomVarLab() {
           </div>
           <p className="mt-1 text-[13px]/[1.6] text-zinc-600">
             The outcome <span className="font-mono">{at}</span> is a thing that happened. The number{' '}
-            <span className="font-mono">{valueOf(at)}</span>{' '}is what the rule turns it into. Uppercase X is the rule;
+            <span className="font-mono">{valueOf(at)}</span> is what the rule turns it into. Uppercase X is the rule;
             lowercase x is a value it produced — that is the whole reason for the two cases.
           </p>
         </div>
@@ -372,8 +387,8 @@ export function RandomVarLab() {
 
       <Verdict ok>
         X takes {values.length} different values here, and that is a finite list — so this is a{' '}
-        <strong>discrete</strong>{' '}random variable. A continuous one, like the lifetime of a bulb, can land anywhere in
-        a whole interval, and then the probability of any single exact value is 0.
+        <strong>discrete</strong> random variable. A continuous one, like the lifetime of a bulb, can land anywhere in a
+        whole interval, and then the probability of any single exact value is 0.
       </Verdict>
 
       <LabNote>
@@ -399,7 +414,14 @@ export function PmfPdfLab() {
 
   function draw(g: CanvasRenderingContext2D, W: number, H: number): Frame {
     if (mode === 'pmf') {
-      const f = drawAxes(g, W, H, { xmin: -0.6, xmax: 3.6, ymin: 0, ymax: 0.5, xlab: 'x = number of heads', ylab: 'p(x)' })
+      const f = drawAxes(g, W, H, {
+        xmin: -0.6,
+        xmax: 3.6,
+        ymin: 0,
+        ymax: 0.5,
+        xlab: 'x = number of heads',
+        ylab: 'p(x)',
+      })
       const acc = accentColour()
       const bw = (f.R - f.L) / 9
       bars.forEach((b) => {
@@ -461,9 +483,7 @@ export function PmfPdfLab() {
         <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 bg-zinc-50 p-5">
           {mode === 'pmf' ? (
             <>
-              <ReadOutGrid
-                items={bars.map((b) => ({ label: `p(${b.v})`, value: `${b.p * 8}/8` }))}
-              />
+              <ReadOutGrid items={bars.map((b) => ({ label: `p(${b.v})`, value: `${b.p * 8}/8` }))} />
               <Verdict ok={Math.abs(total - 1) < 1e-9}>
                 The heights add to {total.toFixed(0)} — that is the rule Σ p(x) = 1, and it just says something is
                 certain to happen.
@@ -471,8 +491,26 @@ export function PmfPdfLab() {
             </>
           ) : (
             <>
-              <Slider label="from a" value={lo} display={lo.toFixed(2)} min={0} max={1} step={0.05} hint="left edge" onChange={(v) => setLo(Math.min(v, hi))} />
-              <Slider label="to b" value={hi} display={hi.toFixed(2)} min={0} max={1} step={0.05} hint="right edge" onChange={(v) => setHi(Math.max(v, lo))} />
+              <Slider
+                label="from a"
+                value={lo}
+                display={lo.toFixed(2)}
+                min={0}
+                max={1}
+                step={0.05}
+                hint="left edge"
+                onChange={(v) => setLo(Math.min(v, hi))}
+              />
+              <Slider
+                label="to b"
+                value={hi}
+                display={hi.toFixed(2)}
+                min={0}
+                max={1}
+                step={0.05}
+                hint="right edge"
+                onChange={(v) => setHi(Math.max(v, lo))}
+              />
               <ReadOutGrid
                 items={[
                   { label: 'height f(x)', value: '1' },
@@ -482,9 +520,9 @@ export function PmfPdfLab() {
                 ]}
               />
               <PanelNote>
-                Slide 29&rsquo;s question is P(0.3 ≤ X ≤ 0.7), which is the area of a rectangle 1 high and 0.4 wide —
-                so 0.4. Squeeze the two edges together and the area goes to zero: that is why the probability of any
-                one exact value is 0.
+                Slide 29&rsquo;s question is P(0.3 ≤ X ≤ 0.7), which is the area of a rectangle 1 high and 0.4 wide — so
+                0.4. Squeeze the two edges together and the area goes to zero: that is why the probability of any one
+                exact value is 0.
               </PanelNote>
             </>
           )}
@@ -492,12 +530,12 @@ export function PmfPdfLab() {
       </div>
 
       <LabNote>
-        For a <strong>discrete</strong> variable the <strong>pmf</strong>{' '}p(x) is an honest probability: the chance of
+        For a <strong>discrete</strong> variable the <strong>pmf</strong> p(x) is an honest probability: the chance of
         getting exactly x. The bars add to 1.
       </LabNote>
       <LabNote>
-        For a <strong>continuous</strong> one the <strong>pdf</strong> f(x) is <em>not</em>{' '}a probability — it can even
-        be bigger than 1. Only <strong>areas</strong>{' '}under it are probabilities. That is the single most confusing
+        For a <strong>continuous</strong> one the <strong>pdf</strong> f(x) is <em>not</em> a probability — it can even
+        be bigger than 1. Only <strong>areas</strong> under it are probabilities. That is the single most confusing
         thing in this part of the course, and the picture is the way through it: you never read a probability off the
         height, you read it off the area.
       </LabNote>

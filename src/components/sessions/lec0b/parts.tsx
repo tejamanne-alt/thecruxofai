@@ -2,7 +2,13 @@
  * Not a client module — see the note in lec1/parts.tsx. Marking this 'use client'
  * turns the exported bodies into client references and every part page 404s.
  */
-import { AngleLab, DotProductLab, NormLab, OrthogonalSolveLab, ProjectionLab } from '@/components/charts/inner-product-lab'
+import {
+  AngleLab,
+  DotProductLab,
+  NormLab,
+  OrthogonalSolveLab,
+  ProjectionLab,
+} from '@/components/charts/inner-product-lab'
 import { CovarianceLab, ExpectationLab, VarianceLab } from '@/components/charts/moments-lab'
 import { AxiomsLab, EventsAlgebraLab, PmfPdfLab, RandomVarLab } from '@/components/charts/prob-basics-lab'
 import {
@@ -50,17 +56,17 @@ export const LEC0B_PARTS: Record<string, React.ReactNode> = {
       </Para>
       <Para>
         A <strong>vector</strong> is a list of n ordinary numbers. The lecture writes a point of ℝⁿ as{' '}
-        <span className="font-mono">(x₁, …, xₙ)</span>, and says you may stand it up as a column or lay it flat as a
-        row — the same list either way.
+        <span className="font-mono">(x₁, …, xₙ)</span>, and says you may stand it up as a column or lay it flat as a row
+        — the same list either way.
       </Para>
       <Para>Only two things are allowed to happen to vectors, and both work one slot at a time:</Para>
       <List
         items={[
           <>
-            <strong>Add</strong>{' '}two vectors of the same length: add the first parts, add the second parts, and so on.
+            <strong>Add</strong> two vectors of the same length: add the first parts, add the second parts, and so on.
           </>,
           <>
-            <strong>Multiply by a plain number</strong>{' '}λ: every part gets multiplied by λ.
+            <strong>Multiply by a plain number</strong> λ: every part gets multiplied by λ.
           </>,
         ]}
       />
@@ -93,10 +99,21 @@ stretching:         λx = (λx₁, λx₂, …, λxₙ)     for any real λ`}
       <Terms
         items={[
           { term: 'vector', def: 'A list of numbers. Add two of the same length, or multiply one by a plain number.' },
-          { term: 'ℝⁿ', say: 'R n', def: 'All the lists of n ordinary numbers. ℝ² is a flat page, ℝ³ is the room you are in.' },
+          {
+            term: 'ℝⁿ',
+            say: 'R n',
+            def: 'All the lists of n ordinary numbers. ℝ² is a flat page, ℝ³ is the room you are in.',
+          },
           { term: 'scalar', def: 'A plain single number, used to stretch a vector. It scales things, hence the name.' },
-          { term: 'n-tuple', say: 'n-TUP-ul', def: 'A list of n things in a fixed order. Order matters: (1, 2) is not (2, 1).' },
-          { term: 'zero vector', def: 'All parts zero. Adding it changes nothing, and it turns up constantly in the next few parts.' },
+          {
+            term: 'n-tuple',
+            say: 'n-TUP-ul',
+            def: 'A list of n things in a fixed order. Order matters: (1, 2) is not (2, 1).',
+          },
+          {
+            term: 'zero vector',
+            def: 'All parts zero. Adding it changes nothing, and it turns up constantly in the next few parts.',
+          },
         ]}
       />
       <Takeaway>
@@ -125,7 +142,7 @@ stretching:         λx = (λx₁, λx₂, …, λxₙ)     for any real λ`}
       <Para>
         With those two particular vectors you can reach every point on the page. Press anywhere and the two amounts
         adjust to get you there. That will not always be true — the next part is about when it fails — but when it does
-        hold, the vectors are said to <strong>span</strong>{' '}the space.
+        hold, the vectors are said to <strong>span</strong> the space.
       </Para>
       <Para>
         Why this expression and no other? Because it is the only thing you can build out of the two allowed operations.
@@ -156,8 +173,8 @@ The amounts 2 and 3 are the whole answer.`}
         ]}
       />
       <Takeaway>
-        A linear combination is c₁v₁ + ⋯ + cₘvₘ. It is the only thing adding and stretching lets you build, and the
-        rest of the lecture is about which points you can reach with it.
+        A linear combination is c₁v₁ + ⋯ + cₘvₘ. It is the only thing adding and stretching lets you build, and the rest
+        of the lecture is about which points you can reach with it.
       </Takeaway>
     </>
   ),
@@ -172,8 +189,8 @@ The amounts 2 and 3 are the whole answer.`}
       <Para>The lecture asks it in a slightly sideways form. Write down</Para>
       <Formula>c₁v₁ + c₂v₂ + ⋯ + cₘvₘ = 0</Formula>
       <Para>
-        Setting every c to zero obviously works. That answer is free and tells you nothing. The real question is
-        whether there is <strong>any other way</strong>{' '}to hit zero.
+        Setting every c to zero obviously works. That answer is free and tells you nothing. The real question is whether
+        there is <strong>any other way</strong> to hit zero.
       </Para>
       <List
         items={[
@@ -182,8 +199,8 @@ The amounts 2 and 3 are the whole answer.`}
             <strong>linearly independent</strong>.
           </>,
           <>
-            If some other choice works — where at least one c is not zero — they are{' '}
-            <strong>linearly dependent</strong>.
+            If some other choice works — where at least one c is not zero — they are <strong>linearly dependent</strong>
+            .
           </>,
         ]}
       />
@@ -237,8 +254,8 @@ adding anything new.`}
         ]}
       />
       <Takeaway>
-        Independent means the only way to mix down to zero is to take none of anything. Dependent means one vector is
-        a mixture of the others and could be deleted.
+        Independent means the only way to mix down to zero is to take none of anything. Dependent means one vector is a
+        mixture of the others and could be deleted.
       </Takeaway>
     </>
   ),
@@ -320,8 +337,8 @@ linearly INDEPENDENT.`}
   rank: (
     <>
       <Para>
-        Drawing arrows stops working the moment you have four numbers in each vector. Slide 8 gives the replacement,
-        and it is something you already met in Lecture 0a: <strong>rank</strong>.
+        Drawing arrows stops working the moment you have four numbers in each vector. Slide 8 gives the replacement, and
+        it is something you already met in Lecture 0a: <strong>rank</strong>.
       </Para>
       <Para>Take p vectors, each with n components. Lay them out as the rows of a matrix and work out its rank.</Para>
       <List
@@ -346,8 +363,8 @@ linearly INDEPENDENT.`}
         difference whether you lay your vectors out as rows or as columns — you get the same count.
       </Para>
       <Para>
-        Second, and this one saves real time in an exam: if <strong>n &lt; p</strong>{' '}— more vectors than components —
-        they <em>must</em>{' '}be dependent. No arithmetic needed. Three vectors in ℝ² are always dependent. Five in ℝ⁴ are
+        Second, and this one saves real time in an exam: if <strong>n &lt; p</strong> — more vectors than components —
+        they <em>must</em> be dependent. No arithmetic needed. Three vectors in ℝ² are always dependent. Five in ℝ⁴ are
         always dependent. There simply are not that many independent directions to go round.
       </Para>
 
@@ -366,7 +383,10 @@ Also:
 
       <Terms
         items={[
-          { term: 'rank', def: 'How many non-zero rows are left after tidying into echelon form. A count of genuinely different rows.' },
+          {
+            term: 'rank',
+            def: 'How many non-zero rows are left after tidying into echelon form. A count of genuinely different rows.',
+          },
           {
             term: 'full rank',
             def: 'The rank is the biggest it could be — min(rows, columns). For a set of vectors it means all of them are independent.',
@@ -389,12 +409,12 @@ Also:
     <>
       <Para>
         Slide 9 gives a version of the same test that tells you more. Instead of rows, stand the vectors up as the{' '}
-        <strong>columns</strong>{' '}of a matrix and row-reduce it. Then:
+        <strong>columns</strong> of a matrix and row-reduce it. Then:
       </Para>
       <List
         items={[
           <>
-            The columns that end up carrying a <strong>pivot</strong>{' '}are the independent ones — and they are always the
+            The columns that end up carrying a <strong>pivot</strong> are the independent ones — and they are always the
             leftmost ones.
           </>,
           <>
@@ -404,8 +424,8 @@ Also:
         ]}
       />
       <Para>
-        That second point is the extra. Rank tells you <em>how many</em>{' '}vectors are genuinely different. Pivot columns
-        tell you <em>which</em>{' '}ones, and what the redundant ones are made of.
+        That second point is the extra. Rank tells you <em>how many</em> vectors are genuinely different. Pivot columns
+        tell you <em>which</em> ones, and what the redundant ones are made of.
       </Para>
 
       <Lab>
@@ -454,7 +474,7 @@ specifically columns 1 and 3 — form an independent set.`}
     <>
       <Para>
         Slides 11 and 12 run the method on something you genuinely cannot picture: three vectors with{' '}
-        <strong>four</strong>{' '}components each. There is no drawing to fall back on, which is the point.
+        <strong>four</strong> components each. There is no drawing to fall back on, which is the point.
       </Para>
       <Para>
         The set-up is the definition, written out. You want to know whether λ₁x₁ + λ₂x₂ + λ₃x₃ = 0 has any answer other
@@ -512,14 +532,13 @@ specifically columns 1 and 3 — form an independent set.`}
   dot: (
     <>
       <Para>
-        So far vectors have had direction and you could add them, but nothing has said how <em>long</em>{' '}one is or what
-        <em>angle</em> sits between two of them. The <strong>dot product</strong>{' '}is the single tool that supplies
-        both.
+        So far vectors have had direction and you could add them, but nothing has said how <em>long</em> one is or what{' '}
+        <em>angle</em> sits between two of them. The <strong>dot product</strong> is the single tool that supplies both.
       </Para>
       <Para>
         The rule is short: multiply the matching parts and add up. Two vectors in, one plain <strong>number</strong>{' '}
         out. It gets written three ways — <span className="font-mono">a·b</span>,{' '}
-        <span className="font-mono">⟨a, b⟩</span>, and <span className="font-mono">aᵀb</span>{' '}— all the same thing. The
+        <span className="font-mono">⟨a, b⟩</span>, and <span className="font-mono">aᵀb</span> — all the same thing. The
         last one is a reminder that a row times a column is a 1 × 1 matrix, which is just a number.
       </Para>
 
@@ -535,14 +554,14 @@ specifically columns 1 and 3 — form an independent set.`}
       <List
         items={[
           <>
-            <strong>Linearity.</strong>{' '}⟨ku + lv, w⟩ = k⟨u, w⟩ + l⟨v, w⟩. You may break the left side apart and deal
+            <strong>Linearity.</strong> ⟨ku + lv, w⟩ = k⟨u, w⟩ + l⟨v, w⟩. You may break the left side apart and deal
             with the pieces.
           </>,
           <>
-            <strong>Symmetry.</strong>{' '}⟨u, v⟩ = ⟨v, u⟩. Unlike matrix multiplication, order makes no difference here.
+            <strong>Symmetry.</strong> ⟨u, v⟩ = ⟨v, u⟩. Unlike matrix multiplication, order makes no difference here.
           </>,
           <>
-            <strong>Positive definite.</strong>{' '}⟨u, u⟩ ≥ 0, and it is 0 only for the zero vector. This is what makes
+            <strong>Positive definite.</strong> ⟨u, u⟩ ≥ 0, and it is 0 only for the zero vector. This is what makes
             length possible in the next part.
           </>,
         ]}
@@ -638,8 +657,14 @@ aᵀb = (3)(1) + (4)(2) = 3 + 8 = 11
 
       <Terms
         items={[
-          { term: 'norm', def: 'The length of a vector: ‖a‖ = √⟨a, a⟩. Never negative, and zero only for the zero vector.' },
-          { term: 'unit vector', def: 'A vector of length 1. Divide any non-zero vector by its own norm and you get one.' },
+          {
+            term: 'norm',
+            def: 'The length of a vector: ‖a‖ = √⟨a, a⟩. Never negative, and zero only for the zero vector.',
+          },
+          {
+            term: 'unit vector',
+            def: 'A vector of length 1. Divide any non-zero vector by its own norm and you get one.',
+          },
           {
             term: 'Cauchy–Schwarz',
             say: 'COH-shee SHVARTS',
@@ -663,7 +688,7 @@ aᵀb = (3)(1) + (4)(2) = 3 + 8 = 11
     <>
       <Para>
         Divide the dot product by the two lengths and something useful happens. Cauchy&ndash;Schwarz says the result is
-        always between −1 and 1 — exactly the range a cosine lives in. So the lecture simply <em>defines</em>{' '}the angle
+        always between −1 and 1 — exactly the range a cosine lives in. So the lecture simply <em>defines</em> the angle
         that way:
       </Para>
       <Formula>α = cos⁻¹( ⟨a, b⟩ / (‖a‖‖b‖) )</Formula>
@@ -679,8 +704,7 @@ aᵀb = (3)(1) + (4)(2) = 3 + 8 = 11
 
       <Para>
         The case worth all the attention is <span className="font-mono">⟨a, b⟩ = 0</span>. Then cos α = 0, so α = 90°,
-        and the two vectors are called <strong>orthogonal</strong>{' '}— the proper word for &ldquo;at right
-        angles&rdquo;.
+        and the two vectors are called <strong>orthogonal</strong> — the proper word for &ldquo;at right angles&rdquo;.
       </Para>
       <Para>
         And here is why that matters so much in practice: you never have to work out an angle to check it. Just see
@@ -700,7 +724,11 @@ a and b are orthogonal.`}
 
       <Terms
         items={[
-          { term: 'orthogonal', say: 'or-THOG-uh-nul', def: 'At right angles. Checked by the dot product being zero — no angle needed.' },
+          {
+            term: 'orthogonal',
+            say: 'or-THOG-uh-nul',
+            def: 'At right angles. Checked by the dot product being zero — no angle needed.',
+          },
           {
             term: 'cos⁻¹',
             say: 'inverse cosine',
@@ -725,13 +753,13 @@ a and b are orthogonal.`}
     <>
       <Para>
         Shine a light straight down onto the line that v₁ points along. The shadow v₂ casts on that line is the{' '}
-        <strong>projection</strong>{' '}of v₂ onto v₁. It answers the question &ldquo;how much of v₂ is pointing the same
+        <strong>projection</strong> of v₂ onto v₁. It answers the question &ldquo;how much of v₂ is pointing the same
         way as v₁?&rdquo;
       </Para>
       <Para>
         Slide 19 does not guess the formula. It insists on one condition and lets the algebra deliver: whatever is left
         over, <span className="font-mono">u = v₂ − v</span>, must be at right angles to v₁. Write that as{' '}
-        <span className="font-mono">u·v₁ = 0</span>{' '}and rearrange.
+        <span className="font-mono">u·v₁ = 0</span> and rearrange.
       </Para>
 
       <Lab>
@@ -806,7 +834,7 @@ Slide 20:   v₁ = (3, 0),  v₂ = (2, 4)
       <List
         items={[
           <>
-            The <strong>sample space</strong>{' '}Ω is the set of everything that could possibly happen. For one roll of a
+            The <strong>sample space</strong> Ω is the set of everything that could possibly happen. For one roll of a
             die, Ω = {'{1, 2, 3, 4, 5, 6}'}.
           </>,
           <>
@@ -814,7 +842,7 @@ Slide 20:   v₁ = (3, 0),  v₂ = (2, 4)
             A single outcome is an event too.
           </>,
           <>
-            The <strong>algebra of events</strong>{' '}is the promise that combining events gives you events again: unions,
+            The <strong>algebra of events</strong> is the promise that combining events gives you events again: unions,
             intersections and complements of events are all still events.
           </>,
         ]}
@@ -825,19 +853,19 @@ Slide 20:   v₁ = (3, 0),  v₂ = (2, 4)
       </Lab>
 
       <Para>
-        Three operations, three everyday words. <strong>Union</strong>{' '}A ∪ B is &ldquo;or&rdquo; — everything in either
+        Three operations, three everyday words. <strong>Union</strong> A ∪ B is &ldquo;or&rdquo; — everything in either
         one. <strong>Intersection</strong> A ∩ B is &ldquo;and&rdquo; — only what is in both.{' '}
-        <strong>Complement</strong>{' '}Aᶜ is &ldquo;not&rdquo; — everything A is not.
+        <strong>Complement</strong> Aᶜ is &ldquo;not&rdquo; — everything A is not.
       </Para>
       <Para>Two more words describe how a collection of events sits inside Ω, and they are easy to mix up.</Para>
       <List
         items={[
           <>
-            <strong>Mutually exclusive</strong>{' '}means no two of them can happen together: every pairwise intersection is
+            <strong>Mutually exclusive</strong> means no two of them can happen together: every pairwise intersection is
             empty. They do not overlap.
           </>,
           <>
-            <strong>Exhaustive</strong>{' '}means between them they cover the whole of Ω, so one of them is bound to happen.
+            <strong>Exhaustive</strong> means between them they cover the whole of Ω, so one of them is bound to happen.
           </>,
         ]}
       />
@@ -893,15 +921,15 @@ Exhaustive:  A₁ = {1, 2}, A₂ = {3, 4}, A₃ = {5, 6}
       <List
         items={[
           <>
-            <strong>Axiom 1.</strong>{' '}P(E) ≥ 0 for every event. Probabilities are never negative — there is no such
+            <strong>Axiom 1.</strong> P(E) ≥ 0 for every event. Probabilities are never negative — there is no such
             thing as less likely than impossible.
           </>,
           <>
-            <strong>Axiom 2.</strong>{' '}P(Ω) = 1. Something is certain to happen, and 1 is the label we give certainty.
+            <strong>Axiom 2.</strong> P(Ω) = 1. Something is certain to happen, and 1 is the label we give certainty.
           </>,
           <>
-            <strong>Axiom 3.</strong>{' '}For events that cannot happen together, probabilities simply add:
-            P(E₁ ∪ E₂ ∪ ⋯) = P(E₁) + P(E₂) + ⋯
+            <strong>Axiom 3.</strong> For events that cannot happen together, probabilities simply add: P(E₁ ∪ E₂ ∪ ⋯) =
+            P(E₁) + P(E₂) + ⋯
           </>,
         ]}
       />
@@ -917,8 +945,8 @@ Exhaustive:  A₁ = {1, 2}, A₂ = {3, 4}, A₃ = {5, 6}
       <Para>
         The condition on axiom 3 is the part to hold on to. It only lets you add when the events are{' '}
         <strong>mutually exclusive</strong>. If they could both happen, adding would count the shared outcomes twice,
-        and you would have to take the overlap off again — which is exactly what the addition rule
-        P(A ∪ B) = P(A) + P(B) − P(A ∩ B) does.
+        and you would have to take the overlap off again — which is exactly what the addition rule P(A ∪ B) = P(A) +
+        P(B) − P(A ∩ B) does.
       </Para>
       <Para>
         Small consequences fall straight out. P(Aᶜ) = 1 − P(A), because A and Aᶜ cannot both happen and between them
@@ -945,7 +973,11 @@ For a fair die:  P(1) = P(2) = ⋯ = P(6) = 1/6
 
       <Terms
         items={[
-          { term: 'axiom', say: 'AX-ee-um', def: 'A rule assumed rather than proved. Everything else is built on top of it.' },
+          {
+            term: 'axiom',
+            say: 'AX-ee-um',
+            def: 'A rule assumed rather than proved. Everything else is built on top of it.',
+          },
           {
             term: 'probability function',
             def: 'Any rule handing a number to each event while obeying the three axioms.',
@@ -971,13 +1003,13 @@ For a fair die:  P(1) = P(2) = ⋯ = P(6) = 1/6
         that you cannot average or add up.
       </Para>
       <Para>
-        A <strong>random variable</strong>{' '}fixes that. It is a rule that attaches a number to each outcome. Formally it
+        A <strong>random variable</strong> fixes that. It is a rule that attaches a number to each outcome. Formally it
         is a function from Ω to the real numbers, which sounds heavier than it is: you decide what to measure, and the
         rule reads it off.
       </Para>
       <Para>
         The lecture is strict about notation, and it helps. <strong>Uppercase X</strong> is the rule.{' '}
-        <strong>Lowercase x</strong>{' '}is a value it produced. So &ldquo;P(X = 2)&rdquo; means the chance that the rule
+        <strong>Lowercase x</strong> is a value it produced. So &ldquo;P(X = 2)&rdquo; means the chance that the rule
         gives 2.
       </Para>
 
@@ -994,19 +1026,19 @@ For a fair die:  P(1) = P(2) = ⋯ = P(6) = 1/6
       <List
         items={[
           <>
-            <strong>Discrete</strong>{' '}— the values form a finite or countable list. Number of heads, number of
+            <strong>Discrete</strong> — the values form a finite or countable list. Number of heads, number of
             customers, number of faulty parts.
           </>,
           <>
-            <strong>Continuous</strong>{' '}— the values fill an interval. The lifetime of a bulb, a height, a temperature.
+            <strong>Continuous</strong> — the values fill an interval. The lifetime of a bulb, a height, a temperature.
             For these, the probability of any single exact value is <strong>0</strong>.
           </>,
         ]}
       />
       <Para>
-        That last point is genuinely strange the first time you meet it. The bulb does last <em>some</em>{' '}exact number
+        That last point is genuinely strange the first time you meet it. The bulb does last <em>some</em> exact number
         of hours, so how can that have probability zero? The honest answer is that there are infinitely many possible
-        values, so no single one can carry any weight — only <em>ranges</em>{' '}do. The next part makes that concrete.
+        values, so no single one can carry any weight — only <em>ranges</em> do. The next part makes that concrete.
       </Para>
 
       <Worked title="Slide 26&rsquo;s two examples">
@@ -1056,7 +1088,7 @@ Continuous
         Every value gets an honest probability, and they add to 1.
       </Para>
       <Para>
-        For a <strong>continuous</strong> variable it is the <strong>probability density function</strong>{' '}f(x) — and
+        For a <strong>continuous</strong> variable it is the <strong>probability density function</strong> f(x) — and
         this one is not a probability at all. Only areas under it are.
       </Para>
 
@@ -1070,7 +1102,7 @@ Continuous
       </Para>
       <Para>
         This is the single most confusing thing in this part of the course, so it is worth stating plainly:{' '}
-        <strong>a density can be bigger than 1.</strong>{' '}A Uniform(0, ½) distribution has height 2 across its interval.
+        <strong>a density can be bigger than 1.</strong> A Uniform(0, ½) distribution has height 2 across its interval.
         That is fine, because 2 × ½ = 1 and the area is what has to come to 1.
       </Para>
       <Para>
@@ -1104,7 +1136,11 @@ Continuous — pdf
 
       <Terms
         items={[
-          { term: 'pmf', say: 'p-m-f', def: 'Probability mass function. For discrete variables, p(x) is a real probability.' },
+          {
+            term: 'pmf',
+            say: 'p-m-f',
+            def: 'Probability mass function. For discrete variables, p(x) is a real probability.',
+          },
           {
             term: 'pdf',
             say: 'p-d-f',
@@ -1114,7 +1150,10 @@ Continuous — pdf
             term: 'density',
             def: 'How thickly probability is packed near a value. Like mass per centimetre — you need a length before you get a mass.',
           },
-          { term: 'Uniform(0, 1)', def: 'Every value between 0 and 1 equally likely. Its density is flat at height 1.' },
+          {
+            term: 'Uniform(0, 1)',
+            def: 'Every value between 0 and 1 equally likely. Its density is flat at height 1.',
+          },
         ]}
       />
       <Takeaway>
@@ -1128,7 +1167,7 @@ Continuous — pdf
   expectation: (
     <>
       <Para>
-        The <strong>expectation</strong>{' '}of X, written E[X] or μ, is its long-run average — where the values would
+        The <strong>expectation</strong> of X, written E[X] or μ, is its long-run average — where the values would
         settle if you ran the experiment forever. Each value is weighted by how likely it is:
       </Para>
       <Formula>μ = E[X] = Σ x p(x) &nbsp;&nbsp;or&nbsp;&nbsp; ∫ x f(x) dx</Formula>
@@ -1173,7 +1212,11 @@ The middle of the interval, as you would hope.`}
       <Terms
         items={[
           { term: 'expectation', def: 'The probability-weighted average of a random variable. Written E[X] or μ.' },
-          { term: 'μ', say: 'mew', def: 'The Greek letter for a mean worked out from probabilities, rather than from data.' },
+          {
+            term: 'μ',
+            say: 'mew',
+            def: 'The Greek letter for a mean worked out from probabilities, rather than from data.',
+          },
           { term: 'x̄', say: 'x bar', def: 'The mean of actual observations. Same idea, computed from data.' },
           {
             term: 'central tendency',
@@ -1193,10 +1236,10 @@ The middle of the interval, as you would hope.`}
     <>
       <Para>
         A mean on its own can describe nobody. Two sets of numbers can share the same average and look nothing alike, so
-        the second thing you always want is how <strong>spread out</strong>{' '}they are.
+        the second thing you always want is how <strong>spread out</strong> they are.
       </Para>
       <Para>
-        The <strong>variance</strong>{' '}measures that. Take each value&rsquo;s distance from the mean, square it, and
+        The <strong>variance</strong> measures that. Take each value&rsquo;s distance from the mean, square it, and
         average the squares:
       </Para>
       <Formula>σ² = E[(X − μ)²]</Formula>
@@ -1215,12 +1258,12 @@ The middle of the interval, as you would hope.`}
         and it is also its main weakness: one odd value can distort the whole thing.
       </Para>
       <Para>
-        The <strong>standard deviation</strong>{' '}σ is the square root of the variance, and the reason to take that root
+        The <strong>standard deviation</strong> σ is the square root of the variance, and the reason to take that root
         is units. If your data is in metres, the variance is in square metres, which means nothing to anyone. The
         standard deviation is back in metres, so you can compare it with the data itself.
       </Para>
       <Para>
-        <strong>One thing to watch.</strong>{' '}This lecture divides by n, because it is describing the collection you
+        <strong>One thing to watch.</strong> This lecture divides by n, because it is describing the collection you
         actually have. The Statistics course divides by n − 1, because it is treating the numbers as a sample from
         something bigger and correcting for the fact that a sample looks slightly tighter than the population it came
         from. Both are right. Read the question and see which one is being asked for.
@@ -1271,7 +1314,7 @@ Step 4 — the standard deviation
   covariance: (
     <>
       <Para>
-        Everything so far has looked at one variable at a time. <strong>Covariance</strong>{' '}is the first tool that looks
+        Everything so far has looked at one variable at a time. <strong>Covariance</strong> is the first tool that looks
         at two together, and it asks one question: when x is above its average, is y usually above its average too?
       </Para>
       <Formula>cov(X, Y) = E[(X − E[X])(Y − E[Y])]</Formula>
@@ -1297,11 +1340,11 @@ Step 4 — the standard deviation
       <Para>
         The <em>size</em>, though, is nearly useless on its own, because it carries units — measure the same heights in
         centimetres instead of metres and the covariance changes by a factor of 100 without anything real having
-        changed. Dividing by the two standard deviations strips the units out and gives the{' '}
-        <strong>correlation</strong>, which always sits between −1 and 1. That is the Statistics course&rsquo;s job.
+        changed. Dividing by the two standard deviations strips the units out and gives the <strong>correlation</strong>
+        , which always sits between −1 and 1. That is the Statistics course&rsquo;s job.
       </Para>
       <Para>
-        One warning that is worth carrying with you: covariance only sees <em>straight-line</em>{' '}patterns. Points
+        One warning that is worth carrying with you: covariance only sees <em>straight-line</em> patterns. Points
         arranged in a perfect arch have a strong relationship and a covariance close to zero, because the left half and
         the right half cancel each other out.
       </Para>
@@ -1416,7 +1459,7 @@ A =  ⎢ 2  4  5 ⎥
       </Worked>
 
       <Para>
-        Load this one as <strong>Practice Q2</strong>{' '}in part 6 and the read-out prints &ldquo;column 2 = 2 × column
+        Load this one as <strong>Practice Q2</strong> in part 6 and the read-out prints &ldquo;column 2 = 2 × column
         1&rdquo; for you.
       </Para>
 
@@ -1461,8 +1504,8 @@ added. The cross term cancelling is the whole trick.`}
       </Worked>
 
       <Para>
-        Worth checking numerically before you trust it. With a = (3, 4) and b = (1, 2): ‖a + b‖² = ‖(4, 6)‖² = 52,
-        ‖a − b‖² = ‖(2, 2)‖² = 8, and 52 + 8 = 60. On the other side, 2(25) + 2(5) = 60. They agree.
+        Worth checking numerically before you trust it. With a = (3, 4) and b = (1, 2): ‖a + b‖² = ‖(4, 6)‖² = 52, ‖a −
+        b‖² = ‖(2, 2)‖² = 8, and 52 + 8 = 60. On the other side, 2(25) + 2(5) = 60. They agree.
       </Para>
 
       <Lab>
@@ -1506,8 +1549,8 @@ would be over 90°, so this is a useful sanity check.`}
       </Worked>
 
       <Takeaway>
-        All six are decidable and all six were checked. Q1 by substituting back into the third equation that the
-        working never used, Q4 numerically on a = (3, 4) and b = (1, 2), and Q5 and Q6 in the lab above.
+        All six are decidable and all six were checked. Q1 by substituting back into the third equation that the working
+        never used, Q4 numerically on a = (3, 4) and b = (1, 2), and Q5 and Q6 in the lab above.
       </Takeaway>
     </>
   ),

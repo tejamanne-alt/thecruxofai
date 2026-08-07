@@ -71,15 +71,7 @@
       "id": "stats",
       "group": "s1",
       "name": "Introduction to Statistical Methods",
-      "topics": [
-        "centre",
-        "spread",
-        "outliers",
-        "probability",
-        "events",
-        "ism1",
-        "ism2"
-      ],
+      "topics": ["centre", "spread", "outliers", "probability", "events", "ism1", "ism2"],
       "syllabus": null
     },
     {
@@ -93,19 +85,14 @@
       "id": "ml",
       "group": "s1",
       "name": "Machine Learning",
-      "topics": [
-        "regression",
-        "kmeans"
-      ],
+      "topics": ["regression", "kmeans"],
       "syllabus": "Introduction to Machine Learning; various kinds of learning; supervised and unsupervised learning; the ML workflow; Bayesian learning, MAP hypothesis, Bayes optimal classifier, naive Bayes; linear models for regression; linear models for classification; non-linear models; decision trees; MDL principle; instance based learning; support vector machines; ensemble learning; clustering, k-means, GMM; model evaluation and comparison."
     },
     {
       "id": "dnn",
       "group": "s2",
       "name": "Deep Neural Networks",
-      "topics": [
-        "perceptron"
-      ],
+      "topics": ["perceptron"],
       "syllabus": "Introduction to neural networks; linear neural networks for regression and classification; deep feedforward networks; backpropagation; deep network training; regularization and optimization; transfer learning and fine-tuning; convolutional neural networks; recurrent neural networks; attention mechanisms; transformers and vision transformers."
     },
     {

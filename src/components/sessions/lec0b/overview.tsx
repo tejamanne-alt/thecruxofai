@@ -129,17 +129,42 @@ export function Lecture0bOverview() {
             },
           ]}
           legend={[
-            { sym: 'ℝⁿ', name: 'Lists of n numbers', note: 'ℝ² is a page, ℝ³ is a room, and past that you stop drawing.', val: 'part 1' },
+            {
+              sym: 'ℝⁿ',
+              name: 'Lists of n numbers',
+              note: 'ℝ² is a page, ℝ³ is a room, and past that you stop drawing.',
+              val: 'part 1',
+            },
             { sym: 'cᵢ', name: 'Coefficients', note: 'How much of each vector to take in a mixture.', val: 'part 2' },
             { sym: 'rank', name: 'The count', note: 'How many vectors are genuinely different.', val: 'part 5' },
-            { sym: 'pivot', name: 'A step of the staircase', note: 'Its column marks an independent vector.', val: 'part 6' },
-            { sym: '⟨a, b⟩', name: 'Dot product', note: 'Also written a·b or aᵀb. Always a plain number.', val: 'part 8' },
+            {
+              sym: 'pivot',
+              name: 'A step of the staircase',
+              note: 'Its column marks an independent vector.',
+              val: 'part 6',
+            },
+            {
+              sym: '⟨a, b⟩',
+              name: 'Dot product',
+              note: 'Also written a·b or aᵀb. Always a plain number.',
+              val: 'part 8',
+            },
             { sym: '‖a‖', name: 'Norm', note: 'The length of the arrow. Never negative.', val: 'part 9' },
-            { sym: 'α', name: 'The angle', note: 'Zero dot product means 90°, the case worth spotting.', val: 'part 10' },
+            {
+              sym: 'α',
+              name: 'The angle',
+              note: 'Zero dot product means 90°, the case worth spotting.',
+              val: 'part 10',
+            },
             { sym: 'Ω', name: 'Sample space', note: 'Everything that could possibly happen.', val: 'part 12' },
             { sym: 'X', name: 'Random variable', note: 'A rule turning each outcome into a number.', val: 'part 14' },
             { sym: 'f(x)', name: 'Density', note: 'Not a probability. Only areas under it are.', val: 'part 15' },
-            { sym: 'σ²', name: 'Variance', note: 'Average squared distance from the mean. Divided by n here.', val: 'part 17' },
+            {
+              sym: 'σ²',
+              name: 'Variance',
+              note: 'Average squared distance from the mean. Divided by n here.',
+              val: 'part 17',
+            },
             { sym: 'cov', name: 'Covariance', note: 'Do two quantities rise and fall together?', val: 'part 18' },
           ]}
         />

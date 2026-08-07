@@ -1,7 +1,7 @@
 'use client'
 
 import { Btn, Chip, FrBox, LabBox, LabNote, NumBox, Presets, Titled, Verdict } from '@/components/charts/matrix-ui'
-import { PanelNote, RangeInput, ReadOutGrid } from '@/components/sessions/session-parts'
+import { RangeInput, ReadOutGrid } from '@/components/sessions/session-parts'
 import { frStr } from '@/lib/model/fraction'
 import { detM, leadOf, ncols, nrows, refOnly, rrefOf, toFr } from '@/lib/model/matrix'
 import { useState } from 'react'
@@ -37,11 +37,7 @@ const ROUTES = [
   {
     id: 'lec0b',
     label: 'The route in Lecture 0b',
-    steps: [
-      'R2 ← R2 − 2R1,  R3 ← R3 + 3R1,  R4 ← R4 − 4R1',
-      'R3 ← R3 + 3R2,  R4 ← R4 − 2R2',
-      'R4 ← 2R4 + 5R3',
-    ],
+    steps: ['R2 ← R2 − 2R1,  R3 ← R3 + 3R1,  R4 ← R4 − 4R1', 'R3 ← R3 + 3R2,  R4 ← R4 − 2R2', 'R4 ← 2R4 + 5R3'],
     end: [
       [1, 1, -1],
       [0, -1, 0],
@@ -109,9 +105,9 @@ export function EchelonRoutesLab() {
           <FrBox m={rrefBoth} width={48} tone={TEAL} />
         </Titled>
         <div className="max-w-[320px] pt-6 text-[13px]/[1.7] text-zinc-700">
-          A matrix has <strong>many</strong> row echelon forms — one per route. It has exactly{' '}
-          <strong>one</strong> reduced row echelon form. That is why an answer key and your working can disagree on the
-          middle steps and still both be right.
+          A matrix has <strong>many</strong> row echelon forms — one per route. It has exactly <strong>one</strong>{' '}
+          reduced row echelon form. That is why an answer key and your working can disagree on the middle steps and
+          still both be right.
         </div>
       </div>
 
@@ -190,8 +186,8 @@ export function CoordinateLab() {
           </>
         ) : (
           <>
-            The coefficient columns are dependent, so <strong>x₁, x₂, x₃ are dependent</strong> as well. Some mixture
-            of them collapses to the zero vector, whatever the b&rsquo;s were.
+            The coefficient columns are dependent, so <strong>x₁, x₂, x₃ are dependent</strong> as well. Some mixture of
+            them collapses to the zero vector, whatever the b&rsquo;s were.
           </>
         )}
       </Verdict>
@@ -257,9 +253,12 @@ export function FourXLab() {
     <LabBox>
       <div className="rounded-lg border border-zinc-950/10 bg-zinc-50 p-4 font-mono text-[13px]/[1.9] text-zinc-800">
         x₁ = b₁ − 2b₂ + b₃ − b₄
-        <br />x₂ = −4b₁ − 2b₂ + 4b₄
-        <br />x₃ = 2b₁ + 3b₂ − b₃ − 3b₄
-        <br />x₄ = 17b₁ − 10b₂ + 11b₃ + b₄
+        <br />
+        x₂ = −4b₁ − 2b₂ + 4b₄
+        <br />
+        x₃ = 2b₁ + 3b₂ − b₃ − 3b₄
+        <br />
+        x₄ = 17b₁ − 10b₂ + 11b₃ + b₄
       </div>
 
       <div className="flex flex-wrap items-start gap-6 overflow-x-auto">
@@ -336,9 +335,14 @@ export function FourXLab() {
                 demonstrated rather than asserted.
               </>
             ) : !anyPsi ? (
-              <>All the multipliers are zero, which reaches 0 for any vectors at all and proves nothing. Try the button.</>
+              <>
+                All the multipliers are zero, which reaches 0 for any vectors at all and proves nothing. Try the button.
+              </>
             ) : (
-              <>Not zero yet — b₁ still has {totals[0]} of it. Press the button to load the combination the reduced form found.</>
+              <>
+                Not zero yet — b₁ still has {totals[0]} of it. Press the button to load the combination the reduced form
+                found.
+              </>
             )}
           </Verdict>
         </div>
@@ -418,10 +422,9 @@ export function MoreThanKLab() {
       <Verdict ok={!forced}>
         {forced ? (
           <>
-            There are only {k} rows, so there can be at most {k} pivots — and you have {m} columns. At least{' '}
-            {m - k} column{m - k === 1 ? '' : 's'} must go without one, which hands you a non-trivial combination
-            reaching zero. <strong>Dependence is guaranteed by the shape alone</strong>, before you look at a single
-            number.
+            There are only {k} rows, so there can be at most {k} pivots — and you have {m} columns. At least {m - k}{' '}
+            column{m - k === 1 ? '' : 's'} must go without one, which hands you a non-trivial combination reaching zero.{' '}
+            <strong>Dependence is guaranteed by the shape alone</strong>, before you look at a single number.
           </>
         ) : (
           <>
@@ -432,8 +435,8 @@ export function MoreThanKLab() {
       </Verdict>
 
       <LabNote>
-        This is slide 31&rsquo;s insight, and it is the most useful sentence in the lecture for an exam: you cannot
-        have more independent vectors than the number of things you built them from. Seven vectors made out of four
+        This is slide 31&rsquo;s insight, and it is the most useful sentence in the lecture for an exam: you cannot have
+        more independent vectors than the number of things you built them from. Seven vectors made out of four
         ingredients are always dependent.
       </LabNote>
       <LabNote>
@@ -567,8 +570,8 @@ export function BasisLab() {
           </>
         ) : generates && !independent ? (
           <>
-            It reaches everything, so it is a generating set — but it is not minimal. One vector repeats what the
-            others already say, and you could throw it away without losing anything.
+            It reaches everything, so it is a generating set — but it is not minimal. One vector repeats what the others
+            already say, and you could throw it away without losing anything.
           </>
         ) : (
           <>Neither independent nor big enough to span ℝ³.</>
@@ -582,8 +585,8 @@ export function BasisLab() {
       </LabNote>
       <LabNote>
         Press through the three bases of ℝ³ on slide 36. They look nothing alike, and every one of them is a perfectly
-        good basis. A basis is <strong>not unique</strong> — but its <em>size</em> always is, and that size is what
-        gets called the dimension.
+        good basis. A basis is <strong>not unique</strong> — but its <em>size</em> always is, and that size is what gets
+        called the dimension.
       </LabNote>
     </LabBox>
   )
@@ -595,8 +598,24 @@ export function BasisLab() {
 
 const DIM_SETS = [
   { id: 'line', label: 'span of (0, 1)', cols: [[0], [1]], space: 'ℝ²' },
-  { id: 'plane', label: 'span of (1, 0) and (0, 1)', cols: [[1, 0], [0, 1]], space: 'ℝ²' },
-  { id: 'dep', label: 'span of (1, 2) and (2, 4)', cols: [[1, 2], [2, 4]], space: 'ℝ²' },
+  {
+    id: 'plane',
+    label: 'span of (1, 0) and (0, 1)',
+    cols: [
+      [1, 0],
+      [0, 1],
+    ],
+    space: 'ℝ²',
+  },
+  {
+    id: 'dep',
+    label: 'span of (1, 2) and (2, 4)',
+    cols: [
+      [1, 2],
+      [2, 4],
+    ],
+    space: 'ℝ²',
+  },
   {
     id: 'r3line',
     label: 'span of (1, 1, 1) in ℝ³',
@@ -655,9 +674,9 @@ export function DimensionLab() {
           </>
         ) : (
           <>
-            Each vector has {components} components, but the space they span has dimension <strong>{dim}</strong>.
-            Those are different questions. It is a {dim === 1 ? 'line' : 'plane'} sitting inside {s.space}, and every
-            vector in it still gets written with {components} numbers.
+            Each vector has {components} components, but the space they span has dimension <strong>{dim}</strong>. Those
+            are different questions. It is a {dim === 1 ? 'line' : 'plane'} sitting inside {s.space}, and every vector
+            in it still gets written with {components} numbers.
           </>
         )}
       </Verdict>
@@ -786,8 +805,8 @@ export function FindBasisLab() {
             ) : (
               <>
                 Column{free.length === 1 ? '' : 's'} {free.map((c) => c + 1).join(' and ')} carr
-                {free.length === 1 ? 'ies' : 'y'} no pivot, so the four vectors are <strong>not</strong> independent
-                and do <strong>not</strong> form a basis. A basis of U is {'{'}
+                {free.length === 1 ? 'ies' : 'y'} no pivot, so the four vectors are <strong>not</strong> independent and
+                do <strong>not</strong> form a basis. A basis of U is {'{'}
                 {pivots.map((c) => `x${c + 1}`).join(', ')}
                 {'}'}, and dim U = {rank}.
               </>
@@ -819,8 +838,8 @@ export function FindBasisLab() {
 
       <LabNote>
         Slide 40&rsquo;s recipe in three lines: <strong>write the spanning vectors as columns</strong>, get the{' '}
-        <strong>row echelon form</strong>, and the vectors sitting at <strong>pivot columns</strong> are your basis.
-        The ones at non-pivot columns are combinations of those, so they add nothing.
+        <strong>row echelon form</strong>, and the vectors sitting at <strong>pivot columns</strong> are your basis. The
+        ones at non-pivot columns are combinations of those, so they add nothing.
       </LabNote>
       <LabNote>
         The deck poses this example on its last slide and then stops, so there is no printed answer to compare against.

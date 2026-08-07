@@ -115,9 +115,9 @@ export function DotProductConcept() {
       </Lab>
 
       <P>
-        Two inequalities come with it. <strong>Cauchy&ndash;Schwarz</strong>{' '}says the dot product can never exceed the
+        Two inequalities come with it. <strong>Cauchy&ndash;Schwarz</strong> says the dot product can never exceed the
         two lengths multiplied together — try to break it by dragging, you cannot. The{' '}
-        <strong>triangle inequality</strong>{' '}says going straight there is never further than going via a corner.
+        <strong>triangle inequality</strong> says going straight there is never further than going via a corner.
       </P>
       <P>
         Cauchy&ndash;Schwarz is doing hidden work. It guarantees that ⟨a,b⟩/(‖a‖‖b‖) always lands between −1 and 1 —
@@ -135,9 +135,9 @@ export function DotProductConcept() {
         becomes the definition — and it behaves exactly as an angle should.
       </P>
       <P>
-        The case that earns its keep is <strong>orthogonal</strong>: dot product zero, angle 90°. You never have to
-        work out an angle to check it, which matters, because computing one arccos per pair would be ruinous when you
-        are comparing millions of vectors.
+        The case that earns its keep is <strong>orthogonal</strong>: dot product zero, angle 90°. You never have to work
+        out an angle to check it, which matters, because computing one arccos per pair would be ruinous when you are
+        comparing millions of vectors.
       </P>
 
       <H2>Shadows</H2>
@@ -151,9 +151,9 @@ export function DotProductConcept() {
       </Lab>
 
       <P>
-        The formula is not guessed. You demand that the leftover u = v₂ − v be at right angles to v₁, write that as
-        u·v₁ = 0, and rearrange. The right angle is the requirement that produced the answer, which is why it holds
-        however you drag.
+        The formula is not guessed. You demand that the leftover u = v₂ − v be at right angles to v₁, write that as u·v₁
+        = 0, and rearrange. The right angle is the requirement that produced the answer, which is why it holds however
+        you drag.
       </P>
 
       <Explainers
@@ -188,12 +188,37 @@ export function DotProductConcept() {
             },
           ]}
           legend={[
-            { sym: '⟨a,b⟩', name: 'Dot product', note: 'Also a·b or aᵀb. One number, whatever the dimension.', val: 'the push that helps' },
-            { sym: '‖a‖', name: 'Norm', note: 'Length of the arrow. Zero only for the zero vector.', val: 'Pythagoras' },
-            { sym: 'α', name: 'Angle', note: 'From the cosine. Needs Cauchy–Schwarz to be well defined.', val: 'cos⁻¹ of the ratio' },
+            {
+              sym: '⟨a,b⟩',
+              name: 'Dot product',
+              note: 'Also a·b or aᵀb. One number, whatever the dimension.',
+              val: 'the push that helps',
+            },
+            {
+              sym: '‖a‖',
+              name: 'Norm',
+              note: 'Length of the arrow. Zero only for the zero vector.',
+              val: 'Pythagoras',
+            },
+            {
+              sym: 'α',
+              name: 'Angle',
+              note: 'From the cosine. Needs Cauchy–Schwarz to be well defined.',
+              val: 'cos⁻¹ of the ratio',
+            },
             { sym: '⟨a,b⟩ = 0', name: 'Orthogonal', note: 'At right angles. The cheap test.', val: 'no angle needed' },
-            { sym: 'v', name: 'Projection', note: 'The shadow v₂ casts on the line through v₁.', val: 'the useful part' },
-            { sym: 'u', name: 'Residual', note: 'What is left over, always perpendicular to v₁.', val: 'the wasted part' },
+            {
+              sym: 'v',
+              name: 'Projection',
+              note: 'The shadow v₂ casts on the line through v₁.',
+              val: 'the useful part',
+            },
+            {
+              sym: 'u',
+              name: 'Residual',
+              note: 'What is left over, always perpendicular to v₁.',
+              val: 'the wasted part',
+            },
           ]}
         />
       </Explainers>
@@ -289,7 +314,7 @@ export function CovarianceConcept() {
       <P>
         Why square at all? Because the plain distances always add to exactly zero — the ones above the mean cancel the
         ones below — so they measure nothing. Squaring removes the signs and makes far-away values count for much more.
-        The <strong>standard deviation</strong>{' '}then takes the square root to get back into the original units.
+        The <strong>standard deviation</strong> then takes the square root to get back into the original units.
       </P>
       <P>
         Watch the divisor. Dividing by n describes the collection you actually have. Dividing by n − 1 treats it as a
@@ -304,14 +329,14 @@ export function CovarianceConcept() {
       </Lab>
 
       <P>
-        Each rectangle is one point&rsquo;s contribution, drawn as an area — teal when the product is positive, red
-        when it is negative. The covariance is their signed average. Drag a point across the horizontal dashed line and
-        its rectangle flips colour and starts pulling the other way.
+        Each rectangle is one point&rsquo;s contribution, drawn as an area — teal when the product is positive, red when
+        it is negative. The covariance is their signed average. Drag a point across the horizontal dashed line and its
+        rectangle flips colour and starts pulling the other way.
       </P>
       <P>
         Notice that variance is just covariance with a variable and itself: cov(X, X) = E[(X − μ)²] = σ². They are the
         same formula, and that is worth knowing, because it is why both live together in one object — the{' '}
-        <strong>covariance matrix</strong>{' '}— with the variances down its diagonal.
+        <strong>covariance matrix</strong> — with the variances down its diagonal.
       </P>
 
       <Explainers
@@ -343,12 +368,37 @@ export function CovarianceConcept() {
             },
           ]}
           legend={[
-            { sym: 'μ', name: 'Mean', note: 'The balance point. Where distances are measured from.', val: 'the centre' },
+            {
+              sym: 'μ',
+              name: 'Mean',
+              note: 'The balance point. Where distances are measured from.',
+              val: 'the centre',
+            },
             { sym: 'σ²', name: 'Variance', note: 'Average squared distance. In squared units.', val: 'the spread' },
-            { sym: 'σ', name: 'Standard deviation', note: 'Back in the original units. The one to quote.', val: '√variance' },
-            { sym: 'cov', name: 'Covariance', note: 'Do the two move together? Sign matters, size does not.', val: 'the pairing' },
-            { sym: 'corr', name: 'Correlation', note: 'Unit-free, always between −1 and 1.', val: 'the comparable one' },
-            { sym: 'Σ', name: 'Covariance matrix', note: 'Every pairwise covariance, variances on the diagonal.', val: 'the whole picture' },
+            {
+              sym: 'σ',
+              name: 'Standard deviation',
+              note: 'Back in the original units. The one to quote.',
+              val: '√variance',
+            },
+            {
+              sym: 'cov',
+              name: 'Covariance',
+              note: 'Do the two move together? Sign matters, size does not.',
+              val: 'the pairing',
+            },
+            {
+              sym: 'corr',
+              name: 'Correlation',
+              note: 'Unit-free, always between −1 and 1.',
+              val: 'the comparable one',
+            },
+            {
+              sym: 'Σ',
+              name: 'Covariance matrix',
+              note: 'Every pairwise covariance, variances on the diagonal.',
+              val: 'the whole picture',
+            },
           ]}
         />
       </Explainers>
