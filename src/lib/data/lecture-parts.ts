@@ -380,7 +380,8 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
     {
       id: 'why',
       title: 'Why the subject moves on',
-      teaser: 'Set b to zero and the answers become a space. Set it to anything else and adding two of them falls off the line.',
+      teaser:
+        'Set b to zero and the answers become a space. Set it to anything else and adding two of them falls off the line.',
       slides: 'Slide 2',
     },
     {
@@ -446,7 +447,8 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
     {
       id: 'basis',
       title: 'Generating set, and basis',
-      teaser: 'Big enough to reach everything, small enough that nothing repeats. Three bases of ℝ³ that look nothing alike.',
+      teaser:
+        'Big enough to reach everything, small enough that nothing repeats. Three bases of ℝ³ that look nothing alike.',
       slides: 'Slides 32–37',
     },
     {

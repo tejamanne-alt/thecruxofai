@@ -25,7 +25,7 @@ export const ISM2_PARTS: Record<string, React.ReactNode> = {
   experiment: (
     <>
       <Para>
-        A <strong>random experiment</strong>{' '}is anything you can do where you cannot say in advance what will happen.
+        A <strong>random experiment</strong> is anything you can do where you cannot say in advance what will happen.
         That is the whole definition. It does not need a laboratory.
       </Para>
       <Para>The lecture opens with a list of them:</Para>
@@ -44,8 +44,8 @@ export const ISM2_PARTS: Record<string, React.ReactNode> = {
         the whole of probability apply to them.
       </Para>
       <Para>
-        Try one below. Press <strong>Run it once</strong>{' '}a few times — the answer jumps around and you cannot predict
-        it. Then press <strong>Run 1000</strong>{' '}and watch something steady appear out of all that jumping. That
+        Try one below. Press <strong>Run it once</strong> a few times — the answer jumps around and you cannot predict
+        it. Then press <strong>Run 1000</strong> and watch something steady appear out of all that jumping. That
         steadiness is what probability measures.
       </Para>
 
@@ -93,7 +93,7 @@ The possible outcomes are accepted (a) and rejected (r):
       </Worked>
 
       <Para>
-        The vertical bars in <strong>|S|</strong>{' '}just mean &ldquo;how many things are in it&rdquo;. Pick an experiment
+        The vertical bars in <strong>|S|</strong> just mean &ldquo;how many things are in it&rdquo;. Pick an experiment
         below and its sample space is written out in full.
       </Para>
 
@@ -125,7 +125,7 @@ The possible outcomes are accepted (a) and rejected (r):
   event: (
     <>
       <Para>
-        An <strong>event</strong>{' '}is a part of the sample space. Formally: a subset of S. In plain terms, it is the list
+        An <strong>event</strong> is a part of the sample space. Formally: a subset of S. In plain terms, it is the list
         of outcomes you happen to care about.
       </Para>
       <Para>
@@ -139,7 +139,7 @@ The possible outcomes are accepted (a) and rejected (r):
       </Lab>
 
       <Para>
-        The probability came out as a count over a count. That is the <strong>classical</strong>{' '}definition, and it
+        The probability came out as a count over a count. That is the <strong>classical</strong> definition, and it
         works whenever the outcomes are all equally likely:
       </Para>
 
@@ -158,10 +158,10 @@ For "the die shows more than 3":
       <List
         items={[
           <>
-            Pick <strong>everything</strong>{' '}and you have the event S itself. It happens every time, so P(S) = 1.
+            Pick <strong>everything</strong> and you have the event S itself. It happens every time, so P(S) = 1.
           </>,
           <>
-            Pick <strong>nothing</strong>{' '}and you have the empty event, written ∅. It never happens, so P(∅) = 0.
+            Pick <strong>nothing</strong> and you have the empty event, written ∅. It never happens, so P(∅) = 0.
           </>,
         ]}
       />
@@ -234,11 +234,11 @@ so  P(A)  = 1 − P(Aᶜ)`}
       <List
         items={[
           <>
-            <strong>Union</strong>, written <strong>A ∪ B</strong>{' '}and said &ldquo;A union B&rdquo;. It contains every
+            <strong>Union</strong>, written <strong>A ∪ B</strong> and said &ldquo;A union B&rdquo;. It contains every
             outcome that is in A, or in B, or in both. In English: <em>A or B happens</em>.
           </>,
           <>
-            <strong>Intersection</strong>, written <strong>A ∩ B</strong>{' '}and said &ldquo;A intersect B&rdquo;. It
+            <strong>Intersection</strong>, written <strong>A ∩ B</strong> and said &ldquo;A intersect B&rdquo;. It
             contains only the outcomes in <em>both</em>. In English: <em>A and B both happen</em>.
           </>,
         ]}
@@ -249,7 +249,7 @@ so  P(A)  = 1 − P(Aᶜ)`}
         out.
       </Para>
       <Para>
-        Below, each circle&rsquo;s <strong>area</strong>{' '}is its probability, and the whole box is 1. So the bit where
+        Below, each circle&rsquo;s <strong>area</strong> is its probability, and the whole box is 1. So the bit where
         they overlap is not a number someone typed in — it is a genuine area. Drag the circles.
       </Para>
 
@@ -276,7 +276,7 @@ so  P(A)  = 1 − P(Aᶜ)`}
   exclusive: (
     <>
       <Para>
-        Two events are <strong>mutually exclusive</strong>{' '}when they have no outcomes in common. If one happens, the
+        Two events are <strong>mutually exclusive</strong> when they have no outcomes in common. If one happens, the
         other cannot.
       </Para>
       <Para>
@@ -285,7 +285,7 @@ so  P(A)  = 1 − P(Aᶜ)`}
       </Para>
       <Para>
         In set language it is one short line: <strong>A ∩ B = ∅</strong>, so <strong>P(A ∩ B) = 0</strong>. On the
-        picture it means the circles do not touch. Press <strong>Pull them apart</strong>{' '}below.
+        picture it means the circles do not touch. Press <strong>Pull them apart</strong> below.
       </Para>
 
       <Lab>
@@ -332,7 +332,7 @@ if mutually exclusive   P(A ∪ B) = P(A) + P(B)
       <List
         items={[
           <>
-            <strong>Classical.</strong>{' '}Count the outcomes you want, divide by the total. It needs every outcome to be
+            <strong>Classical.</strong> Count the outcomes you want, divide by the total. It needs every outcome to be
             equally likely, which is true for fair dice and shuffled cards and rarely true for anything else.
           </>,
           <>
@@ -340,13 +340,13 @@ if mutually exclusive   P(A ∪ B) = P(A) + P(B)
             happened in. It works on anything, but needs a lot of data.
           </>,
           <>
-            <strong>Axiomatic.</strong>{' '}Do not define it at all. Just state the rules any probability must obey, and
+            <strong>Axiomatic.</strong> Do not define it at all. Just state the rules any probability must obey, and
             work from those. This is the one modern maths is built on, and it is part 8.
           </>,
         ]}
       />
       <Para>
-        There is a fourth you will hear about, <strong>subjective</strong>{' '}probability: someone&rsquo;s honest degree of
+        There is a fourth you will hear about, <strong>subjective</strong> probability: someone&rsquo;s honest degree of
         belief, like &ldquo;70% chance this project ships on time&rdquo;. You cannot count it and you cannot repeat it,
         but people make decisions on it every day.
       </Para>
@@ -438,7 +438,7 @@ if mutually exclusive   P(A ∪ B) = P(A) + P(B)
   addition: (
     <>
       <Para>
-        The <strong>addition rule</strong>{' '}answers &ldquo;what is the chance of A or B?&rdquo;
+        The <strong>addition rule</strong> answers &ldquo;what is the chance of A or B?&rdquo;
       </Para>
 
       <Worked title="The addition rule">{`    P(A ∪ B) = P(A) + P(B) − P(A ∩ B)`}</Worked>
@@ -499,7 +499,7 @@ if mutually exclusive   P(A ∪ B) = P(A) + P(B)
             cannot. Test: P(A ∩ B) = 0.
           </>,
           <>
-            <strong>Independent</strong> is about whether one <em>tells you anything</em>{' '}about the other. Knowing A
+            <strong>Independent</strong> is about whether one <em>tells you anything</em> about the other. Knowing A
             happened leaves the chance of B exactly as it was. Test: P(A ∩ B) = P(A) × P(B).
           </>,
         ]}
@@ -515,7 +515,7 @@ if mutually exclusive   P(A ∪ B) = P(A) + P(B)
 
       <Para>
         Here is why they clash. If two events are mutually exclusive, then learning that A happened tells you B
-        definitely did <em>not</em>{' '}— which is a huge amount of information. So mutually exclusive events are about as
+        definitely did <em>not</em> — which is a huge amount of information. So mutually exclusive events are about as
         far from independent as you can get.
       </Para>
       <Para>
@@ -559,11 +559,11 @@ Test:   P(A) × P(B) = (3/36)(9/36) = 27/1296 = 1/48
   dice: (
     <>
       <Para>
-        Two dice is the standard worked example, and it hides one trap. There are <strong>36</strong>{' '}outcomes, not 11.
+        Two dice is the standard worked example, and it hides one trap. There are <strong>36</strong> outcomes, not 11.
       </Para>
       <Para>
         People count the possible sums — 2 through 12 — and assume each is equally likely. They are not. A sum of 7
-        happens six different ways; a sum of 12 happens one way. The <em>squares</em>{' '}are equally likely; the sums are
+        happens six different ways; a sum of 12 happens one way. The <em>squares</em> are equally likely; the sums are
         not.
       </Para>
       <Para>Pick a condition below and the matching squares light up. Count them.</Para>
@@ -637,7 +637,7 @@ So the chance of passing both is 14/45.`}
       </Worked>
 
       <Para>
-        Notice the second one slips in the complement rule as well: you are told the chance of <em>not</em>{' '}passing
+        Notice the second one slips in the complement rule as well: you are told the chance of <em>not</em> passing
         maths, so the first move is to take it off 1.
       </Para>
       <Para>
@@ -680,7 +680,7 @@ maximum P(A)·P(B) = 1/4`}
         are 792 possibilities, so you need a way to count without listing.
       </Para>
       <Para>
-        That way is the <strong>combination</strong>, written <strong>C(n, k)</strong>{' '}or ⁿCₖ. It counts how many ways
+        That way is the <strong>combination</strong>, written <strong>C(n, k)</strong> or ⁿCₖ. It counts how many ways
         you can pick k things from n when the order does not matter — and for a committee it does not, because the same
         five people are the same committee whichever order you name them in.
       </Para>
@@ -792,26 +792,26 @@ ii) exactly one    = (0.6 − 0.5) + (0.8 − 0.5)
       <List
         items={[
           <>
-            <strong>Q4</strong>{' '}— 10 motors, 2 faulty, pick 2. Combinations, like part 13. Both good is C(8,2)/C(10,2).
+            <strong>Q4</strong> — 10 motors, 2 faulty, pick 2. Combinations, like part 13. Both good is C(8,2)/C(10,2).
           </>,
           <>
-            <strong>Q5</strong>{' '}— coffee and soda, 55% / 45% / 70% at least one. Rearrange the addition rule for the
+            <strong>Q5</strong> — coffee and soda, 55% / 45% / 70% at least one. Rearrange the addition rule for the
             overlap, then take the complement for part (ii).
           </>,
           <>
-            <strong>Q6</strong>{' '}— 30 doing maths, 20 chemistry, 10 both, out of 80. Addition rule on counts rather than
+            <strong>Q6</strong> — 30 doing maths, 20 chemistry, 10 both, out of 80. Addition rule on counts rather than
             percentages.
           </>,
           <>
-            <strong>Q7</strong>{' '}— given P(A ∪ B), P(A ∩ B) and P(A′). Complement first to get P(A), then rearrange for
+            <strong>Q7</strong> — given P(A ∪ B), P(A ∩ B) and P(A′). Complement first to get P(A), then rearrange for
             P(B).
           </>,
           <>
-            <strong>Q8</strong>{' '}— P(A) = P(B) and the &ldquo;neither&rdquo; box equals the &ldquo;both&rdquo; box.
+            <strong>Q8</strong> — P(A) = P(B) and the &ldquo;neither&rdquo; box equals the &ldquo;both&rdquo; box.
             Easiest with the four-box picture from part 10.
           </>,
           <>
-            <strong>Q9</strong>{' '}— the insurance table. A two-way table is a sample space written as a grid; every
+            <strong>Q9</strong> — the insurance table. A two-way table is a sample space written as a grid; every
             question is adding up the right cells. The dice grid in part 11 is the same idea.
           </>,
         ]}

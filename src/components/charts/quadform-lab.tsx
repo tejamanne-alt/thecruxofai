@@ -40,10 +40,22 @@ export function PositiveDefiniteLab() {
     a > 0 && det > 0
       ? { kind: 'pd', head: 'Positive definite', note: 'xᵀAx is above zero for every x except the origin.' }
       : a >= 0 && d >= 0 && det === 0
-        ? { kind: 'psd', head: 'Positive semi-definite', note: 'Never negative — but there is a whole line where it is exactly zero.' }
+        ? {
+            kind: 'psd',
+            head: 'Positive semi-definite',
+            note: 'Never negative — but there is a whole line where it is exactly zero.',
+          }
         : a < 0 && det > 0
-          ? { kind: 'nd', head: 'Negative definite', note: 'Below zero for every x except the origin. The mirror image of the first case.' }
-          : { kind: 'ind', head: 'Indefinite', note: 'Positive in some directions and negative in others. Neither test passes.' }
+          ? {
+              kind: 'nd',
+              head: 'Negative definite',
+              note: 'Below zero for every x except the origin. The mirror image of the first case.',
+            }
+          : {
+              kind: 'ind',
+              head: 'Indefinite',
+              note: 'Positive in some directions and negative in others. Neither test passes.',
+            }
 
   // Completing the square, the way slide 17 does it: pull the cross term into a
   // bracket and see what is left over.
@@ -171,7 +183,7 @@ export function PositiveDefiniteLab() {
           </div>
 
           <PanelNote>
-            The quick test for a 2 × 2: the top-left number and the determinant must <em>both</em>{' '}be above zero. Here
+            The quick test for a 2 × 2: the top-left number and the determinant must <em>both</em> be above zero. Here
             they are {a} and {det}.
           </PanelNote>
         </div>
@@ -182,7 +194,8 @@ export function PositiveDefiniteLab() {
           The same thing with the square completed
         </div>
         <div className="overflow-x-auto font-mono text-[13px]/[1.9] text-zinc-800">
-          xᵀAx = {nice(a)}x₁² {2 * b < 0 ? '−' : '+'} {nice(Math.abs(2 * b))}x₁x₂ {d < 0 ? '−' : '+'} {nice(Math.abs(d))}
+          xᵀAx = {nice(a)}x₁² {2 * b < 0 ? '−' : '+'} {nice(Math.abs(2 * b))}x₁x₂ {d < 0 ? '−' : '+'}{' '}
+          {nice(Math.abs(d))}
           x₂²
           <br />
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= {squared}

@@ -135,7 +135,15 @@ export function SubspaceTestLab() {
     arrow(g, f.px(0), f.py(0), f.px(u.x), f.py(u.y), acc, 2.5)
     arrow(g, f.px(0), f.py(0), f.px(v.x), f.py(v.y), ORANGE, 2.5)
     arrow(g, f.px(0), f.py(0), f.px(sum.x), f.py(sum.y), sumIn ? TEAL : '#dc2626', 3)
-    arrow(g, f.px(0), f.py(0), f.px(scaled.x), f.py(scaled.y), scaledIn ? 'rgba(13,148,136,0.55)' : 'rgba(220,38,38,0.6)', 2)
+    arrow(
+      g,
+      f.px(0),
+      f.py(0),
+      f.px(scaled.x),
+      f.py(scaled.y),
+      scaledIn ? 'rgba(13,148,136,0.55)' : 'rgba(220,38,38,0.6)',
+      2
+    )
 
     g.beginPath()
     g.arc(f.px(0), f.py(0), 9, 0, Math.PI * 2)
@@ -158,12 +166,30 @@ export function SubspaceTestLab() {
           const nxt = CANDIDATES.find((x) => x.id === id)!
           // Start both arrows inside the set, so the reader has to work to break it.
           const seed: Record<string, [Pt, Pt]> = {
-            yaxis: [{ x: 0, y: 2 }, { x: 0, y: -3 }],
-            line: [{ x: 2, y: 1 }, { x: -4, y: -2 }],
-            shifted: [{ x: 1, y: 2 }, { x: 1, y: -1 }],
-            square: [{ x: 1, y: 0.5 }, { x: -0.5, y: 0.5 }],
-            quadrant: [{ x: 3, y: 1 }, { x: 1, y: 4 }],
-            cross: [{ x: 3, y: 0 }, { x: 0, y: 2 }],
+            yaxis: [
+              { x: 0, y: 2 },
+              { x: 0, y: -3 },
+            ],
+            line: [
+              { x: 2, y: 1 },
+              { x: -4, y: -2 },
+            ],
+            shifted: [
+              { x: 1, y: 2 },
+              { x: 1, y: -1 },
+            ],
+            square: [
+              { x: 1, y: 0.5 },
+              { x: -0.5, y: 0.5 },
+            ],
+            quadrant: [
+              { x: 3, y: 1 },
+              { x: 1, y: 4 },
+            ],
+            cross: [
+              { x: 3, y: 0 },
+              { x: 0, y: 2 },
+            ],
           }
           const [a, b] = seed[nxt.id]
           setU(a)
@@ -346,12 +372,13 @@ export function SpanLab() {
       <Verdict ok={spansPlane}>
         {spansPlane ? (
           <>
-            These two vectors form a <strong>generating set</strong>{' '}
-            for ℝ²: every point on the page is c₁v₁ + c₂v₂ for
+            These two vectors form a <strong>generating set</strong> for ℝ²: every point on the page is c₁v₁ + c₂v₂ for
             some pair of numbers. In the lecture&rsquo;s notation, ℝ² = span[{'{'}v₁, v₂{'}'}].
           </>
         ) : bothZero ? (
-          <>Both vectors are zero, so the only thing you can reach is the origin. The span is {'{'}0{'}'}.</>
+          <>
+            Both vectors are zero, so the only thing you can reach is the origin. The span is {'{'}0{'}'}.
+          </>
         ) : (
           <>
             The two vectors lie along each other, so their span is only a line — a subspace of ℝ², but not all of it.

@@ -48,7 +48,7 @@ export const LEC0A_PARTS: Record<string, React.ReactNode> = {
       </Para>
       <Para>
         Octave is built around one idea: you work on <strong>whole lists of numbers at once</strong>. In most languages
-        you would write a loop to double every number in a list. In Octave you write <code>2*x</code>{' '}and it is done.
+        you would write a loop to double every number in a list. In Octave you write <code>2*x</code> and it is done.
         That is why it suits matrices — a matrix is just a list of lists.
       </Para>
       <Para>The very first thing the lecture types is a plot. Here it is, live:</Para>
@@ -58,9 +58,9 @@ export const LEC0A_PARTS: Record<string, React.ReactNode> = {
       </Lab>
 
       <Para>
-        The line <code>x = 0:0.1:10</code>{' '}reads &ldquo;start at 0, go up in steps of 0.1, stop at 10&rdquo;. That is
+        The line <code>x = 0:0.1:10</code> reads &ldquo;start at 0, go up in steps of 0.1, stop at 10&rdquo;. That is
         the <strong>colon operator</strong>, and it is how you make a list without typing it out. Then{' '}
-        <code>y = sin(x)</code> takes the sine of every number in that list in one go, and <code>plot(x, y)</code>{' '}joins
+        <code>y = sin(x)</code> takes the sine of every number in that list in one go, and <code>plot(x, y)</code> joins
         the points up.
       </Para>
       <Para>
@@ -101,7 +101,7 @@ export const LEC0A_PARTS: Record<string, React.ReactNode> = {
   matrix: (
     <>
       <Para>
-        A <strong>matrix</strong>{' '}is a box of numbers laid out in rows and columns. That is the whole definition. It is
+        A <strong>matrix</strong> is a box of numbers laid out in rows and columns. That is the whole definition. It is
         not doing anything clever on its own — it is a way of keeping a lot of numbers organised so you can talk about
         all of them at once.
       </Para>
@@ -111,7 +111,7 @@ export const LEC0A_PARTS: Record<string, React.ReactNode> = {
       </Para>
       <Para>
         Its <strong>shape</strong> is written <span className="font-mono">m × n</span>: m rows by n columns.{' '}
-        <em>Rows first, always.</em>{' '}A 2 × 3 matrix has 2 rows and 3 columns, so it looks wide, not tall. That
+        <em>Rows first, always.</em> A 2 × 3 matrix has 2 rows and 3 columns, so it looks wide, not tall. That
         rows-first habit also runs through the name of each individual number: a<sub>23</sub> means row 2, column 3.
       </Para>
 
@@ -122,11 +122,11 @@ export const LEC0A_PARTS: Record<string, React.ReactNode> = {
       <Para>
         Two special shapes have their own names. A matrix with only one row is a <strong>row vector</strong>. One with
         only one column is a <strong>column vector</strong>. So a vector is not a different kind of object — it is a
-        very thin matrix. In this course, when someone writes <span className="font-mono">x</span>{' '}and means a vector,
+        very thin matrix. In this course, when someone writes <span className="font-mono">x</span> and means a vector,
         they nearly always mean a column.
       </Para>
       <Para>
-        And two matrices are <strong>equal</strong>{' '}only when they have the same shape and every matching pair of
+        And two matrices are <strong>equal</strong> only when they have the same shape and every matching pair of
         numbers agrees. There is no partial credit. One number out of place and they are different matrices.
       </Para>
 
@@ -151,8 +151,14 @@ a₂₃ = 6     row 2, column 3`}
           { term: 'm × n', say: 'm by n', def: 'The shape: m rows and n columns. Rows are always said first.' },
           { term: 'aⱼₖ', say: 'a j k', def: 'The number in row j, column k. Row first, column second.' },
           { term: 'row vector', def: 'A matrix with a single row, lying flat: [1 2 3].' },
-          { term: 'column vector', def: 'A matrix with a single column, standing up. The usual meaning of "vector" here.' },
-          { term: 'square matrix', def: 'Same number of rows as columns. Determinants and inverses only exist for these.' },
+          {
+            term: 'column vector',
+            def: 'A matrix with a single column, standing up. The usual meaning of "vector" here.',
+          },
+          {
+            term: 'square matrix',
+            def: 'Same number of rows as columns. Determinants and inverses only exist for these.',
+          },
         ]}
       />
       <Takeaway>A matrix is a box of numbers, m rows by n columns. Rows are always said first.</Takeaway>
@@ -167,12 +173,12 @@ a₂₃ = 6     row 2, column 3`}
         awkward one gets its own page next.
       </Para>
       <Para>
-        <strong>Adding</strong>{' '}works exactly as you would guess. Line the two boxes up and add each pair of numbers
-        that sit on top of each other. The catch is that they must be the <em>same shape</em>{' '}— every number needs a
+        <strong>Adding</strong> works exactly as you would guess. Line the two boxes up and add each pair of numbers
+        that sit on top of each other. The catch is that they must be the <em>same shape</em> — every number needs a
         partner, and if the boxes are different sizes some numbers are left standing on their own.
       </Para>
       <Para>
-        <strong>Multiplying by a plain number</strong>{' '}(a scalar) is even simpler: every number in the box gets
+        <strong>Multiplying by a plain number</strong> (a scalar) is even simpler: every number in the box gets
         multiplied. Nothing else happens.
       </Para>
 
@@ -181,8 +187,8 @@ a₂₃ = 6     row 2, column 3`}
       </Lab>
 
       <Para>
-        Because both of these work slot by slot, all the ordinary rules of arithmetic survive. A + B is the same as
-        B + A. Brackets do not matter. A number spread across a sum works as usual. The lab above lets you check each of
+        Because both of these work slot by slot, all the ordinary rules of arithmetic survive. A + B is the same as B +
+        A. Brackets do not matter. A number spread across a sum works as usual. The lab above lets you check each of
         those on numbers you choose, which is more convincing than being told.
       </Para>
       <Para>
@@ -204,7 +210,10 @@ c(kA)       =  (ck)A
 
       <Terms
         items={[
-          { term: 'scalar', def: 'A plain single number, used to stretch or shrink a matrix. It scales things, hence the name.' },
+          {
+            term: 'scalar',
+            def: 'A plain single number, used to stretch or shrink a matrix. It scales things, hence the name.',
+          },
           { term: 'zero matrix', def: 'A matrix of all zeros. Adding it changes nothing, like adding 0 to a number.' },
           {
             term: 'same shape',
@@ -223,11 +232,11 @@ c(kA)       =  (ck)A
   multiply: (
     <>
       <Para>
-        Matrix multiplication is the one operation that does <em>not</em>{' '}work slot by slot, and that surprises
+        Matrix multiplication is the one operation that does <em>not</em> work slot by slot, and that surprises
         everybody at first. You might expect AB to multiply each number by the one sitting on top of it. It does not.
       </Para>
       <Para>
-        Here is the actual rule. To get the number in <strong>row j, column k</strong>{' '}of the answer: walk along row j
+        Here is the actual rule. To get the number in <strong>row j, column k</strong> of the answer: walk along row j
         of the left matrix and down column k of the right one, multiplying each pair as you go, then add up everything
         you got.
       </Para>
@@ -238,14 +247,14 @@ c(kA)       =  (ck)A
       <List
         items={[
           <>
-            <span className="font-mono">(m × n) · (n × p) = (m × p)</span>{' '}— the two inner numbers must agree, and they
+            <span className="font-mono">(m × n) · (n × p) = (m × p)</span> — the two inner numbers must agree, and they
             then disappear.
           </>,
           <>
-            <span className="font-mono">(2 × 3) · (3 × 4) = (2 × 4)</span>{' '}— fine.
+            <span className="font-mono">(2 × 3) · (3 × 4) = (2 × 4)</span> — fine.
           </>,
           <>
-            <span className="font-mono">(3 × 4) · (2 × 3)</span>{' '}— impossible. 4 and 2 do not match.
+            <span className="font-mono">(3 × 4) · (2 × 3)</span> — impossible. 4 and 2 do not match.
           </>,
         ]}
       />
@@ -255,17 +264,16 @@ c(kA)       =  (ck)A
       </Lab>
 
       <Para>
-        Now the two facts that catch people out, both of which you can see in the lab by pressing the other two
-        presets.
+        Now the two facts that catch people out, both of which you can see in the lab by pressing the other two presets.
       </Para>
       <Para>
-        <strong>AB is usually not BA.</strong>{' '}With ordinary numbers 3 × 5 and 5 × 3 are the same. With matrices they
+        <strong>AB is usually not BA.</strong> With ordinary numbers 3 × 5 and 5 × 3 are the same. With matrices they
         are usually different, and quite often one of them does not even exist because the shapes do not line up. So
         &ldquo;multiply A and B&rdquo; is an incomplete instruction — the order is part of the meaning.
       </Para>
       <Para>
-        <strong>AB can be all zeros without either A or B being zero.</strong>{' '}With numbers, if ab = 0 then one of them
-        must be 0. Not here. Which also means you cannot cancel: AB = AC does <em>not</em>{' '}let you conclude B = C.
+        <strong>AB can be all zeros without either A or B being zero.</strong> With numbers, if ab = 0 then one of them
+        must be 0. Not here. Which also means you cannot cancel: AB = AC does <em>not</em> let you conclude B = C.
       </Para>
 
       <Worked title="The rule in symbols, and the lecture's Example 1">
@@ -310,7 +318,7 @@ BA does not exist: B has 4 columns, A has 2 rows.`}
   transpose: (
     <>
       <Para>
-        The <strong>transpose</strong>{' '}tips a matrix over. Row 1 becomes column 1, row 2 becomes column 2, and so on. It
+        The <strong>transpose</strong> tips a matrix over. Row 1 becomes column 1, row 2 becomes column 2, and so on. It
         is written with a small raised T: <span className="font-mono">Aᵀ</span>. A 2 × 3 matrix becomes a 3 × 2 one.
       </Para>
       <Para>
@@ -367,11 +375,11 @@ BA does not exist: B has 4 columns, A has 2 rows.`}
       <List
         items={[
           <>
-            <strong>Symmetric</strong>{' '}— A = Aᵀ. The numbers are mirrored across the diagonal from top-left to
+            <strong>Symmetric</strong> — A = Aᵀ. The numbers are mirrored across the diagonal from top-left to
             bottom-right. Distance tables are like this: the distance from A to B equals the distance from B to A.
           </>,
           <>
-            <strong>Skew-symmetric</strong>{' '}— A = −Aᵀ. Mirrored, but with the sign flipped. The diagonal has no choice
+            <strong>Skew-symmetric</strong> — A = −Aᵀ. Mirrored, but with the sign flipped. The diagonal has no choice
             but to be all zeros.
           </>,
           <>
@@ -379,7 +387,7 @@ BA does not exist: B has 4 columns, A has 2 rows.`}
             is the other way round. Row reduction is really a machine for making these.
           </>,
           <>
-            <strong>Diagonal</strong>{' '}— only the diagonal is allowed to be non-zero. Both triangular at once.
+            <strong>Diagonal</strong> — only the diagonal is allowed to be non-zero. Both triangular at once.
           </>,
           <>
             <strong>Identity</strong> — diagonal, with every diagonal number equal to 1. Written{' '}
@@ -387,7 +395,7 @@ BA does not exist: B has 4 columns, A has 2 rows.`}
             number 1.
           </>,
           <>
-            <strong>Sparse</strong>{' '}— most of the numbers are zero. Not a shape so much as an observation, but a very
+            <strong>Sparse</strong> — most of the numbers are zero. Not a shape so much as an observation, but a very
             valuable one: a sparse matrix can be stored and multiplied far more cheaply than a full one.
           </>,
         ]}
@@ -412,9 +420,15 @@ BA does not exist: B has 4 columns, A has 2 rows.`}
             term: 'skew-symmetric',
             def: 'A = −Aᵀ. Flipping it also flips every sign. Forces zeros down the diagonal, since only 0 equals minus itself.',
           },
-          { term: 'identity matrix I', def: '1s down the diagonal, 0s elsewhere. AI = IA = A for any A of the right size.' },
+          {
+            term: 'identity matrix I',
+            def: '1s down the diagonal, 0s elsewhere. AI = IA = A for any A of the right size.',
+          },
           { term: 'sparse', def: 'Mostly zeros. Worth knowing because computers can then skip almost all the work.' },
-          { term: 'trace', def: 'The diagonal added up. A single number that survives a surprising amount of manipulation.' },
+          {
+            term: 'trace',
+            def: 'The diagonal added up. A single number that survives a surprising amount of manipulation.',
+          },
         ]}
       />
       <Takeaway>
@@ -430,7 +444,7 @@ BA does not exist: B has 4 columns, A has 2 rows.`}
       <Para>
         This one sounds harder than it is. Take a square symmetric matrix A and any column of numbers x. The expression{' '}
         <span className="font-mono">xᵀAx</span> comes out as a single ordinary number. A is called{' '}
-        <strong>positive definite</strong> if that number is above zero for <em>every</em>{' '}x you could possibly choose,
+        <strong>positive definite</strong> if that number is above zero for <em>every</em> x you could possibly choose,
         apart from all-zeros.
       </Para>
       <Para>
@@ -465,7 +479,7 @@ x₁ = −3x₂, not just at the origin.  →  positive semi-definite.`}
 
       <Para>
         For a 2 × 2 there is a quick test that saves all of that: the top-left number and the determinant must{' '}
-        <em>both</em>{' '}be above zero. For bigger matrices the same idea keeps going — every leading square block cut from
+        <em>both</em> be above zero. For bigger matrices the same idea keeps going — every leading square block cut from
         the top-left corner must have a determinant above zero.
       </Para>
       <Para>
@@ -489,7 +503,10 @@ x₁ = −3x₂, not just at the origin.  →  positive semi-definite.`}
             term: 'positive definite',
             def: 'xᵀAx > 0 for every x except all-zeros. A promise about every case, not a few.',
           },
-          { term: 'semi-definite', def: 'Never negative, but zero somewhere other than the origin. The "≥ 0" version.' },
+          {
+            term: 'semi-definite',
+            def: 'Never negative, but zero somewhere other than the origin. The "≥ 0" version.',
+          },
           {
             term: 'indefinite',
             def: 'Positive for some x and negative for others. Neither test passes.',
@@ -514,16 +531,16 @@ x₁ = −3x₂, not just at the origin.  →  positive semi-definite.`}
       <List
         items={[
           <>
-            <strong>Swap two rows.</strong>{' '}Writing your equations in a different order obviously cannot change the
+            <strong>Swap two rows.</strong> Writing your equations in a different order obviously cannot change the
             answer.
           </>,
           <>
-            <strong>Multiply a row by a number that is not zero.</strong>{' '}Doubling both sides of an equation keeps it
+            <strong>Multiply a row by a number that is not zero.</strong> Doubling both sides of an equation keeps it
             true. Multiplying by 0 would destroy it, which is why 0 is banned.
           </>,
           <>
-            <strong>Add a multiple of one row to another row.</strong>{' '}Both rows were true, so their combination is
-            true too.
+            <strong>Add a multiple of one row to another row.</strong> Both rows were true, so their combination is true
+            too.
           </>,
         ]}
       />
@@ -537,11 +554,11 @@ x₁ = −3x₂, not just at the origin.  →  positive semi-definite.`}
       </Lab>
 
       <Para>
-        Now the part the slide is emphatic about: <strong>rows only, never columns.</strong>{' '}The lab has a button that
+        Now the part the slide is emphatic about: <strong>rows only, never columns.</strong> The lab has a button that
         breaks this rule on purpose. Press it and the reported answer changes in front of you.
       </Para>
       <Para>
-        Here is why. Each row is one equation, so shuffling rows shuffles equations. But each <em>column</em>{' '}belongs to
+        Here is why. Each row is one equation, so shuffling rows shuffles equations. But each <em>column</em> belongs to
         one unknown — column 1 is x₁, column 2 is x₂. Swap two columns and you have quietly renamed your unknowns
         halfway through, so the answer you read off at the end belongs to a different question.
       </Para>
@@ -582,7 +599,7 @@ Two matrices connected by a chain of these are called
   echelon: (
     <>
       <Para>
-        The three moves are the tool. <strong>Row echelon form</strong>{' '}is what you are using them to build. The word
+        The three moves are the tool. <strong>Row echelon form</strong> is what you are using them to build. The word
         échelon is French for a rung of a ladder, and that is exactly the shape you are aiming at: a staircase.
       </Para>
       <Para>
@@ -598,8 +615,8 @@ Two matrices connected by a chain of these are called
 
       <Para>
         Why this shape? Because the bottom row then involves the fewest unknowns — often just one. Solve that, put the
-        answer into the row above, solve that, and keep going upwards. This is called{' '}
-        <strong>back substitution</strong>, and the staircase is what makes it possible.
+        answer into the row above, solve that, and keep going upwards. This is called <strong>back substitution</strong>
+        , and the staircase is what makes it possible.
       </Para>
       <Para>
         Notice what the lab did at the very first step. The top-left slot held a 0, and you cannot use a zero as the
@@ -656,15 +673,17 @@ than the last. Three non-zero rows, so the rank is 3.`}
   rref: (
     <>
       <Para>
-        You can go further than a staircase. <strong>Reduced row echelon form</strong>{' '}adds two more demands on top of
+        You can go further than a staircase. <strong>Reduced row echelon form</strong> adds two more demands on top of
         row echelon form:
       </Para>
       <List
         items={[
-          <>Every leading entry is a <strong>1</strong>.</>,
           <>
-            Every leading 1 is the <strong>only</strong>{' '}non-zero number in its whole column — you clear above it as well
-            as below.
+            Every leading entry is a <strong>1</strong>.
+          </>,
+          <>
+            Every leading 1 is the <strong>only</strong> non-zero number in its whole column — you clear above it as
+            well as below.
           </>,
         ]}
       />
@@ -680,7 +699,7 @@ than the last. Three non-zero rows, so the rank is 3.`}
       <Para>
         Now the fact that makes RREF genuinely important, and it is easy to skip past on the slide. A matrix has many
         different row echelon forms — it depends which moves you happen to choose. But it has{' '}
-        <strong>exactly one</strong>{' '}reduced row echelon form. Every route ends in the same place.
+        <strong>exactly one</strong> reduced row echelon form. Every route ends in the same place.
       </Para>
       <Para>
         The lab lets you test that rather than trust it. Tick the box to start with the rows in the opposite order. The
@@ -720,11 +739,11 @@ than the last. Three non-zero rows, so the rank is 3.`}
   rank: (
     <>
       <Para>
-        <strong>Rank</strong>{' '}is a count. Tidy the matrix into echelon form and count the rows that are not all zeros.
+        <strong>Rank</strong> is a count. Tidy the matrix into echelon form and count the rows that are not all zeros.
         That number is the rank, and it does not depend on how you got there.
       </Para>
       <Para>
-        What is it counting? <em>Genuinely different rows.</em>{' '}If one row is a mixture of the others — a copy, a
+        What is it counting? <em>Genuinely different rows.</em> If one row is a mixture of the others — a copy, a
         double, a sum — then it adds no information, and row reduction will crush it to zero. Rank counts what is left
         after all the repetition has been squeezed out.
       </Para>
@@ -768,7 +787,10 @@ Row 3 was never adding anything new.`}
 
       <Terms
         items={[
-          { term: 'rank', def: 'How many non-zero rows are left after tidying into echelon form. A count of genuinely different rows.' },
+          {
+            term: 'rank',
+            def: 'How many non-zero rows are left after tidying into echelon form. A count of genuinely different rows.',
+          },
           {
             term: 'full rank',
             def: 'The rank is as big as it could possibly be — the smaller of the number of rows and columns. Nothing repeats.',
@@ -793,7 +815,7 @@ Row 3 was never adding anything new.`}
   det: (
     <>
       <Para>
-        The <strong>determinant</strong>{' '}squeezes a whole square matrix down to one number. That number answers one
+        The <strong>determinant</strong> squeezes a whole square matrix down to one number. That number answers one
         question above all others: does this matrix have an inverse? If the determinant is not zero, yes. If it is zero,
         no — and nothing else will save you.
       </Para>
@@ -873,17 +895,17 @@ det A = 1(4·6 − 5·0) − 2(0·6 − 5·1) + 3(0·0 − 4·1)
         is most of the skill.
       </Para>
       <Para>
-        <strong>Method one: cofactor expansion.</strong>{' '}Exactly what you did for the 3 × 3, one size up. Pick a row (or
+        <strong>Method one: cofactor expansion.</strong> Exactly what you did for the 3 × 3, one size up. Pick a row (or
         a column — either works). For each number in it, cross out its row and column, work out the determinant of what
         is left, attach a sign, and add everything up.
       </Para>
       <Para>
-        The sign follows a checkerboard: <span className="font-mono">+ − + −</span>{' '}starting from the top-left. Written
-        properly it is <span className="font-mono">(−1)</span>{' '}to the power of (row + column). A minor with its sign
+        The sign follows a checkerboard: <span className="font-mono">+ − + −</span> starting from the top-left. Written
+        properly it is <span className="font-mono">(−1)</span> to the power of (row + column). A minor with its sign
         attached has its own name — a <strong>cofactor</strong>.
       </Para>
       <Para>
-        Here is the part worth knowing. You may expand along <em>any</em>{' '}row or column and the answer is always the
+        Here is the part worth knowing. You may expand along <em>any</em> row or column and the answer is always the
         same. So choose the one with the most zeros: every zero kills a whole smaller determinant you would otherwise
         have to work out.
       </Para>
@@ -898,15 +920,15 @@ det A = 1(4·6 − 5·0) − 2(0·6 − 5·1) + 3(0·0 − 4·1)
       </Para>
 
       <Para>
-        <strong>Method two: row-reduce first.</strong>{' '}Cofactors on a 4 × 4 mean four 3 × 3 determinants. On a 10 × 10 it
-        is hopeless. So instead, use row moves to turn the matrix into a triangular one, then just multiply the
+        <strong>Method two: row-reduce first.</strong> Cofactors on a 4 × 4 mean four 3 × 3 determinants. On a 10 × 10
+        it is hopeless. So instead, use row moves to turn the matrix into a triangular one, then just multiply the
         diagonal.
       </Para>
       <Para>Two rules keep that honest, and they are the ones from part 14:</Para>
       <List
         items={[
           <>
-            Adding a multiple of one row to another <strong>does not change</strong>{' '}the determinant at all.
+            Adding a multiple of one row to another <strong>does not change</strong> the determinant at all.
           </>,
           <>
             Swapping two rows <strong>flips the sign</strong>. Count your swaps.
@@ -982,8 +1004,9 @@ No swaps were used, so det B = 1 × 1 × 3 × 1 = 3.`}
       </Lab>
 
       <Para>
-        The one that does the most work is the third button: <strong>adding a multiple of one row to another leaves the
-        determinant completely alone.</strong>{' '}That is the licence for the whole row-reduction method in the last part.
+        The one that does the most work is the third button:{' '}
+        <strong>adding a multiple of one row to another leaves the determinant completely alone.</strong> That is the
+        licence for the whole row-reduction method in the last part.
       </Para>
       <Para>
         The one that surprises people is <span className="font-mono">det(AB) = det(A) · det(B)</span>. Matrix
@@ -992,7 +1015,7 @@ No swaps were used, so det B = 1 × 1 × 3 × 1 = 3.`}
         nothing times zero is 1.
       </Para>
       <Para>
-        And <span className="font-mono">det(A) = det(Aᵀ)</span>{' '}has a useful side effect: every rule about rows is also
+        And <span className="font-mono">det(A) = det(Aᵀ)</span> has a useful side effect: every rule about rows is also
         true about columns. Two equal columns give zero, swapping columns flips the sign, and so on.
       </Para>
 
@@ -1042,12 +1065,12 @@ you will actually use:
   inverse: (
     <>
       <Para>
-        For ordinary numbers, dividing by 3 is the same as multiplying by ⅓, and 3 × ⅓ = 1. The{' '}
-        <strong>inverse</strong> of a matrix is the same idea. A⁻¹ is the matrix with{' '}
-        <span className="font-mono">A A⁻¹ = A⁻¹ A = I</span>. It is the undo button.
+        For ordinary numbers, dividing by 3 is the same as multiplying by ⅓, and 3 × ⅓ = 1. The <strong>inverse</strong>{' '}
+        of a matrix is the same idea. A⁻¹ is the matrix with <span className="font-mono">A A⁻¹ = A⁻¹ A = I</span>. It is
+        the undo button.
       </Para>
       <Para>
-        Two warnings up front. Only <strong>square</strong>{' '}matrices can have one. And even then, some do not — the ones
+        Two warnings up front. Only <strong>square</strong> matrices can have one. And even then, some do not — the ones
         with determinant zero. There is no matrix division; there is multiplying by the inverse, when the inverse
         exists.
       </Para>
@@ -1074,10 +1097,10 @@ you will actually use:
 
       <Para>
         Why does that work? Turning A into I means finding a sequence of moves that undoes A. Doing those exact same
-        moves to I keeps a record of them, and the record <em>is</em>{' '}the matrix that undoes A.
+        moves to I keeps a record of them, and the record <em>is</em> the matrix that undoes A.
       </Para>
       <Para>
-        Press <strong>One with no inverse</strong>{' '}to see the method fail properly. The left half cannot become the
+        Press <strong>One with no inverse</strong> to see the method fail properly. The left half cannot become the
         identity, because a whole row goes to zero. The method does not invent an answer — it tells you there is not
         one.
       </Para>
@@ -1100,9 +1123,8 @@ R1 ← R1 − 4R2     ⎡ 1  0 │  4/5  −3/5 ⎤     the right half
       </Worked>
 
       <Para>
-        One more rule, and it is the same shape as the transpose one:{' '}
-        <span className="font-mono">(AB)⁻¹ = B⁻¹A⁻¹</span>. Undoing two things done in order means undoing them in the
-        opposite order. Shoes off before socks.
+        One more rule, and it is the same shape as the transpose one: <span className="font-mono">(AB)⁻¹ = B⁻¹A⁻¹</span>
+        . Undoing two things done in order means undoing them in the opposite order. Shoes off before socks.
       </Para>
 
       <Terms
@@ -1127,8 +1149,8 @@ R1 ← R1 − 4R2     ⎡ 1  0 │  4/5  −3/5 ⎤     the right half
         ]}
       />
       <Takeaway>
-        A⁻¹ undoes A. For a 2 × 2, swap the diagonal, flip the other two, divide by ad − bc. At any size, row-reduce
-        [A | I] until the left half is I and read A⁻¹ off the right.
+        A⁻¹ undoes A. For a 2 × 2, swap the diagonal, flip the other two, divide by ad − bc. At any size, row-reduce [A
+        | I] until the left half is I and read A⁻¹ off the right.
       </Takeaway>
     </>
   ),
@@ -1152,9 +1174,9 @@ R1 ← R1 − 4R2     ⎡ 1  0 │  4/5  −3/5 ⎤     the right half
 
       <Para>
         A few things worth trying in it. Type <code>A * inv(A)</code> and watch the identity matrix appear. Type{' '}
-        <code>det(A*B)</code> and then <code>det(A)*det(B)</code>{' '}and check they match — that is rule 1 from part 14,
+        <code>det(A*B)</code> and then <code>det(A)*det(B)</code> and check they match — that is rule 1 from part 14,
         tested rather than believed. Define a matrix whose second row is double its first, then ask for{' '}
-        <code>rank</code> and <code>det</code>{' '}and see both report the collapse.
+        <code>rank</code> and <code>det</code> and see both report the collapse.
       </Para>
 
       <Worked title="The commands from slides 15 and 40">
@@ -1173,7 +1195,7 @@ issymmetric(A)         1 if A = Aᵀ, otherwise 0`}
       </Worked>
 
       <Para>
-        One difference from the real thing: this console keeps exact fractions, so <code>inv(A)</code>{' '}comes back with
+        One difference from the real thing: this console keeps exact fractions, so <code>inv(A)</code> comes back with
         entries like 2/3. Octave itself would print 0.6667. The fractions are here so you can check the arithmetic
         against your own working.
       </Para>
@@ -1203,7 +1225,7 @@ issymmetric(A)         1 if A = Aᵀ, otherwise 0`}
   systems: (
     <>
       <Para>
-        A <strong>linear system</strong>{' '}is a set of equations that all have to be true at the same time, where every
+        A <strong>linear system</strong> is a set of equations that all have to be true at the same time, where every
         unknown appears on its own with just a plain number in front of it. No squares, no roots, no two unknowns
         multiplied together. That restriction is what &ldquo;linear&rdquo; means, and it is the reason all of this
         machinery works.
@@ -1223,11 +1245,11 @@ issymmetric(A)         1 if A = Aᵀ, otherwise 0`}
       </Lab>
 
       <Para>
-        Press <strong>Set both to zero</strong>{' '}and watch what happens to the picture. Both lines slide onto the origin.
+        Press <strong>Set both to zero</strong> and watch what happens to the picture. Both lines slide onto the origin.
         They have to — a line whose right-hand side is 0 passes through the point where every unknown is 0.
       </Para>
       <Para>
-        That is the one useful thing about homogeneous systems: they can <em>never</em>{' '}have no answer. Setting every
+        That is the one useful thing about homogeneous systems: they can <em>never</em> have no answer. Setting every
         unknown to zero always works. The lecture calls that the <strong>trivial solution</strong>, and the only real
         question left is whether there are any others.
       </Para>
@@ -1258,8 +1280,15 @@ any bⱼ ≠ 0     →  non-homogeneous`}
             def: 'Every unknown appears once, on its own, with a plain number in front. First power only.',
           },
           { term: 'coefficient', def: 'The number sitting in front of an unknown.' },
-          { term: 'homogeneous', say: 'ho-mo-JEE-nee-us', def: 'Every right-hand side is 0. Always has at least the all-zeros answer.' },
-          { term: 'trivial solution', def: 'Every unknown set to 0. Always works for a homogeneous system, and tells you nothing.' },
+          {
+            term: 'homogeneous',
+            say: 'ho-mo-JEE-nee-us',
+            def: 'Every right-hand side is 0. Always has at least the all-zeros answer.',
+          },
+          {
+            term: 'trivial solution',
+            def: 'Every unknown set to 0. Always works for a homogeneous system, and tells you nothing.',
+          },
           {
             term: 'coefficient matrix',
             def: 'A on its own, without the right-hand side. Its rank is one of the two you compare in part 19.',
@@ -1300,7 +1329,7 @@ any bⱼ ≠ 0     →  non-homogeneous`}
       </Para>
       <Para>
         The lab has a fourth house in it as well, which the slide does not. That is deliberate. With three houses and
-        three unknowns there is <em>always</em>{' '}exactly one answer, whatever prices you type — the coefficient matrix
+        three unknowns there is <em>always</em> exactly one answer, whatever prices you type — the coefficient matrix
         cannot go singular. It takes a fourth row before the data can disagree with itself, and disagreeing is what real
         data does.
       </Para>
@@ -1311,7 +1340,7 @@ any bⱼ ≠ 0     →  non-homogeneous`}
       </Para>
       <Para>
         Now break it, as the lab suggests. Change one price so the three houses contradict each other and there is
-        suddenly no exact answer at all. Real data is <em>always</em>{' '}like that: thousands of equations, a handful of
+        suddenly no exact answer at all. Real data is <em>always</em> like that: thousands of equations, a handful of
         unknowns, and no way to satisfy them all. What people do instead is find the weights that come closest, and that
         is linear regression.
       </Para>
@@ -1342,7 +1371,10 @@ answer:  w₁ = 3,  w₂ = 2,  b = 1`}
           { term: 'model', def: 'The shape you assume the answer has, with unknown numbers in it.' },
           { term: 'weight', def: 'One of those unknown numbers. It says how much one input pulls on the output.' },
           { term: 'bias', def: 'The b — the base amount that is there before any input contributes anything.' },
-          { term: 'fitting', def: 'Working out the weights from data. For a small exact system, that is just solving it.' },
+          {
+            term: 'fitting',
+            def: 'Working out the weights from data. For a small exact system, that is just solving it.',
+          },
           {
             term: 'overdetermined',
             def: 'More equations than unknowns. Usually means no exact answer, which is where regression comes in.',
@@ -1376,14 +1408,14 @@ answer:  w₁ = 3,  w₂ = 2,  b = 1`}
       <List
         items={[
           <>
-            <strong>No answer.</strong>{' '}Adding the first two equations gives 2x₁ + 3x₃ = 5, but the third insists it is
+            <strong>No answer.</strong> Adding the first two equations gives 2x₁ + 3x₃ = 5, but the third insists it is
             1. Tidy the matrix and a row appears reading 0 = −4. Nothing can make that true.
           </>,
           <>
-            <strong>Exactly one.</strong>{' '}The three equations pin down all three unknowns: x₁ = x₂ = x₃ = 1.
+            <strong>Exactly one.</strong> The three equations pin down all three unknowns: x₁ = x₂ = x₃ = 1.
           </>,
           <>
-            <strong>Endlessly many.</strong>{' '}Now the third equation says 2x₁ + 3x₃ = 5, which is precisely what the
+            <strong>Endlessly many.</strong> Now the third equation says 2x₁ + 3x₃ = 5, which is precisely what the
             first two already implied. It repeats them. A row goes to zero, one unknown is left free, and every choice
             of it gives another valid answer.
           </>,
@@ -1397,20 +1429,18 @@ answer:  w₁ = 3,  w₂ = 2,  b = 1`}
       <List
         items={[
           <>
-            The ranks <strong>differ</strong>{' '}→ no answer. (The extra column added information the coefficients could
+            The ranks <strong>differ</strong> → no answer. (The extra column added information the coefficients could
             not account for — that is a contradiction row.)
           </>,
           <>
-            The ranks <strong>match</strong>{' '}and no unknown is free → exactly one answer.
+            The ranks <strong>match</strong> and no unknown is free → exactly one answer.
           </>,
           <>
-            The ranks <strong>match</strong>{' '}and at least one unknown is free → endlessly many.
+            The ranks <strong>match</strong> and at least one unknown is free → endlessly many.
           </>,
         ]}
       />
-      <Para>
-        The number of free unknowns is simply (how many unknowns) − (the rank). Nothing more to work out.
-      </Para>
+      <Para>The number of free unknowns is simply (how many unknowns) − (the rank). Nothing more to work out.</Para>
 
       <Para>
         For the endless case, the lab gives you the answer as a starting point plus a direction, with a dial to move
@@ -1485,7 +1515,7 @@ let x₂ = t:      x₃ = 2t − 1
         impossible. At a = −1 it says 0 = 0, which is harmless, and the system suddenly has answers.
       </Para>
       <Para>
-        Not one answer, though. Five unknowns and rank 3 leaves <strong>two</strong>{' '}free, so there are two dials to
+        Not one answer, though. Five unknowns and rank 3 leaves <strong>two</strong> free, so there are two dials to
         turn. The lab gives you both, and checks all four of the original equations every time you move one. They stay
         green whatever you pick — which is what &ldquo;endlessly many&rdquo; actually looks like.
       </Para>
@@ -1617,8 +1647,7 @@ twice column 1 — it was never adding anything.`}
       </Worked>
 
       <Para>
-        Load this one straight into the <strong>Practice Q2</strong>{' '}preset in part 10 and step through it move by
-        move.
+        Load this one straight into the <strong>Practice Q2</strong> preset in part 10 and step through it move by move.
       </Para>
 
       <Worked title="Q3 — det(B·C·D) where det A = 3">
@@ -1648,7 +1677,7 @@ Check the third equation: −4 + 3 − 2 = −3  ✓`}
       </Worked>
 
       <Para>
-        Part 15 has this matrix loaded as <strong>Practice Q4</strong>{' '}— run [A | I] through to the end and you get A⁻¹
+        Part 15 has this matrix loaded as <strong>Practice Q4</strong> — run [A | I] through to the end and you get A⁻¹
         itself.
       </Para>
 
@@ -1780,7 +1809,7 @@ RREF = ⎢ 0  1  2 ⎥        rank A = 2
       </Worked>
 
       <Para>
-        <strong>Q10(ii) asks for the number of operations, and this page does not answer it.</strong>{' '}The number depends
+        <strong>Q10(ii) asks for the number of operations, and this page does not answer it.</strong> The number depends
         entirely on a convention the sheet never states: does clearing a column count, when you already know it goes to
         zero? Is a multiply-and-add one operation or two? Do you count the row you scale to make a leading 1? Each
         reasonable reading gives a different total, and there is no answer key to say which was wanted.

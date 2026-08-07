@@ -105,10 +105,7 @@ export function NumBox({
                 onMouseEnter={() => onHover?.({ i, j })}
                 onMouseLeave={() => onHover?.(null)}
                 style={style}
-                className={clsx(
-                  'rounded px-2 py-1.5 text-right font-mono text-[13px] tabular-nums',
-                  on && 'font-bold'
-                )}
+                className={clsx('rounded px-2 py-1.5 text-right font-mono text-[13px] tabular-nums', on && 'font-bold')}
               >
                 {v}
               </span>
@@ -165,21 +162,18 @@ export function Verdict({ ok, children }: { ok: boolean; children: React.ReactNo
   )
 }
 
-export function Chip({
-  on,
-  label,
-  onClick,
-}: {
-  on: boolean
-  label: React.ReactNode
-  onClick?: () => void
-}) {
+export function Chip({ on, label, onClick }: { on: boolean; label: React.ReactNode; onClick?: () => void }) {
   const cls = 'rounded-md border px-2.5 py-1.5 text-[12.5px] font-semibold'
   const style = on
     ? { borderColor: 'var(--acc)', background: 'var(--acc-12)', color: 'var(--acc)' }
     : { borderColor: 'rgba(9,9,11,0.12)', background: '#fff', color: '#71717a' }
   return onClick ? (
-    <button type="button" onClick={onClick} className={clsx(cls, 'cursor-pointer hover:bg-zinc-950/[0.04]')} style={style}>
+    <button
+      type="button"
+      onClick={onClick}
+      className={clsx(cls, 'cursor-pointer hover:bg-zinc-950/[0.04]')}
+      style={style}
+    >
       {label}
     </button>
   ) : (

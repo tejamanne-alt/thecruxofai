@@ -1,8 +1,20 @@
 'use client'
 
+import {
+  Btn,
+  Chip,
+  FrBox,
+  LabBox,
+  LabNote,
+  NumBox,
+  Presets,
+  Sign,
+  Titled,
+  Verdict,
+  type Cell,
+} from '@/components/charts/matrix-ui'
 import { RangeInput } from '@/components/sessions/session-parts'
-import { Btn, Chip, FrBox, LabBox, LabNote, NumBox, Presets, Sign, Titled, Verdict, type Cell } from '@/components/charts/matrix-ui'
-import { frStr } from '@/lib/model/fraction'
+import { fr, frStr, type Fr } from '@/lib/model/fraction'
 import {
   addM,
   cloneM,
@@ -18,12 +30,12 @@ import {
   transposeM,
   type FMat,
 } from '@/lib/model/matrix'
-import { fr, type Fr } from '@/lib/model/fraction'
 import { useState } from 'react'
 
 type Grid = number[][]
 
-const edit = (g: Grid, i: number, j: number, v: number) => g.map((r, ri) => r.map((x, ci) => (ri === i && ci === j ? v : x)))
+const edit = (g: Grid, i: number, j: number, v: number) =>
+  g.map((r, ri) => r.map((x, ci) => (ri === i && ci === j ? v : x)))
 
 /** A proper minus sign, so a working-out line does not read "+ -1". */
 const neat = (v: Fr) => frStr(v).replace('-', '−')
@@ -137,9 +149,7 @@ export function MatrixAnatomyLab() {
             <Btn onClick={() => setB(resize(b, 3, 2))}>Change B&rsquo;s shape</Btn>
             <Btn
               onClick={() =>
-                setB(
-                  a.map((r) => [...r]).map((r, i) => r.map((v, j) => (i === 0 && j === 0 ? v + 1 : v)))
-                )
+                setB(a.map((r) => [...r]).map((r, i) => r.map((v, j) => (i === 0 && j === 0 ? v + 1 : v))))
               }
             >
               Change one number
@@ -251,7 +261,12 @@ export function MatrixLawsLab() {
       </LabNote>
 
       <label className="flex w-fit cursor-pointer items-center gap-2 text-[12.5px] text-zinc-700">
-        <input type="checkbox" checked={wrong} onChange={(e) => setWrong(e.target.checked)} className="cursor-pointer" />
+        <input
+          type="checkbox"
+          checked={wrong}
+          onChange={(e) => setWrong(e.target.checked)}
+          className="cursor-pointer"
+        />
         Give B the wrong shape and see what breaks
       </label>
 
@@ -311,9 +326,13 @@ export function MatrixLawsLab() {
         )}
 
         <div className="mt-3 flex flex-wrap items-start gap-4">
-          <Titled title="Left-hand side">{left ? <FrBox m={left} /> : <span className="text-[13px] text-red-600">not defined</span>}</Titled>
+          <Titled title="Left-hand side">
+            {left ? <FrBox m={left} /> : <span className="text-[13px] text-red-600">not defined</span>}
+          </Titled>
           <Sign>vs</Sign>
-          <Titled title="Right-hand side">{right ? <FrBox m={right} /> : <span className="text-[13px] text-red-600">not defined</span>}</Titled>
+          <Titled title="Right-hand side">
+            {right ? <FrBox m={right} /> : <span className="text-[13px] text-red-600">not defined</span>}
+          </Titled>
         </div>
         <div className="mt-3">
           <Verdict ok={holds}>
@@ -396,7 +415,15 @@ export function MultiplyLab() {
 
   return (
     <LabBox>
-      <Presets items={SURPRISES.map((x) => ({ id: x.id, label: x.label }))} at={pick} onPick={(id) => { setPick(id); setSwapped(false); setAt({ i: 0, j: 0 }) }} />
+      <Presets
+        items={SURPRISES.map((x) => ({ id: x.id, label: x.label }))}
+        at={pick}
+        onPick={(id) => {
+          setPick(id)
+          setSwapped(false)
+          setAt({ i: 0, j: 0 })
+        }}
+      />
 
       <div className="flex flex-wrap items-center gap-2 text-[13px]">
         <span className="rounded-md bg-zinc-100 px-2 py-1 font-mono">
@@ -407,9 +434,7 @@ export function MultiplyLab() {
           <strong style={{ color: defined ? '#0d9488' : '#dc2626' }}>{nrows(R)}</strong> × {ncols(R)}
         </span>
         <span className="text-zinc-400">→</span>
-        <span className="font-mono font-semibold">
-          {defined ? `${nrows(L)} × ${ncols(R)}` : 'not defined'}
-        </span>
+        <span className="font-mono font-semibold">{defined ? `${nrows(L)} × ${ncols(R)}` : 'not defined'}</span>
         <span className="text-zinc-600">
           {defined
             ? '— the two middle numbers match, so it works. The outer two give the answer’s shape.'
@@ -437,7 +462,11 @@ export function MultiplyLab() {
                       type="button"
                       onClick={() => setAt({ i, j })}
                       className="w-[48px] cursor-pointer rounded px-2 py-1.5 text-right font-mono text-[13px] tabular-nums hover:bg-zinc-950/[0.05]"
-                      style={spot.i === i && spot.j === j ? { background: 'var(--acc)', color: '#fff', fontWeight: 700 } : undefined}
+                      style={
+                        spot.i === i && spot.j === j
+                          ? { background: 'var(--acc)', color: '#fff', fontWeight: 700 }
+                          : undefined
+                      }
                     >
                       {frStr(v)}
                     </button>
@@ -469,8 +498,12 @@ export function MultiplyLab() {
                 {bracket(p.left)}×{bracket(p.right)}
               </span>
             ))}{' '}
-            = {detail.pairs.map((p) => neat(p.prod)).join(' + ').replace(/\+ −/g, '−')} ={' '}
-            <strong>{frStr(detail.total)}</strong>
+            ={' '}
+            {detail.pairs
+              .map((p) => neat(p.prod))
+              .join(' + ')
+              .replace(/\+ −/g, '−')}{' '}
+            = <strong>{frStr(detail.total)}</strong>
           </div>
           <p className="mt-2 text-[13px]/[1.6] text-zinc-600">
             Walk along row {spot.i + 1} of the left box and down column {spot.j + 1} of the right one, multiplying each
@@ -480,7 +513,12 @@ export function MultiplyLab() {
       )}
 
       <div className="flex flex-wrap gap-2">
-        <Btn onClick={() => { setSwapped(!swapped); setAt({ i: 0, j: 0 }) }}>
+        <Btn
+          onClick={() => {
+            setSwapped(!swapped)
+            setAt({ i: 0, j: 0 })
+          }}
+        >
           {swapped ? 'Put them back' : 'Swap the order'}
         </Btn>
       </div>
@@ -554,14 +592,22 @@ export function TransposeRulesLab() {
           </Titled>
         </div>
         <div className="flex flex-wrap items-start gap-4">
-          <Titled title="(AB)ᵀ">{ABt ? <FrBox m={ABt} /> : <span className="text-[13px] text-red-600">not defined</span>}</Titled>
+          <Titled title="(AB)ᵀ">
+            {ABt ? <FrBox m={ABt} /> : <span className="text-[13px] text-red-600">not defined</span>}
+          </Titled>
           <Sign>vs</Sign>
           <Titled title="BᵀAᵀ" note="reversed">
             {BtAt ? <FrBox m={BtAt} tone="#0d9488" /> : <span className="text-[13px] text-red-600">not defined</span>}
           </Titled>
           <Sign>vs</Sign>
           <Titled title="AᵀBᵀ" note="same order">
-            {AtBt ? <FrBox m={AtBt} /> : <div className="rounded-lg border-2 border-dashed border-red-300 px-4 py-4 text-[12.5px] text-red-600">not defined</div>}
+            {AtBt ? (
+              <FrBox m={AtBt} />
+            ) : (
+              <div className="rounded-lg border-2 border-dashed border-red-300 px-4 py-4 text-[12.5px] text-red-600">
+                not defined
+              </div>
+            )}
           </Titled>
         </div>
         <div className="mt-3">
@@ -584,13 +630,69 @@ export function TransposeRulesLab() {
 /* ========================================================================== */
 
 const SPECIALS: Array<{ id: string; label: string; m: Grid }> = [
-  { id: 'sym', label: 'Symmetric', m: [[20, 120, 200], [120, 10, 150], [200, 150, 30]] },
-  { id: 'skew', label: 'Skew-symmetric', m: [[0, 1, -3], [-1, 0, -2], [3, 2, 0]] },
-  { id: 'upper', label: 'Upper triangular', m: [[1, 4, 2], [0, 3, 5], [0, 0, 6]] },
-  { id: 'lower', label: 'Lower triangular', m: [[1, 0, 0], [9, 3, 0], [2, 5, 6]] },
-  { id: 'diag', label: 'Diagonal', m: [[2, 0, 0], [0, -5, 0], [0, 0, 3]] },
-  { id: 'ident', label: 'Identity', m: [[1, 0, 0], [0, 1, 0], [0, 0, 1]] },
-  { id: 'sparse', label: 'Sparse', m: [[0, 0, 7], [0, 0, 0], [0, 4, 0]] },
+  {
+    id: 'sym',
+    label: 'Symmetric',
+    m: [
+      [20, 120, 200],
+      [120, 10, 150],
+      [200, 150, 30],
+    ],
+  },
+  {
+    id: 'skew',
+    label: 'Skew-symmetric',
+    m: [
+      [0, 1, -3],
+      [-1, 0, -2],
+      [3, 2, 0],
+    ],
+  },
+  {
+    id: 'upper',
+    label: 'Upper triangular',
+    m: [
+      [1, 4, 2],
+      [0, 3, 5],
+      [0, 0, 6],
+    ],
+  },
+  {
+    id: 'lower',
+    label: 'Lower triangular',
+    m: [
+      [1, 0, 0],
+      [9, 3, 0],
+      [2, 5, 6],
+    ],
+  },
+  {
+    id: 'diag',
+    label: 'Diagonal',
+    m: [
+      [2, 0, 0],
+      [0, -5, 0],
+      [0, 0, 3],
+    ],
+  },
+  {
+    id: 'ident',
+    label: 'Identity',
+    m: [
+      [1, 0, 0],
+      [0, 1, 0],
+      [0, 0, 1],
+    ],
+  },
+  {
+    id: 'sparse',
+    label: 'Sparse',
+    m: [
+      [0, 0, 7],
+      [0, 0, 0],
+      [0, 4, 0],
+    ],
+  },
 ]
 
 export function SpecialMatrixLab() {
@@ -612,11 +714,19 @@ export function SpecialMatrixLab() {
 
   const badges: Array<{ label: string; on: boolean; why: string }> = [
     { label: 'Symmetric', on: symmetric, why: 'A = Aᵀ — the numbers are mirrored across the diagonal.' },
-    { label: 'Skew-symmetric', on: skew, why: 'A = −Aᵀ — mirrored but with the sign flipped, so the diagonal must be all zeros.' },
+    {
+      label: 'Skew-symmetric',
+      on: skew,
+      why: 'A = −Aᵀ — mirrored but with the sign flipped, so the diagonal must be all zeros.',
+    },
     { label: 'Upper triangular', on: upper, why: 'Everything below the diagonal is zero.' },
     { label: 'Lower triangular', on: lower, why: 'Everything above the diagonal is zero.' },
     { label: 'Diagonal', on: diagonal, why: 'Only the diagonal is allowed to be non-zero. Both triangular at once.' },
-    { label: 'Identity', on: identity, why: 'Diagonal, and every diagonal entry is 1. Multiplying by it changes nothing.' },
+    {
+      label: 'Identity',
+      on: identity,
+      why: 'Diagonal, and every diagonal entry is 1. Multiplying by it changes nothing.',
+    },
     { label: 'Sparse', on: sparse, why: `More than half the entries are zero — ${zeros} out of ${n * n} here.` },
   ]
 
@@ -678,7 +788,7 @@ export function SpecialMatrixLab() {
       </div>
 
       <LabNote>
-        Try this: press <strong>Skew-symmetric</strong>{' '}and then change a number on the diagonal to anything other than
+        Try this: press <strong>Skew-symmetric</strong> and then change a number on the diagonal to anything other than
         0. The badge goes out. A skew-symmetric matrix has to satisfy a<sub>ii</sub> = −a<sub>ii</sub>, and zero is the
         only number that can do that.
       </LabNote>

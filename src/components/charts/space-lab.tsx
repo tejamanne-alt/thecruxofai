@@ -2,7 +2,7 @@
 
 import { ChartCanvas } from '@/components/charts/chart-canvas'
 import { Btn, Chip, FrBox, LabBox, LabNote, NumBox, Presets, Titled, Verdict } from '@/components/charts/matrix-ui'
-import { PanelNote, RangeInput, ReadOutGrid } from '@/components/sessions/session-parts'
+import { RangeInput, ReadOutGrid } from '@/components/sessions/session-parts'
 import { accentColour, arrow, clamp, drawPlane, grip, type Frame } from '@/lib/chart/frame'
 import { fr, frStr } from '@/lib/model/fraction'
 import { addM, eqM, scaleM, toFr } from '@/lib/model/matrix'
@@ -185,7 +185,10 @@ const STRUCTURES: Structure[] = [
     closure: { ok: true, why: 'Add two counting numbers and you get a counting number.' },
     assoc: { ok: true, why: 'Addition does not care about brackets.' },
     identity: { ok: true, why: '0 is there, and n + 0 = n.' },
-    inverse: { ok: false, why: 'What do you add to 3 to get 0? It would be −3, and −3 is not in the set. So this is not a group.' },
+    inverse: {
+      ok: false,
+      why: 'What do you add to 3 to get 0? It would be −3, and −3 is not in the set. So this is not a group.',
+    },
     abelian: { ok: false, why: 'The question does not arise — it is not a group in the first place.' },
   },
   {
@@ -196,7 +199,10 @@ const STRUCTURES: Structure[] = [
     closure: { ok: true, why: 'A whole number times a whole number is a whole number.' },
     assoc: { ok: true, why: '(2 · 3) · 4 and 2 · (3 · 4) both give 24.' },
     identity: { ok: true, why: '1 is the do-nothing element: n · 1 = n.' },
-    inverse: { ok: false, why: 'What do you multiply 3 by to get 1? It would be 1/3, which is not a whole number. Only 1 and −1 have inverses here.' },
+    inverse: {
+      ok: false,
+      why: 'What do you multiply 3 by to get 1? It would be 1/3, which is not a whole number. Only 1 and −1 have inverses here.',
+    },
     abelian: { ok: false, why: 'Multiplication does commute, but there is no group to be Abelian.' },
   },
   {
@@ -207,7 +213,10 @@ const STRUCTURES: Structure[] = [
     closure: { ok: true, why: 'A fraction times a fraction is a fraction, and it is never 0 if neither was.' },
     assoc: { ok: true, why: 'Multiplication does not care about brackets.' },
     identity: { ok: true, why: '1 is the do-nothing element.' },
-    inverse: { ok: true, why: 'Every p/q has q/p, and their product is 1. Leaving 0 out is exactly what makes this work.' },
+    inverse: {
+      ok: true,
+      why: 'Every p/q has q/p, and their product is 1. Leaving 0 out is exactly what makes this work.',
+    },
     abelian: { ok: true, why: '(2/3)(5/7) and (5/7)(2/3) agree, so it is an Abelian group.' },
   },
   {
@@ -218,7 +227,10 @@ const STRUCTURES: Structure[] = [
     closure: { ok: true, why: 'A 2 × 2 times a 2 × 2 is a 2 × 2.' },
     assoc: { ok: true, why: 'Matrix multiplication is associative, even though it is not commutative.' },
     identity: { ok: true, why: 'The identity matrix I leaves everything alone.' },
-    inverse: { ok: false, why: 'A matrix with determinant 0 — [1 1; 1 1], say — has no inverse. So this is not a group.' },
+    inverse: {
+      ok: false,
+      why: 'A matrix with determinant 0 — [1 1; 1 1], say — has no inverse. So this is not a group.',
+    },
     abelian: { ok: false, why: 'AB and BA usually differ, so it would not be Abelian even if it were a group.' },
   },
 ]
@@ -285,9 +297,8 @@ export function GroupCheckLab() {
         same four promises turn up again on the next page, describing how vectors add.
       </LabNote>
       <LabNote>
-        Press through the five and notice which axiom does the failing. It is almost always the{' '}
-        <strong>inverse</strong>. Closure, associativity and an identity are cheap; being able to undo anything is the
-        demanding one.
+        Press through the five and notice which axiom does the failing. It is almost always the <strong>inverse</strong>
+        . Closure, associativity and an identity are cheap; being able to undo anything is the demanding one.
       </LabNote>
     </LabBox>
   )
@@ -351,21 +362,11 @@ export function VectorSpaceAxiomLab() {
 
       <div className="flex flex-wrap items-start gap-5">
         <Titled title="x">
-          <NumBox
-            m={x}
-            name="x"
-            width={54}
-            onEdit={(i, _j, v) => setX(x.map((r, ri) => (ri === i ? [v] : r)))}
-          />
+          <NumBox m={x} name="x" width={54} onEdit={(i, _j, v) => setX(x.map((r, ri) => (ri === i ? [v] : r)))} />
         </Titled>
         {needsY && (
           <Titled title="y">
-            <NumBox
-              m={y}
-              name="y"
-              width={54}
-              onEdit={(i, _j, v) => setY(y.map((r, ri) => (ri === i ? [v] : r)))}
-            />
+            <NumBox m={y} name="y" width={54} onEdit={(i, _j, v) => setY(y.map((r, ri) => (ri === i ? [v] : r)))} />
           </Titled>
         )}
         <div className="flex min-w-[190px] flex-col gap-3 pt-1">
@@ -399,7 +400,10 @@ export function VectorSpaceAxiomLab() {
       </div>
 
       <Verdict ok={holds}>
-        <strong>{meta.name}.</strong> {holds ? 'Both sides came out the same — and they will for any numbers you type, because underneath it is just ordinary arithmetic done one slot at a time.' : 'The two sides differ, which should not be possible here.'}
+        <strong>{meta.name}.</strong>{' '}
+        {holds
+          ? 'Both sides came out the same — and they will for any numbers you type, because underneath it is just ordinary arithmetic done one slot at a time.'
+          : 'The two sides differ, which should not be possible here.'}
       </Verdict>
 
       <LabNote>
@@ -521,8 +525,8 @@ export function WhatIsAVectorLab() {
       </LabNote>
       <LabNote>
         The polynomial case is worth a second look. 3x² + 2x + 1 does not look like an arrow, but it is completely
-        described by its three coefficients, and adding two polynomials adds those coefficients. It <em>is</em> a
-        column of three numbers, wearing different clothes.
+        described by its three coefficients, and adding two polynomials adds those coefficients. It <em>is</em> a column
+        of three numbers, wearing different clothes.
       </LabNote>
     </LabBox>
   )

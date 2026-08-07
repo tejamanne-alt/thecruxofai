@@ -83,7 +83,7 @@ export default async function CustomSessionPage({
         <div className="mt-7 rounded-lg border border-zinc-950 bg-zinc-950 p-5 text-zinc-50">
           <h3 className="mb-1 text-sm font-semibold">Symbols from this session</h3>
           <p className="mb-3.5 text-xs/[1.6] text-zinc-400">
-            Built from the <code className="font-mono">symbol = meaning</code>{' '}lines in the write-up form.
+            Built from the <code className="font-mono">symbol = meaning</code> lines in the write-up form.
           </p>
           <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-2">
             {legend.map((l, i) => (

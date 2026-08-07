@@ -1,7 +1,7 @@
 'use client'
 
 import { ChartCanvas } from '@/components/charts/chart-canvas'
-import { Btn, Chip, LabBox, LabNote, NumBox, Presets, Titled, Verdict } from '@/components/charts/matrix-ui'
+import { Btn, Chip, LabBox, LabNote, Presets, Titled, Verdict } from '@/components/charts/matrix-ui'
 import { PanelNote, RangeInput, ReadOutGrid } from '@/components/sessions/session-parts'
 import { accentColour, arrow, clamp, drawPlane, grip, type Frame } from '@/lib/chart/frame'
 import { useState } from 'react'
@@ -15,7 +15,15 @@ const dot = (a: { x: number; y: number }, b: { x: number; y: number }) => a.x * 
 const norm = (a: { x: number; y: number }) => Math.hypot(a.x, a.y)
 
 /** A right-angle tick, drawn where two segments meet at 90°. */
-function rightAngle(g: CanvasRenderingContext2D, cx: number, cy: number, ux: number, uy: number, vx: number, vy: number) {
+function rightAngle(
+  g: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  ux: number,
+  uy: number,
+  vx: number,
+  vy: number
+) {
   const s = 11
   g.strokeStyle = 'rgba(9,9,11,0.5)'
   g.lineWidth = 1.2
@@ -215,17 +223,16 @@ export function NormLab() {
             ]}
           />
           <PanelNote>
-            The norm is just the length of the arrow, and the formula √(a₁² + a₂²) is Pythagoras on the dashed
-            triangle. In more dimensions you cannot draw it, but you square, add and take the root exactly the same
-            way.
+            The norm is just the length of the arrow, and the formula √(a₁² + a₂²) is Pythagoras on the dashed triangle.
+            In more dimensions you cannot draw it, but you square, add and take the root exactly the same way.
           </PanelNote>
         </div>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
         <Verdict ok={cauchy}>
-          <strong>Cauchy&ndash;Schwarz:</strong> |a·b| ≤ ‖a‖‖b‖ — here {Math.abs(d).toFixed(3)} ≤{' '}
-          {(na * nb).toFixed(3)}. The two sides are only equal when the arrows lie along each other.
+          <strong>Cauchy&ndash;Schwarz:</strong> |a·b| ≤ ‖a‖‖b‖ — here {Math.abs(d).toFixed(3)} ≤ {(na * nb).toFixed(3)}
+          . The two sides are only equal when the arrows lie along each other.
         </Verdict>
         <Verdict ok={triangle}>
           <strong>Triangle:</strong> ‖a + b‖ ≤ ‖a‖ + ‖b‖ — here {nsum.toFixed(3)} ≤ {(na + nb).toFixed(3)}. Going
@@ -304,7 +311,7 @@ export function AngleLab() {
       const t2 = Math.atan2(-b.y, b.x)
       let lo = t1
       let hi = t2
-      if (((hi - lo + Math.PI * 4) % (Math.PI * 2)) > Math.PI) [lo, hi] = [t2, t1]
+      if ((hi - lo + Math.PI * 4) % (Math.PI * 2) > Math.PI) [lo, hi] = [t2, t1]
       g.beginPath()
       g.moveTo(O.px, O.py)
       g.arc(O.px, O.py, 44, lo, hi)
@@ -384,10 +391,10 @@ export function AngleLab() {
       </Verdict>
 
       <LabNote>
-        <strong>Orthogonal</strong>{' '}is the proper word for &ldquo;at right angles&rdquo;. The useful thing is that you
+        <strong>Orthogonal</strong> is the proper word for &ldquo;at right angles&rdquo;. The useful thing is that you
         never have to work out an angle to check it — just see whether the dot product is zero. That test costs a few
-        multiplications and works in a thousand dimensions, where the word &ldquo;angle&rdquo; stops being something
-        you can picture at all.
+        multiplications and works in a thousand dimensions, where the word &ldquo;angle&rdquo; stops being something you
+        can picture at all.
       </LabNote>
     </LabBox>
   )
@@ -515,7 +522,7 @@ check:  u · v₁ = ${nice(check)}   ${Math.abs(check) < 1e-9 ? '✓ right angle
       </div>
 
       <LabNote>
-        The <strong>projection</strong>{' '}of v₂ onto v₁ is the shadow v₂ casts on the line through v₁. Slide 19 gets the
+        The <strong>projection</strong> of v₂ onto v₁ is the shadow v₂ casts on the line through v₁. Slide 19 gets the
         formula by insisting on one thing: whatever is left over, u = v₂ − v, must be at right angles to v₁. Write that
         as u·v₁ = 0, rearrange, and the amount λ falls out. No guessing involved.
       </LabNote>
@@ -605,7 +612,7 @@ export function OrthogonalSolveLab() {
         </div>
         <div className="mt-3">
           <Verdict ok={false}>
-            a·b = −3, which is not zero, so they are <strong>not</strong>{' '}orthogonal. The angle comes out just over 90°
+            a·b = −3, which is not zero, so they are <strong>not</strong> orthogonal. The angle comes out just over 90°
             — which fits, because a negative dot product always means an obtuse angle.
           </Verdict>
         </div>

@@ -183,7 +183,7 @@ export function EliminationLab() {
             </table>
             <p className="mt-2.5 text-[11.5px]/[1.6] text-zinc-500">
               The bar separates the numbers in front of the variables from the answers on the right. A highlighted
-              number is a <strong>pivot</strong>{' '}— the first number in its row that is not zero.
+              number is a <strong>pivot</strong> — the first number in its row that is not zero.
             </p>
           </div>
 

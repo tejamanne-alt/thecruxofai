@@ -1,7 +1,7 @@
 'use client'
 
 import { ChartCanvas } from '@/components/charts/chart-canvas'
-import { Btn, Chip, FrBox, LabBox, LabNote, NumBox, Presets, Titled, Verdict } from '@/components/charts/matrix-ui'
+import { Btn, Chip, FrBox, LabBox, LabNote, Presets, Titled, Verdict } from '@/components/charts/matrix-ui'
 import { PanelNote, ReadOutGrid, Slider } from '@/components/sessions/session-parts'
 import { accentColour, clamp, dot, drawPlane, grip, type Frame } from '@/lib/chart/frame'
 import { fr, frAdd, frMul, frStr, type Fr } from '@/lib/model/fraction'
@@ -123,7 +123,12 @@ export function HomogeneousLab() {
             Set both to zero
           </Btn>
           <label className="flex cursor-pointer items-center gap-2 text-[12.5px] text-zinc-700">
-            <input type="checkbox" checked={same} onChange={(e) => setSame(e.target.checked)} className="cursor-pointer" />
+            <input
+              type="checkbox"
+              checked={same}
+              onChange={(e) => setSame(e.target.checked)}
+              className="cursor-pointer"
+            />
             Make line 2 just double line 1
           </label>
           <ReadOutGrid
@@ -151,7 +156,9 @@ export function HomogeneousLab() {
               : 'Here it is the only one, because the two lines cross at exactly one place.'}
           </>
         ) : sol.kind === 'none' ? (
-          <>Two parallel lines that never meet, so no answer at all. That cannot happen once the right sides are zero.</>
+          <>
+            Two parallel lines that never meet, so no answer at all. That cannot happen once the right sides are zero.
+          </>
         ) : sol.kind === 'many' ? (
           <>The two lines lie on top of each other, so every point on the line is an answer.</>
         ) : (
@@ -163,8 +170,8 @@ export function HomogeneousLab() {
       </Verdict>
 
       <LabNote>
-        <strong>Homogeneous</strong>{' '}just means every right-hand side is 0. Written as Ax = 0. The useful thing about it
-        is that it can never have <em>no</em>{' '}answer: putting every unknown to zero always works. So the only question
+        <strong>Homogeneous</strong> just means every right-hand side is 0. Written as Ax = 0. The useful thing about it
+        is that it can never have <em>no</em> answer: putting every unknown to zero always works. So the only question
         left is whether there are others, and that comes down to rank.
       </LabNote>
     </LabBox>
@@ -316,13 +323,13 @@ export function HousePriceLab() {
       </LabNote>
       <LabNote>
         Now break it. Change the fourth price from 11 to 12 and the houses start contradicting each other — no rule of
-        this shape fits all four exactly. Notice you needed a <em>fourth</em>{' '}house to do that: with three houses and
+        this shape fits all four exactly. Notice you needed a <em>fourth</em> house to do that: with three houses and
         three unknowns there is always exactly one answer, whatever prices you type.
       </LabNote>
       <LabNote>
         Real datasets are all like that fourth row, thousands of times over: far more equations than unknowns, and no
         way to satisfy them all. So people stop demanding an exact fit and look for the weights that come{' '}
-        <em>closest</em>{' '}instead. That is linear regression, and this is the problem it exists to solve.
+        <em>closest</em> instead. That is linear regression, and this is the problem it exists to solve.
       </LabNote>
     </LabBox>
   )
@@ -417,7 +424,10 @@ export function OutcomesLab() {
 
       <div className="flex flex-wrap gap-2">
         <Chip on={sol.rankA < sol.rankAug} label="rank A < rank [A|b] → no answer" />
-        <Chip on={sol.rankA === sol.rankAug && sol.freeCols.length === 0} label="ranks match, nothing free → one answer" />
+        <Chip
+          on={sol.rankA === sol.rankAug && sol.freeCols.length === 0}
+          label="ranks match, nothing free → one answer"
+        />
         <Chip on={sol.rankA === sol.rankAug && sol.freeCols.length > 0} label="ranks match, something free → endless" />
       </div>
 
@@ -571,8 +581,26 @@ export function ParameterLab() {
             (x₁, x₂, x₃, x₄, x₅) = (2 + 2s + 2t, s, −1 − t, 1 + 2t, t)
           </div>
           <div className="mt-3 grid gap-4 sm:grid-cols-2">
-            <Slider label="s (this is x₂)" value={s} display={String(s)} min={-3} max={3} step={1} hint="pick anything" onChange={setS} />
-            <Slider label="t (this is x₅)" value={tt} display={String(tt)} min={-3} max={3} step={1} hint="pick anything" onChange={setTt} />
+            <Slider
+              label="s (this is x₂)"
+              value={s}
+              display={String(s)}
+              min={-3}
+              max={3}
+              step={1}
+              hint="pick anything"
+              onChange={setS}
+            />
+            <Slider
+              label="t (this is x₅)"
+              value={tt}
+              display={String(tt)}
+              min={-3}
+              max={3}
+              step={1}
+              hint="pick anything"
+              onChange={setTt}
+            />
           </div>
           <div className="mt-3 flex flex-wrap items-start gap-6">
             <div className="font-mono text-[13px]/[1.9] text-zinc-800">
@@ -601,8 +629,8 @@ export function ParameterLab() {
       )}
 
       <LabNote>
-        The unknowns split into two kinds. <strong>Pivot</strong>{' '}unknowns — x₁, x₃ and x₄ here — are forced once you
-        have chosen the others. <strong>Free</strong>{' '}unknowns — x₂ and x₅ — are yours to pick. The count of free ones
+        The unknowns split into two kinds. <strong>Pivot</strong> unknowns — x₁, x₃ and x₄ here — are forced once you
+        have chosen the others. <strong>Free</strong> unknowns — x₂ and x₅ — are yours to pick. The count of free ones
         is just (number of unknowns) − (rank), which is why rank is worth working out.
       </LabNote>
     </LabBox>
@@ -668,7 +696,7 @@ export function ParameterKLab() {
         }}
       />
       <LabNote>
-        <strong>{q.ask}</strong>{' '}Drag k across its whole range and watch the two ranks. The interesting value is
+        <strong>{q.ask}</strong> Drag k across its whole range and watch the two ranks. The interesting value is
         wherever they stop agreeing — or start.
       </LabNote>
 
@@ -716,7 +744,8 @@ export function ParameterKLab() {
       {sol.kind === 'one' && (
         <LabNote>
           The one answer right now is {sol.particular.map((v, i) => `${['x', 'y', 'z'][i]} = ${frStr(v)}`).join(', ')}.
-          {pick === 'q1' && ' Notice it does not move as you change k — the letter only decides whether an answer exists, not what it is.'}
+          {pick === 'q1' &&
+            ' Notice it does not move as you change k — the letter only decides whether an answer exists, not what it is.'}
         </LabNote>
       )}
     </LabBox>

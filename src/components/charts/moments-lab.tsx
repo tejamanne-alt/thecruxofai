@@ -119,7 +119,7 @@ export function ExpectationLab() {
       </div>
 
       <LabNote>
-        <strong>Expectation</strong>{' '}is the average you would settle towards if you ran the experiment forever. Each
+        <strong>Expectation</strong> is the average you would settle towards if you ran the experiment forever. Each
         value is weighted by how likely it is, which is exactly what Σ x p(x) says. For a continuous variable the sum
         becomes an integral, ∫ x f(x) dx, but the idea does not change.
       </LabNote>
@@ -243,14 +243,14 @@ x̄  = ${xs.join(' + ')} over ${xs.length} = ${m.toFixed(3)}
 
       <LabNote>
         Careful with the divisor. This lecture divides by <strong>n</strong>, because it is describing the whole
-        collection you have. When you are treating your numbers as a <em>sample</em>{' '}from something bigger — which is
+        collection you have. When you are treating your numbers as a <em>sample</em> from something bigger — which is
         what the Statistics course does — you divide by n − 1 instead, and the answer comes out slightly larger. Both
         are correct; they answer different questions.
       </LabNote>
       <LabNote>
-        The <strong>standard deviation</strong>{' '}is the square root of the variance, and the reason to bother taking
-        that root is units. If your data is in metres, the variance is in square metres, which means nothing. The
-        standard deviation is back in metres.
+        The <strong>standard deviation</strong> is the square root of the variance, and the reason to bother taking that
+        root is units. If your data is in metres, the variance is in square metres, which means nothing. The standard
+        deviation is back in metres.
       </LabNote>
     </LabBox>
   )
@@ -261,9 +261,36 @@ x̄  = ${xs.join(' + ')} over ${xs.length} = ${m.toFixed(3)}
 /* ========================================================================== */
 
 const COV_PRESETS = [
-  { id: 'slide', label: 'Slide 35 — a perfect line', pts: [{ x: 1, y: 2 }, { x: 2, y: 4 }, { x: 3, y: 6 }, { x: 4, y: 8 }] },
-  { id: 'down', label: 'Going the other way', pts: [{ x: 1, y: 8 }, { x: 2, y: 6 }, { x: 3, y: 4 }, { x: 4, y: 2 }] },
-  { id: 'none', label: 'No pattern at all', pts: [{ x: 1, y: 5 }, { x: 2, y: 2 }, { x: 3, y: 8 }, { x: 4, y: 5 }] },
+  {
+    id: 'slide',
+    label: 'Slide 35 — a perfect line',
+    pts: [
+      { x: 1, y: 2 },
+      { x: 2, y: 4 },
+      { x: 3, y: 6 },
+      { x: 4, y: 8 },
+    ],
+  },
+  {
+    id: 'down',
+    label: 'Going the other way',
+    pts: [
+      { x: 1, y: 8 },
+      { x: 2, y: 6 },
+      { x: 3, y: 4 },
+      { x: 4, y: 2 },
+    ],
+  },
+  {
+    id: 'none',
+    label: 'No pattern at all',
+    pts: [
+      { x: 1, y: 5 },
+      { x: 2, y: 2 },
+      { x: 3, y: 8 },
+      { x: 4, y: 5 },
+    ],
+  },
 ] as const
 type CovId = (typeof COV_PRESETS)[number]['id']
 
@@ -381,7 +408,10 @@ ${pts
   .join('\n')}
 
 x̄ = ${mx.toFixed(2)},  ȳ = ${my.toFixed(2)}
-cov(X, Y) = (${terms.map((t) => t.prod.toFixed(2)).join(' + ').replace(/\+ -/g, '− ')}) / ${pts.length} = ${cov.toFixed(3)}`}
+cov(X, Y) = (${terms
+            .map((t) => t.prod.toFixed(2))
+            .join(' + ')
+            .replace(/\+ -/g, '− ')}) / ${pts.length} = ${cov.toFixed(3)}`}
         </div>
       </div>
 
@@ -393,7 +423,7 @@ cov(X, Y) = (${terms.map((t) => t.prod.toFixed(2)).join(' + ').replace(/\+ -/g, 
       )}
 
       <LabNote>
-        <strong>Covariance</strong>{' '}asks one question: when x is above its average, is y usually above its average too?
+        <strong>Covariance</strong> asks one question: when x is above its average, is y usually above its average too?
         Multiply the two distances-from-average for each point. Both above or both below gives a positive product; one
         above and one below gives a negative one. Average those products and you have it.
       </LabNote>

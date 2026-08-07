@@ -132,13 +132,13 @@ export function SampleSpaceLab({ showComplement = false }: { showComplement?: bo
       <PanelNote>
         {showComplement ? (
           <>
-            The complement is everything in S that is <em>not</em>{' '}in A. Between them they cover S exactly once, so
+            The complement is everything in S that is <em>not</em> in A. Between them they cover S exactly once, so
             their probabilities always add to 1. That is often the quickest route to an answer: work out the easy side
             and subtract.
           </>
         ) : (
           <>
-            Press <strong>Pick everything</strong> and you get P(S) = 1. Press <strong>Pick nothing</strong>{' '}and you get
+            Press <strong>Pick everything</strong> and you get P(S) = 1. Press <strong>Pick nothing</strong> and you get
             0. Those are the two extremes, and every event sits somewhere between them.
           </>
         )}
@@ -377,14 +377,7 @@ export function IndependenceLab() {
             <span>P(A ∩ B) — the overlap</span>
             <span className="text-zinc-500">{pct(clamped)}</span>
           </div>
-          <RangeInput
-            label="overlap"
-            min={minBoth}
-            max={maxBoth}
-            step={0.005}
-            value={clamped}
-            onChange={setBoth}
-          />
+          <RangeInput label="overlap" min={minBoth} max={maxBoth} step={0.005} value={clamped} onChange={setBoth} />
           <p className="mt-1.5 text-xs text-zinc-500">
             It cannot go below {pct(minBoth)} or above {pct(maxBoth)} — the four boxes have to stay positive.
           </p>

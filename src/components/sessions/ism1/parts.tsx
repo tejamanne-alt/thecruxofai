@@ -33,19 +33,19 @@ export const ISM1_PARTS: Record<string, React.ReactNode> = {
       <List
         items={[
           <>
-            <strong>Collect</strong>{' '}the data.
+            <strong>Collect</strong> the data.
           </>,
           <>
-            <strong>Organise</strong>{' '}it so you can see what you have.
+            <strong>Organise</strong> it so you can see what you have.
           </>,
           <>
-            <strong>Analyse</strong>{' '}it.
+            <strong>Analyse</strong> it.
           </>,
           <>
-            <strong>Infer</strong>{' '}— work out what it is telling you about the wider world.
+            <strong>Infer</strong> — work out what it is telling you about the wider world.
           </>,
           <>
-            <strong>Decide</strong>{' '}something, based on all of that.
+            <strong>Decide</strong> something, based on all of that.
           </>,
         ]}
       />
@@ -153,20 +153,20 @@ T3  Introduction to Time Series and Forecasting, 2nd edition
       <List
         items={[
           <>
-            <strong>Nominal</strong>{' '}— the lowest level. Names of groups, no order. Gender, marital status, which party
+            <strong>Nominal</strong> — the lowest level. Names of groups, no order. Gender, marital status, which party
             someone voted for.
           </>,
           <>
-            <strong>Ordinal</strong>{' '}— there is an order, but the gaps are not measurable. Satisfied / neutral /
+            <strong>Ordinal</strong> — there is an order, but the gaps are not measurable. Satisfied / neutral /
             unsatisfied. Grades A to F. Gold, silver, bronze. You know which is better; you cannot say by how much.
           </>,
           <>
-            <strong>Interval</strong>{' '}— the gaps are real and equal, but zero does not mean &ldquo;none&rdquo;.
+            <strong>Interval</strong> — the gaps are real and equal, but zero does not mean &ldquo;none&rdquo;.
             Temperature in Celsius. 20° to 30° is the same jump as 30° to 40°, but 0°C is not the absence of
             temperature, so 40°C is not twice as hot as 20°C.
           </>,
           <>
-            <strong>Ratio</strong> — the highest level. Gaps are real <em>and</em>{' '}zero means none. Weight, age, salary.
+            <strong>Ratio</strong> — the highest level. Gaps are real <em>and</em> zero means none. Weight, age, salary.
             Now ratios finally work: 40 kg really is twice 20 kg.
           </>,
         ]}
@@ -198,7 +198,7 @@ T3  Introduction to Time Series and Forecasting, 2nd edition
   mean: (
     <>
       <Para>
-        The <strong>mean</strong>{' '}is the ordinary average. Add all the values up and divide by how many there are.
+        The <strong>mean</strong> is the ordinary average. Add all the values up and divide by how many there are.
         Written down it is <strong>x̄ = Σx / n</strong>, where the bar over the x means &ldquo;mean of&rdquo; and the Σ
         means &ldquo;add up&rdquo;.
       </Para>
@@ -237,7 +237,7 @@ x̄ = Σ(f·Y) / N = 658 / 332 = 1.98 hours`}
       </Worked>
 
       <Para>
-        <strong>When to use the mean.</strong>{' '}When the data is numerical with no wild values in it, when it is interval
+        <strong>When to use the mean.</strong> When the data is numerical with no wild values in it, when it is interval
         or ratio level, and when you plan to work out a standard deviation afterwards — because that is built on the
         mean.
       </Para>
@@ -258,7 +258,7 @@ x̄ = Σ(f·Y) / N = 658 / 332 = 1.98 hours`}
   mode: (
     <>
       <Para>
-        The <strong>mode</strong>{' '}is the simplest of the three. It is the value that turns up most often. Nothing is
+        The <strong>mode</strong> is the simplest of the three. It is the value that turns up most often. Nothing is
         added, nothing is divided — you just count.
       </Para>
 
@@ -288,7 +288,7 @@ So the mode is 3: the most common outcome is three failures in a day.`}
             and with more, <em>multi-modal</em>. Try to make that happen above.
           </>,
           <>
-            <strong>Extreme values do not touch it.</strong>{' '}That 26 in the server data is way out on its own, and the
+            <strong>Extreme values do not touch it.</strong> That 26 in the server data is way out on its own, and the
             mode does not care at all.
           </>,
         ]}
@@ -315,16 +315,16 @@ So the mode is 3: the most common outcome is three failures in a day.`}
   median: (
     <>
       <Para>
-        The <strong>median</strong>{' '}is the value that splits the data in half. Half the values are below it and half are
+        The <strong>median</strong> is the value that splits the data in half. Half the values are below it and half are
         above. To find it, put everything in order and take the middle one.
       </Para>
       <List
         items={[
           <>
-            <strong>Odd number of values:</strong>{' '}the median is the middle one.
+            <strong>Odd number of values:</strong> the median is the middle one.
           </>,
           <>
-            <strong>Even number of values:</strong>{' '}there is no single middle, so take the two middle ones and average
+            <strong>Even number of values:</strong> there is no single middle, so take the two middle ones and average
             them.
           </>,
         ]}
@@ -388,14 +388,14 @@ Ten getting-ready times, in order:
       <List
         items={[
           <>
-            <strong>Symmetric</strong>{' '}— the two sides match. Mean = median = mode, all in the same place.
+            <strong>Symmetric</strong> — the two sides match. Mean = median = mode, all in the same place.
           </>,
           <>
-            <strong>Skewed to the right</strong>{' '}(also called positively skewed) — a long tail stretching right. A few
+            <strong>Skewed to the right</strong> (also called positively skewed) — a long tail stretching right. A few
             big values pull the mean up past the median. So <strong>mean &gt; median &gt; mode</strong>.
           </>,
           <>
-            <strong>Skewed to the left</strong>{' '}(negatively skewed) — a long tail stretching left. A few small values
+            <strong>Skewed to the left</strong> (negatively skewed) — a long tail stretching left. A few small values
             pull the mean down. So <strong>mean &lt; median &lt; mode</strong>.
           </>,
         ]}
@@ -411,12 +411,12 @@ Ten getting-ready times, in order:
 
       <Para>
         There is a rough rule of thumb the lecture mentions, for data that is not too badly skewed:{' '}
-        <strong>mode ≈ 3 × median − 2 × mean</strong>. It is an <em>empirical</em>{' '}relationship, which means people
+        <strong>mode ≈ 3 × median − 2 × mean</strong>. It is an <em>empirical</em> relationship, which means people
         noticed it holds in practice rather than proving it must. Do not lean on it too hard.
       </Para>
       <Para>
-        The practical advice that follows from all this: use the <strong>mean</strong>{' '}for data that is roughly even,
-        and the <strong>median</strong>{' '}when it is badly skewed. And always say which one you used.
+        The practical advice that follows from all this: use the <strong>mean</strong> for data that is roughly even,
+        and the <strong>median</strong> when it is badly skewed. And always say which one you used.
       </Para>
 
       <Terms
@@ -457,7 +457,7 @@ Group 2:   1  15   5   5   6   3   5   2   3      total 45
         1 and a 15 in it. Group 1 never leaves the range 2 to 8. They are clearly not the same at all.
       </Para>
       <Para>
-        So the centre alone is not enough. You need a second number saying <strong>how spread out</strong>{' '}the values
+        So the centre alone is not enough. You need a second number saying <strong>how spread out</strong> the values
         are. Press the two buttons below and watch the squares change size while the mean line stays exactly where it
         is.
       </Para>
@@ -474,7 +474,7 @@ Group 2:   1  15   5   5   6   3   5   2   3      total 45
       <List
         items={[
           <>
-            The <strong>range</strong>{' '}— biggest take smallest.
+            The <strong>range</strong> — biggest take smallest.
           </>,
           <>
             The <strong>variance</strong> and the <strong>standard deviation</strong>.
@@ -500,7 +500,7 @@ Group 2:   1  15   5   5   6   3   5   2   3      total 45
   range: (
     <>
       <Para>
-        The <strong>range</strong>{' '}is the simplest measure of spread there is. Take the largest value and subtract the
+        The <strong>range</strong> is the simplest measure of spread there is. Take the largest value and subtract the
         smallest.
       </Para>
 
@@ -552,7 +552,7 @@ range = 7 − 2 = 5`}
   variance: (
     <>
       <Para>
-        We want a measure of spread that uses <em>every</em>{' '}value, not just the two ends. The obvious idea is to
+        We want a measure of spread that uses <em>every</em> value, not just the two ends. The obvious idea is to
         measure how far each value is from the mean, then average those distances.
       </Para>
       <Para>
@@ -572,7 +572,7 @@ add them up:  0        ← every time, for any data`}
       <List
         items={[
           <>
-            <strong>Square</strong>{' '}each distance. Squaring makes everything positive, so nothing cancels.
+            <strong>Square</strong> each distance. Squaring makes everything positive, so nothing cancels.
           </>,
           <>
             <strong>Add</strong> the squares up. That total is called the <strong>sum of squares</strong>, or SS.
@@ -597,7 +597,7 @@ add them up:  0        ← every time, for any data`}
         value can easily own most of the answer.
       </Para>
       <Para>
-        There is one more problem. Variance is measured in <em>squared</em>{' '}units. If your data is in minutes, the
+        There is one more problem. Variance is measured in <em>squared</em> units. If your data is in minutes, the
         variance is in square minutes, which is not a thing anybody can picture. So take the square root and get back to
         ordinary units. That is the <strong>standard deviation</strong>.
       </Para>
@@ -663,7 +663,7 @@ a sample from it       s² = SS / (n − 1)  s = √(SS / (n − 1))`}
         value. The n − 1 version wobbles about it and settles on it.
       </Para>
       <Para>
-        Here is why. When you measure spread in a sample, you measure it around the <em>sample&rsquo;s own</em>{' '}mean —
+        Here is why. When you measure spread in a sample, you measure it around the <em>sample&rsquo;s own</em> mean —
         because you do not know the real one. But the sample&rsquo;s mean has already shifted itself to sit right in the
         middle of those particular values. So they look closer together than they truly are. Dividing by n − 1 rather
         than n makes the answer slightly bigger, which makes up the difference.
@@ -705,7 +705,7 @@ a sample from it       s² = SS / (n − 1)  s = √(SS / (n − 1))`}
   fivepoint: (
     <>
       <Para>
-        The median splits the data in half. Split each half again and you get <strong>quartiles</strong>{' '}— three cuts
+        The median splits the data in half. Split each half again and you get <strong>quartiles</strong> — three cuts
         that divide the data into four equal parts.
       </Para>
       <List
@@ -727,7 +727,7 @@ a sample from it       s² = SS / (n − 1)  s = √(SS / (n − 1))`}
         the next part.
       </Para>
       <Para>
-        Finding a quartile means finding a <em>position</em>{' '}first, then reading off the value there. The lecture counts
+        Finding a quartile means finding a <em>position</em> first, then reading off the value there. The lecture counts
         positions like this:
       </Para>
 
@@ -820,7 +820,7 @@ Every value sits between 5 and 25, so that data has no outliers.`}
         or extreme outlier, with the ones between 1.5 and 3 called mild.
       </Para>
       <Para>
-        One important point. A flagged value is a <em>possible</em>{' '}outlier, not a mistake. It might be a typo, or a
+        One important point. A flagged value is a <em>possible</em> outlier, not a mistake. It might be a typo, or a
         broken sensor — or it might be the most interesting thing in your data. The rule tells you where to look. It
         does not tell you what to do.
       </Para>
@@ -851,18 +851,18 @@ Every value sits between 5 and 25, so that data has no outliers.`}
       <List
         items={[
           <>
-            <strong>Q1</strong>{' '}— noise levels for 77 people in an office. Find the mean, standard deviation, variance
+            <strong>Q1</strong> — noise levels for 77 people in an office. Find the mean, standard deviation, variance
             and IQR, draw the box plot, and comment on any outliers.
           </>,
           <>
-            <strong>Q2</strong>{' '}— fat in grams for 20 chicken sandwiches. Find the mean, median, Q1 and Q3, then the
+            <strong>Q2</strong> — fat in grams for 20 chicken sandwiches. Find the mean, median, Q1 and Q3, then the
             variance, standard deviation, range and IQR. Any outliers? Is it skewed, and which way?
           </>,
           <>
-            <strong>Q3</strong>{' '}— battery life in shots for 12 cameras. List the five-point summary.
+            <strong>Q3</strong> — battery life in shots for 12 cameras. List the five-point summary.
           </>,
           <>
-            <strong>Q4</strong>{' '}— a set of 20 scores. Work out the quartiles and the IQR, give the five-point summary,
+            <strong>Q4</strong> — a set of 20 scores. Work out the quartiles and the IQR, give the five-point summary,
             find any outliers, and draw the box plot.
           </>,
         ]}
@@ -877,19 +877,19 @@ Every value sits between 5 and 25, so that data has no outliers.`}
       <List
         items={[
           <>
-            The <strong>chicken sandwich</strong>{' '}data has a 56 sitting well above everything else. Look at what it does
+            The <strong>chicken sandwich</strong> data has a 56 sitting well above everything else. Look at what it does
             to the mean compared with the median, and which way that says the data is skewed.
           </>,
           <>
-            The <strong>battery</strong>{' '}data has only 12 values with a huge range, from 35 to 460. A big range with a
+            The <strong>battery</strong> data has only 12 values with a huge range, from 35 to 460. A big range with a
             modest IQR is a strong hint that the ends are doing all the work.
           </>,
           <>
-            The <strong>20 scores</strong>{' '}cluster tightly around 80, with a 45 and a 48 well below. See whether the
+            The <strong>20 scores</strong> cluster tightly around 80, with a 45 and a 48 well below. See whether the
             fences catch them.
           </>,
           <>
-            The <strong>noise</strong>{' '}data has 77 values and no outliers at all. Real measurements often look like
+            The <strong>noise</strong> data has 77 values and no outliers at all. Real measurements often look like
             this, and it is worth seeing so that flagged values do not start to feel normal.
           </>,
         ]}

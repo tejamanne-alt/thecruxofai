@@ -12,7 +12,6 @@ import { LinearRegressionSession } from '@/components/sessions/linear-regression
 import { DeterminantConcept, MatrixMultiplyConcept, RankConcept } from '@/components/sessions/matrix-concepts'
 import { PerceptronSession } from '@/components/sessions/perceptron'
 import { BasisConcept, VectorSpaceConcept } from '@/components/sessions/space-concepts'
-import { CovarianceConcept, DotProductConcept } from '@/components/sessions/vector-concepts'
 import {
   CentreConcept,
   EventsConcept,
@@ -20,6 +19,7 @@ import {
   ProbabilityConcept,
   SpreadConcept,
 } from '@/components/sessions/stats-concepts'
+import { CovarianceConcept, DotProductConcept } from '@/components/sessions/vector-concepts'
 import { CheatSheetTab } from '@/components/tabs/cheat-sheet-tab'
 import { ExamTab } from '@/components/tabs/exam-tab'
 import { QuizTab } from '@/components/tabs/quiz-tab'

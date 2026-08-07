@@ -42,8 +42,8 @@ export const LEC1_PARTS: Record<string, React.ReactNode> = {
         is a fine place to start. But it is not the whole idea.
       </Para>
       <Para>
-        A vector is really anything you can do two things to. You can <strong>add</strong>{' '}two of them and get another
-        one. And you can <strong>stretch</strong>{' '}one by a number and still have one. That is it. That is the test.
+        A vector is really anything you can do two things to. You can <strong>add</strong> two of them and get another
+        one. And you can <strong>stretch</strong> one by a number and still have one. That is it. That is the test.
       </Para>
       <Para>
         Try it below. Drag either arrow anywhere you like. The black arrow is the two of them added. Notice that you
@@ -105,22 +105,22 @@ export const LEC1_PARTS: Record<string, React.ReactNode> = {
   equation: (
     <>
       <Para>
-        An equation is <strong>linear</strong>{' '}when every unknown sits on its own, with just a plain number in front of
+        An equation is <strong>linear</strong> when every unknown sits on its own, with just a plain number in front of
         it. Nothing else is allowed to happen to it.
       </Para>
       <List
         items={[
           <>
-            <strong>x + y = 1</strong>{' '}is linear.
+            <strong>x + y = 1</strong> is linear.
           </>,
           <>
-            <strong>2a + 3b − c = 7</strong>{' '}is linear.
+            <strong>2a + 3b − c = 7</strong> is linear.
           </>,
           <>
-            <strong>x² + y = 1</strong>{' '}is not. The x is squared.
+            <strong>x² + y = 1</strong> is not. The x is squared.
           </>,
           <>
-            <strong>xy = 1</strong>{' '}is not. Two unknowns are multiplied together.
+            <strong>xy = 1</strong> is not. Two unknowns are multiplied together.
           </>,
         ]}
       />
@@ -130,7 +130,7 @@ export const LEC1_PARTS: Record<string, React.ReactNode> = {
         down.
       </Para>
       <Para>
-        Now the part worth remembering. One equation with two unknowns does <strong>not</strong>{' '}give you one answer. It
+        Now the part worth remembering. One equation with two unknowns does <strong>not</strong> give you one answer. It
         gives you a whole line of them.
       </Para>
       <Para>
@@ -175,7 +175,7 @@ export const LEC1_PARTS: Record<string, React.ReactNode> = {
   system: (
     <>
       <Para>
-        A <strong>system</strong>{' '}of linear equations is just several equations that all have to be true at the same
+        A <strong>system</strong> of linear equations is just several equations that all have to be true at the same
         time. They share the same unknowns. That sharing is the whole point, because it means the equations limit each
         other.
       </Para>
@@ -206,7 +206,7 @@ Answer:  x = 2,  y = −1`}
       </Para>
       <Para>
         Have a go below. Each equation is drawn as a line. The red circle marks the answer to both. Press{' '}
-        <strong>R1 − R2</strong>{' '}and watch the first line swing round until it stands straight up. One unknown has just
+        <strong>R1 − R2</strong> and watch the first line swing round until it stands straight up. One unknown has just
         been removed.
       </Para>
 
@@ -383,7 +383,7 @@ x₁ − x₂ + 2x₃ = 2        x₁ − x₂ + 2x₃ = 2        x₁ − x₂ 
   planes: (
     <>
       <Para>
-        Move up to three unknowns and each equation stops being a line. It becomes a <strong>plane</strong>{' '}instead: a
+        Move up to three unknowns and each equation stops being a line. It becomes a <strong>plane</strong> instead: a
         flat sheet that goes on for ever, like an endless piece of paper floating in the room.
       </Para>
       <Para>
@@ -437,10 +437,10 @@ x₁ − x₂ + 2x₃ = 2        x₁ − x₂ + 2x₃ = 2        x₁ − x₂ 
   matrices: (
     <>
       <Para>
-        A <strong>matrix</strong>{' '}is a box of numbers laid out in rows and columns. That is the whole definition.
+        A <strong>matrix</strong> is a box of numbers laid out in rows and columns. That is the whole definition.
       </Para>
       <Para>
-        If it has m rows and n columns we call it an <strong>m × n</strong>{' '}matrix, said &ldquo;m by n&rdquo;. Rows are
+        If it has m rows and n columns we call it an <strong>m × n</strong> matrix, said &ldquo;m by n&rdquo;. Rows are
         always said first. Click the slots below to see how each one is named.
       </Para>
 
@@ -454,7 +454,7 @@ x₁ − x₂ + 2x₃ = 2        x₁ − x₂ + 2x₃ = 2        x₁ − x₂ 
       </Para>
       <Para>
         Vectors are not a separate thing from matrices. A <strong>column vector</strong> is a matrix with one column. A{' '}
-        <strong>row vector</strong>{' '}is a matrix with one row. Set the columns to 1 in the box above and you have made
+        <strong>row vector</strong> is a matrix with one row. Set the columns to 1 in the box above and you have made
         one.
       </Para>
 
@@ -487,11 +487,11 @@ x₁ − x₂ + 2x₃ = 2        x₁ − x₂ + 2x₃ = 2        x₁ − x₂ 
   arithmetic: (
     <>
       <Para>
-        <strong>Adding</strong>{' '}two matrices is as easy as it looks. Line them up and add the numbers that sit on top of
+        <strong>Adding</strong> two matrices is as easy as it looks. Line them up and add the numbers that sit on top of
         each other. They must be the same shape, or some numbers have no partner.
       </Para>
       <Para>
-        <strong>Multiplying by a plain number</strong>{' '}is just as easy. Every number gets multiplied. Try both below,
+        <strong>Multiplying by a plain number</strong> is just as easy. Every number gets multiplied. Try both below,
         and tick the box to see what happens when the shapes do not match.
       </Para>
 
@@ -500,8 +500,8 @@ x₁ − x₂ + 2x₃ = 2        x₁ − x₂ + 2x₃ = 2        x₁ − x₂ 
       </Lab>
 
       <Para>
-        <strong>Multiplying two matrices</strong>{' '}is the odd one, and it is worth slowing down here. To get one number
-        in the answer, you take a <em>row</em> of the first matrix and a <em>column</em>{' '}of the second. Multiply them
+        <strong>Multiplying two matrices</strong> is the odd one, and it is worth slowing down here. To get one number
+        in the answer, you take a <em>row</em> of the first matrix and a <em>column</em> of the second. Multiply them
         together a pair at a time, then add up everything you get.
       </Para>
       <Para>Click any number in the answer below and it will show you exactly which numbers made it.</Para>
@@ -514,11 +514,11 @@ x₁ − x₂ + 2x₃ = 2        x₁ − x₂ + 2x₃ = 2        x₁ − x₂ 
       <List
         items={[
           <>
-            <strong>The shapes have to fit.</strong>{' '}The row and the column being paired up must be the same length. So
+            <strong>The shapes have to fit.</strong> The row and the column being paired up must be the same length. So
             an m × k matrix can only multiply a k × n one, and the answer comes out m × n.
           </>,
           <>
-            <strong>The order matters.</strong>{' '}AB and BA are different. Very often only one of them is even allowed to
+            <strong>The order matters.</strong> AB and BA are different. Very often only one of them is even allowed to
             exist.
           </>,
         ]}
@@ -648,13 +648,13 @@ A⁻¹  =     ────────  ⎣ −c   a ⎦      as long as ad − 
       <List
         items={[
           <>
-            <strong>A</strong>{' '}holds the numbers in front of the unknowns. One row per equation.
+            <strong>A</strong> holds the numbers in front of the unknowns. One row per equation.
           </>,
           <>
-            <strong>x</strong>{' '}is the column of unknowns you are looking for.
+            <strong>x</strong> is the column of unknowns you are looking for.
           </>,
           <>
-            <strong>b</strong>{' '}is the column of numbers on the right of the equals signs.
+            <strong>b</strong> is the column of numbers on the right of the equals signs.
           </>,
         ]}
       />
@@ -680,7 +680,7 @@ A⁻¹  =     ────────  ⎣ −c   a ⎦      as long as ad − 
     <>
       <Para>
         There is a second way to read Ax = b, and it explains a great deal more than the first one. Instead of reading
-        across the rows, look down the <strong>columns</strong>{' '}of A.
+        across the rows, look down the <strong>columns</strong> of A.
       </Para>
       <Para>
         Multiplying A by x means this: take x₁ lots of the first column, plus x₂ lots of the second column, and so on.
@@ -698,7 +698,7 @@ A⁻¹  =     ────────  ⎣ −c   a ⎦      as long as ad − 
       </Para>
       <Para>
         Now the three outcomes stop being a rule to memorise. Below, the two coloured arrows are the columns. Press
-        anywhere to move the red dot, or drag it. Then press <strong>Break it</strong>{' '}and see what happens when the two
+        anywhere to move the red dot, or drag it. Then press <strong>Break it</strong> and see what happens when the two
         arrows line up.
       </Para>
 
@@ -747,7 +747,7 @@ A⁻¹  =     ────────  ⎣ −c   a ⎦      as long as ad − 
         two halves, and it is a clever one.
       </Para>
       <Para>
-        <strong>Half one. Find any single answer.</strong>{' '}Just one. It does not have to be special. In the example from
+        <strong>Half one. Find any single answer.</strong> Just one. It does not have to be special. In the example from
         the last page the first two columns are (1, 0) and (0, 1), so reaching (42, 8) is easy: take 42 of the first, 8
         of the second, and none of the rest. That gives x = (42, 8, 0, 0). This is called the{' '}
         <strong>particular solution</strong>.
@@ -850,7 +850,7 @@ ERO3   Rᵢ ← Rᵢ + β Rⱼ        add a multiple of one row
       </Lab>
 
       <Para>
-        <strong>So why can the multiplier never be zero?</strong>{' '}Because multiplying a row by 0 turns it into &ldquo;0
+        <strong>So why can the multiplier never be zero?</strong> Because multiplying a row by 0 turns it into &ldquo;0
         = 0&rdquo;. That is true, but it is no longer the equation you started with. You have thrown a rule away, and
         the system you are left with has more answers than the one you were asked about. The lab on the next page
         refuses to do it, and tells you why.
@@ -885,7 +885,7 @@ x₁ − x₂ + 2x₃ = 2          ⎢ 1  −1   2 │ 2 ⎥
       </Para>
       <Para>
         Below is the real thing, running on the lecture&rsquo;s own systems. Pick one, then press{' '}
-        <strong>Next step</strong>{' '}over and over. Each press does exactly one of the three legal moves and writes it in
+        <strong>Next step</strong> over and over. Each press does exactly one of the three legal moves and writes it in
         the log.
       </Para>
 
@@ -898,7 +898,7 @@ x₁ − x₂ + 2x₃ = 2          ⎢ 1  −1   2 │ 2 ⎥
         true never change. That is the point.
       </Para>
       <Para>
-        Now try the <strong>No answer</strong>{' '}system and keep pressing. A row will turn into all zeros on the left with
+        Now try the <strong>No answer</strong> system and keep pressing. A row will turn into all zeros on the left with
         something that is not zero on the right. That row reads &ldquo;0 = 1&rdquo;. The method is telling you plainly
         that the equations contradict each other.
       </Para>
@@ -993,7 +993,7 @@ one or more free variables           →  endless answers,
   rref: (
     <>
       <Para>
-        You can keep going past the staircase. In <strong>reduced</strong>{' '}row-echelon form, two more things are true:
+        You can keep going past the staircase. In <strong>reduced</strong> row-echelon form, two more things are true:
         every pivot has been scaled to <strong>1</strong>, and it is the only number that is not zero in its whole
         column. Not just below it, but above it too.
       </Para>
@@ -1030,12 +1030,12 @@ one or more free variables           →  endless answers,
       </Lab>
 
       <Para>
-        <strong>Sweep one goes down.</strong>{' '}Use multiples of the first row to wipe out the first column below it. Then
-        use the second row on the second column, and so on. You end up with an <strong>upper-triangular</strong>{' '}matrix,
+        <strong>Sweep one goes down.</strong> Use multiples of the first row to wipe out the first column below it. Then
+        use the second row on the second column, and so on. You end up with an <strong>upper-triangular</strong> matrix,
         which just means everything below the diagonal is zero.
       </Para>
       <Para>
-        <strong>Sweep two goes up.</strong>{' '}Use the last row to wipe out its column above, then the row before it, and
+        <strong>Sweep two goes up.</strong> Use the last row to wipe out its column above, then the row before it, and
         so on. Now only the diagonal is left. Scale each pivot to 1 and you have the identity.
       </Para>
       <Para>
@@ -1089,7 +1089,7 @@ finish with    [ I │ A⁻¹ ]`}
       </Worked>
 
       <Para>
-        When A has an inverse, the tidied-up form of A <em>is</em>{' '}the identity. Every column earns a pivot. If the
+        When A has an inverse, the tidied-up form of A <em>is</em> the identity. Every column earns a pivot. If the
         method stalls and some column never gets one, then A has no inverse.
       </Para>
       <Para>

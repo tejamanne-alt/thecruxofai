@@ -5,7 +5,7 @@ import { Btn, Chip, FrBox, LabBox, LabNote, NumBox, Presets, Titled, Verdict } f
 import { PanelNote, ReadOutGrid } from '@/components/sessions/session-parts'
 import { accentColour, arrow, clamp, drawPlane, grip, type Frame } from '@/lib/chart/frame'
 import { frStr } from '@/lib/model/fraction'
-import { cloneM, detM, isSquare, minorOf, mulM, toFr, type FMat } from '@/lib/model/matrix'
+import { detM, isSquare, minorOf, mulM, toFr, type FMat } from '@/lib/model/matrix'
 import { useState } from 'react'
 
 const round1 = (v: number) => Math.round(v * 2) / 2
@@ -159,7 +159,8 @@ export function Det3Lab() {
                       inputMode="numeric"
                       aria-label={`row ${i + 1} column ${j + 1}`}
                       onChange={(e) => {
-                        const n = e.target.value.trim() === '' || e.target.value.trim() === '-' ? 0 : Number(e.target.value)
+                        const n =
+                          e.target.value.trim() === '' || e.target.value.trim() === '-' ? 0 : Number(e.target.value)
                         if (Number.isFinite(n)) setG(g.map((r, ri) => r.map((x, ci) => (ri === i && ci === j ? n : x))))
                       }}
                       onFocus={() => i === 0 && setTerm(j)}
@@ -179,26 +180,18 @@ export function Det3Lab() {
           </div>
         </Titled>
         <div className="pt-6">
-          <Presets
-            items={[0, 1, 2].map((j) => ({ id: j, label: `term ${j + 1}` }))}
-            at={term}
-            onPick={setTerm}
-          />
+          <Presets items={[0, 1, 2].map((j) => ({ id: j, label: `term ${j + 1}` }))} at={term} onPick={setTerm} />
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <Titled title={`Strike out row 1 and column ${term + 1}`}>
               <FrBox m={terms[term].minor} width={44} />
             </Titled>
-            <div className="pt-6 font-mono text-[13px] text-zinc-700">
-              = {frStr(terms[term].md)}
-            </div>
+            <div className="pt-6 font-mono text-[13px] text-zinc-700">= {frStr(terms[term].md)}</div>
           </div>
         </div>
       </div>
 
       <div className="rounded-lg border border-zinc-950/10 bg-zinc-50 p-4">
-        <div className="mb-1.5 text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">
-          The whole sum
-        </div>
+        <div className="mb-1.5 text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">The whole sum</div>
         <div className="overflow-x-auto font-mono text-[13px]/[1.9] text-zinc-800">
           det A ={' '}
           {terms.map((t, i) => (
@@ -207,15 +200,18 @@ export function Det3Lab() {
               {t.head}×({frStr(t.md)})
             </span>
           ))}{' '}
-          = {terms.map((t, i) => `${i > 0 ? (t.value < 0 ? '− ' : '+ ') : t.value < 0 ? '− ' : ''}${Math.abs(t.value)}`).join(' ')} ={' '}
-          <strong>{det ? frStr(det) : '—'}</strong>
+          ={' '}
+          {terms
+            .map((t, i) => `${i > 0 ? (t.value < 0 ? '− ' : '+ ') : t.value < 0 ? '− ' : ''}${Math.abs(t.value)}`)
+            .join(' ')}{' '}
+          = <strong>{det ? frStr(det) : '—'}</strong>
         </div>
       </div>
 
       <LabNote>
-        Walk along the top row. For each number, cross out its row and its column, work out the little 2 × 2
-        determinant that is left, and multiply. Then <strong>add, subtract, add</strong>{' '}— the signs alternate, and that
-        alternating is the only bit people forget. Press the three buttons to see each term on its own.
+        Walk along the top row. For each number, cross out its row and its column, work out the little 2 × 2 determinant
+        that is left, and multiply. Then <strong>add, subtract, add</strong> — the signs alternate, and that alternating
+        is the only bit people forget. Press the three buttons to see each term on its own.
       </LabNote>
       <LabNote>
         The lecture&rsquo;s own example is loaded: 1(24) − 2(−5) + 3(−4) = 24 + 10 − 12 = <strong>22</strong>.
@@ -308,23 +304,36 @@ export function CofactorLab() {
             }
           >
             <div className="mb-1.5 font-mono text-[12px] text-zinc-500">
-              {e.signPos ? '+' : '−'} a<sub>{e.i + 1}{e.j + 1}</sub> × M<sub>{e.i + 1}{e.j + 1}</sub>
+              {e.signPos ? '+' : '−'} a
+              <sub>
+                {e.i + 1}
+                {e.j + 1}
+              </sub>{' '}
+              × M
+              <sub>
+                {e.i + 1}
+                {e.j + 1}
+              </sub>
             </div>
             <FrBox m={minorOf(A, e.i, e.j)} width={40} />
             <div className="mt-1.5 font-mono text-[12.5px] text-zinc-800">
-              {e.head} × ({frStr(e.md)}) → <strong>{e.value >= 0 ? '+' : '−'}{Math.abs(e.value)}</strong>
+              {e.head} × ({frStr(e.md)}) →{' '}
+              <strong>
+                {e.value >= 0 ? '+' : '−'}
+                {Math.abs(e.value)}
+              </strong>
             </div>
           </div>
         ))}
       </div>
 
       <LabNote>
-        You may expand along <strong>any</strong>{' '}row or column you like and the answer never changes. So pick the one
+        You may expand along <strong>any</strong> row or column you like and the answer never changes. So pick the one
         with the most zeros — every zero kills a whole 3 × 3 determinant you would otherwise have to work out. Column 2
         here has three zeros, which turns four small determinants into one.
       </LabNote>
       <LabNote>
-        The sign is <span className="font-mono">(−1)</span>{' '}to the power of (row + column). That gives the checkerboard
+        The sign is <span className="font-mono">(−1)</span> to the power of (row + column). That gives the checkerboard
         + − + − starting from the top-left, and the signed minor has its own name: the <strong>cofactor</strong>.
       </LabNote>
     </LabBox>

@@ -69,7 +69,7 @@ function lex(src: string): Tok[] {
       i = j
       continue
     }
-    if ('+-*/()[];,=\''.includes(c)) {
+    if ("+-*/()[];,='".includes(c)) {
       out.push({ t: 'op', v: c })
       i++
       continue
@@ -241,7 +241,8 @@ class Parser {
       if (args.length !== n) throw new Error(`${name} takes ${n} thing${n === 1 ? '' : 's'} in its brackets.`)
     }
     const square = (m: FMat) => {
-      if (!isSquare(m)) throw new Error(`${name} only works on a square matrix, and this one is ${nrows(m)}×${ncols(m)}.`)
+      if (!isSquare(m))
+        throw new Error(`${name} only works on a square matrix, and this one is ${nrows(m)}×${ncols(m)}.`)
       return m
     }
 

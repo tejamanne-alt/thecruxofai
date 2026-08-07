@@ -90,11 +90,29 @@ I will not find out until I am mid-revision.
   and costs nothing. `color-mix` and `scrollbar-color` do not degrade — they disappear — so they get a
   plain-value line before them.
 
+## Two words with no space between them
+
+JSX drops the whitespace at the start and end of every line of text. So a sentence that reads fine in the
+editor can compile to `whatangle` purely because the space happened to fall at a line end. It builds, it
+type-checks, and you only find it by reading the page.
+
+- **Prettier is the formatter, and it runs before the check, not after.** Re-wrapping prose is what moves a
+  space to the end of a line, so `npm run format` first, then `npm run check:spaces`. Prettier itself never
+  breaks a real space — it writes `{' '}` when it has to wrap at one — so anything the checker finds after a
+  format either predates the format or is deliberate.
+- **Write a load-bearing space as `{' '}`.** That is the only form that survives re-wrapping.
+- **The checker reports two kinds of join.** An `ERROR` is text next to an element and always wants fixing.
+  A `note` is text next to a `{...}` expression, like `carr{plural}` — gluing is the point there, so these
+  are printed to be glanced at and never fail. `<sub>` and `<sup>` are ignored: `a<sub>11</sub>` is a₁₁.
+- **Never chase this with a regular expression.** It flags hundreds of innocent lines and still misses real
+  ones. `scripts/check-jsx-spaces.mjs` parses the file and applies the actual rule.
+
 ## Before you say it is done
 
 Run the real thing in a browser and prove it works:
 
-- `npx tsc --noEmit`, `npx eslint src --max-warnings=0`, and a production build, all clean.
+- `npm run check` and a production build, both clean. That one command runs the type check, the linter,
+  Prettier and the glued-words check, which is the set that has caught real breakage before.
 - Every new page loads (200, not 404) and renders real content.
 - Every new lab responds to a real click or drag, checked by asserting the state changed — not by counting
   elements on the page.

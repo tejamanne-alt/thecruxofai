@@ -128,7 +128,11 @@ export function RowOpsLab() {
               <span key={r}>
                 {row
                   .slice(0, vars)
-                  .map((v, c) => (frIsZero(v) ? '' : `${v.n < 0 ? '− ' : c > 0 ? '+ ' : ''}${Math.abs(v.n) === 1 && v.d === 1 ? '' : frStr(fr(Math.abs(v.n), v.d))}${varName(c)} `))
+                  .map((v, c) =>
+                    frIsZero(v)
+                      ? ''
+                      : `${v.n < 0 ? '− ' : c > 0 ? '+ ' : ''}${Math.abs(v.n) === 1 && v.d === 1 ? '' : frStr(fr(Math.abs(v.n), v.d))}${varName(c)} `
+                  )
                   .join('') || '0 '}
                 = {frStr(row[vars])}
               </span>
@@ -239,8 +243,8 @@ export function RowOpsLab() {
       )}
 
       <LabNote>
-        Swapping two <strong>rows</strong>{' '}just writes the equations in a different order, so nothing can change.
-        Swapping two <strong>columns</strong>{' '}silently renames your unknowns — column 1 was x₁ and now it is x₂ — so the
+        Swapping two <strong>rows</strong> just writes the equations in a different order, so nothing can change.
+        Swapping two <strong>columns</strong> silently renames your unknowns — column 1 was x₁ and now it is x₂ — so the
         answer you read off at the end is for a different question. Press the illegal button and watch x₁ and x₂ trade
         places in the verdict. That is why the rules say rows only.
       </LabNote>
@@ -342,7 +346,7 @@ export function EchelonWalkLab() {
       </Verdict>
 
       <LabNote>
-        The coloured number in each row is its <strong>leading entry</strong>{' '}— the first one that is not zero. Row
+        The coloured number in each row is its <strong>leading entry</strong> — the first one that is not zero. Row
         echelon form means one thing only: every leading entry sits strictly further right than the one above it. Watch
         the chips above change as you step forward.
       </LabNote>
@@ -453,7 +457,7 @@ export function RrefLab() {
           </div>
           <FrBox m={R} tone="#0d9488" />
           <p className="mt-2 text-[12.5px]/[1.6] text-zinc-600">
-            Every step is a 1, and its whole column is otherwise zero. There is exactly <strong>one</strong>{' '}of these
+            Every step is a 1, and its whole column is otherwise zero. There is exactly <strong>one</strong> of these
             for any matrix, whichever route you take.
           </p>
         </div>

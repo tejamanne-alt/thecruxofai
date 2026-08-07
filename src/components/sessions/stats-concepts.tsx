@@ -57,7 +57,7 @@ export function CentreConcept() {
           </>,
           <>
             Now let Jeff Bezos walk in. The <strong>mean</strong> leaps to something no one in the room earns. The{' '}
-            <strong>median</strong>{' '}shifts by one person. That single difference is why news reports quote median house
+            <strong>median</strong> shifts by one person. That single difference is why news reports quote median house
             prices and median incomes, and why an average that sounds odd is worth asking about.
           </>,
         ]}
@@ -307,7 +307,7 @@ export function OutliersConcept() {
           <>
             Five numbers are enough to describe a whole dataset: the smallest, the quarter mark, the middle, the
             three-quarter mark, and the largest. That is the <strong>five-point summary</strong>, and a{' '}
-            <strong>box plot</strong>{' '}is a picture of it.
+            <strong>box plot</strong> is a picture of it.
           </>,
           <>
             The clever part is the fences. Take the width of the middle half, multiply by 1.5, and put a line that far
@@ -541,12 +541,12 @@ export function EventsConcept() {
         paragraphs={[
           <>
             Write down everything that could happen — that list is the <strong>sample space</strong>. An{' '}
-            <strong>event</strong>{' '}is any part of that list. &ldquo;The die shows more than 3&rdquo; is really just the
+            <strong>event</strong> is any part of that list. &ldquo;The die shows more than 3&rdquo; is really just the
             set &#123;4, 5, 6&#125;.
           </>,
           <>
             Once events are sets, the three words that connect them are set operations. <strong>Or</strong> is union,{' '}
-            <strong>and</strong> is intersection, <strong>not</strong>{' '}is the complement. The only rule you really need
+            <strong>and</strong> is intersection, <strong>not</strong> is the complement. The only rule you really need
             is that &ldquo;or&rdquo; double-counts the middle, so you take it off once.
           </>,
         ]}

@@ -24,10 +24,10 @@ export function Lecture2Overview() {
       <AnalogyCallout
         paragraphs={[
           <>
-            Think of a paint mixer with three tubes: red, blue and yellow. The set of colours you can make is
-            everything you can reach by taking some of each and adding — that is a <strong>span</strong>. Now put a
-            fourth tube of orange on the shelf. It adds nothing, because you could already mix orange from red and
-            yellow: the four tubes are <strong>dependent</strong>.
+            Think of a paint mixer with three tubes: red, blue and yellow. The set of colours you can make is everything
+            you can reach by taking some of each and adding — that is a <strong>span</strong>. Now put a fourth tube of
+            orange on the shelf. It adds nothing, because you could already mix orange from red and yellow: the four
+            tubes are <strong>dependent</strong>.
           </>,
           <>
             A <strong>basis</strong> is the shelf after you have thrown away every tube that adds nothing, and the{' '}
@@ -135,13 +135,48 @@ export function Lecture2Overview() {
           ]}
           legend={[
             { sym: 'V', name: 'A vector space', note: 'A set closed under adding and stretching.', val: 'part 3' },
-            { sym: 'λ, ψ', name: 'Scalars', note: 'Plain numbers you stretch by. From ℝ throughout this lecture.', val: 'part 3' },
-            { sym: 'U ⊆ V', name: 'A subspace', note: 'A space sitting inside a bigger one. Must contain 0.', val: 'part 5' },
-            { sym: 'span', name: 'The reachable set', note: 'Everything you can mix from the given vectors.', val: 'part 6' },
-            { sym: '0', name: 'The neutral element', note: 'Adding it changes nothing. Every subspace has to hold it.', val: 'part 2' },
-            { sym: 'rank', name: 'The pivot count', note: 'How many of your vectors are genuinely different.', val: 'part 8' },
-            { sym: 'REF', name: 'Row echelon form', note: 'The staircase. Two correct routes can give different ones.', val: 'part 8' },
-            { sym: 'RREF', name: 'Reduced row echelon form', note: 'The staircase tidied up. Unique, whatever route you took.', val: 'part 8' },
+            {
+              sym: 'λ, ψ',
+              name: 'Scalars',
+              note: 'Plain numbers you stretch by. From ℝ throughout this lecture.',
+              val: 'part 3',
+            },
+            {
+              sym: 'U ⊆ V',
+              name: 'A subspace',
+              note: 'A space sitting inside a bigger one. Must contain 0.',
+              val: 'part 5',
+            },
+            {
+              sym: 'span',
+              name: 'The reachable set',
+              note: 'Everything you can mix from the given vectors.',
+              val: 'part 6',
+            },
+            {
+              sym: '0',
+              name: 'The neutral element',
+              note: 'Adding it changes nothing. Every subspace has to hold it.',
+              val: 'part 2',
+            },
+            {
+              sym: 'rank',
+              name: 'The pivot count',
+              note: 'How many of your vectors are genuinely different.',
+              val: 'part 8',
+            },
+            {
+              sym: 'REF',
+              name: 'Row echelon form',
+              note: 'The staircase. Two correct routes can give different ones.',
+              val: 'part 8',
+            },
+            {
+              sym: 'RREF',
+              name: 'Reduced row echelon form',
+              note: 'The staircase tidied up. Unique, whatever route you took.',
+              val: 'part 8',
+            },
             { sym: 'B', name: 'A basis', note: 'An independent generating set. Not unique.', val: 'part 12' },
             { sym: 'dim V', name: 'Dimension', note: 'How many vectors a basis has. Unique.', val: 'part 13' },
           ]}

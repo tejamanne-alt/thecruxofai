@@ -482,7 +482,7 @@ export function CombineLab() {
           </div>
 
           <PanelNote>
-            Press <strong>R1 − R2</strong>{' '}from the start. The y term cancels and R1 becomes a straight up-and-down
+            Press <strong>R1 − R2</strong> from the start. The y term cancels and R1 becomes a straight up-and-down
             line. That is one unknown gone, and the answer has not moved.
           </PanelNote>
         </>

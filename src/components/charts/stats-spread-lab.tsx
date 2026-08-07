@@ -1,7 +1,14 @@
 'use client'
 
 import { ChartCanvas, type HitTarget } from '@/components/charts/chart-canvas'
-import { ChartRow, PanelButton, PanelButtons, PanelNote, RangeInput, ReadOut } from '@/components/sessions/session-parts'
+import {
+  ChartRow,
+  PanelButton,
+  PanelButtons,
+  PanelNote,
+  RangeInput,
+  ReadOut,
+} from '@/components/sessions/session-parts'
 import { accentColour, clamp, dot, drawNumberLine, halo, type Frame } from '@/lib/chart/frame'
 import { ISM_DATA, show, summarise, type IsmDataKey } from '@/lib/model/stats'
 import clsx from 'clsx'
@@ -133,7 +140,7 @@ export function SampleSizeLab() {
       <div className="flex flex-col gap-4">
         <p className="text-[13px]/[1.65] text-zinc-700">
           There is a population of {POP_SIZE} values hiding behind this. Its true variance is{' '}
-          <strong>{show(TRUE_VAR, 1)}</strong>{' '}— the black line on both bars. Take small samples from it and work the
+          <strong>{show(TRUE_VAR, 1)}</strong> — the black line on both bars. Take small samples from it and work the
           variance out both ways. One of them keeps landing short.
         </p>
 

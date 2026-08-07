@@ -11,12 +11,7 @@ import {
   FourXLab,
   MoreThanKLab,
 } from '@/components/charts/basis-lab'
-import {
-  GroupCheckLab,
-  NullspaceSpaceLab,
-  VectorSpaceAxiomLab,
-  WhatIsAVectorLab,
-} from '@/components/charts/space-lab'
+import { GroupCheckLab, NullspaceSpaceLab, VectorSpaceAxiomLab, WhatIsAVectorLab } from '@/components/charts/space-lab'
 import { DependenceFactsLab, SpanLab, SubspaceTestLab } from '@/components/charts/subspace-lab'
 import { Para, Takeaway, Terms, Worked } from '../session-parts'
 
@@ -63,8 +58,8 @@ export const LEC2_PARTS: Record<string, React.ReactNode> = {
       </Lab>
 
       <Para>
-        When b is zero, adding two answers gives another answer — every time, whichever two you pick. When b is
-        anything else, it does not. The first set has a structure the second one simply lacks.
+        When b is zero, adding two answers gives another answer — every time, whichever two you pick. When b is anything
+        else, it does not. The first set has a structure the second one simply lacks.
       </Para>
       <Para>
         The lecture&rsquo;s word for that structure is a <strong>vector space</strong>: a place where adding two things
@@ -72,9 +67,8 @@ export const LEC2_PARTS: Record<string, React.ReactNode> = {
         for that to be true, and then everything after that is built on top of those promises.
       </Para>
       <Para>
-        This is worth the effort for a practical reason. Once you know a set is a vector space, you get bases,
-        dimension and coordinates for free — and those are the tools that make problems in a hundred dimensions
-        tractable at all.
+        This is worth the effort for a practical reason. Once you know a set is a vector space, you get bases, dimension
+        and coordinates for free — and those are the tools that make problems in a hundred dimensions tractable at all.
       </Para>
 
       <Terms
@@ -143,12 +137,12 @@ export const LEC2_PARTS: Record<string, React.ReactNode> = {
 
       <Para>
         Press through the five and watch which promise does the failing. It is nearly always the last one. Closure,
-        associativity and an identity come cheaply; being able to undo <em>everything</em> is the demanding
-        requirement, and it is what the counting numbers and the whole numbers under multiplication both fall down on.
+        associativity and an identity come cheaply; being able to undo <em>everything</em> is the demanding requirement,
+        and it is what the counting numbers and the whole numbers under multiplication both fall down on.
       </Para>
       <Para>
-        Why bother with this at all? Because &ldquo;the vectors under addition form an Abelian group&rdquo; is one
-        short sentence that carries five separate facts. The next part uses it exactly that way.
+        Why bother with this at all? Because &ldquo;the vectors under addition form an Abelian group&rdquo; is one short
+        sentence that carries five separate facts. The next part uses it exactly that way.
       </Para>
 
       <Worked title="Slide 4&rsquo;s three examples">
@@ -170,7 +164,11 @@ export const LEC2_PARTS: Record<string, React.ReactNode> = {
       <Terms
         items={[
           { term: 'group', def: 'A set with one operation obeying closure, associativity, an identity and inverses.' },
-          { term: '⊗', say: 'the operation', def: 'A placeholder for whatever way of combining two members you are using.' },
+          {
+            term: '⊗',
+            say: 'the operation',
+            def: 'A placeholder for whatever way of combining two members you are using.',
+          },
           { term: 'closure', def: 'Combining two members always gives a member. You cannot fall out of the set.' },
           {
             term: 'identity element',
@@ -207,13 +205,13 @@ export const LEC2_PARTS: Record<string, React.ReactNode> = {
         ]}
       />
       <Para>
-        &ldquo;Outer&rdquo; because one of its two inputs comes from outside the set — a real number, not a vector.
-        That asymmetry is the reason a vector space needs more than the group axioms from the last part.
+        &ldquo;Outer&rdquo; because one of its two inputs comes from outside the set — a real number, not a vector. That
+        asymmetry is the reason a vector space needs more than the group axioms from the last part.
       </Para>
       <Para>
         The demands are then short. <span className="font-mono">(𝒱, +)</span> has to be an{' '}
-        <strong>Abelian group</strong> — which is the whole of the previous page in one clause — and the outer
-        operation has to satisfy four more rules:
+        <strong>Abelian group</strong> — which is the whole of the previous page in one clause — and the outer operation
+        has to satisfy four more rules:
       </Para>
 
       <Lab>
@@ -262,7 +260,10 @@ for all λ, ψ ∈ ℝ and all x, y ∈ 𝒱.`}
             term: 'distributivity',
             def: 'A multiplication spreads across a sum. Two versions here: over a sum of vectors, and over a sum of numbers.',
           },
-          { term: 'zero vector', def: 'The identity for addition. Adding it changes nothing. Written 0 or [0, …, 0]ᵀ.' },
+          {
+            term: 'zero vector',
+            def: 'The identity for addition. Adding it changes nothing. Written 0 or [0, …, 0]ᵀ.',
+          },
           {
             term: 'real vector space',
             def: 'One whose scalars are real numbers. You can use complex numbers instead, and much of the theory survives.',
@@ -288,10 +289,9 @@ for all λ, ψ ∈ ℝ and all x, y ∈ 𝒱.`}
         scaled slot by slot. That is the case you already know.
       </Para>
       <Para>
-        The lecture&rsquo;s second example is more interesting. Take{' '}
-        <span className="font-mono">𝒱 = ℝ^(m×n)</span> — all matrices of one fixed shape. Add two of them slot by slot,
-        multiply one by a number slot by slot, and every axiom holds. So a <strong>matrix is a vector</strong>, in the
-        only sense that matters here.
+        The lecture&rsquo;s second example is more interesting. Take <span className="font-mono">𝒱 = ℝ^(m×n)</span> —
+        all matrices of one fixed shape. Add two of them slot by slot, multiply one by a number slot by slot, and every
+        axiom holds. So a <strong>matrix is a vector</strong>, in the only sense that matters here.
       </Para>
 
       <Lab>
@@ -299,8 +299,8 @@ for all λ, ψ ∈ ℝ and all x, y ∈ 𝒱.`}
       </Lab>
 
       <Para>
-        The polynomial case is worth a second look, because it feels the strangest. 3x² + 2x + 1 is not an arrow and
-        not a table. But it is completely described by its three coefficients, adding two polynomials adds those
+        The polynomial case is worth a second look, because it feels the strangest. 3x² + 2x + 1 is not an arrow and not
+        a table. But it is completely described by its three coefficients, adding two polynomials adds those
         coefficients, and doubling one doubles them. It <em>is</em> a column of three numbers, wearing different
         clothes.
       </Para>
@@ -312,7 +312,11 @@ for all λ, ψ ∈ ℝ and all x, y ∈ 𝒱.`}
 
       <Terms
         items={[
-          { term: 'ℝ^(m×n)', say: 'R m by n', def: 'All matrices with m rows and n columns. A vector space in its own right.' },
+          {
+            term: 'ℝ^(m×n)',
+            say: 'R m by n',
+            def: 'All matrices with m rows and n columns. A vector space in its own right.',
+          },
           {
             term: 'closure',
             def: 'The property being demonstrated each time: the answer is always the same kind of thing you started with.',
@@ -334,8 +338,8 @@ for all λ, ψ ∈ ℝ and all x, y ∈ 𝒱.`}
   subspaces: (
     <>
       <Para>
-        A <strong>subspace</strong> is a vector space living inside a bigger one. Take a vector space V, take a subset
-        𝒰 of it that is not empty, and keep the same two operations. If 𝒰 is itself a vector space under them, it is a
+        A <strong>subspace</strong> is a vector space living inside a bigger one. Take a vector space V, take a subset 𝒰
+        of it that is not empty, and keep the same two operations. If 𝒰 is itself a vector space under them, it is a
         subspace, written <span className="font-mono">U ⊆ V</span>.
       </Para>
       <Para>
@@ -366,14 +370,14 @@ for all λ, ψ ∈ ℝ and all x, y ∈ 𝒱.`}
         set does not contain the zero vector, it cannot be a subspace, and you are finished in one line.
       </Para>
       <Para>
-        That kills the shifted line <span className="font-mono">{'{x = 1}'}</span> immediately. It does{' '}
-        <em>not</em> settle the square or the first quadrant, though — both contain the origin and both still fail. The
-        zero test is a quick way to say no, never a way to say yes.
+        That kills the shifted line <span className="font-mono">{'{x = 1}'}</span> immediately. It does <em>not</em>{' '}
+        settle the square or the first quadrant, though — both contain the origin and both still fail. The zero test is
+        a quick way to say no, never a way to say yes.
       </Para>
       <Para>
         The example the lecture is really interested in is the <strong>nullspace</strong>: all the x with Ax = 0. It is
-        a subspace, and the reason is one line. If Ax = 0 and Ay = 0 then A(x + y) = Ax + Ay = 0, and A(λx) = λ(Ax) =
-        0. Both closures come free from the way matrix multiplication behaves.
+        a subspace, and the reason is one line. If Ax = 0 and Ay = 0 then A(x + y) = Ax + Ay = 0, and A(λx) = λ(Ax) = 0.
+        Both closures come free from the way matrix multiplication behaves.
       </Para>
 
       <Worked title="The subsets on slides 11 and 12">
@@ -395,7 +399,10 @@ the nullspace of A, i.e. {x : Ax = 0}   SUBSPACE
 
       <Terms
         items={[
-          { term: 'subspace', def: 'A subset that is itself a vector space under the same two operations. Written U ⊆ V.' },
+          {
+            term: 'subspace',
+            def: 'A subset that is itself a vector space under the same two operations. Written U ⊆ V.',
+          },
           { term: '𝒰 ≠ Φ', say: 'U is not empty', def: 'The set has to have something in it. Φ is the empty set.' },
           {
             term: 'inherits',
@@ -418,9 +425,8 @@ the nullspace of A, i.e. {x : Ax = 0}   SUBSPACE
   span: (
     <>
       <Para>
-        You can stay inside a vector space by adding vectors and scaling them. The lecture now turns that round and
-        asks a harder question: can you find a set of vectors from which <em>every</em> vector in the space can be
-        built?
+        You can stay inside a vector space by adding vectors and scaling them. The lecture now turns that round and asks
+        a harder question: can you find a set of vectors from which <em>every</em> vector in the space can be built?
       </Para>
       <Para>
         Building means one thing only — a <strong>linear combination</strong>. Take some of this vector, some of that
@@ -443,14 +449,14 @@ the nullspace of A, i.e. {x : Ax = 0}   SUBSPACE
       </Para>
       <Para>
         That is worth noticing on its own: a span is <em>always</em> a subspace, whatever vectors you start from. It
-        contains 0 (take all the λ zero), and adding or scaling combinations gives more combinations. So spans are a
-        way of manufacturing subspaces to order.
+        contains 0 (take all the λ zero), and adding or scaling combinations gives more combinations. So spans are a way
+        of manufacturing subspaces to order.
       </Para>
       <Para>
         One more thing before the next part. The zero vector is <em>always</em> a linear combination of any set — just
         take every λ to be zero. That is called the <strong>trivial</strong> combination, it works for absolutely
-        anything, and it tells you nothing. The interesting question is whether there is any <em>other</em> way to
-        reach zero.
+        anything, and it tells you nothing. The interesting question is whether there is any <em>other</em> way to reach
+        zero.
       </Para>
 
       <Terms
@@ -477,9 +483,7 @@ the nullspace of A, i.e. {x : Ax = 0}   SUBSPACE
   /* ---------------------------------------------------------------- 7 */
   independence: (
     <>
-      <Para>
-        Now the central definition of the lecture. Take vectors x₁ … xₖ and write down
-      </Para>
+      <Para>Now the central definition of the lecture. Take vectors x₁ … xₖ and write down</Para>
       <Formula>λ₁x₁ + λ₂x₂ + ⋯ + λₖxₖ = 0</Formula>
       <Para>
         Setting every λ to zero always works. The question is whether there is any <strong>other</strong> way.
@@ -522,8 +526,8 @@ the nullspace of A, i.e. {x : Ax = 0}   SUBSPACE
         ]}
       />
       <Para>
-        That last one needs the &ldquo;all non-zero&rdquo; condition. It is the awkwardness of the zero-vector case
-        that makes the official definition worth its odd phrasing: &ldquo;the only combination giving 0 is the trivial
+        That last one needs the &ldquo;all non-zero&rdquo; condition. It is the awkwardness of the zero-vector case that
+        makes the official definition worth its odd phrasing: &ldquo;the only combination giving 0 is the trivial
         one&rdquo; keeps working in every case, and it is a single homogeneous system, which is something you already
         know how to solve.
       </Para>
@@ -561,7 +565,9 @@ the nullspace of A, i.e. {x : Ax = 0}   SUBSPACE
       </Para>
       <List
         items={[
-          <>Put the vectors in as the <strong>columns</strong> of a matrix.</>,
+          <>
+            Put the vectors in as the <strong>columns</strong> of a matrix.
+          </>,
           <>Row-reduce to echelon form.</>,
           <>
             The <strong>pivot columns</strong> mark the independent vectors, and they are always the leftmost ones.
@@ -570,10 +576,9 @@ the nullspace of A, i.e. {x : Ax = 0}   SUBSPACE
         ]}
       />
       <Para>
-        The lecture works two examples. The first is the 2 × 3 matrix{' '}
-        <span className="font-mono">[1 2 3; 2 4 4]</span>, which reduces to{' '}
-        <span className="font-mono">[1 2 3; 0 0 −2]</span> — pivots in columns 1 and 3, so column 2 is redundant, and
-        indeed it is twice column 1.
+        The lecture works two examples. The first is the 2 × 3 matrix <span className="font-mono">[1 2 3; 2 4 4]</span>,
+        which reduces to <span className="font-mono">[1 2 3; 0 0 −2]</span> — pivots in columns 1 and 3, so column 2 is
+        redundant, and indeed it is twice column 1.
       </Para>
       <Para>
         The second is three vectors with four components each. And here something worth pausing on happens: this deck
@@ -645,8 +650,7 @@ all three columns are pivot columns
         each one a linear combination of the b&rsquo;s. When are the <em>new</em> ones independent?
       </Para>
       <Para>
-        The answer is remarkably clean: <strong>exactly when their coefficient columns are independent.</strong>{' '}
-        You
+        The answer is remarkably clean: <strong>exactly when their coefficient columns are independent.</strong> You
         never have to look at the b&rsquo;s again.
       </Para>
 
@@ -662,9 +666,9 @@ all three columns are pivot columns
       <Formula>Σⱼ ψⱼ xⱼ = Σⱼ ψⱼ Bλⱼ = B ( Σⱼ ψⱼ λⱼ ) = 0</Formula>
       <Para>
         Now use what you were given. The b&rsquo;s are independent, so the only combination of B&rsquo;s columns that
-        reaches zero is the all-zeros one. That forces{' '}
-        <span className="font-mono">Σⱼ ψⱼ λⱼ = 0</span> — and that is precisely the test for the λ&rsquo;s being
-        independent. Same ψ&rsquo;s, same answer, two different questions that turn out to be one.
+        reaches zero is the all-zeros one. That forces <span className="font-mono">Σⱼ ψⱼ λⱼ = 0</span> — and that is
+        precisely the test for the λ&rsquo;s being independent. Same ψ&rsquo;s, same answer, two different questions
+        that turn out to be one.
       </Para>
       <Para>
         The practical upshot is the idea of <strong>coordinates</strong>. Once you have fixed an independent set to
@@ -718,14 +722,13 @@ all three columns are pivot columns
       </Para>
       <Formula>7x₁ + 15x₂ + 18x₃ + x₄ = 0</Formula>
       <Para>
-        That settles it — the four vectors are <strong>not</strong>{' '}
-        linearly independent, which is slide 29&rsquo;s
+        That settles it — the four vectors are <strong>not</strong> linearly independent, which is slide 29&rsquo;s
         conclusion.
       </Para>
       <Para>
         The lab lets you check it rather than take it on trust. Load those four multipliers and every b-coefficient
-        cancels to zero on its own. Notice what the check never needed: any information at all about what the four
-        b vectors actually are.
+        cancels to zero on its own. Notice what the check never needed: any information at all about what the four b
+        vectors actually are.
       </Para>
 
       <Worked title="Slides 26 to 29, and the check">
@@ -764,8 +767,7 @@ check it on the b's, one coefficient at a time:
   counting: (
     <>
       <Para>
-        Slides 30 and 31 pull one general fact out of that example, and it is the most quotable sentence in the
-        lecture.
+        Slides 30 and 31 pull one general fact out of that example, and it is the most quotable sentence in the lecture.
       </Para>
       <Para>
         You had k independent vectors b₁ … bₖ, and you built m new vectors from them. Testing the new ones meant
@@ -783,12 +785,13 @@ check it on the b's, one coefficient at a time:
 
       <Para>
         A column without a pivot is a column built from the ones to its left, which is a non-trivial combination
-        reaching zero. So the m vectors are dependent — and you knew it from the shape alone, before looking at a
-        single number.
+        reaching zero. So the m vectors are dependent — and you knew it from the shape alone, before looking at a single
+        number.
       </Para>
       <Para>
-        Said plainly: <strong>you cannot have more independent vectors than the number of things you built them
-        from.</strong> Seven vectors made out of four ingredients are always dependent.
+        Said plainly:{' '}
+        <strong>you cannot have more independent vectors than the number of things you built them from.</strong> Seven
+        vectors made out of four ingredients are always dependent.
       </Para>
       <Para>
         The rule from Lecture 0b — more vectors than components is always dependent — is the same argument. ℝⁿ is built
@@ -822,9 +825,9 @@ check it on the b's, one coefficient at a time:
   basis: (
     <>
       <Para>
-        Everything so far has been building to this. A <strong>generating set</strong> is a set of vectors whose span
-        is the whole space — it can reach everything. A <strong>basis</strong> is a generating set with nothing
-        redundant in it.
+        Everything so far has been building to this. A <strong>generating set</strong> is a set of vectors whose span is
+        the whole space — it can reach everything. A <strong>basis</strong> is a generating set with nothing redundant
+        in it.
       </Para>
       <Para>
         Slide 34 says the same thing more carefully: a generating set is <strong>minimal</strong> if no smaller set
@@ -837,9 +840,8 @@ check it on the b's, one coefficient at a time:
       </Lab>
 
       <Para>
-        So a basis does two jobs at once, and both are needed. Big enough to reach everything; small enough that
-        nothing repeats. Drop either half and it stops being a basis — the two failing presets above show each way
-        round.
+        So a basis does two jobs at once, and both are needed. Big enough to reach everything; small enough that nothing
+        repeats. Drop either half and it stops being a basis — the two failing presets above show each way round.
       </Para>
       <Para>Slide 35 gives four descriptions that all mean the same thing:</Para>
       <List
@@ -925,8 +927,8 @@ check it on the b's, one coefficient at a time:
             If U ⊆ V then <strong>dim(U) ≤ dim(V)</strong>. A subspace can never be roomier than what contains it.
           </>,
           <>
-            <strong>dim(U) = dim(V) exactly when U = V.</strong> A proper subspace is always strictly smaller. So if
-            you have a subspace of ℝ³ and you show its dimension is 3, you have shown it is all of ℝ³ — no further work
+            <strong>dim(U) = dim(V) exactly when U = V.</strong> A proper subspace is always strictly smaller. So if you
+            have a subspace of ℝ³ and you show its dimension is 3, you have shown it is all of ℝ³ — no further work
             needed.
           </>,
         ]}
@@ -934,7 +936,10 @@ check it on the b's, one coefficient at a time:
 
       <Terms
         items={[
-          { term: 'dimension', def: 'The number of vectors in a basis. Every basis of a given space has the same size.' },
+          {
+            term: 'dimension',
+            def: 'The number of vectors in a basis. Every basis of a given space has the same size.',
+          },
           {
             term: 'finite-dimensional',
             def: 'A finite basis exists. Everything in this lecture is of this kind.',
@@ -961,8 +966,12 @@ check it on the b's, one coefficient at a time:
       </Para>
       <List
         items={[
-          <>Writing the spanning vectors as the <strong>columns</strong> of a matrix A.</>,
-          <>Finding the <strong>row echelon form</strong> of A.</>,
+          <>
+            Writing the spanning vectors as the <strong>columns</strong> of a matrix A.
+          </>,
+          <>
+            Finding the <strong>row echelon form</strong> of A.
+          </>,
           <>
             Taking the spanning vectors that sit at <strong>pivot columns</strong>. Those are a basis of U.
           </>,
@@ -984,8 +993,8 @@ check it on the b's, one coefficient at a time:
       </Para>
       <Para>
         And the redundant one can be written out: <strong>x₃ = 2x₂ − x₁</strong>. That is a claim you can check in a
-        single line, which matters here, because the deck poses this example on its final slide and then stops. There
-        is no printed answer to compare against.
+        single line, which matters here, because the deck poses this example on its final slide and then stops. There is
+        no printed answer to compare against.
       </Para>
 
       <Worked title="Slide 41, worked out — and checked">
@@ -1025,8 +1034,8 @@ CHECK, component by component:
       </Para>
 
       <Takeaway>
-        Spanning vectors as columns, row-reduce, keep the ones at pivot columns. Here that leaves three of the four,
-        so dim U = 3 and x₃ = 2x₂ − x₁ was the one carrying nothing.
+        Spanning vectors as columns, row-reduce, keep the ones at pivot columns. Here that leaves three of the four, so
+        dim U = 3 and x₃ = 2x₂ − x₁ was the one carrying nothing.
       </Takeaway>
     </>
   ),
