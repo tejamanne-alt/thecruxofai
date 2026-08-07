@@ -65,6 +65,57 @@ export function ChartRow({ chart, panel }: { chart: React.ReactNode; panel: Reac
   )
 }
 
+/**
+ * The one range input on the site.
+ *
+ * The grey bar and the filled part are real elements underneath a transparent
+ * input, rather than a background painted on the browser's own track. See the
+ * note in `tailwind.css` for why: the pseudo-element version rendered no bar at
+ * all in Edge. Going through here also means no call site works out its own
+ * percentage, so the fill can never disagree with the value.
+ */
+export function RangeInput({
+  label,
+  value,
+  min,
+  max,
+  step,
+  onChange,
+  className = 'w-full',
+}: {
+  label: string
+  value: number
+  min: number
+  max: number
+  step: number
+  onChange: (v: number) => void
+  className?: string
+}) {
+  const pct = max > min ? ((value - min) / (max - min)) * 100 : 0
+  return (
+    <span className={clsx('crux-range', className)}>
+      <span className="crux-range-track" aria-hidden="true">
+        <span className="crux-range-fill" style={{ width: `${clamp01(pct)}%` }} />
+      </span>
+      <input
+        type="range"
+        className="crux-range-input"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(e) => onChange(parseFloat(e.target.value))}
+        aria-label={label}
+      />
+    </span>
+  )
+}
+
+/** A value dragged past its own range would otherwise overflow the track. */
+function clamp01(pct: number) {
+  return pct < 0 ? 0 : pct > 100 ? 100 : pct
+}
+
 export function Slider({
   label,
   value,
@@ -84,24 +135,13 @@ export function Slider({
   hint: string
   onChange: (v: number) => void
 }) {
-  const pct = `${Math.round(((value - min) / (max - min)) * 100)}%`
   return (
     <div>
       <div className="mb-1.5 flex justify-between text-[13px] font-semibold">
         <span>{label}</span>
         <span className="text-zinc-500">{display}</span>
       </div>
-      <input
-        type="range"
-        className="crux-slider"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(parseFloat(e.target.value))}
-        style={{ '--pct': pct } as React.CSSProperties}
-        aria-label={label}
-      />
+      <RangeInput label={label} value={value} min={min} max={max} step={step} onChange={onChange} />
       <p className="mt-1.5 text-xs text-zinc-500">{hint}</p>
     </div>
   )

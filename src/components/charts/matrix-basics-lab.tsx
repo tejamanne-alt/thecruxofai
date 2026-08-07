@@ -1,6 +1,6 @@
 'use client'
 
-import { PanelNote } from '@/components/sessions/session-parts'
+import { PanelNote, RangeInput } from '@/components/sessions/session-parts'
 import clsx from 'clsx'
 import { useState } from 'react'
 
@@ -175,16 +175,14 @@ export function MatrixAddLab() {
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2 text-[13px]">
             <span className="text-zinc-600">multiply A by</span>
-            <input
-              type="range"
+            <RangeInput
+              label="scale factor"
               min={-3}
               max={5}
               step={1}
               value={k}
-              onChange={(e) => setK(Number(e.target.value))}
-              className="crux-slider w-[150px]"
-              style={{ '--pct': `${((k + 3) / 8) * 100}%` } as React.CSSProperties}
-              aria-label="scale factor"
+              onChange={setK}
+              className="w-[150px]"
             />
             <span className="font-mono font-semibold">{k}</span>
           </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import { ChartCanvas, type HitTarget } from '@/components/charts/chart-canvas'
-import { ChartRow, PanelButton, PanelButtons, PanelNote, ReadOut } from '@/components/sessions/session-parts'
+import { ChartRow, PanelButton, PanelButtons, PanelNote, RangeInput, ReadOut } from '@/components/sessions/session-parts'
 import { accentColour, clamp, dot, drawNumberLine, halo, type Frame } from '@/lib/chart/frame'
 import { ISM_DATA, show, summarise, type IsmDataKey } from '@/lib/model/stats'
 import clsx from 'clsx'
@@ -167,19 +167,16 @@ export function SampleSizeLab() {
             <span>values per sample</span>
             <span className="text-zinc-500">{n}</span>
           </div>
-          <input
-            type="range"
+          <RangeInput
+            label="values per sample"
             min={2}
             max={20}
             step={1}
             value={n}
-            onChange={(e) => {
-              setN(Number(e.target.value))
+            onChange={(v) => {
+              setN(v)
               reset()
             }}
-            className="crux-slider"
-            style={{ '--pct': `${((n - 2) / 18) * 100}%` } as React.CSSProperties}
-            aria-label="values per sample"
           />
           <p className="mt-1.5 text-xs text-zinc-500">Small samples suffer most. Try 2, then try 20.</p>
         </div>
