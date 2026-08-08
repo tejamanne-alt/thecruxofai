@@ -114,7 +114,7 @@ export function EchelonRoutesLab() {
       <LabNote>
         This exact example appears in Lecture 0b as well, and the two decks print different echelon forms for it. Not a
         mistake in either: they made different choices about when to divide through. Judge your working by the pivot
-        columns, not by whether the numbers match someone else&rsquo;s.
+        columns, not by whether the numbers match someone else’s.
       </LabNote>
     </LabBox>
   )
@@ -182,12 +182,12 @@ export function CoordinateLab() {
         {independent ? (
           <>
             The coefficient columns are independent, so the vectors <strong>x₁, x₂, x₃ are independent too</strong> —
-            provided b₁, b₂, b₃ were. You never had to know what the b&rsquo;s actually are.
+            provided b₁, b₂, b₃ were. You never had to know what the b’s actually are.
           </>
         ) : (
           <>
             The coefficient columns are dependent, so <strong>x₁, x₂, x₃ are dependent</strong> as well. Some mixture of
-            them collapses to the zero vector, whatever the b&rsquo;s were.
+            them collapses to the zero vector, whatever the b’s were.
           </>
         )}
       </Verdict>
@@ -214,7 +214,7 @@ and the ψ's that kill the x's are exactly the ψ's that kill the
       </div>
 
       <LabNote>
-        This is the step that makes the whole subject portable. You do not need to know what the b&rsquo;s are — arrows,
+        This is the step that makes the whole subject portable. You do not need to know what the b’s are — arrows,
         matrices, polynomials — only that they are independent. From then on you work with the{' '}
         <strong>coordinates</strong>, and coordinates are just columns of numbers.
       </LabNote>
@@ -284,13 +284,13 @@ export function FourXLab() {
         Column 4 carries no pivot, and the reduced form says it equals −7 times column 1, −15 times column 2 and −18
         times column 3 added together. Rearranged, that is{' '}
         <strong className="font-mono">7x₁ + 15x₂ + 18x₃ + x₄ = 0</strong> — a combination reaching zero without every
-        coefficient being zero. So <strong>x₁, x₂, x₃, x₄ are not linearly independent</strong>, which is slide
-        29&rsquo;s conclusion.
+        coefficient being zero. So <strong>x₁, x₂, x₃, x₄ are not linearly independent</strong>, which is slide 29’s
+        conclusion.
       </Verdict>
 
       <div className="rounded-lg border border-zinc-950/10 bg-zinc-50 p-4">
         <div className="mb-3 text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">
-          Check it on the b&rsquo;s themselves
+          Check it on the b’s themselves
         </div>
         <div className="grid gap-3 sm:grid-cols-4">
           {psi.map((p, i) => (
@@ -384,14 +384,14 @@ export function MoreThanKLab() {
       <div className="flex flex-wrap items-center gap-6">
         <div className="min-w-[210px]">
           <div className="mb-1.5 flex justify-between text-[13px] font-semibold">
-            <span>k — how many b&rsquo;s you have</span>
+            <span>k — how many b’s you have</span>
             <span className="text-zinc-500">{k}</span>
           </div>
           <RangeInput label="k, the number of b vectors" value={k} min={1} max={6} step={1} onChange={setK} />
         </div>
         <div className="min-w-[210px]">
           <div className="mb-1.5 flex justify-between text-[13px] font-semibold">
-            <span>m — how many x&rsquo;s you build</span>
+            <span>m — how many x’s you build</span>
             <span className="text-zinc-500">{m}</span>
           </div>
           <RangeInput label="m, the number of x vectors" value={m} min={1} max={6} step={1} onChange={setM} />
@@ -435,9 +435,9 @@ export function MoreThanKLab() {
       </Verdict>
 
       <LabNote>
-        This is slide 31&rsquo;s insight, and it is the most useful sentence in the lecture for an exam: you cannot have
-        more independent vectors than the number of things you built them from. Seven vectors made out of four
-        ingredients are always dependent.
+        This is slide 31’s insight, and it is the most useful sentence in the lecture for an exam: you cannot have more
+        independent vectors than the number of things you built them from. Seven vectors made out of four ingredients
+        are always dependent.
       </LabNote>
       <LabNote>
         The same counting argument explains the rule from Lecture 0b — more vectors than components is always dependent
@@ -565,8 +565,8 @@ export function BasisLab() {
         ) : !generates && independent ? (
           <>
             Independent, but only {live} vector{live === 1 ? '' : 's'} — not enough to reach all of ℝ³. This is slide
-            37&rsquo;s point: an independent set can still be too small to be a basis. It <em>is</em> a basis of the{' '}
-            {rank}-dimensional subspace it spans.
+            37’s point: an independent set can still be too small to be a basis. It <em>is</em> a basis of the {rank}
+            -dimensional subspace it spans.
           </>
         ) : generates && !independent ? (
           <>
@@ -837,7 +837,7 @@ export function FindBasisLab() {
       )}
 
       <LabNote>
-        Slide 40&rsquo;s recipe in three lines: <strong>write the spanning vectors as columns</strong>, get the{' '}
+        Slide 40’s recipe in three lines: <strong>write the spanning vectors as columns</strong>, get the{' '}
         <strong>row echelon form</strong>, and the vectors sitting at <strong>pivot columns</strong> are your basis. The
         ones at non-pivot columns are combinations of those, so they add nothing.
       </LabNote>

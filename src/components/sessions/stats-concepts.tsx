@@ -427,8 +427,8 @@ export function ProbabilityConcept() {
           </>,
           <>
             Both are used, and they need different things. Counting needs the outcomes to be equally likely, which is
-            true of dice and almost nothing else. Running it needs a lot of runs. And for &ldquo;will this project ship
-            on time?&rdquo; neither works, which is where a third kind comes in.
+            true of dice and almost nothing else. Running it needs a lot of runs. And for “will this project ship on
+            time?” neither works, which is where a third kind comes in.
           </>,
         ]}
         mappings={[
@@ -541,13 +541,13 @@ export function EventsConcept() {
         paragraphs={[
           <>
             Write down everything that could happen — that list is the <strong>sample space</strong>. An{' '}
-            <strong>event</strong> is any part of that list. &ldquo;The die shows more than 3&rdquo; is really just the
-            set &#123;4, 5, 6&#125;.
+            <strong>event</strong> is any part of that list. “The die shows more than 3” is really just the set {'{'}4,
+            5, 6{'}'}.
           </>,
           <>
             Once events are sets, the three words that connect them are set operations. <strong>Or</strong> is union,{' '}
             <strong>and</strong> is intersection, <strong>not</strong> is the complement. The only rule you really need
-            is that &ldquo;or&rdquo; double-counts the middle, so you take it off once.
+            is that “or” double-counts the middle, so you take it off once.
           </>,
         ]}
         mappings={[

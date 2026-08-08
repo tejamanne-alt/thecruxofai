@@ -2189,6 +2189,515 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
     ],
   },
 
+  lec3: {
+    cheat: [
+      {
+        formula: '‖·‖ : V → ℝ,  x ↦ ‖x‖',
+        why: 'A norm eats one vector and returns its length. The dot is a placeholder; ↦ says what happens to one input.',
+      },
+      {
+        formula: '‖λx‖ = |λ|·‖x‖',
+        why: 'Absolutely homogeneous. Stretching by −3 triples the length too — direction never shortens anything.',
+      },
+      { formula: '‖x + y‖ ≤ ‖x‖ + ‖y‖', why: 'Triangle inequality. The direct route is never longer than the detour.' },
+      {
+        formula: '‖x‖ ≥ 0,  ‖x‖ = 0 ⟺ x = 0',
+        why: 'Positive definite. Lengths are never negative, and only the zero vector has none.',
+      },
+      {
+        formula: '‖x‖₁ = Σᵢ |xᵢ|',
+        why: 'Manhattan norm. Unit ball is a diamond, with corners on the axes — the reason Lasso gives exact zeros.',
+      },
+      {
+        formula: '‖x‖₂ = √(Σᵢ xᵢ²)',
+        why: 'Euclidean norm. Unit ball is a circle. ‖x‖₁ ≥ ‖x‖₂ always, equal only along an axis.',
+      },
+      {
+        formula: 'Ω(λx + ψy, z) = λΩ(x,z) + ψΩ(y,z)',
+        why: 'Bilinear in the first slot; the same again in the second. Two separate promises.',
+      },
+      {
+        formula: 'Ω(λx, λy) = λ²Ω(x, y)',
+        why: 'The trap. Bilinear does NOT mean linear in both at once — scale both and the factor appears twice.',
+      },
+      {
+        formula: 'inner product = bilinear + symmetric + positive definite',
+        why: 'The three conditions. Symmetry gives angle, positive definiteness gives length, bilinearity gives a matrix.',
+      },
+      {
+        formula: '⟨x, y⟩ = x̂ᵀAŷ, A symmetric positive definite',
+        why: 'The theorem, and it holds both ways. Choosing an inner product = choosing an SPD matrix. The hats mean coordinates in an ordered basis.',
+      },
+      {
+        formula: '2×2 SPD ⟺ a₁₁ > 0 and det A > 0',
+        why: 'The quick test. A positive diagonal alone is not enough — a₁₁=a₂₂=1, a₁₂=3 has det −8.',
+      },
+      {
+        formula: 'SPD ⟹ full rank',
+        why: 'Ax = 0 would give xᵀAx = 0, contradicting xᵀAx > 0. So the nullspace is {0}.',
+      },
+      { formula: 'SPD ⟹ Aᵢᵢ > 0', why: 'Put x = eᵢ. Then eᵢᵀAeᵢ = Aᵢᵢ, and eᵢ ≠ 0, so it must be positive.' },
+      {
+        formula: '‖x‖ = √⟨x, x⟩',
+        why: 'The induced norm. Every inner product gives a length; not every length comes from an inner product — ‖·‖₁ does not.',
+      },
+      { formula: '|⟨x, y⟩| ≤ ‖x‖·‖y‖', why: 'Cauchy–Schwarz. Equality exactly when the two vectors are parallel.' },
+      {
+        formula: '‖u − αv‖² ≥ 0, then α = uᵀv/vᵀv',
+        why: 'The proof in two moves: a squared length is never negative, so put in the α that minimises it.',
+      },
+      {
+        formula: 'd(x, y) = ‖x − y‖',
+        why: 'The metric. Positive definite, symmetric, and obeys the triangle inequality.',
+      },
+      {
+        formula: 'close ⟹ small distance, LARGE inner product',
+        why: 'Slide 10’s warning. The two measures run in opposite directions — do not read one as the other.',
+      },
+      {
+        formula: 'cos ω = ⟨x, y⟩ / (‖x‖‖y‖),  ω ∈ [0, π]',
+        why: 'The angle. Legal only because Cauchy–Schwarz pins the ratio inside [−1, 1].',
+      },
+      {
+        formula: 'x ⊥ y ⟺ ⟨x, y⟩ = 0',
+        why: 'Orthogonality. Checked by the inner product, never by working out the angle. 0 is orthogonal to everything.',
+      },
+      {
+        formula: 'orthogonal depends on WHICH inner product',
+        why: 'x=(1,1), y=(−1,1) are perpendicular under the dot product and at cos⁻¹(−1/3) under A = diag(2,1).',
+      },
+      {
+        formula: 'AᵀA = I = AAᵀ,  Aᵀ = A⁻¹',
+        why: 'An orthogonal matrix. Confusingly it requires ORTHONORMAL columns, not merely orthogonal ones.',
+      },
+      {
+        formula: '‖Ax‖² = xᵀAᵀAx = xᵀx',
+        why: 'Why an orthogonal matrix preserves length. Angles survive for the same reason — every part of cos ω is untouched.',
+      },
+      {
+        formula: '[[cos θ, −sin θ], [sin θ, cos θ]]',
+        why: 'The 2-D rotation matrix, the deck’s example of an orthogonal one. det +1 rotates, det −1 reflects.',
+      },
+      {
+        formula: '⟨bᵢ, bⱼ⟩ = 0 for i ≠ j,  ⟨bᵢ, bᵢ⟩ = 1',
+        why: 'An orthonormal basis. Only the first condition gives an orthogonal basis.',
+      },
+      {
+        formula: 'v = Σᵢ ⟨v, bᵢ⟩ bᵢ',
+        why: 'The payoff. Over an orthonormal basis, coordinates are single inner products — no system to solve.',
+      },
+      {
+        formula: 'FORWARD-eliminate [ AᵀA | Aᵀ ] → rows of the right half are orthogonal',
+        why: 'Gram–Schmidt the deck’s way. Basis vectors go in as COLUMNS of A. Normalise the rows afterwards.',
+      },
+      {
+        formula: 'stop at upper triangular — never reduce to I',
+        why: 'The one that costs marks. Slide 22 ends with 0.8 still in the top row. Clearing it turns (0.3, 0.1) into (0.5, −0.5) and the rows stop being orthogonal.',
+      },
+      {
+        formula: 'A full column rank ⟹ AᵀA positive definite',
+        why: 'Because xᵀAᵀAx = ‖Ax‖² > 0 when Ax ≠ 0. This is why no row exchange is ever needed.',
+      },
+      {
+        formula: 'E = I with one entry below the diagonal',
+        why: 'An elementary matrix. EA performs one row operation; det E = 1 and it is always invertible.',
+      },
+      {
+        formula: 'EₘEₘ₋₁⋯E₁A = U,  so A = LU',
+        why: 'Products and inverses of lower-triangular matrices stay lower triangular, so the whole elimination collapses into one L.',
+      },
+      {
+        formula: 'QᵀQ = U(L⁻¹)ᵀ, upper triangular AND symmetric ⟹ diagonal',
+        why: 'The closing argument. Diagonal means distinct columns of Q have zero inner product — they are orthogonal.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'Which of these is NOT one of the three properties a norm must have?',
+        options: [
+          'Absolutely homogeneous: ‖λx‖ = |λ|‖x‖',
+          'Triangle inequality: ‖x + y‖ ≤ ‖x‖ + ‖y‖',
+          'Bilinear: linear in each argument separately',
+          'Positive definite: ‖x‖ = 0 only when x = 0',
+        ],
+        answer: 2,
+        explain:
+          'Bilinearity is a property of inner products, which take two arguments. A norm takes only one vector, so there is nothing for it to be bilinear in. The other three are exactly the list on slide 2.',
+      },
+      {
+        q: 'For x = (3, 4), what are ‖x‖₁ and ‖x‖₂?',
+        options: ['7 and 5', '5 and 7', '7 and 7', '12 and 5'],
+        answer: 0,
+        explain:
+          '‖x‖₁ = |3| + |4| = 7, the distance walked on a grid. ‖x‖₂ = √(9 + 16) = √25 = 5, the straight line. The Manhattan norm is always the larger of the two, or equal when the vector lies along an axis.',
+      },
+      {
+        q: 'Ω is bilinear. What is Ω(2x, 2y) in terms of Ω(x, y)?',
+        options: ['2Ω(x, y)', '4Ω(x, y)', 'Ω(x, y)', '½Ω(x, y)'],
+        answer: 1,
+        explain:
+          'Pull the 2 out of the first slot, then out of the second: 2·2·Ω(x, y) = 4Ω(x, y). Bilinear means linear in each slot separately, so scaling both picks the factor up twice. This is the most common misreading of the word.',
+      },
+      {
+        q: 'A = [[1, 2], [0, 1]]. Is ⟨x, y⟩ = xᵀAy an inner product?',
+        options: [
+          'Yes',
+          'No — it is not bilinear',
+          'No — it is not symmetric, since a₁₂ ≠ a₂₁',
+          'No — it is not positive definite',
+        ],
+        answer: 2,
+        explain:
+          'Any xᵀAy is bilinear, whatever A is. But symmetry needs A = Aᵀ, and here a₁₂ = 2 while a₂₁ = 0. Check with x = (1,0), y = (0,1): ⟨x, y⟩ = 2 but ⟨y, x⟩ = 0.',
+      },
+      {
+        q: 'A symmetric matrix has a₁₁ = 1, a₂₂ = 1 and a₁₂ = a₂₁ = 3. Is it positive definite?',
+        options: [
+          'Yes — the diagonal is positive',
+          'No — det A = 1 − 9 = −8, which is not positive',
+          'Yes — it is symmetric',
+          'You cannot tell without the eigenvalues',
+        ],
+        answer: 1,
+        explain:
+          'A positive diagonal is necessary but nowhere near sufficient. Here det A = −8, and x = (1, −1) gives xᵀAx = 1 − 6 + 1 = −4. The 2×2 test needs both a₁₁ > 0 and det A > 0.',
+      },
+      {
+        q: 'Why must a symmetric positive-definite matrix have full rank?',
+        options: [
+          'Because it is symmetric',
+          'Because Ax = 0 would give xᵀAx = 0, contradicting xᵀAx > 0 for x ≠ 0',
+          'Because its determinant is 1',
+          'Because it is square',
+        ],
+        answer: 1,
+        explain:
+          'If some non-zero x had Ax = 0, multiplying on the left by xᵀ would give xᵀAx = 0, which positive definiteness forbids. So the nullspace contains only 0, its dimension is 0, and by rank–nullity the rank is full.',
+      },
+      {
+        q: 'Which norm does NOT come from any inner product?',
+        options: [
+          'The Euclidean norm ‖·‖₂',
+          'The Manhattan norm ‖·‖₁',
+          'Both come from inner products',
+          'Neither does',
+        ],
+        answer: 1,
+        explain:
+          'Slide 7 names the Manhattan norm exactly for this. Every inner product induces a norm through ‖x‖ = √⟨x, x⟩, but the arrow only runs one way. The test is the parallelogram law, which ‖·‖₁ fails: for x = (1,0), y = (0,1) the two sides come to 8 and 4.',
+      },
+      {
+        q: 'In the proof of Cauchy–Schwarz, why is ‖u − αv‖² ≥ 0 useful?',
+        options: [
+          'Because it is true only for the right α',
+          'Because it is true for every α, so it is true for the α that makes it smallest',
+          'Because it equals zero',
+          'Because α is always positive',
+        ],
+        answer: 1,
+        explain:
+          'That is the whole trick. A statement holding for all α holds in particular for the worst case, and substituting α = uᵀv/vᵀv — the bottom of the parabola — turns the inequality into Cauchy–Schwarz after multiplying through by vᵀv.',
+      },
+      {
+        q: 'When does |⟨x, y⟩| = ‖x‖‖y‖ hold with equality?',
+        options: [
+          'Never',
+          'When x and y are orthogonal',
+          'When x and y are parallel — one is a multiple of the other',
+          'Only when both are unit vectors',
+        ],
+        answer: 2,
+        explain:
+          'Equality means the parabola ‖u − αv‖² actually touches zero, so u − αv = 0 for some α, which says u is a multiple of v. Orthogonality is the opposite extreme: there the inner product is 0, as far from the bound as possible.',
+      },
+      {
+        q: 'x and y sit very close together. What happens to d(x, y) and to ⟨x, y⟩?',
+        options: [
+          'Both get small',
+          'Both get large',
+          'The distance gets small and the inner product gets large',
+          'The distance gets large and the inner product gets small',
+        ],
+        answer: 2,
+        explain:
+          'This is the warning slide 10 ends on. The two measures run in opposite directions: small distance means similar, while a small inner product means unrelated. ‖x − y‖² = ‖x‖² − 2⟨x, y⟩ + ‖y‖² shows why — the inner product enters with a minus sign.',
+      },
+      {
+        q: 'Why is it legal to write cos ω = ⟨x, y⟩/(‖x‖‖y‖)?',
+        options: [
+          'Because cosine is periodic',
+          'Because Cauchy–Schwarz keeps the ratio inside [−1, 1], where cos⁻¹ is defined',
+          'Because the inner product is symmetric',
+          'Because ω is always acute',
+        ],
+        answer: 1,
+        explain:
+          'Cosine only takes values in [−1, 1], so the ratio has to land there for an angle to exist. Cauchy–Schwarz guarantees exactly that. Note the angle is being defined by this equation, not measured — the inequality is what makes the definition well posed.',
+      },
+      {
+        q: 'x = (1, 1) and y = (−1, 1). Under the inner product xᵀAy with A = [[2,0],[0,1]], what is cos ω?',
+        options: ['0', '−1/3', '1/3', '−1'],
+        answer: 1,
+        explain:
+          'xᵀAy = 2(1)(−1) + (1)(1) = −1. xᵀAx = 2 + 1 = 3 and yᵀAy = 2 + 1 = 3. So cos ω = −1/√(3·3) = −1/3, giving about 109.5°. Under the plain dot product the same two vectors are orthogonal — the inner product decides.',
+      },
+      {
+        q: 'Two vectors are orthogonal under the dot product. Are they orthogonal under every inner product?',
+        options: [
+          'Yes, orthogonality is a property of the vectors',
+          'No — orthogonality depends on which inner product is used',
+          'Only if they are unit vectors',
+          'Only in two dimensions',
+        ],
+        answer: 1,
+        explain:
+          'Slide 14 says this explicitly and slides 15–16 demonstrate it. Being at right angles is a property of two vectors AND a chosen inner product, not of the vectors alone. Change A and right angles move.',
+      },
+      {
+        q: 'A is a square matrix with AᵀA = I. What is A⁻¹?',
+        options: ['A', 'Aᵀ', 'I', 'It may not exist'],
+        answer: 1,
+        explain:
+          'AᵀA = I says Aᵀ is a left inverse, and for a square matrix the left and right inverses must coincide, so Aᵀ = A⁻¹ and AAᵀ = I too. That is also why orthonormal columns force orthonormal rows.',
+      },
+      {
+        q: 'What does an orthogonal matrix do to lengths and angles?',
+        options: [
+          'Preserves lengths but not angles',
+          'Preserves angles but not lengths',
+          'Preserves both',
+          'Changes both',
+        ],
+        answer: 2,
+        explain:
+          '‖Ax‖² = xᵀAᵀAx = xᵀIx = ‖x‖², so lengths survive. The angle is a ratio whose numerator becomes xᵀAᵀAy = xᵀy and whose denominator is two unchanged lengths — so every piece is left alone. Picture a rotation: a rigid motion.',
+      },
+      {
+        q: 'What extra thing does an orthonormal basis have that a merely orthogonal one does not?',
+        options: [
+          'Its vectors are linearly independent',
+          'Its vectors span the space',
+          'Each vector has length 1',
+          'Its vectors are mutually perpendicular',
+        ],
+        answer: 2,
+        explain:
+          'Both kinds are mutually perpendicular, independent and spanning. Orthonormal adds ⟨bᵢ, bᵢ⟩ = 1 — unit length. Dividing each vector by its own length converts one into the other.',
+      },
+      {
+        q: 'Why is an orthonormal basis worth the trouble of building?',
+        options: [
+          'It is the only kind of basis that spans the space',
+          'Coordinates become single inner products instead of a system to solve',
+          'It has fewer vectors',
+          'It makes the vectors longer',
+        ],
+        answer: 1,
+        explain:
+          'In a general basis, finding coordinates means solving a system of equations. In an orthonormal one, v = Σ⟨v, bᵢ⟩bᵢ — one inner product per coordinate. In a thousand dimensions that is the difference between a hard computation and an easy one.',
+      },
+      {
+        q: 'In the deck’s Gram–Schmidt method, what do you row-reduce?',
+        options: ['[ A | I ]', '[ AᵀA | Aᵀ ]', '[ A | Aᵀ ]', '[ AAᵀ | A ]'],
+        answer: 1,
+        explain:
+          'Put the basis vectors in as the columns of A, then FORWARD-eliminate [AᵀA | Aᵀ] — clearing below each pivot only. The left half ends upper triangular, not as the identity: slide 22’s answer still has 0.8 in the top row. The rows of the right half are then orthogonal, and normalising them gives an orthonormal basis. Carrying on to the identity would change the first row to (0.5, −0.5) and destroy the orthogonality.',
+      },
+      {
+        q: 'In the deck’s method, slide 22 stops at [1, 0.8 | 0.3, 0.1] and [0, 1 | −0.25, 0.75]. Why not carry on and clear the 0.8?',
+        options: [
+          'It makes no difference to the answer',
+          'Because clearing above the pivot destroys the orthogonality — the first row would become (0.5, −0.5)',
+          'Because the matrix would become singular',
+          'Because 0.8 is not a whole number',
+        ],
+        answer: 1,
+        explain:
+          'The elimination is applying L⁻¹, which is lower triangular and only clears below pivots. Clearing the 0.8 applies an upper-triangular operator as well, and the argument QᵀQ = U(L⁻¹)ᵀ breaks. Concretely the first row becomes (0.3, 0.1) − 0.8(−0.25, 0.75) = (0.5, −0.5), and (0.5, −0.5)·(−0.25, 0.75) = −0.5, not 0. Forward elimination only.',
+      },
+      {
+        q: 'Gram–Schmidt on v₁ = (3,1) and v₂ = (2,2) gives right-hand rows (0.3, 0.1) and (−0.25, 0.75). What is their dot product?',
+        options: ['0.15', '0', '−0.075', '1'],
+        answer: 1,
+        explain:
+          '0.3(−0.25) + 0.1(0.75) = −0.075 + 0.075 = 0, exactly. As fractions they are (3/10, 1/10) and (−1/4, 3/4), giving −3/40 + 3/40 = 0. Orthogonal, which is the whole point of the method.',
+      },
+      {
+        q: 'Why is AᵀA positive definite when A has full column rank?',
+        options: [
+          'Because AᵀA is always symmetric',
+          'Because xᵀAᵀAx = ‖Ax‖², which is > 0 whenever Ax ≠ 0 — and independent columns mean Ax = 0 only for x = 0',
+          'Because A is square',
+          'Because det A ≠ 0',
+        ],
+        answer: 1,
+        explain:
+          'xᵀAᵀAx = (Ax)ᵀ(Ax) = ‖Ax‖², a squared length. Full column rank means Ax = 0 only for x = 0, so for every other x the value is strictly positive. This matters because positive-definite matrices never need row exchanges during elimination.',
+      },
+      {
+        q: 'What does multiplying A on the left by an elementary matrix E do?',
+        options: ['A column operation', 'A row operation', 'Transposes A', 'Inverts A'],
+        answer: 1,
+        explain:
+          'Pre-multiplication acts on rows; post-multiplication AE would act on columns. E is the identity with one extra entry, and EA performs exactly one "subtract a multiple of one row from another".',
+      },
+      {
+        q: 'Why does Gaussian elimination give A = LU?',
+        options: [
+          'Because U is always the identity',
+          'Because each step is a lower-triangular matrix, and products and inverses of those stay lower triangular',
+          'Because A is symmetric',
+          'Because L is orthogonal',
+        ],
+        answer: 1,
+        explain:
+          'Each elimination step is an elementary matrix with its extra entry below the diagonal, so it is lower triangular. Their product is lower triangular, and so is its inverse — call it L. Then L⁻¹A = U rearranges to A = LU.',
+      },
+      {
+        q: 'QᵀQ is shown to be upper triangular, and it is also symmetric. What follows?',
+        options: [
+          'It is the identity',
+          'It is diagonal, so distinct columns of Q are orthogonal',
+          'It is lower triangular',
+          'Q is invertible',
+        ],
+        answer: 1,
+        explain:
+          'Upper triangular means everything below the diagonal is 0; symmetry copies those zeros above it. Nothing survives off the diagonal. The off-diagonal entries are the inner products of distinct columns of Q, so those are zero — the columns are orthogonal. That is the closing argument of the lecture.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define a norm on a vector space, state its three defining properties, and give two examples with their unit balls.',
+        meta: 'Definition plus examples · 5–6 marks',
+        points: [
+          'A norm is a function ‖·‖ : V → ℝ, x ↦ ‖x‖, assigning a length to each vector, subject to three conditions holding for all λ ∈ ℝ and all x, y ∈ V.',
+          'Absolutely homogeneous: ‖λx‖ = |λ|‖x‖. The absolute value is essential — scaling by a negative number does not shorten a vector.',
+          'Triangle inequality: ‖x + y‖ ≤ ‖x‖ + ‖y‖.',
+          'Positive definite: ‖x‖ ≥ 0, with ‖x‖ = 0 if and only if x = 0.',
+          'Manhattan (or L1) norm: ‖x‖₁ = Σᵢ₌₁ⁿ |xᵢ|. Its unit ball in ℝ² is a diamond with vertices on the axes.',
+          'Euclidean (or L2) norm: ‖x‖₂ = √(Σᵢ₌₁ⁿ xᵢ²). Its unit ball in ℝ² is the unit circle.',
+          'Worked comparison: for x = (3, 4), ‖x‖₁ = 7 while ‖x‖₂ = 5. In general ‖x‖₁ ≥ ‖x‖₂, with equality only when x lies along a coordinate axis.',
+        ],
+      },
+      {
+        q: 'Define a bilinear mapping and an inner product, and state the theorem connecting inner products to symmetric positive-definite matrices.',
+        meta: 'Definitions plus the representation theorem · 6–8 marks',
+        points: [
+          'A mapping Ω : V × V → ℝ takes two vectors and returns a real number.',
+          'Ω is bilinear if it is linear in each argument separately: Ω(λx + ψy, z) = λΩ(x, z) + ψΩ(y, z), and Ω(x, λy + ψz) = λΩ(x, y) + ψΩ(x, z), for all scalars λ, ψ.',
+          'Ω is symmetric if Ω(x, y) = Ω(y, x) for all x, y ∈ V.',
+          'Ω is positive definite if Ω(x, x) > 0 for all x ∈ V \\ {0}, and Ω(0, 0) = 0.',
+          'A positive-definite, symmetric bilinear mapping is called an inner product, written ⟨x, y⟩; the pair (V, ⟨·,·⟩) is an inner product space.',
+          'Theorem: for a real-valued finite-dimensional V with an ordered basis B, a mapping ⟨·,·⟩ : V × V → ℝ is an inner product if and only if there is a symmetric positive-definite A ∈ ℝⁿˣⁿ with ⟨x, y⟩ = x̂ᵀAŷ, where x̂ and ŷ are the coordinates of x and y with respect to B.',
+          'The statement is an equivalence, so choosing an inner product on V is the same as choosing a symmetric positive-definite matrix. Taking A = I recovers the ordinary dot product xᵀy.',
+          'Note that bilinearity alone is insufficient: xᵀAy is bilinear for every A, but symmetry additionally requires A = Aᵀ and positive definiteness requires xᵀAx > 0 for all x ≠ 0.',
+        ],
+      },
+      {
+        q: 'Show that a symmetric positive-definite matrix has full rank and strictly positive diagonal entries.',
+        meta: 'Two short proofs from the definition · 5 marks',
+        points: [
+          'Both results follow from the defining property xᵀAx > 0 for all x ≠ 0, by choosing a convenient x.',
+          'Full rank: suppose Ax = 0 for some x. Multiplying on the left by xᵀ gives xᵀAx = xᵀ0 = 0.',
+          'But positive definiteness requires xᵀAx > 0 for every x ≠ 0, so the only possibility is x = 0.',
+          'Hence the nullspace of A is {0}, its dimension is 0, and by rank–nullity rank(A) = n − 0 = n, which is full.',
+          'Positive diagonal: take x = eᵢ, the i-th canonical basis vector. Then eᵢᵀAeᵢ = Aᵢᵢ, since eᵢ selects row i and column i.',
+          'Since eᵢ ≠ 0, positive definiteness gives Aᵢᵢ > 0 for every i.',
+          'The converse fails: a positive diagonal does not imply positive definiteness. For A = [[1,3],[3,1]] the diagonal is positive but det A = −8, and x = (1, −1) gives xᵀAx = −4.',
+        ],
+      },
+      {
+        q: 'State and prove the Cauchy–Schwarz inequality, and explain what it makes possible.',
+        meta: 'Statement, proof and consequence · 6–8 marks',
+        points: [
+          'Statement: for any two vectors in an inner product space, |⟨x, y⟩| ≤ ‖x‖·‖y‖.',
+          'Proof: for any vectors u, v and any scalar α, the quantity ‖u − αv‖² is a squared length and therefore satisfies ‖u − αv‖² ≥ 0.',
+          'Expanding, ‖u − αv‖² = (u − αv)ᵀ(u − αv) = uᵀu − 2α(uᵀv) + α²(vᵀv) ≥ 0.',
+          'This holds for every α, so in particular for the α minimising the left-hand side, namely α = uᵀv / vᵀv.',
+          'Substituting gives uᵀu − 2(uᵀv)²/(vᵀv) + (uᵀv)²/(vᵀv) = uᵀu − (uᵀv)²/(vᵀv) ≥ 0.',
+          'Multiplying through by vᵀv > 0 yields (uᵀu)(vᵀv) ≥ (uᵀv)², and taking square roots gives the stated inequality.',
+          'The proof uses only bilinearity, symmetry and ⟨w, w⟩ ≥ 0, so it holds for any inner product, not merely the dot product.',
+          'Consequence: dividing by ‖x‖‖y‖ gives −1 ≤ ⟨x, y⟩/(‖x‖‖y‖) ≤ 1, which is exactly the range of cosine. This permits the definition cos ω = ⟨x, y⟩/(‖x‖‖y‖) with a unique ω ∈ [0, π].',
+          'Equality holds precisely when u − αv = 0 for some α, that is when the two vectors are linearly dependent.',
+        ],
+      },
+      {
+        q: 'Define the metric induced by an inner product, state its properties, and contrast it with the inner product itself.',
+        meta: 'Definition, properties and interpretation · 5–6 marks',
+        points: [
+          'For an inner product space (V, ⟨·,·⟩), the distance between x and y is d(x, y) = ‖x − y‖ = √(⟨x − y, x − y⟩).',
+          'When the inner product is the dot product this is the Euclidean distance. The mapping d : V × V → ℝ is called a metric.',
+          'Positive definite: d(x, y) ≥ 0 for all x, y, and d(x, y) = 0 if and only if x = y.',
+          'Symmetric: d(x, y) = d(y, x) for all x, y ∈ V.',
+          'Triangle inequality: d(x, z) ≤ d(x, y) + d(y, z) for all x, y, z ∈ V.',
+          'Contrast: although both are symmetric and both carry a positive-definiteness condition, they behave oppositely. When x and y are close together the distance is small but the inner product is large; when they are far apart the distance is large but the inner product is small.',
+          'The identity ‖x − y‖² = ‖x‖² − 2⟨x, y⟩ + ‖y‖² makes this explicit: the inner product enters the distance with a negative sign, so for vectors of fixed length, maximising the inner product is the same as minimising the distance.',
+        ],
+      },
+      {
+        q: 'Define orthogonality, and show by example that it depends on the choice of inner product.',
+        meta: 'Definition plus the deck’s worked example · 5–6 marks',
+        points: [
+          'Two vectors x and y are orthogonal if and only if ⟨x, y⟩ = 0, written x ⊥ y. Equivalently cos ω = 0, so ω = π/2.',
+          'By this definition the zero vector is orthogonal to every vector, since ⟨0, y⟩ = 0 always.',
+          'Orthogonality is defined relative to a particular inner product, and vectors orthogonal with respect to one need not be orthogonal with respect to another.',
+          'Example: x = [1, 1]ᵀ and y = [−1, 1]ᵀ. Under the dot product, ⟨x, y⟩ = (1)(−1) + (1)(1) = 0, so x ⊥ y.',
+          'Now take ⟨x, y⟩ = xᵀAy with A = [[2, 0], [0, 1]], which is symmetric with a₁₁ = 2 > 0 and det A = 2 > 0, hence a valid inner product.',
+          'Then xᵀAy = 2x₁y₁ + x₂y₂ = 2(1)(−1) + (1)(1) = −1, while xᵀAx = 2 + 1 = 3 and yᵀAy = 2 + 1 = 3.',
+          'Hence cos ω = −1 / (√3 · √3) = −1/3, giving ω = cos⁻¹(−1/3) ≈ 109.5°. The two vectors are no longer orthogonal, although neither has moved.',
+          'Interpretation: the matrix A weights the first coordinate twice as heavily, which is equivalent to stretching that axis. Stretching does not preserve angles.',
+        ],
+      },
+      {
+        q: 'Define an orthogonal matrix and prove that it preserves both lengths and angles.',
+        meta: 'Definition plus two proofs · 6 marks',
+        points: [
+          'A square matrix A ∈ ℝⁿˣⁿ is orthogonal if and only if its columns are orthonormal, equivalently AᵀA = I = AAᵀ, equivalently Aᵀ = A⁻¹.',
+          'Note the terminology: an orthogonal matrix requires orthonormal columns — mutually orthogonal and each of unit length — not merely orthogonal ones.',
+          'The columns are orthonormal because the (i, j) entry of AᵀA is the inner product of columns i and j; equating this to I gives 1 for i = j and 0 otherwise.',
+          'The rows are orthonormal too: AᵀA = I makes Aᵀ a left inverse and AAᵀ = I makes it a right inverse. For a square matrix, if BA = I = AC then B = B(AC) = (BA)C = C, so the two coincide.',
+          'Lengths: ‖Ax‖² = (Ax)ᵀ(Ax) = xᵀAᵀAx = xᵀIx = xᵀx = ‖x‖², so ‖Ax‖ = ‖x‖ for every x.',
+          'Angles: cos ω between Ax and Ay is (Ax)ᵀ(Ay)/(‖Ax‖‖Ay‖) = xᵀAᵀAy/(‖x‖‖y‖) = xᵀy/(‖x‖‖y‖), which is the cosine of the angle between x and y.',
+          'Example: the 2-D rotation matrix [[cos θ, −sin θ], [sin θ, cos θ]] is orthogonal for every θ. Geometrically an orthogonal transformation is a rigid motion — a rotation or a reflection.',
+        ],
+      },
+      {
+        q: 'Define an orthonormal basis and describe the Gram–Schmidt procedure using Gaussian elimination, with a worked example.',
+        meta: 'Definition plus method and example · 8 marks',
+        points: [
+          'For an n-dimensional space V with basis {b₁, …, bₙ}, the basis is orthonormal if ⟨bᵢ, bⱼ⟩ = 0 for all i ≠ j and ⟨bᵢ, bᵢ⟩ = 1 for all i.',
+          'If only the first condition holds — mutually orthogonal but not of unit length — the basis is called orthogonal. Dividing each vector by its own norm converts one into the other.',
+          'An orthonormal basis is not unique: the canonical basis is one, and rotating it produces another. The canonical basis of ℝⁿ is orthonormal under the dot product.',
+          'Its main advantage is that coordinates become inner products: v = Σᵢ ⟨v, bᵢ⟩ bᵢ, with no system of equations to solve.',
+          'Method: place the given basis vectors as the columns of a matrix A, form the augmented matrix [AᵀA | Aᵀ], and perform forward Gaussian elimination — clearing entries below each pivot only, so the left block finishes upper triangular rather than as the identity. The rows of the right-hand block are then mutually orthogonal, and normalising them gives an orthonormal basis.',
+          'The restriction to forward elimination is essential, not cosmetic: the elimination applies L⁻¹, which is lower triangular, and the justification QᵀQ = U(L⁻¹)ᵀ depends on that. Continuing to reduced row echelon form would additionally apply an upper-triangular operator and the columns would no longer be orthogonal.',
+          'Worked example with v₁ = (3, 1)ᵀ and v₂ = (2, 2)ᵀ: A = [[3, 2], [1, 2]], so AᵀA = [[10, 8], [8, 8]] and Aᵀ = [[3, 1], [2, 2]].',
+          'Reducing [[10, 8 | 3, 1], [8, 8 | 2, 2]] gives [[1, 0.8 | 0.3, 0.1], [0, 1 | −0.25, 0.75]].',
+          'Check: (0.3)(−0.25) + (0.1)(0.75) = −0.075 + 0.075 = 0, so the two rows are orthogonal.',
+          'Normalising gives u₁ = (3/√10, 1/√10) and u₂ = (−1/√10, 3/√10), an orthonormal basis of ℝ².',
+          'The method requires A to have full column rank, since this is what makes AᵀA positive definite and hence eliminable without row exchanges.',
+        ],
+      },
+      {
+        q: 'Explain how elementary matrices lead to the factorisation A = LU, and use this to justify the Gram–Schmidt procedure.',
+        meta: 'The full closing argument · 8 marks',
+        points: [
+          'An elementary matrix E is an identity matrix with a single additional non-zero entry below the diagonal. Pre-multiplying, EA, subtracts a multiple of one row from a row below it — exactly one step of Gaussian elimination.',
+          'For instance, subtracting twice row 1 from row 2 of a 3 × 3 matrix is achieved by E = [[1,0,0], [−2,1,0], [0,0,1]].',
+          'A full elimination is therefore a product: Eₘ Eₘ₋₁ ⋯ E₁ A = U, where U is upper triangular.',
+          'The product of lower-triangular matrices is lower triangular, and the inverse of a lower-triangular matrix is lower triangular. Writing that product as L⁻¹ gives L⁻¹A = U, hence A = LU.',
+          'Applying this to the Gram–Schmidt set-up: A has the basis vectors as columns, and AᵀA is symmetric and positive definite (since xᵀAᵀAx = ‖Ax‖² > 0 for x ≠ 0 when A has full column rank), so it needs no row exchanges and factorises as AᵀA = LU.',
+          'Elimination on [AᵀA | Aᵀ] applies L⁻¹ to both blocks, giving [U | L⁻¹Aᵀ]. Write Qᵀ = L⁻¹Aᵀ.',
+          'Then QᵀQ = L⁻¹Aᵀ(L⁻¹Aᵀ)ᵀ = L⁻¹(AᵀA)(L⁻¹)ᵀ = L⁻¹(LU)(L⁻¹)ᵀ = U(L⁻¹)ᵀ.',
+          'U is upper triangular and (L⁻¹)ᵀ is upper triangular, being the transpose of a lower-triangular matrix, so their product QᵀQ is upper triangular.',
+          'But QᵀQ is also symmetric, since (MᵀM)ᵀ = MᵀM for any M. A matrix that is simultaneously upper triangular and symmetric must be diagonal, because symmetry copies the zeros below the diagonal into the positions above it.',
+          'The off-diagonal entries of QᵀQ are the inner products of distinct columns of Q, so those inner products vanish: the columns of Q are orthogonal, and normalising them yields an orthonormal basis. This is precisely the QR decomposition.',
+        ],
+      },
+    ],
+  },
+
   lec1: {
     cheat: [
       { formula: 'Ax = b', why: 'A whole system in three letters. A is the numbers, x the unknowns, b the answers.' },

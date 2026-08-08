@@ -103,9 +103,17 @@ export function SampleSpaceLab({ showComplement = false }: { showComplement?: bo
 
       <div className="rounded-lg border border-zinc-950/10 bg-zinc-50 p-4">
         <div className="font-mono text-[13px]/[1.9] text-zinc-800">
-          <div>S = &#123; {exp.outcomes.join(', ')} &#125;</div>
-          <div style={{ color: 'var(--acc)' }}>A = &#123; {inA.join(', ') || ' '} &#125;</div>
-          {showComplement && <div style={{ color: AMBER }}>Aᶜ = &#123; {notA.join(', ') || ' '} &#125;</div>}
+          <div>
+            S = {'{'} {exp.outcomes.join(', ')} {'}'}
+          </div>
+          <div style={{ color: 'var(--acc)' }}>
+            A = {'{'} {inA.join(', ') || ' '} {'}'}
+          </div>
+          {showComplement && (
+            <div style={{ color: AMBER }}>
+              Aᶜ = {'{'} {notA.join(', ') || ' '} {'}'}
+            </div>
+          )}
           <div className="mt-1.5">
             P({comp ? 'Aᶜ' : 'A'}) = {shown.length} / {exp.outcomes.length} ={' '}
             <strong>{exp.outcomes.length ? p.toFixed(3) : '—'}</strong>
@@ -514,9 +522,9 @@ export function CommitteeLab() {
       </div>
 
       <PanelNote>
-        The lecture&rsquo;s version is 8 men, 4 women, a committee of 5, and the answer is 5/33. Majority means more
-        than half, so with 5 seats that is 3 or more women — two separate splits, and you add them because they cannot
-        both happen at once.
+        The lecture’s version is 8 men, 4 women, a committee of 5, and the answer is 5/33. Majority means more than
+        half, so with 5 seats that is 3 or more women — two separate splits, and you add them because they cannot both
+        happen at once.
       </PanelNote>
     </div>
   )

@@ -93,8 +93,8 @@ The possible outcomes are accepted (a) and rejected (r):
       </Worked>
 
       <Para>
-        The vertical bars in <strong>|S|</strong> just mean &ldquo;how many things are in it&rdquo;. Pick an experiment
-        below and its sample space is written out in full.
+        The vertical bars in <strong>|S|</strong> just mean “how many things are in it”. Pick an experiment below and
+        its sample space is written out in full.
       </Para>
 
       <Lab>
@@ -129,8 +129,8 @@ The possible outcomes are accepted (a) and rejected (r):
         of outcomes you happen to care about.
       </Para>
       <Para>
-        &ldquo;The die shows more than 3&rdquo; is an event. Written out, it is the set &#123;4, 5, 6&#125;. Each time
-        you run the experiment, the event either happened — because what came up is in that list — or it did not.
+        “The die shows more than 3” is an event. Written out, it is the set {'{'}4, 5, 6{'}'}. Each time you run the
+        experiment, the event either happened — because what came up is in that list — or it did not.
       </Para>
       <Para>Build one yourself. Click outcomes below and watch the event and its probability appear.</Para>
 
@@ -166,8 +166,8 @@ For "the die shows more than 3":
         ]}
       />
       <Para>
-        Both are allowed. &ldquo;Event&rdquo; in maths does not mean something interesting — it means any subset at all,
-        including the two boring ones.
+        Both are allowed. “Event” in maths does not mean something interesting — it means any subset at all, including
+        the two boring ones.
       </Para>
 
       <Terms
@@ -186,11 +186,11 @@ For "the die shows more than 3":
     <>
       <Para>
         The <strong>complement</strong> of an event A is everything in S that is <em>not</em> in A. It is written{' '}
-        <strong>Aᶜ</strong>, and sometimes A&rsquo; or Ā.
+        <strong>Aᶜ</strong>, and sometimes A’ or Ā.
       </Para>
       <Para>
-        If A is &ldquo;the die shows more than 3&rdquo;, then Aᶜ is &ldquo;the die shows 3 or less&rdquo;. Between them
-        they cover S exactly once: every outcome is in one of them and never in both.
+        If A is “the die shows more than 3”, then Aᶜ is “the die shows 3 or less”. Between them they cover S exactly
+        once: every outcome is in one of them and never in both.
       </Para>
       <Para>Press the button below to flip between an event and its complement.</Para>
 
@@ -207,13 +207,13 @@ so  P(A)  = 1 − P(Aᶜ)`}
       </Worked>
 
       <Para>
-        Why is that useful? Because one side is often far easier to work out than the other. &ldquo;At least one head in
-        ten flips&rdquo; is a horrible thing to count directly. Its complement is &ldquo;no heads at all&rdquo;, which
-        is one single outcome. Work that out and subtract.
+        Why is that useful? Because one side is often far easier to work out than the other. “At least one head in ten
+        flips” is a horrible thing to count directly. Its complement is “no heads at all”, which is one single outcome.
+        Work that out and subtract.
       </Para>
       <Para>
-        You will see the same trick in the lecture&rsquo;s cable example: rather than adding up everything that counts
-        as &ldquo;longer than 1990mm&rdquo;, it works out the probability of being too short and takes it off 1.
+        You will see the same trick in the lecture’s cable example: rather than adding up everything that counts as
+        “longer than 1990mm”, it works out the probability of being too short and takes it off 1.
       </Para>
 
       <Terms
@@ -234,23 +234,22 @@ so  P(A)  = 1 − P(Aᶜ)`}
       <List
         items={[
           <>
-            <strong>Union</strong>, written <strong>A ∪ B</strong> and said &ldquo;A union B&rdquo;. It contains every
-            outcome that is in A, or in B, or in both. In English: <em>A or B happens</em>.
+            <strong>Union</strong>, written <strong>A ∪ B</strong> and said “A union B”. It contains every outcome that
+            is in A, or in B, or in both. In English: <em>A or B happens</em>.
           </>,
           <>
-            <strong>Intersection</strong>, written <strong>A ∩ B</strong> and said &ldquo;A intersect B&rdquo;. It
-            contains only the outcomes in <em>both</em>. In English: <em>A and B both happen</em>.
+            <strong>Intersection</strong>, written <strong>A ∩ B</strong> and said “A intersect B”. It contains only the
+            outcomes in <em>both</em>. In English: <em>A and B both happen</em>.
           </>,
         ]}
       />
       <Para>
-        The &ldquo;or&rdquo; in union is the inclusive kind — it allows both. That is not how &ldquo;or&rdquo; usually
-        works in conversation, where &ldquo;tea or coffee?&rdquo; rarely means you may have both, and it catches people
-        out.
+        The “or” in union is the inclusive kind — it allows both. That is not how “or” usually works in conversation,
+        where “tea or coffee?” rarely means you may have both, and it catches people out.
       </Para>
       <Para>
-        Below, each circle&rsquo;s <strong>area</strong> is its probability, and the whole box is 1. So the bit where
-        they overlap is not a number someone typed in — it is a genuine area. Drag the circles.
+        Below, each circle’s <strong>area</strong> is its probability, and the whole box is 1. So the bit where they
+        overlap is not a number someone typed in — it is a genuine area. Drag the circles.
       </Para>
 
       <Lab>
@@ -280,8 +279,8 @@ so  P(A)  = 1 − P(Aᶜ)`}
         other cannot.
       </Para>
       <Para>
-        Flip a coin: heads and tails are mutually exclusive. You cannot get both on one flip. Roll a die: &ldquo;shows a
-        2&rdquo; and &ldquo;shows a 5&rdquo; are mutually exclusive.
+        Flip a coin: heads and tails are mutually exclusive. You cannot get both on one flip. Roll a die: “shows a 2”
+        and “shows a 5” are mutually exclusive.
       </Para>
       <Para>
         In set language it is one short line: <strong>A ∩ B = ∅</strong>, so <strong>P(A ∩ B) = 0</strong>. On the
@@ -346,9 +345,9 @@ if mutually exclusive   P(A ∪ B) = P(A) + P(B)
         ]}
       />
       <Para>
-        There is a fourth you will hear about, <strong>subjective</strong> probability: someone&rsquo;s honest degree of
-        belief, like &ldquo;70% chance this project ships on time&rdquo;. You cannot count it and you cannot repeat it,
-        but people make decisions on it every day.
+        There is a fourth you will hear about, <strong>subjective</strong> probability: someone’s honest degree of
+        belief, like “70% chance this project ships on time”. You cannot count it and you cannot repeat it, but people
+        make decisions on it every day.
       </Para>
       <Para>
         Below, the dashed line is what counting says. The solid line is what actually happened. Run it once — useless.
@@ -438,7 +437,7 @@ if mutually exclusive   P(A ∪ B) = P(A) + P(B)
   addition: (
     <>
       <Para>
-        The <strong>addition rule</strong> answers &ldquo;what is the chance of A or B?&rdquo;
+        The <strong>addition rule</strong> answers “what is the chance of A or B?”
       </Para>
 
       <Worked title="The addition rule">{`    P(A ∪ B) = P(A) + P(B) − P(A ∩ B)`}</Worked>
@@ -520,8 +519,7 @@ if mutually exclusive   P(A ∪ B) = P(A) + P(B)
       </Para>
       <Para>
         The other direction trips people too: <strong>independent events usually do overlap</strong>. Flip a coin and
-        roll a die. &ldquo;Heads&rdquo; and &ldquo;a six&rdquo; are independent, and they happily happen together, one
-        time in twelve.
+        roll a die. “Heads” and “a six” are independent, and they happily happen together, one time in twelve.
       </Para>
 
       <Worked title="Example 7 from the slides, worked through">
@@ -614,7 +612,7 @@ c)  neither 7 nor 11
 get     P(A ∩ B) = P(A) + P(B) − P(A ∪ B)`}
       </Worked>
 
-      <Para>Two of the lecture&rsquo;s examples are exactly this.</Para>
+      <Para>Two of the lecture’s examples are exactly this.</Para>
 
       <Worked title="Example 4 — the investors">
         {`75% invest in traditional annuities        P(A) = 0.75
@@ -717,8 +715,8 @@ P(majority women) = 120 / 792 = 5/33 ≈ 0.1515`}
 
       <Para>
         Two habits worth forming here. First, always ask whether order matters — if it does you need permutations
-        instead, and the answer is bigger. Second, when a question says &ldquo;at least&rdquo; or
-        &ldquo;majority&rdquo;, expect several cases and expect to add them.
+        instead, and the answer is bigger. Second, when a question says “at least” or “majority”, expect several cases
+        and expect to add them.
       </Para>
 
       <Terms
@@ -807,8 +805,8 @@ ii) exactly one    = (0.6 − 0.5) + (0.8 − 0.5)
             P(B).
           </>,
           <>
-            <strong>Q8</strong> — P(A) = P(B) and the &ldquo;neither&rdquo; box equals the &ldquo;both&rdquo; box.
-            Easiest with the four-box picture from part 10.
+            <strong>Q8</strong> — P(A) = P(B) and the “neither” box equals the “both” box. Easiest with the four-box
+            picture from part 10.
           </>,
           <>
             <strong>Q9</strong> — the insurance table. A two-way table is a sample space written as a grid; every

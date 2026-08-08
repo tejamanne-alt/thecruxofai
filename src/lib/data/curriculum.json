@@ -63,7 +63,8 @@
         "lec0a",
         "lec0b",
         "lec1",
-        "lec2"
+        "lec2",
+        "lec3"
       ],
       "syllabus": "Linear algebra, calculus, probability and optimisation as used by machine learning. The brochure does not print a detailed syllabus for this course; the pages below cover the algebra and linear algebra that everything else is built on, and the gradient descent page comes from its optimisation sessions."
     },
@@ -471,6 +472,11 @@
     "lec2": {
       "label": "Lecture 2 — Vector spaces, independence and basis",
       "blurb": "What a space has to promise before you can call it one. Break a subset by dragging until a sum falls outside it, watch a span collapse from a plane to a line, and end on the deck's own unfinished example — worked out and checked.",
+      "kind": "chapter"
+    },
+    "lec3": {
+      "label": "Lecture 3 — Analytic geometry",
+      "blurb": "Length, distance and angle, built from one new object: the inner product. Change the inner product and watch two vectors stop being at right angles, then build an orthonormal basis by elimination.",
       "kind": "chapter"
     },
     "ism1": {

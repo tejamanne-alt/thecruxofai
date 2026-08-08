@@ -198,7 +198,7 @@ export function PositiveDefiniteLab() {
           {nice(Math.abs(d))}
           x₂²
           <br />
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= {squared}
+                = {squared}
         </div>
         <p className="mt-2 text-[13px]/[1.6] text-zinc-600">
           {a > 0 && rest > 0

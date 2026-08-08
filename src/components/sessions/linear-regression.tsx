@@ -171,14 +171,14 @@ export function LinearRegressionSession() {
         paragraphs={[
           <>
             A class of students each recorded <strong>how many hours they studied</strong> for a test, and afterwards{' '}
-            <strong>the marks they scored</strong>. That&rsquo;s it — that is the entire dataset. Every black dot on the
-            chart is one student: how far right they sit is their hours, how high up they sit is their marks.
+            <strong>the marks they scored</strong>. That’s it — that is the entire dataset. Every black dot on the chart
+            is one student: how far right they sit is their hours, how high up they sit is their marks.
           </>,
           <>
             The question we want answered is:{' '}
             <strong>“if a new student tells me they studied 6 hours, what mark should I expect?”</strong> There is no
-            single dot at exactly 6 hours to look up, and even if there were, one student isn&rsquo;t a rule. So instead
-            we draw one straight line through the whole crowd and read the answer off the line.
+            single dot at exactly 6 hours to look up, and even if there were, one student isn’t a rule. So instead we
+            draw one straight line through the whole crowd and read the answer off the line.
           </>,
         ]}
         mappings={[

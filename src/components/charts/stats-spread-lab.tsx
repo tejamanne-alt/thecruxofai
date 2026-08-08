@@ -157,8 +157,8 @@ export function SampleSizeLab() {
         </div>
 
         <p className="text-[13px]/[1.65] text-zinc-700">
-          Why does dividing by n come out low? Because you measured the spread around the <em>sample&rsquo;s own</em>{' '}
-          mean, and that mean has already shuffled itself to sit in the middle of those few values. So they look closer
+          Why does dividing by n come out low? Because you measured the spread around the <em>sample’s own</em> mean,
+          and that mean has already shuffled itself to sit in the middle of those few values. So they look closer
           together than they really are. Dividing by n − 1 instead of n makes up the difference.
         </p>
       </div>

@@ -7,6 +7,7 @@ import { Lecture0aOverview } from '@/components/sessions/lec0a/overview'
 import { Lecture0bOverview } from '@/components/sessions/lec0b/overview'
 import { Lecture1Overview } from '@/components/sessions/lec1/overview'
 import { Lecture2Overview } from '@/components/sessions/lec2/overview'
+import { Lecture3Overview } from '@/components/sessions/lec3/overview'
 import { LinearAlgebraSession } from '@/components/sessions/linear-algebra'
 import { LinearRegressionSession } from '@/components/sessions/linear-regression'
 import { DeterminantConcept, MatrixMultiplyConcept, RankConcept } from '@/components/sessions/matrix-concepts'
@@ -46,6 +47,7 @@ const OVERVIEWS: Record<TopicId, () => React.ReactElement> = {
   lec0b: Lecture0bOverview,
   lec1: Lecture1Overview,
   lec2: Lecture2Overview,
+  lec3: Lecture3Overview,
   ism1: Ism1Overview,
   ism2: Ism2Overview,
   centre: CentreConcept,

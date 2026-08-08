@@ -246,8 +246,7 @@ export function MeasurementLevelLab() {
         <>
           Three questions, in order. <strong>Can you put them in order?</strong> No, and it is nominal.{' '}
           <strong>Are the gaps equal and meaningful?</strong> No, and it is ordinal.{' '}
-          <strong>Does zero mean &ldquo;none of it&rdquo;?</strong> No, and it is interval. Yes to all three, and it is
-          ratio.
+          <strong>Does zero mean “none of it”?</strong> No, and it is interval. Yes to all three, and it is ratio.
         </>
       }
     />

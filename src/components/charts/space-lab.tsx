@@ -142,8 +142,8 @@ export function NullspaceSpaceLab() {
         stretching, so the set carries the same structure as the space it sits in. When b is not zero, they are not.
       </LabNote>
       <LabNote>
-        That distinction is worth more than it looks. It is why the general answer to Ax = b is always &ldquo;one
-        particular answer, plus anything in the nullspace&rdquo; — a point, plus a space.
+        That distinction is worth more than it looks. It is why the general answer to Ax = b is always “one particular
+        answer, plus anything in the nullspace” — a point, plus a space.
       </LabNote>
     </LabBox>
   )

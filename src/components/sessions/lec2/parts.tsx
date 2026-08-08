@@ -62,9 +62,9 @@ export const LEC2_PARTS: Record<string, React.ReactNode> = {
         else, it does not. The first set has a structure the second one simply lacks.
       </Para>
       <Para>
-        The lecture&rsquo;s word for that structure is a <strong>vector space</strong>: a place where adding two things
-        and stretching one always lands you back inside. The next three parts pin down exactly what has to be promised
-        for that to be true, and then everything after that is built on top of those promises.
+        The lecture’s word for that structure is a <strong>vector space</strong>: a place where adding two things and
+        stretching one always lands you back inside. The next three parts pin down exactly what has to be promised for
+        that to be true, and then everything after that is built on top of those promises.
       </Para>
       <Para>
         This is worth the effort for a practical reason. Once you know a set is a vector space, you get bases, dimension
@@ -141,11 +141,11 @@ export const LEC2_PARTS: Record<string, React.ReactNode> = {
         and it is what the counting numbers and the whole numbers under multiplication both fall down on.
       </Para>
       <Para>
-        Why bother with this at all? Because &ldquo;the vectors under addition form an Abelian group&rdquo; is one short
-        sentence that carries five separate facts. The next part uses it exactly that way.
+        Why bother with this at all? Because “the vectors under addition form an Abelian group” is one short sentence
+        that carries five separate facts. The next part uses it exactly that way.
       </Para>
 
-      <Worked title="Slide 4&rsquo;s three examples">
+      <Worked title="Slide 4’s three examples">
         {`(ℤ, +)      whole numbers under addition
             closure ✓  associativity ✓  identity 0 ✓  inverse −n ✓
             and n + m = m + n, so it is an ABELIAN GROUP
@@ -205,8 +205,8 @@ export const LEC2_PARTS: Record<string, React.ReactNode> = {
         ]}
       />
       <Para>
-        &ldquo;Outer&rdquo; because one of its two inputs comes from outside the set — a real number, not a vector. That
-        asymmetry is the reason a vector space needs more than the group axioms from the last part.
+        “Outer” because one of its two inputs comes from outside the set — a real number, not a vector. That asymmetry
+        is the reason a vector space needs more than the group axioms from the last part.
       </Para>
       <Para>
         The demands are then short. <span className="font-mono">(𝒱, +)</span> has to be an{' '}
@@ -289,8 +289,8 @@ for all λ, ψ ∈ ℝ and all x, y ∈ 𝒱.`}
         scaled slot by slot. That is the case you already know.
       </Para>
       <Para>
-        The lecture&rsquo;s second example is more interesting. Take <span className="font-mono">𝒱 = ℝ^(m×n)</span> —
-        all matrices of one fixed shape. Add two of them slot by slot, multiply one by a number slot by slot, and every
+        The lecture’s second example is more interesting. Take <span className="font-mono">𝒱 = ℝ^(m×n)</span> — all
+        matrices of one fixed shape. Add two of them slot by slot, multiply one by a number slot by slot, and every
         axiom holds. So a <strong>matrix is a vector</strong>, in the only sense that matters here.
       </Para>
 
@@ -526,10 +526,9 @@ the nullspace of A, i.e. {x : Ax = 0}   SUBSPACE
         ]}
       />
       <Para>
-        That last one needs the &ldquo;all non-zero&rdquo; condition. It is the awkwardness of the zero-vector case that
-        makes the official definition worth its odd phrasing: &ldquo;the only combination giving 0 is the trivial
-        one&rdquo; keeps working in every case, and it is a single homogeneous system, which is something you already
-        know how to solve.
+        That last one needs the “all non-zero” condition. It is the awkwardness of the zero-vector case that makes the
+        official definition worth its odd phrasing: “the only combination giving 0 is the trivial one” keeps working in
+        every case, and it is a single homogeneous system, which is something you already know how to solve.
       </Para>
 
       <Terms
@@ -647,11 +646,11 @@ all three columns are pivot columns
       </Para>
       <Para>
         Suppose you already have k vectors b₁ … bₖ that you know are independent. Now you build m new vectors x₁ … xₘ,
-        each one a linear combination of the b&rsquo;s. When are the <em>new</em> ones independent?
+        each one a linear combination of the b’s. When are the <em>new</em> ones independent?
       </Para>
       <Para>
         The answer is remarkably clean: <strong>exactly when their coefficient columns are independent.</strong> You
-        never have to look at the b&rsquo;s again.
+        never have to look at the b’s again.
       </Para>
 
       <Lab>
@@ -660,15 +659,14 @@ all three columns are pivot columns
 
       <Para>
         The argument is three lines and worth following once, because the same move gets used repeatedly later. Collect
-        the b&rsquo;s as the columns of a matrix B, so each xⱼ is just Bλⱼ where λⱼ is its column of coefficients. Then
-        testing the x&rsquo;s for independence turns into
+        the b’s as the columns of a matrix B, so each xⱼ is just Bλⱼ where λⱼ is its column of coefficients. Then
+        testing the x’s for independence turns into
       </Para>
       <Formula>Σⱼ ψⱼ xⱼ = Σⱼ ψⱼ Bλⱼ = B ( Σⱼ ψⱼ λⱼ ) = 0</Formula>
       <Para>
-        Now use what you were given. The b&rsquo;s are independent, so the only combination of B&rsquo;s columns that
-        reaches zero is the all-zeros one. That forces <span className="font-mono">Σⱼ ψⱼ λⱼ = 0</span> — and that is
-        precisely the test for the λ&rsquo;s being independent. Same ψ&rsquo;s, same answer, two different questions
-        that turn out to be one.
+        Now use what you were given. The b’s are independent, so the only combination of B’s columns that reaches zero
+        is the all-zeros one. That forces <span className="font-mono">Σⱼ ψⱼ λⱼ = 0</span> — and that is precisely the
+        test for the λ’s being independent. Same ψ’s, same answer, two different questions that turn out to be one.
       </Para>
       <Para>
         The practical upshot is the idea of <strong>coordinates</strong>. Once you have fixed an independent set to
@@ -705,7 +703,7 @@ all three columns are pivot columns
     <>
       <Para>
         Slides 26 to 29 run the previous part on real numbers. Four vectors are given, each built out of four
-        independent b&rsquo;s, and the question is whether the four are independent.
+        independent b’s, and the question is whether the four are independent.
       </Para>
       <Para>
         By the result you have just seen, you do not need to know what b₁, b₂, b₃ and b₄ are. Collect the coefficients
@@ -722,7 +720,7 @@ all three columns are pivot columns
       </Para>
       <Formula>7x₁ + 15x₂ + 18x₃ + x₄ = 0</Formula>
       <Para>
-        That settles it — the four vectors are <strong>not</strong> linearly independent, which is slide 29&rsquo;s
+        That settles it — the four vectors are <strong>not</strong> linearly independent, which is slide 29’s
         conclusion.
       </Para>
       <Para>
@@ -775,7 +773,7 @@ check it on the b's, one coefficient at a time:
       </Para>
       <Para>
         Now count. A matrix with k rows can have at most k pivots, because each pivot needs a row of its own. So if{' '}
-        <strong>m &gt; k</strong> there are more columns than there can ever be pivots, and at least one column must go
+        <strong>m {'>'} k</strong> there are more columns than there can ever be pivots, and at least one column must go
         without.
       </Para>
 

@@ -152,7 +152,7 @@ export function InverseExplorer() {
         <Labelled title={singular ? 'A⁻¹ — does not exist' : 'A⁻¹ — the undo matrix'}>
           {singular ? (
             <div className="rounded-lg border-2 border-dashed border-red-300 px-4 py-5 text-[12.5px] text-red-600">
-              There isn&rsquo;t one.
+              There isn’t one.
             </div>
           ) : (
             <div className="inline-flex flex-col gap-1 rounded-lg border-2 border-zinc-300 p-2 font-mono text-[13px]">

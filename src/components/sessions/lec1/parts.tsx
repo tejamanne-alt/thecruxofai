@@ -60,9 +60,9 @@ export const LEC1_PARTS: Record<string, React.ReactNode> = {
         have a polynomial. So polynomials are vectors too.
       </Para>
       <Para>
-        This &ldquo;you always land back in the same family&rdquo; idea has a name. It is called{' '}
-        <strong>closure</strong>, and a family that has it is called a <strong>vector space</strong>. Almost all of
-        machine learning is built on top of that idea, which is why the lecture starts here.
+        This “you always land back in the same family” idea has a name. It is called <strong>closure</strong>, and a
+        family that has it is called a <strong>vector space</strong>. Almost all of machine learning is built on top of
+        that idea, which is why the lecture starts here.
       </Para>
       <Para>
         In this course a vector is nearly always just a list of numbers. A list of 2 numbers is a point on a flat page.
@@ -300,8 +300,8 @@ Answer:  x = 2,  y = −1`}
       </Lab>
 
       <Para>
-        It is fiddly, isn&rsquo;t it. Fix one bar and two others go wrong. And this is only three unknowns. With ten you
-        would have no chance by hand.
+        It is fiddly, isn’t it. Fix one bar and two others go wrong. And this is only three unknowns. With ten you would
+        have no chance by hand.
       </Para>
       <Para>
         The answer is 2 chairs, 3 tables and 1 cabinet. But the answer is not really the interesting part. What matters
@@ -310,8 +310,8 @@ Answer:  x = 2,  y = −1`}
       </Para>
 
       <Takeaway>
-        A table of &ldquo;how much of each thing does each product use&rdquo; is already a matrix. You have been writing
-        them for years without using the word.
+        A table of “how much of each thing does each product use” is already a matrix. You have been writing them for
+        years without using the word.
       </Takeaway>
     </>
   ),
@@ -373,8 +373,7 @@ x₁ − x₂ + 2x₃ = 2        x₁ − x₂ + 2x₃ = 2        x₁ − x₂ 
       </Para>
 
       <Takeaway>
-        &ldquo;No answer&rdquo; means your equations disagree. &ldquo;Endless answers&rdquo; means one of them was not
-        telling you anything new.
+        “No answer” means your equations disagree. “Endless answers” means one of them was not telling you anything new.
       </Takeaway>
     </>
   ),
@@ -440,8 +439,8 @@ x₁ − x₂ + 2x₃ = 2        x₁ − x₂ + 2x₃ = 2        x₁ − x₂ 
         A <strong>matrix</strong> is a box of numbers laid out in rows and columns. That is the whole definition.
       </Para>
       <Para>
-        If it has m rows and n columns we call it an <strong>m × n</strong> matrix, said &ldquo;m by n&rdquo;. Rows are
-        always said first. Click the slots below to see how each one is named.
+        If it has m rows and n columns we call it an <strong>m × n</strong> matrix, said “m by n”. Rows are always said
+        first. Click the slots below to see how each one is named.
       </Para>
 
       <Lab>
@@ -743,8 +742,8 @@ A⁻¹  =     ────────  ⎣ −c   a ⎦      as long as ad − 
   general: (
     <>
       <Para>
-        When a system has endless answers you need a way to describe all of them at once. The lecture&rsquo;s method has
-        two halves, and it is a clever one.
+        When a system has endless answers you need a way to describe all of them at once. The lecture’s method has two
+        halves, and it is a clever one.
       </Para>
       <Para>
         <strong>Half one. Find any single answer.</strong> Just one. It does not have to be special. In the example from
@@ -837,8 +836,8 @@ ERO3   Rᵢ ← Rᵢ + β Rⱼ        add a multiple of one row
 
       <Para>
         Why are they safe? Because each one is something you could do to the equations themselves. Swapping two rows
-        just writes them in a different order. Multiplying a row by 3 turns &ldquo;x + y = 2&rdquo; into &ldquo;3x + 3y
-        = 6&rdquo;, which says the same thing. And adding one equation to another is the trick from part 3.
+        just writes them in a different order. Multiplying a row by 3 turns “x + y = 2” into “3x + 3y = 6”, which says
+        the same thing. And adding one equation to another is the trick from part 3.
       </Para>
       <Para>
         Here is the proof you can see. Press the buttons as much as you like. The lines swing all over the place. The
@@ -850,10 +849,10 @@ ERO3   Rᵢ ← Rᵢ + β Rⱼ        add a multiple of one row
       </Lab>
 
       <Para>
-        <strong>So why can the multiplier never be zero?</strong> Because multiplying a row by 0 turns it into &ldquo;0
-        = 0&rdquo;. That is true, but it is no longer the equation you started with. You have thrown a rule away, and
-        the system you are left with has more answers than the one you were asked about. The lab on the next page
-        refuses to do it, and tells you why.
+        <strong>So why can the multiplier never be zero?</strong> Because multiplying a row by 0 turns it into “0 = 0”.
+        That is true, but it is no longer the equation you started with. You have thrown a rule away, and the system you
+        are left with has more answers than the one you were asked about. The lab on the next page refuses to do it, and
+        tells you why.
       </Para>
 
       <Takeaway>
@@ -869,7 +868,7 @@ ERO3   Rᵢ ← Rᵢ + β Rⱼ        add a multiple of one row
       <Para>
         First, a shortcut in the writing. The letters x₁, x₂, x₃ just sit there in every line doing nothing. So drop
         them and keep the numbers where they are. Add a bar for the right-hand side and you get the{' '}
-        <strong>augmented matrix</strong>. &ldquo;Augmented&rdquo; only means the answers column has been tacked on.
+        <strong>augmented matrix</strong>. “Augmented” only means the answers column has been tacked on.
       </Para>
 
       <Worked title="The same system, shortened">
@@ -884,9 +883,8 @@ x₁ − x₂ + 2x₃ = 2          ⎢ 1  −1   2 │ 2 ⎥
         <strong>Gaussian elimination</strong>.
       </Para>
       <Para>
-        Below is the real thing, running on the lecture&rsquo;s own systems. Pick one, then press{' '}
-        <strong>Next step</strong> over and over. Each press does exactly one of the three legal moves and writes it in
-        the log.
+        Below is the real thing, running on the lecture’s own systems. Pick one, then press <strong>Next step</strong>{' '}
+        over and over. Each press does exactly one of the three legal moves and writes it in the log.
       </Para>
 
       <Lab>
@@ -899,8 +897,8 @@ x₁ − x₂ + 2x₃ = 2          ⎢ 1  −1   2 │ 2 ⎥
       </Para>
       <Para>
         Now try the <strong>No answer</strong> system and keep pressing. A row will turn into all zeros on the left with
-        something that is not zero on the right. That row reads &ldquo;0 = 1&rdquo;. The method is telling you plainly
-        that the equations contradict each other.
+        something that is not zero on the right. That row reads “0 = 1”. The method is telling you plainly that the
+        equations contradict each other.
       </Para>
       <Para>
         Also try typing 0 into the scale box and pressing Do it. It will refuse, and say why. That is the question from
@@ -950,7 +948,7 @@ x₁ − x₂ + 2x₃ = 2          ⎢ 1  −1   2 │ 2 ⎥
         Once you have the staircase, the bottom row has the fewest unknowns in it. So you solve that one first and work
         upwards, putting each answer into the row above. That is called <strong>back substitution</strong>.
       </Para>
-      <Para>The pivots also answer the &ldquo;how many answers?&rdquo; question directly:</Para>
+      <Para>The pivots also answer the “how many answers?” question directly:</Para>
       <List
         items={[
           <>
@@ -1002,8 +1000,8 @@ one or more free variables           →  endless answers,
         the columns of the identity matrix, so each basic variable is just sitting there equal to a number.
       </Para>
       <Para>
-        It also makes the &ldquo;moves that go nowhere&rdquo; from part 12 easy to read off. Click one of the orange
-        columns below and watch the recipe build itself.
+        It also makes the “moves that go nowhere” from part 12 easy to read off. Click one of the orange columns below
+        and watch the recipe build itself.
       </Para>
 
       <Lab>
@@ -1016,7 +1014,7 @@ one or more free variables           →  endless answers,
         to you by the method instead of spotted by eye.
       </Para>
 
-      <Takeaway>The tidiest form turns &ldquo;solve the system&rdquo; into &ldquo;read the system&rdquo;.</Takeaway>
+      <Takeaway>The tidiest form turns “solve the system” into “read the system”.</Takeaway>
     </>
   ),
 
@@ -1098,8 +1096,8 @@ finish with    [ I │ A⁻¹ ]`}
       </Para>
 
       <Takeaway>
-        One method — three legal moves in a set order — answers &ldquo;solve this&rdquo;, &ldquo;how many answers are
-        there&rdquo;, and &ldquo;what is the inverse&rdquo;.
+        One method — three legal moves in a set order — answers “solve this”, “how many answers are there”, and “what is
+        the inverse”.
       </Takeaway>
     </>
   ),

@@ -278,8 +278,8 @@ export function TwoLinesChart() {
           </PanelButtons>
 
           <PanelNote>
-            Those three buttons are the whole of the &ldquo;how many answers?&rdquo; question. There is no fourth
-            picture. Two straight lines either cross once, never cross, or are the same line.
+            Those three buttons are the whole of the “how many answers?” question. There is no fourth picture. Two
+            straight lines either cross once, never cross, or are the same line.
           </PanelNote>
         </>
       }

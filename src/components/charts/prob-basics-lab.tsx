@@ -105,13 +105,13 @@ export function EventsAlgebraLab() {
         <br />A = {show(A)}
         <br />B = {show(B)}
         <br />
-        <span className="text-zinc-500">A ∪ B</span> = {show(union)} &nbsp;&nbsp;
+        <span className="text-zinc-500">A ∪ B</span> = {show(union)}   
         <span className="text-zinc-400">← everything in one or the other (OR)</span>
         <br />
-        <span className="text-zinc-500">A ∩ B</span> = {show(inter)} &nbsp;&nbsp;
+        <span className="text-zinc-500">A ∩ B</span> = {show(inter)}   
         <span className="text-zinc-400">← only what is in both (AND)</span>
         <br />
-        <span className="text-zinc-500">Aᶜ</span> = {show(compA)} &nbsp;&nbsp;
+        <span className="text-zinc-500">Aᶜ</span> = {show(compA)}   
         <span className="text-zinc-400">← everything A is not (NOT)</span>
       </div>
 
@@ -144,8 +144,8 @@ export function EventsAlgebraLab() {
 
       <LabNote>
         <strong>Exhaustive</strong> means the events between them cover the whole of Ω, so something in the collection
-        is bound to happen. Slide 22&rsquo;s example is A₁ = {'{1,2}'}, A₂ = {'{3,4}'}, A₃ = {'{5,6}'} — three events
-        that are mutually exclusive <em>and</em> exhaustive, which is the tidiest way to carve up a sample space.
+        is bound to happen. Slide 22’s example is A₁ = {'{1,2}'}, A₂ = {'{3,4}'}, A₃ = {'{5,6}'} — three events that are
+        mutually exclusive <em>and</em> exhaustive, which is the tidiest way to carve up a sample space.
       </LabNote>
     </LabBox>
   )
@@ -520,9 +520,9 @@ export function PmfPdfLab() {
                 ]}
               />
               <PanelNote>
-                Slide 29&rsquo;s question is P(0.3 ≤ X ≤ 0.7), which is the area of a rectangle 1 high and 0.4 wide — so
-                0.4. Squeeze the two edges together and the area goes to zero: that is why the probability of any one
-                exact value is 0.
+                Slide 29’s question is P(0.3 ≤ X ≤ 0.7), which is the area of a rectangle 1 high and 0.4 wide — so 0.4.
+                Squeeze the two edges together and the area goes to zero: that is why the probability of any one exact
+                value is 0.
               </PanelNote>
             </>
           )}

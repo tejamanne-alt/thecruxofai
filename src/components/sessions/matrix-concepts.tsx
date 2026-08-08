@@ -69,10 +69,9 @@ export function MatrixMultiplyConcept() {
             of each drink at each supplier.
           </>,
           <>
-            To cost one drink at one supplier, you walk along that drink&rsquo;s recipe and down that supplier&rsquo;s
-            price list, multiplying each ingredient by its price and adding as you go. Do that for every drink and every
-            supplier and you have filled in a whole table. That is matrix multiplication, and there is nothing else to
-            it.
+            To cost one drink at one supplier, you walk along that drink’s recipe and down that supplier’s price list,
+            multiplying each ingredient by its price and adding as you go. Do that for every drink and every supplier
+            and you have filled in a whole table. That is matrix multiplication, and there is nothing else to it.
           </>,
         ]}
         mappings={[
@@ -227,7 +226,7 @@ export function DeterminantConcept() {
           <>
             Now suppose the machine squashes the square completely flat onto a line. The area is zero, and something
             worse has happened: two different starting points now land in the same place. There is no way back. That is
-            what a determinant of zero means, and it is the same thing as &ldquo;no inverse&rdquo;.
+            what a determinant of zero means, and it is the same thing as “no inverse”.
           </>,
         ]}
         mappings={[
@@ -420,7 +419,7 @@ export function RankConcept() {
           <>
             Three witnesses give statements about the same event. The first says something new. The second says
             something new. The third just repeats the first two in different words. You have{' '}
-            <strong>three statements but two witnesses&rsquo; worth of information</strong>.
+            <strong>three statements but two witnesses’ worth of information</strong>.
           </>,
           <>
             Rank is that count. Tidy a matrix into staircase form and any row that was a repeat — a copy, a double, a
@@ -470,7 +469,7 @@ export function RankConcept() {
 
       <P>
         That picture runs out at three dimensions. Rank is what replaces it. Lay p vectors out as the rows of a matrix
-        and take the rank: <strong>rank = p</strong> means independent, <strong>rank &lt; p</strong> means dependent.
+        and take the rank: <strong>rank = p</strong> means independent, <strong>rank {'<'} p</strong> means dependent.
         Same count, no drawing required.
       </P>
 

@@ -465,6 +465,134 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
     },
   ],
 
+  lec3: [
+    {
+      id: 'why',
+      title: 'Putting geometry back into a vector space',
+      teaser:
+        'A vector space alone cannot measure anything. One extra object gives you length, distance and angle at once.',
+      slides: 'Slide 1',
+    },
+    {
+      id: 'norms',
+      title: 'A norm: what "length" has to promise',
+      teaser: 'Three rules. Break each one on purpose and see why a length that broke it would be useless.',
+      slides: 'Slide 2',
+    },
+    {
+      id: 'l1l2',
+      title: 'Manhattan and Euclidean length',
+      teaser: 'Two honest ways to measure the same arrow. Drag a point and watch a circle turn into a diamond.',
+      slides: 'Slide 2',
+    },
+    {
+      id: 'bilinear',
+      title: 'Bilinear: linear in each slot separately',
+      teaser: 'The word looks frightening and means one small thing. Check it on both arguments at once.',
+      slides: 'Slide 3',
+    },
+    {
+      id: 'innerproduct',
+      title: 'What makes a mapping an inner product',
+      teaser: 'Bilinear, symmetric, positive definite. Turn each one off and watch the geometry break.',
+      slides: 'Slides 3–4',
+    },
+    {
+      id: 'spdmatrix',
+      title: 'Every inner product is a matrix',
+      teaser: 'The theorem behind the whole lecture: ⟨x, y⟩ = x̂ᵀAŷ. Edit A and watch the geometry it defines.',
+      slides: 'Slide 5',
+    },
+    {
+      id: 'spdfacts',
+      title: 'Two things an SPD matrix cannot help being',
+      teaser: 'Full rank, and a strictly positive diagonal. Both fall out of one line of the definition.',
+      slides: 'Slide 6',
+    },
+    {
+      id: 'induced',
+      title: 'The norm an inner product gives you',
+      teaser:
+        'Every inner product induces a length. Not every length comes from an inner product — Manhattan does not.',
+      slides: 'Slide 7',
+    },
+    {
+      id: 'cauchy',
+      title: 'Cauchy–Schwarz, and where it comes from',
+      teaser: 'One squared length that cannot go below zero. Drag α and watch the proof happen on a parabola.',
+      slides: 'Slide 8',
+    },
+    {
+      id: 'metric',
+      title: 'Distance, and what a metric is',
+      teaser: 'The length of the gap between two points. Drag them apart and read the three properties off the plot.',
+      slides: 'Slides 9–10',
+    },
+    {
+      id: 'angles',
+      title: 'The angle between two vectors',
+      teaser:
+        'Cauchy–Schwarz is exactly what makes cos⁻¹ legal here. Sweep the angle and watch the ratio stay in range.',
+      slides: 'Slides 11–12',
+    },
+    {
+      id: 'highdim',
+      title: 'The slide that asks you to write a program',
+      teaser: 'Random vectors in high dimensions are nearly always at right angles. Run it and watch the spike form.',
+      slides: 'Slide 13',
+    },
+    {
+      id: 'orthogonality',
+      title: 'Orthogonal — but with respect to which inner product?',
+      teaser: 'Perpendicular is not a property of two vectors alone. Switch A and watch a right angle disappear.',
+      slides: 'Slide 14',
+    },
+    {
+      id: 'angleexample',
+      title: "The deck's worked example",
+      teaser: 'Two vectors at right angles under the dot product, and at cos⁻¹(−1/3) under another. Computed live.',
+      slides: 'Slides 15–16',
+    },
+    {
+      id: 'orthomatrix',
+      title: 'Orthogonal matrices, and why rotation is the picture',
+      teaser: 'AᵀA = I. Turn the dial and watch every length and every angle survive the transformation.',
+      slides: 'Slides 17–19',
+    },
+    {
+      id: 'orthobasis',
+      title: 'An orthonormal basis',
+      teaser: 'Mutually at right angles, each of length one. Coordinates stop needing any work at all.',
+      slides: 'Slides 20–21',
+    },
+    {
+      id: 'gramschmidt',
+      title: "Gram–Schmidt the deck's way",
+      teaser:
+        'Row-reduce [AᵀA | Aᵀ] and an orthogonal basis appears on the right. Step through it on the deck’s own numbers.',
+      slides: 'Slides 22–23',
+    },
+    {
+      id: 'elementary',
+      title: 'Elementary matrices: a row operation you can multiply by',
+      teaser: 'Every elimination step is a matrix. Build one and watch it do the subtraction for you.',
+      slides: 'Slides 24–25',
+    },
+    {
+      id: 'lu',
+      title: 'Why elimination is really A = LU',
+      teaser: 'Stack the elementary matrices, invert them, and the whole of Gaussian elimination becomes one product.',
+      slides: 'Slide 26',
+    },
+    {
+      id: 'finalargument',
+      title: 'Closing the loop: why the method works',
+      teaser:
+        'QᵀQ is symmetric and upper triangular at the same time, so it must be diagonal. That is the whole proof.',
+      slides: 'Slide 27',
+    },
+  ],
+
   ism1: [
     {
       id: 'course',

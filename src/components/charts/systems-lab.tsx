@@ -490,8 +490,8 @@ export function OutcomesLab() {
             </div>
           </div>
           <p className="mt-2 text-[13px]/[1.6] text-zinc-600">
-            Move the dial and every one of the three equations stays satisfied. That is what &ldquo;endless&rdquo;
-            means, and it is worth seeing rather than being told.
+            Move the dial and every one of the three equations stays satisfied. That is what “endless” means, and it is
+            worth seeing rather than being told.
           </p>
         </div>
       )}

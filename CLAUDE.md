@@ -17,7 +17,10 @@ Build it as a **chapter** under the right course, in the **Chapters** bucket. Ne
 4. **Record where it came from.** Each part carries the slide numbers it was built from, so any claim on the
    page can be traced back to the deck.
 5. **Write the cheat sheet, quiz and exam entries** into `knowledge.ts` for the chapter.
-6. **Then look at the Concepts bucket.** A chapter follows one lecture in the order it was taught. A concept takes
+6. **Every part ends with what it is for in ML and AI.** Not a line tacked on — a real paragraph naming the
+   method that uses the idea and what breaks without it. This is a course in maths *for* machine learning,
+   and the connection is the reason any of it is being learnt.
+7. **Then look at the Concepts bucket.** A chapter follows one lecture in the order it was taught. A concept takes
    one reusable idea and explains it on its own terms, so it can be reached from anywhere and used by a later
    course. After adding a chapter, add or extend the concepts the lecture introduced — one page each, reusing the
    chapter's labs, ending with links back to the parts it was drawn from. Do not duplicate the chapter; a concept
@@ -41,6 +44,28 @@ because I will trust it the night before an exam.
   question to something that works, and do not offer two answers and let the reader choose. Deleting the
   claim is always better than dressing a guess up as an answer.
 - Never delete a question just because it is awkward. Keep the question, drop the unverifiable answer.
+
+## I am being examined on this
+
+There are assignments, a mid-term and a semester exam. The site is what I revise from, so it has to be
+enough on its own. When in doubt, go longer and slower — I would rather scroll than be stuck.
+
+- **Explain every term, the first time it appears.** No symbol goes past unexplained: say what it is, how
+  to say it aloud, and what it would be called in plain words. `⟨x, y⟩`, `‖x‖`, `Ω`, `λ`, `ψ`, `⊥`, `ω`,
+  `∀`, `∈`, `Aᵀ` — all of them, every time a page is the first to use one.
+- **Never assume a step is obvious.** If a line of algebra skips something, put the missing line in. The
+  places I get lost are exactly the ones a lecturer thought were too small to write down.
+- **Say what a thing is *for* before what it *is*.** A definition I cannot motivate is a definition I will
+  not remember.
+- **Go beyond the deck where the deck is thin.** Extra examples, a second way of seeing it, the special
+  case that makes it click, the mistake people make in exams. This is wanted, not padding — *but* anything
+  not from the slides must be marked as such, and it is still bound by the rule above it: if I cannot
+  verify it, it does not go on the page. Beyond-the-deck material must never be presented as the
+  lecture's own.
+- **Every part answers "why does machine learning care?"** in its own words, with the real method named —
+  the loss function, the kernel, the regulariser, the layer. A part without this is not finished.
+- **Write for an examiner as well as for me.** The `knowledge.ts` exam points model what gets the marks;
+  the page teaches the understanding that produces them.
 
 ## How to write
 
@@ -96,16 +121,26 @@ JSX drops the whitespace at the start and end of every line of text. So a senten
 editor can compile to `whatangle` purely because the space happened to fall at a line end. It builds, it
 type-checks, and you only find it by reading the page.
 
-- **Prettier is the formatter, and it runs before the check, not after.** Re-wrapping prose is what moves a
-  space to the end of a line, so `npm run format` first, then `npm run check:spaces`. Prettier itself never
-  breaks a real space — it writes `{' '}` when it has to wrap at one — so anything the checker finds after a
-  format either predates the format or is deliberate.
-- **Write a load-bearing space as `{' '}`.** That is the only form that survives re-wrapping.
+- **Never write an HTML entity in JSX text. This is the big one.** `&ldquo;` `&rsquo;` `&nbsp;` `&amp;` and
+  friends trigger a real SWC bug: a text node that contains an entity *and* spans more than one line loses
+  the space at its start. So `<strong>not</strong> is the complement…` renders as `notis the complement` —
+  but only when there is an entity somewhere later in the same paragraph, which is why it looks random.
+  Write the character itself: `“` `”` `’` `–` `…`, a real non-breaking space, a bare `&`. For the ones that
+  are JSX syntax, use an expression: `{'{'}`, `{'}'}`, `{'<'}`, `{'>'}`. This single rule removed 38 of the
+  39 glued words on the site.
+- **Prettier is the formatter, and it runs before the check, not after.** `npm run format`, then
+  `npm run check:spaces`. Note that Prettier turns a mid-line `{' '}` back into a plain space — it only
+  keeps the `{' '}` form where it wraps a line — so you cannot fix a mid-line join that way. Remove the
+  entity instead.
+- **The checker compiles the file; it does not read it.** An earlier version modelled the whitespace rule by
+  hand, called the file clean, and the built page still said `norm‖x‖₁`. `scripts/check-jsx-spaces.mjs` now
+  runs the very SWC that Next builds with and inspects the children it emits, so it cannot disagree with
+  what ships. `--fix` inserts `{' '}` where it can, and skips anything ambiguous.
 - **The checker reports two kinds of join.** An `ERROR` is text next to an element and always wants fixing.
   A `note` is text next to a `{...}` expression, like `carr{plural}` — gluing is the point there, so these
   are printed to be glanced at and never fail. `<sub>` and `<sup>` are ignored: `a<sub>11</sub>` is a₁₁.
 - **Never chase this with a regular expression.** It flags hundreds of innocent lines and still misses real
-  ones. `scripts/check-jsx-spaces.mjs` parses the file and applies the actual rule.
+  ones.
 
 ## Before you say it is done
 

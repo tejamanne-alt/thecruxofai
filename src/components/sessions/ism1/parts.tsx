@@ -161,9 +161,9 @@ T3  Introduction to Time Series and Forecasting, 2nd edition
             unsatisfied. Grades A to F. Gold, silver, bronze. You know which is better; you cannot say by how much.
           </>,
           <>
-            <strong>Interval</strong> — the gaps are real and equal, but zero does not mean &ldquo;none&rdquo;.
-            Temperature in Celsius. 20° to 30° is the same jump as 30° to 40°, but 0°C is not the absence of
-            temperature, so 40°C is not twice as hot as 20°C.
+            <strong>Interval</strong> — the gaps are real and equal, but zero does not mean “none”. Temperature in
+            Celsius. 20° to 30° is the same jump as 30° to 40°, but 0°C is not the absence of temperature, so 40°C is
+            not twice as hot as 20°C.
           </>,
           <>
             <strong>Ratio</strong> — the highest level. Gaps are real <em>and</em> zero means none. Weight, age, salary.
@@ -199,8 +199,8 @@ T3  Introduction to Time Series and Forecasting, 2nd edition
     <>
       <Para>
         The <strong>mean</strong> is the ordinary average. Add all the values up and divide by how many there are.
-        Written down it is <strong>x̄ = Σx / n</strong>, where the bar over the x means &ldquo;mean of&rdquo; and the Σ
-        means &ldquo;add up&rdquo;.
+        Written down it is <strong>x̄ = Σx / n</strong>, where the bar over the x means “mean of” and the Σ means “add
+        up”.
       </Para>
       <Para>
         The best way to think about it is as a <strong>balance point</strong>. Imagine the values as weights sitting on
@@ -212,13 +212,13 @@ T3  Introduction to Time Series and Forecasting, 2nd edition
       </Lab>
 
       <Para>
-        Look at the read-out marked &ldquo;distances add up to&rdquo;. It stays at zero no matter what you do. That is
-        not a coincidence — it is what being a balance point means. The values above the mean pull exactly as hard as
-        the ones below it.
+        Look at the read-out marked “distances add up to”. It stays at zero no matter what you do. That is not a
+        coincidence — it is what being a balance point means. The values above the mean pull exactly as hard as the ones
+        below it.
       </Para>
       <Para>
-        This also explains the mean&rsquo;s weakness. Drag one dot right to the end of the line. The mean follows it,
-        because that one value now pulls with a very long lever. A single extreme value can shift the mean a long way.
+        This also explains the mean’s weakness. Drag one dot right to the end of the line. The mean follows it, because
+        that one value now pulls with a very long lever. A single extreme value can shift the mean a long way.
       </Para>
       <Para>
         When values come with counts rather than one at a time, the formula grows an f for frequency. Same idea: each
@@ -392,11 +392,19 @@ Ten getting-ready times, in order:
           </>,
           <>
             <strong>Skewed to the right</strong> (also called positively skewed) — a long tail stretching right. A few
-            big values pull the mean up past the median. So <strong>mean &gt; median &gt; mode</strong>.
+            big values pull the mean up past the median. So{' '}
+            <strong>
+              mean {'>'} median {'>'} mode
+            </strong>
+            .
           </>,
           <>
             <strong>Skewed to the left</strong> (negatively skewed) — a long tail stretching left. A few small values
-            pull the mean down. So <strong>mean &lt; median &lt; mode</strong>.
+            pull the mean down. So{' '}
+            <strong>
+              mean {'<'} median {'<'} mode
+            </strong>
+            .
           </>,
         ]}
       />
@@ -527,9 +535,9 @@ range = 7 − 2 = 5`}
       </Lab>
 
       <Para>
-        The panel shows the range&rsquo;s more careful cousin as well: the <strong>IQR</strong>, which is the spread of
-        the middle half only. Drag an end dot far out and watch the two react completely differently. The range leaps.
-        The IQR sits still.
+        The panel shows the range’s more careful cousin as well: the <strong>IQR</strong>, which is the spread of the
+        middle half only. Drag an end dot far out and watch the two react completely differently. The range leaps. The
+        IQR sits still.
       </Para>
       <Para>
         For continuous data, textbooks sometimes define the range using the real limits of the end classes rather than
@@ -663,10 +671,10 @@ a sample from it       s² = SS / (n − 1)  s = √(SS / (n − 1))`}
         value. The n − 1 version wobbles about it and settles on it.
       </Para>
       <Para>
-        Here is why. When you measure spread in a sample, you measure it around the <em>sample&rsquo;s own</em> mean —
-        because you do not know the real one. But the sample&rsquo;s mean has already shifted itself to sit right in the
-        middle of those particular values. So they look closer together than they truly are. Dividing by n − 1 rather
-        than n makes the answer slightly bigger, which makes up the difference.
+        Here is why. When you measure spread in a sample, you measure it around the <em>sample’s own</em> mean — because
+        you do not know the real one. But the sample’s mean has already shifted itself to sit right in the middle of
+        those particular values. So they look closer together than they truly are. Dividing by n − 1 rather than n makes
+        the answer slightly bigger, which makes up the difference.
       </Para>
       <Para>
         Notice how the size of the correction depends on the sample. At n = 2, dividing by n is out by about half. At n
@@ -790,7 +798,7 @@ QD  = IQR / 2 = 2.5`}
         Q3, with a line at the median. The whiskers reach out to the furthest values that are still normal.
       </Para>
       <Para>
-        &ldquo;Still normal&rdquo; needs a definition, and here it is. Put up two <strong>fences</strong>:
+        “Still normal” needs a definition, and here it is. Put up two <strong>fences</strong>:
       </Para>
 
       <Worked title="The outlier rule">

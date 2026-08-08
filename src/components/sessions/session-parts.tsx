@@ -388,7 +388,7 @@ export function Terms({ items }: { items: Array<{ term: string; say?: string; de
           <div key={t.term} className="rounded-lg border border-zinc-950/[0.08] bg-zinc-50 p-3">
             <div className="flex flex-wrap items-baseline gap-2">
               <span className="font-mono text-[13px] font-semibold text-zinc-950">{t.term}</span>
-              {t.say && <span className="text-[11px] text-zinc-500">say &ldquo;{t.say}&rdquo;</span>}
+              {t.say && <span className="text-[11px] text-zinc-500">say “{t.say}”</span>}
             </div>
             <div className="mt-1 text-[12.5px]/[1.6] text-zinc-600">{t.def}</div>
           </div>
@@ -406,6 +406,27 @@ export function Worked({ title, children }: { title: string; children: React.Rea
       <div className="crux-prose overflow-x-auto font-mono text-[12.5px]/[1.8] whitespace-pre text-zinc-800">
         {children}
       </div>
+    </div>
+  )
+}
+
+/**
+ * What the idea on this page is actually for, once you stop doing maths and
+ * start training something. Every part carries one: this is a course in maths
+ * *for* machine learning, and the connection is the reason any of it is being
+ * learnt. `method` names the thing that uses it — a loss, a kernel, a layer —
+ * so the link is concrete rather than a vague gesture at "used in AI".
+ */
+export function WhyAiml({ method, children }: { method: string; children: React.ReactNode }) {
+  return (
+    <div className="mt-5 rounded-lg border border-teal-600/25 bg-teal-50/60 p-4">
+      <div className="mb-1.5 flex flex-wrap items-baseline gap-2">
+        <span className="text-[11px] font-semibold tracking-[0.06em] text-teal-800 uppercase">
+          Why machine learning cares
+        </span>
+        <span className="font-mono text-[11.5px] text-teal-700">{method}</span>
+      </div>
+      <div className="crux-prose text-[13.5px]/[1.7] text-zinc-800">{children}</div>
     </div>
   )
 }

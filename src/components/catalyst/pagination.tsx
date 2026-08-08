@@ -81,11 +81,7 @@ export function PaginationPage({
   )
 }
 
-export function PaginationGap({
-  className,
-  children = <>&hellip;</>,
-  ...props
-}: React.ComponentPropsWithoutRef<'span'>) {
+export function PaginationGap({ className, children = <>…</>, ...props }: React.ComponentPropsWithoutRef<'span'>) {
   return (
     <span
       aria-hidden="true"

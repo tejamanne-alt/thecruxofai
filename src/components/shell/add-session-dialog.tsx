@@ -141,12 +141,12 @@ export function AddSessionDialog({ open, group, onClose }: { open: boolean; grou
             </Select>
             <Description>
               A <strong>concept</strong> is one idea explained on its own terms, and often turns up in more than one
-              course. A <strong>chapter</strong> is this course&rsquo;s own material, in the order it was taught.
+              course. A <strong>chapter</strong> is this course’s own material, in the order it was taught.
             </Description>
           </Field>
 
           <Field>
-            <Label>Explain it the way you&rsquo;d explain it to a friend</Label>
+            <Label>Explain it the way you’d explain it to a friend</Label>
             <Textarea
               rows={5}
               value={summary}

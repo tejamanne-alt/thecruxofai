@@ -193,8 +193,8 @@ export function AlgebraSession() {
           <>
             Think of a coffee shop. A flat white costs <strong>₹200</strong>, and there is a <strong>₹30</strong>{' '}
             delivery fee no matter how many you order. If you order <em>x</em> coffees you pay{' '}
-            <strong>200x + 30</strong>. That&rsquo;s it — that is algebra. The letter <em>x</em> is not mysterious; it
-            is a box waiting for a number, and the sentence stays true whichever number you drop in.
+            <strong>200x + 30</strong>. That’s it — that is algebra. The letter <em>x</em> is not mysterious; it is a
+            box waiting for a number, and the sentence stays true whichever number you drop in.
           </>,
           <>
             The chart below is that same idea drawn as a picture. <strong>Stage 1</strong> is your price rule: multiply
@@ -312,8 +312,8 @@ export function AlgebraSession() {
             </PanelButtons>
 
             <PanelNote>
-              Set stage 2 to &ldquo;nothing&rdquo; and the curve becomes a straight line, whatever you do to a and b.
-              That is the whole reason deep learning needs a stage 2.
+              Set stage 2 to “nothing” and the curve becomes a straight line, whatever you do to a and b. That is the
+              whole reason deep learning needs a stage 2.
             </PanelNote>
           </>
         }
@@ -448,10 +448,10 @@ export function AlgebraSession() {
 export function UsedInAiml({ rows }: { rows: Array<{ what: string; how: string }> }) {
   return (
     <div className="mt-7">
-      <h2 className="mb-1.5 text-lg font-semibold tracking-[-0.02em]">Where this shows up in AI &amp; ML</h2>
+      <h2 className="mb-1.5 text-lg font-semibold tracking-[-0.02em]">Where this shows up in AI & ML</h2>
       <p className="mb-4 max-w-[680px] text-[14px]/[1.6] text-zinc-600">
-        Not &ldquo;you will need this one day&rdquo; — these are the places the idea appears by name, in things you have
-        already met on this site.
+        Not “you will need this one day” — these are the places the idea appears by name, in things you have already met
+        on this site.
       </p>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-3">
         {rows.map((r) => (
