@@ -88,15 +88,15 @@ export function DotProductLab() {
           tooltip={() => null}
           targets={{}}
           handles={(f) => [
-            { id: 'a', px: f.px(a.x), py: f.py(a.y) },
-            { id: 'b', px: f.px(b.x), py: f.py(b.y) },
+            { id: 'a', label: `Vector a, at (${a.x}, ${a.y})`, px: f.px(a.x), py: f.py(a.y) },
+            { id: 'b', label: `Vector b, at (${b.x}, ${b.y})`, px: f.px(b.x), py: f.py(b.y) },
           ]}
           onDragTo={(id, x, y) => {
             const p = { x: snap(clamp(x, -SPAN, SPAN)), y: snap(clamp(y, -SPAN, SPAN)) }
             if (id === 'a') setA(p)
             else setB(p)
           }}
-          caption="Drag either arrow. The thick bar is how much of a lies along b — teal when the dot product is positive, red when it is negative."
+          caption="Drag either arrow, or Tab to one and use the arrow keys. The thick bar is how much of a lies along b — teal when the dot product is positive, red when it is negative."
         />
         <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 bg-zinc-50 p-5">
           <ReadOutGrid

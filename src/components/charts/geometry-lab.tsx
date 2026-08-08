@@ -625,9 +625,9 @@ export function MetricLab() {
           targets={{}}
           jumpKey="metric"
           handles={(f) => [
-            { id: 'x', px: f.px(x.x), py: f.py(x.y) },
-            { id: 'y', px: f.px(y.x), py: f.py(y.y) },
-            { id: 'z', px: f.px(z.x), py: f.py(z.y) },
+            { id: 'x', label: `Point x, at (${x.x}, ${x.y})`, px: f.px(x.x), py: f.py(x.y) },
+            { id: 'y', label: `Point y, the detour, at (${y.x}, ${y.y})`, px: f.px(y.x), py: f.py(y.y) },
+            { id: 'z', label: `Point z, at (${z.x}, ${z.y})`, px: f.px(z.x), py: f.py(z.y) },
           ]}
           onDragTo={(id, px, py) => {
             const p = { x: snap(clamp(px, -SPAN, SPAN)), y: snap(clamp(py, -SPAN, SPAN)) }
@@ -635,7 +635,7 @@ export function MetricLab() {
             else if (id === 'y') setY(p)
             else setZ(p)
           }}
-          caption="Three points. The thick line is the direct route x → z; the two thin ones are the detour through y. The dashed arrow is the vector x − y, whose length is the distance."
+          caption="Three points — drag any of them, or Tab to one and use the arrow keys. The thick line is the direct route x → z; the two thin ones are the detour through y. The dashed arrow is the vector x − y, whose length is the distance."
         />
         <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 bg-zinc-50 p-5">
           <ReadOutGrid

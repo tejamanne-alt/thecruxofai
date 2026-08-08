@@ -21,9 +21,23 @@ npm run build      # production build
 npm run start      # serve the production build
 npm run typecheck  # tsc --noEmit
 npm run lint
+npm run check      # typecheck, lint, Prettier and the glued-words check
 ```
 
 Node 20+ is enough; it was built and tested on Node 22.
+
+One check needs a browser and a server, so it sits outside `npm run check`:
+
+```bash
+npm run build && npm run start &
+BASE=http://localhost:3000 npm run check:labs
+```
+
+`check:labs` opens every part page in Chromium and fails it unless something on the page actually changes what
+the page says — a chart handle moved with the arrow keys, a slider, a tick box, a number box or a button, tried
+in that order. Pass a fragment to narrow it: `npm run check:labs -- lec0b`. See
+[the section on operating a chart without a mouse](#and-with-no-mouse-at-all) for why the handle case needed
+building before this could work at all.
 
 ## Stack
 
@@ -227,6 +241,35 @@ On touch this splits deliberately. The canvas is `touch-pan-y`, and a non-passiv
 `preventDefault` **only** when a finger lands on a handle — so dragging the mark itself works, while a swipe anywhere
 else still scrolls the page instead of trapping it behind a 400px-tall chart. A press away from the mark therefore
 stays a tap: it positions, but does not begin a drag, because the browser has already claimed that gesture.
+
+### And with no mouse at all
+
+A handle is painted on a canvas, so for a long time it was reachable only by pointing at it. That is two problems
+wearing one coat. A reader working by keyboard could not operate the chart, and four labs — the dot product, the
+parallelogram, the metric-axioms lab and the loss surface — had no other control on the page at all, so those pages
+could not be operated at all without a mouse. The second problem hid the first: a verification run that hunts for
+buttons and sliders sees an empty page and cannot tell a drag-only lab from a broken one, so those four were never
+being checked.
+
+`ChartCanvas` now lays one real element per handle over the canvas, positioned from the same `Frame` the drawing
+uses, so a marker always sits exactly on the mark it stands for. Three details make it work:
+
+- **It is `pointer-events: none`, from the wrapper down.** Press and drag stay entirely the canvas's own gestures and
+  nothing about the mouse behaviour changed. The layer exists only so `Tab` has somewhere to land. Setting this to
+  `auto` breaks dragging outright, and the verification catches that specific mistake.
+- **Arrow keys move from where the last press left off, not from the mark's drawn position.** Labs snap to a grid —
+  the dot product snaps to halves — so a step smaller than the grid would round back to the same value forever. The
+  accumulator means several small presses add up until they cross the next snap point, exactly as a slow drag does.
+  `Shift` takes four steps at once.
+- **Each handle carries a `label`.** It is what a screen reader reads out and the only name the handle has anywhere
+  outside the drawing; without one it falls back to the id, which is usually a bare letter.
+
+The ring is an ordinary `outline` on an ordinary element, for the reason in the slider note above, and the plain hex
+sits on the line before the `var(--acc)` one.
+
+Reaching it is the other half. The sidebar lists every session, so `Tab` took 55 presses to get from the top of the
+page to the first chart. A skip link at the very start of the shell jumps to `#page`; the same handle is then two
+presses away.
 
 ### Derive what the chart shows, never store it
 

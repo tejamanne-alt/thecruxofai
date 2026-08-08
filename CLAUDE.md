@@ -157,6 +157,12 @@ I will not find out until I am mid-revision.
 - **One component per control.** Every slider on the site goes through `RangeInput`. A call site that
   hand-rolls its own input will drift, and a fix then has to be found in eight places instead of one.
 - **Keep the focus ring.** If you remove an outline, put one back under `:focus-visible`.
+- **A canvas holds no elements, so give every handle one of its own.** A chart is operated by dragging a
+  mark that is painted, not built — there is nothing for Tab to land on, nothing for a screen reader to
+  name, and nothing a verification run can find. `ChartCanvas` lays one focusable element per handle over
+  the canvas, transparent to the pointer so press and drag stay the canvas's own gestures, and moves the
+  handle on the arrow keys. Give each handle a `label`: it is the only name it has outside the drawing.
+  Four labs on the site had no other control at all and could not be operated without a mouse.
 - **Anything new and shiny needs a fallback or a shrug.** `text-wrap: pretty` degrades to normal wrapping
   and costs nothing. `color-mix` and `scrollbar-color` do not degrade — they disappear — so they get a
   plain-value line before them.
@@ -197,6 +203,11 @@ Run the real thing in a browser and prove it works:
 - Every new page loads (200, not 404) and renders real content.
 - Every new lab responds to a real click or drag, checked by asserting the state changed — not by counting
   elements on the page.
+- **`npm run check:labs`, against a running production server, and clean.** It drives every part page in
+  Chromium and fails the page unless something on it actually changed the text: a chart handle moved with
+  the arrow keys, a slider, a tick box, a number box or a button, in that order. It exists because the
+  element-hunting version could not see a canvas at all and quietly passed four drag-only labs it had
+  never touched. Adding a lab means this must still pass, and so must the count — 204 part routes today.
 - Every control the reader has to *see* is checked by reading its size and colour back out of the page, not
   by trusting that the CSS applied. A pseudo-element that silently paints nothing looks fine in a
   screenshot test and wrong on a laptop.

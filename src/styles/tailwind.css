@@ -136,6 +136,34 @@ body {
   outline-offset: 3px;
 }
 
+/*
+ * A chart is operated by dragging a mark drawn on a canvas, and a canvas holds
+ * no elements — so there was nothing for Tab to land on, nothing for a screen
+ * reader to name, and nothing a verification run could find. Each handle now
+ * gets a real element of its own, laid over the canvas where the mark is.
+ *
+ * It is transparent to the pointer on purpose. Press and drag stay entirely
+ * the canvas's own gestures, exactly as before; this layer exists only so the
+ * keyboard can reach the same handle. The ring is an ordinary outline on an
+ * ordinary element, so no engine can decide not to paint it.
+ */
+.crux-handle {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  pointer-events: none;
+}
+.crux-handle:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline: 2px solid var(--acc);
+  outline-offset: 1px;
+}
+
 /* Prose in the explainers wraps for shape, not just for width. */
 .crux-prose {
   text-wrap: pretty;

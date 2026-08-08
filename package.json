@@ -12,6 +12,7 @@
     "format": "prettier --write src scripts",
     "format:check": "prettier --check src scripts",
     "check:spaces": "node scripts/check-jsx-spaces.mjs",
+    "check:labs": "node scripts/check-labs.mjs",
     "check": "npm run typecheck && npm run lint -- src --max-warnings=0 && npm run format:check && npm run check:spaces"
   },
   "dependencies": {
