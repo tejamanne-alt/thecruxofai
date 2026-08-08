@@ -215,7 +215,7 @@ export function PerceptronSession() {
               </PanelButton>
             </PanelButtons>
             <PanelNote>
-              The shaded halves are the neuron&rsquo;s opinion. Ringed dots are the ones it still gets wrong right now.
+              The shaded halves are the neuron’s opinion. Ringed dots are the ones it still gets wrong right now.
             </PanelNote>
           </>
         }

@@ -1,169 +1,257 @@
 /**
  * Finds words that get glued together when JSX is compiled.
  *
- * JSX throws away the whitespace at the start and end of every line of a text
+ * JSX throws away some of the whitespace around a line break inside a text
  * node. So this, which reads perfectly well in the editor:
  *
- *     nothing has said how <em>long</em> one is or what
- *     <em>angle</em> sits between two of them.
+ *     The <strong>Manhattan norm</strong> ‖x‖₁ adds up the absolute values
+ *     of the components.
  *
- * compiles to "...one is or whatangle sits between two of them." The space is
- * gone, because it was the last thing on its line. Nothing warns you: the page
- * builds, the types check, and the mistake only shows up when you read the
- * sentence — usually the night before an exam.
+ * compiles to "The Manhattan norm‖x‖₁ adds up …". The space is gone. Nothing
+ * warns you: the page builds, the types check, and the mistake only shows up
+ * when you read the sentence — usually the night before an exam.
  *
- * Prettier re-wraps prose every time it runs, so any line can become the last
- * line at any moment. That makes this a class of bug rather than a typo, and
- * the only safe guard is to check the compiled output rather than the source.
- * This walks the real parse tree and applies the real whitespace rule, so it
- * reports the joins a browser would actually show. A regular expression cannot
- * do this — it flags hundreds of innocent lines and still misses real ones.
+ * Prettier re-wraps prose every time it runs, so any line can become the line
+ * that loses its space. That makes this a class of bug rather than a typo.
+ *
+ * WHY THIS COMPILES THE FILE INSTEAD OF READING IT
+ *
+ * An earlier version of this script modelled the whitespace rule by hand and
+ * reported the file clean while the built page really did say "norm‖x‖₁". The
+ * hand-written model and the compiler disagreed, and the compiler is the one
+ * that ships. So this now runs the file through the very SWC that Next builds
+ * with, and inspects the children arrays it emits. Whatever the rule turns out
+ * to be in this SWC version, the check follows it exactly, by construction.
  *
  * The fix is always the same: write the space as {' '} so it survives.
  *
  * Two kinds of join get reported:
  *
- *   ERROR — text next to an element, as above. A space was meant. These fail.
- *   note  — text next to a {...} expression, like "carr{plural}" or "{d}x₂²".
- *           Gluing is nearly always the point, and Prettier only ever breaks a
- *           line there when no space was meant, so these are printed for a
- *           human to glance at and never fail the check.
+ *   ERROR — text glued to an element, as above. A space was meant.
+ *   note  — text glued to a {...} expression, like "carr{plural}" or "{d}x₂²".
+ *           Gluing is nearly always the point there, so these never fail.
  *
  *   node scripts/check-jsx-spaces.mjs
  */
-import { globSync, readFileSync } from 'node:fs'
-import ts from 'typescript'
+import swc from 'next/dist/build/swc/index.js'
+import { globSync, readFileSync, writeFileSync } from 'node:fs'
 
 const files = globSync('src/**/*.tsx').sort()
 
-/** React's rule: drop whitespace-only first and last lines, trim each line's
- *  edges where a newline is involved, and join what is left with one space. */
-function emitted(raw) {
-  const lines = raw.split('\n')
-  const kept = []
-  for (let i = 0; i < lines.length; i++) {
-    let line = lines[i]
-    if (i > 0) line = line.replace(/^[ \t\r]+/, '')
-    if (i < lines.length - 1) line = line.replace(/[ \t\r]+$/, '')
-    if (line === '' && (i === 0 || i === lines.length - 1)) continue
-    kept.push(line)
-  }
-  return kept.join(' ')
-}
+/** Characters after which, or before which, a reader expects a space. Greek
+ *  letters and ℝ are already \p{L}; ‖, ⟨ and √ are not, but they open a word
+ *  as far as a reader is concerned. Leaving those out is how "norm‖x‖₁" got
+ *  through the first time. */
+const MATH_OPENERS = '‖⟨√∑∏∫∀∃∈∉⊆⊂⊥∅∂∇±∓¬'
+const WORDY_END = /[\p{L}\p{N}\p{M}.,;:!?%)\]}’”‖⟩]$/u
+const WORDY_START = new RegExp(`^[\\p{L}\\p{N}\\p{M}(\\[{‘“${MATH_OPENERS}]`, 'u')
 
-/** Characters after which, or before which, a reader expects a space. */
-const WORDY_END = /[\p{L}\p{N}\p{M}.,;:!?%)\]}’”]$/u
-const WORDY_START = /^[\p{L}\p{N}\p{M}(\[{‘“]/u
-
-/** Tags that attach to the word beside them rather than standing apart, so
- *  "a<sub>11</sub>" reads as a₁₁ and is not a missing space. */
+/** Tags that attach to the word beside them, so "a<sub>11</sub>" reads as a₁₁
+ *  and is not a missing space. */
 const ATTACHED = new Set(['sub', 'sup'])
 
-function tagName(node) {
-  if (ts.isJsxElement(node)) return node.openingElement.tagName.getText()
-  if (ts.isJsxSelfClosingElement(node)) return node.tagName.getText()
-  return ''
-}
-
-/** What a child contributes at one of its edges, as far as we can tell
- *  statically. Returns '' when it contributes nothing (so we look further). */
-function edgeText(node, side) {
-  if (ts.isJsxText(node)) return emitted(node.text)
-  if (ts.isJsxElement(node) || ts.isJsxFragment(node)) {
-    const kids = node.children
-    for (let i = 0; i < kids.length; i++) {
-      const k = side === 'end' ? kids[kids.length - 1 - i] : kids[i]
-      const t = edgeText(k, side)
-      if (t !== '') return t
-    }
-    return ''
-  }
-  if (ts.isJsxExpression(node)) return expressionEdge(node.expression, side)
-  return ''
-}
-
-/** An expression's edge. String literals are exactly how a deliberate space is
- *  written, so they must be read properly — {' '} is not a word. Conditionals
- *  and && guards are followed into their branches for the same reason. */
-function expressionEdge(e, side) {
-  if (!e) return ''
-  if (ts.isParenthesizedExpression(e)) return expressionEdge(e.expression, side)
-  if (ts.isStringLiteral(e) || ts.isNoSubstitutionTemplateLiteral(e)) return e.text
-  if (ts.isJsxElement(e) || ts.isJsxFragment(e) || ts.isJsxSelfClosingElement(e)) return edgeText(e, side)
-  if (ts.isConditionalExpression(e)) {
-    // Either branch can render, so the join is only safe if both are.
-    const a = expressionEdge(e.whenTrue, side)
-    const b = expressionEdge(e.whenFalse, side)
-    return side === 'end' ? (WORDY_END.test(a) ? a : b) : WORDY_START.test(a) ? a : b
-  }
-  if (ts.isBinaryExpression(e)) {
-    const k = e.operatorToken.kind
-    if (k === ts.SyntaxKind.AmpersandAmpersandToken) return expressionEdge(e.right, side)
-    if (k === ts.SyntaxKind.BarBarToken || k === ts.SyntaxKind.QuestionQuestionToken) {
-      const a = expressionEdge(e.left, side)
-      return a !== '' ? a : expressionEdge(e.right, side)
-    }
-  }
-  return 'x' // renders some value; treat as a word
-}
+await swc.loadBindings()
 
 const errors = []
 const notes = []
 
-for (const file of files) {
-  const src = readFileSync(file, 'utf8')
-  const sf = ts.createSourceFile(file, src, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX)
-
-  const record = (list, node, glued) => {
-    const { line } = sf.getLineAndCharacterOfPosition(node.getEnd())
-    list.push({ file, line: line + 1, glued })
-  }
-
-  const visit = (node) => {
-    if (ts.isJsxElement(node) || ts.isJsxFragment(node)) {
-      const kids = node.children
-      for (let i = 0; i < kids.length; i++) {
-        const cur = kids[i]
-        if (!ts.isJsxText(cur)) continue
-        const raw = cur.text
-        const out = emitted(raw)
-        if (out === '') continue
-
-        // A leading space was eaten by a line break, and the sibling before
-        // this text ends in a word.
-        if (i > 0 && /^[ \t]*\r?\n/.test(raw) && WORDY_START.test(out)) {
-          const prev = kids[i - 1]
-          if (ATTACHED.has(tagName(prev))) continue
-          const before = edgeText(prev, 'end')
-          if (before !== '' && WORDY_END.test(before)) {
-            const glue = `${before.slice(-20)}|${out.slice(0, 20)}`
-            record(ts.isJsxExpression(prev) ? notes : errors, prev, glue)
-          }
-        }
-
-        // A trailing space was eaten, and the sibling after starts with a word.
-        if (i + 1 < kids.length && /\r?\n[ \t]*$/.test(raw) && WORDY_END.test(out)) {
-          const next = kids[i + 1]
-          if (ATTACHED.has(tagName(next))) continue
-          const after = edgeText(next, 'start')
-          if (after !== '' && WORDY_START.test(after)) {
-            const glue = `${out.slice(-20)}|${after.slice(0, 20)}`
-            record(ts.isJsxExpression(next) ? notes : errors, cur, glue)
-          }
-        }
-      }
-    }
-    ts.forEachChild(node, visit)
-  }
-  visit(sf)
+/** The tag name of a compiled _jsx("tag", {...}) / _jsx(Component, {...}) call. */
+function calleeTag(node) {
+  if (node?.type !== 'CallExpression') return null
+  const a = node.arguments?.[0]?.expression
+  if (!a) return null
+  if (a.type === 'StringLiteral') return a.value
+  if (a.type === 'Identifier') return a.value
+  return null
 }
 
-for (const n of notes) console.log(`note  ${n.file}:${n.line}  ${n.glued}`)
-for (const e of errors) console.log(`ERROR ${e.file}:${e.line}  ${e.glued}`)
+/** The `children` value of a compiled jsx call, if it has one. */
+function childrenOf(node) {
+  const props = node?.arguments?.[1]?.expression
+  if (props?.type !== 'ObjectExpression') return null
+  for (const p of props.properties ?? []) {
+    const k = p.key
+    const name = k?.value ?? k?.name
+    if (name === 'children') return p.value
+  }
+  return null
+}
+
+/**
+ * What a compiled child contributes at one of its edges. Strings give their own
+ * text; elements are followed into their children; anything else renders some
+ * value we cannot know statically, so it counts as a word.
+ */
+function edge(node, side) {
+  if (!node) return ''
+  if (node.type === 'StringLiteral') return node.value
+  if (node.type === 'TemplateLiteral') {
+    const q = side === 'end' ? node.quasis[node.quasis.length - 1] : node.quasis[0]
+    return q?.cooked ?? 'x'
+  }
+  if (node.type === 'CallExpression') {
+    const kids = childrenOf(node)
+    if (!kids) return ''
+    return edge(kids, side)
+  }
+  if (node.type === 'ArrayExpression') {
+    const els = node.elements ?? []
+    for (let i = 0; i < els.length; i++) {
+      const e = side === 'end' ? els[els.length - 1 - i] : els[i]
+      const t = edge(e?.expression ?? e, side)
+      if (t !== '') return t
+    }
+    return ''
+  }
+  if (node.type === 'ParenthesisExpression') return edge(node.expression, side)
+  if (node.type === 'CondExpression') {
+    const a = edge(node.consequent, side)
+    const b = edge(node.alternate, side)
+    return side === 'end' ? (WORDY_END.test(a) ? a : b) : WORDY_START.test(a) ? a : b
+  }
+  if (node.type === 'BinaryExpression') {
+    if (node.operator === '&&') return edge(node.right, side)
+    if (node.operator === '||' || node.operator === '??') {
+      const a = edge(node.left, side)
+      return a !== '' ? a : edge(node.right, side)
+    }
+  }
+  return 'x'
+}
+
+/** True when this compiled child came from a {...} expression rather than an
+ *  element — those joins are deliberate far more often than not. */
+function isExpressionChild(node) {
+  if (!node) return false
+  if (node.type === 'StringLiteral' || node.type === 'TemplateLiteral') return false
+  if (node.type === 'CallExpression' && calleeTag(node)) return false
+  return true
+}
+
+function walk(node, file, onPair) {
+  if (!node || typeof node !== 'object') return
+  if (Array.isArray(node)) {
+    for (const n of node) walk(n, file, onPair)
+    return
+  }
+  if (node.type === 'CallExpression' && calleeTag(node)) {
+    const kids = childrenOf(node)
+    if (kids?.type === 'ArrayExpression') {
+      const els = (kids.elements ?? []).map((e) => e?.expression ?? e).filter(Boolean)
+      for (let i = 0; i + 1 < els.length; i++) onPair(els[i], els[i + 1])
+    }
+  }
+  for (const k of Object.keys(node)) {
+    if (k === 'span') continue
+    walk(node[k], file, onPair)
+  }
+}
+
+for (const file of files) {
+  const src = readFileSync(file, 'utf8')
+  let compiled
+  try {
+    compiled = await swc.transform(src, {
+      filename: file,
+      jsc: {
+        parser: { syntax: 'typescript', tsx: true },
+        target: 'es2022',
+        transform: { react: { runtime: 'automatic' } },
+      },
+    })
+  } catch (e) {
+    console.log(`could not compile ${file}: ${String(e).split('\n')[0]}`)
+    process.exitCode = 1
+    continue
+  }
+  const ast = await swc.parse(compiled.code, {
+    filename: file.replace(/\.tsx$/, '.compiled.js'),
+    jsc: { parser: { syntax: 'ecmascript', jsx: false }, target: 'es2022' },
+  })
+
+  walk(ast, file, (a, b) => {
+    // Only raw text can lose whitespace. Two adjacent elements — <h2/> then
+    // <p/> — never had a meaningful space between them, and flagging those
+    // buries the real findings under a thousand false ones.
+    const isText = (n) => n?.type === 'StringLiteral' || n?.type === 'TemplateLiteral'
+    if (!isText(a) && !isText(b)) return
+
+    const before = edge(a, 'end')
+    const after = edge(b, 'start')
+    if (before === '' || after === '') return
+    if (!WORDY_END.test(before) || !WORDY_START.test(after)) return
+    const tagA = calleeTag(a)
+    const tagB = calleeTag(b)
+    if (ATTACHED.has(tagA) || ATTACHED.has(tagB)) return
+    const glued = `${before.slice(-22)}|${after.slice(0, 22)}`
+    const list = isExpressionChild(a) || isExpressionChild(b) ? notes : errors
+    list.push({ file, glued, tail: before.slice(-22), head: after.slice(0, 22) })
+  })
+}
+
+/**
+ * Locate a reported join in the source, so the report is clickable and a fix
+ * can be applied. The compiled output has no source positions to hand, so this
+ * searches the file for the last word before the join and the first word after
+ * it, separated by whitespace and at most one closing tag.
+ */
+function locate(file, tail, head) {
+  const raw = readFileSync(file, 'utf8')
+  // Blank out comments and template literals so a match can never land in one.
+  // Offsets are preserved by replacing each character with a space.
+  const blanked = raw.replace(/\/\*[\s\S]*?\*\/|\/\/[^\n]*|`(?:[^`\\]|\\.)*`/g, (m) => m.replace(/[^\n]/g, ' '))
+  const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const a = esc(tail.trim().split(/\s+/).pop() ?? '')
+  const b = esc(head.trim().split(/\s+/)[0] ?? '')
+  if (!a || !b) return null
+  const re = new RegExp(`${a}(</[A-Za-z][\\w.]*>|)(\\s+)(?=${b})`, 'g')
+  const hits = []
+  let m
+  while ((m = re.exec(blanked)) !== null) {
+    hits.push({ at: m.index + m[0].length - m[2].length, gapLen: m[2].length })
+  }
+  // Only act when there is exactly one candidate. Two identical phrases in one
+  // file is rare, and guessing between them would corrupt the good one.
+  if (hits.length !== 1) return hits.length ? { ambiguous: hits.length } : null
+  const h = hits[0]
+  return { ...h, line: raw.slice(0, h.at).split('\n').length }
+}
+
+for (const n of notes) console.log(`note  ${n.file}  ${n.glued}`)
+for (const e of errors) {
+  const loc = locate(e.file, e.tail, e.head)
+  e.loc = loc
+  const where = loc?.ambiguous
+    ? ` (${loc.ambiguous} candidates — fix by hand)`
+    : loc
+      ? ':' + loc.line
+      : ' (not located)'
+  console.log(`ERROR ${e.file}${where}  ${e.glued}`)
+}
+
+if (process.argv.includes('--fix')) {
+  const byFile = new Map()
+  for (const e of errors) {
+    if (!e.loc || e.loc.ambiguous || e.loc.at === undefined) continue
+    if (!byFile.has(e.file)) byFile.set(e.file, [])
+    byFile.get(e.file).push(e.loc)
+  }
+  let n = 0
+  for (const [file, locs] of byFile) {
+    let text = readFileSync(file, 'utf8')
+    for (const l of [...locs].sort((x, y) => y.at - x.at)) {
+      text = text.slice(0, l.at) + "{' '}" + text.slice(l.at + l.gapLen)
+      n++
+    }
+    writeFileSync(file, text)
+  }
+  console.log(`\ninserted ${n} missing {' '} across ${byFile.size} file(s) — run the formatter, then check again`)
+  process.exit(0)
+}
 
 if (errors.length === 0) {
   console.log(`\nno glued words in ${files.length} .tsx files (${notes.length} deliberate join(s) noted)`)
-  process.exit(0)
+  process.exit(process.exitCode ?? 0)
 }
-console.log(`\n${errors.length} place(s) where JSX will glue two words together. Write the space as {' '}.`)
+console.log(`\n${errors.length} place(s) where JSX glues two words together. Write the space as {' '}.`)
 process.exit(1)

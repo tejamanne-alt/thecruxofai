@@ -211,7 +211,10 @@ export function OctaveConsole() {
         {log.map((e, i) => (
           <div key={i}>
             <div className="text-zinc-400">
-              <span style={{ color: accentColour() }}>&gt;&gt; </span>
+              <span style={{ color: accentColour() }}>
+                {'>'}
+                {'>'}{' '}
+              </span>
               {e.input}
             </div>
             {e.text && (

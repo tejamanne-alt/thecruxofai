@@ -110,7 +110,7 @@ export default async function CoursePage({
             <div className="rounded-lg border border-dashed border-zinc-950/15 bg-zinc-50 p-4">
               <div className="mb-1 text-sm font-semibold">No interactive page yet</div>
               <p className="text-[13px]/[1.6] text-zinc-600">
-                This course hasn&rsquo;t been taught to me yet, so there is nothing here I could honestly explain. The
+                This course hasn’t been taught to me yet, so there is nothing here I could honestly explain. The
                 syllabus above is the official scope. It fills in the weekend the sessions start.
               </p>
             </div>

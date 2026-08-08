@@ -19,6 +19,7 @@ export type TopicId =
   | 'lec0b'
   | 'lec1'
   | 'lec2'
+  | 'lec3'
   | 'ism1'
   | 'ism2'
   | 'centre'

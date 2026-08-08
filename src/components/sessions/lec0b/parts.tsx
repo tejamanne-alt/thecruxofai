@@ -132,7 +132,7 @@ stretching:         λx = (λx₁, λx₂, …, λxₙ)     for any real λ`}
       </Para>
       <Formula>c₁v₁ + c₂v₂ + ⋯ + cₘvₘ</Formula>
       <Para>
-        The c&rsquo;s are just plain numbers, and they can be anything at all — positive, negative, fractions, zero.
+        The c’s are just plain numbers, and they can be anything at all — positive, negative, fractions, zero.
       </Para>
 
       <Lab>
@@ -150,7 +150,7 @@ stretching:         λx = (λx₁, λx₂, …, λxₙ)     for any real λ`}
         yourself to adding and stretching — and that restriction is exactly what makes everything solvable.
       </Para>
 
-      <Worked title="Slide 3&rsquo;s example">
+      <Worked title="Slide 3’s example">
         {`v₁ = [1, 3]ᵀ        v₂ = [1, 0]ᵀ
 
 2[1, 3]ᵀ + 3[1, 0]ᵀ = [2, 6]ᵀ + [3, 0]ᵀ = [5, 6]ᵀ
@@ -215,8 +215,8 @@ The amounts 2 and 3 are the whole answer.`}
       </Para>
       <Para>
         Slide 5 spells out what dependence really means. If some cⱼ is not zero, you can divide by it and rearrange, and
-        out comes vⱼ written in terms of all the others. So &ldquo;dependent&rdquo; is not an abstract condition: it
-        means one of your vectors is literally a mixture of the rest, and you could delete it without losing anything.
+        out comes vⱼ written in terms of all the others. So “dependent” is not an abstract condition: it means one of
+        your vectors is literally a mixture of the rest, and you could delete it without losing anything.
       </Para>
 
       <Worked title="Slide 5, rearranged">
@@ -347,8 +347,8 @@ linearly INDEPENDENT.`}
             rank = p → the vectors are <strong>independent</strong>. Every row survived the tidying up.
           </>,
           <>
-            rank &lt; p → they are <strong>dependent</strong>. Some row collapsed to zeros, which means it was a mixture
-            of the others.
+            rank {'<'} p → they are <strong>dependent</strong>. Some row collapsed to zeros, which means it was a
+            mixture of the others.
           </>,
         ]}
       />
@@ -363,7 +363,7 @@ linearly INDEPENDENT.`}
         difference whether you lay your vectors out as rows or as columns — you get the same count.
       </Para>
       <Para>
-        Second, and this one saves real time in an exam: if <strong>n &lt; p</strong> — more vectors than components —
+        Second, and this one saves real time in an exam: if <strong>n {'<'} p</strong> — more vectors than components —
         they <em>must</em> be dependent. No arithmetic needed. Three vectors in ℝ² are always dependent. Five in ℝ⁴ are
         always dependent. There simply are not that many independent directions to go round.
       </Para>
@@ -398,7 +398,7 @@ Also:
         ]}
       />
       <Takeaway>
-        Lay p vectors out as rows and take the rank. rank = p means independent; rank &lt; p means dependent. And more
+        Lay p vectors out as rows and take the rank. rank = p means independent; rank {'<'} p means dependent. And more
         vectors than components is always dependent, with no working at all.
       </Takeaway>
     </>
@@ -433,9 +433,9 @@ Also:
       </Lab>
 
       <Para>
-        Slide 10&rsquo;s example is loaded first. The matrix is 2 × 3, the tidied form has pivots in columns 1 and 3,
-        and column 2 is left over. And sure enough column 2 is exactly twice column 1 — which the read-out prints for
-        you rather than asking you to spot it.
+        Slide 10’s example is loaded first. The matrix is 2 × 3, the tidied form has pivots in columns 1 and 3, and
+        column 2 is left over. And sure enough column 2 is exactly twice column 1 — which the read-out prints for you
+        rather than asking you to spot it.
       </Para>
 
       <Worked title="Slide 10, in full">
@@ -627,9 +627,9 @@ Both sides give 50.  ✓`}
 
       <Para>Two inequalities come with it, and both are worth knowing by name.</Para>
       <Para>
-        <strong>Cauchy&ndash;Schwarz:</strong> <span className="font-mono">|⟨a, b⟩| ≤ ‖a‖‖b‖</span>. The dot product can
-        never be bigger than the two lengths multiplied together. Try to break it by dragging — you cannot. The best you
-        can do is line the two arrows up, and then the two sides are exactly equal.
+        <strong>Cauchy–Schwarz:</strong> <span className="font-mono">|⟨a, b⟩| ≤ ‖a‖‖b‖</span>. The dot product can never
+        be bigger than the two lengths multiplied together. Try to break it by dragging — you cannot. The best you can
+        do is line the two arrows up, and then the two sides are exactly equal.
       </Para>
       <Para>
         <strong>Triangle inequality:</strong> <span className="font-mono">‖a + b‖ ≤ ‖a‖ + ‖b‖</span>. Going straight
@@ -637,9 +637,9 @@ Both sides give 50.  ✓`}
         what it says about a triangle.
       </Para>
       <Para>
-        Cauchy&ndash;Schwarz is the one doing hidden work. Because it guarantees that ⟨a,b⟩/(‖a‖‖b‖) always lands
-        between −1 and 1, the next part can safely feed that number into cos⁻¹. Without it, &ldquo;the angle between two
-        vectors in ℝ⁷&rdquo; would not even be defined.
+        Cauchy–Schwarz is the one doing hidden work. Because it guarantees that ⟨a,b⟩/(‖a‖‖b‖) always lands between −1
+        and 1, the next part can safely feed that number into cos⁻¹. Without it, “the angle between two vectors in ℝ⁷”
+        would not even be defined.
       </Para>
 
       <Worked title="Slide 17, checked">
@@ -677,8 +677,8 @@ aᵀb = (3)(1) + (4)(2) = 3 + 8 = 11
         ]}
       />
       <Takeaway>
-        The norm is √⟨a, a⟩ — Pythagoras, in any number of dimensions. Cauchy&ndash;Schwarz caps the dot product at
-        ‖a‖‖b‖, which is what makes angles possible.
+        The norm is √⟨a, a⟩ — Pythagoras, in any number of dimensions. Cauchy–Schwarz caps the dot product at ‖a‖‖b‖,
+        which is what makes angles possible.
       </Takeaway>
     </>
   ),
@@ -687,9 +687,9 @@ aᵀb = (3)(1) + (4)(2) = 3 + 8 = 11
   angle: (
     <>
       <Para>
-        Divide the dot product by the two lengths and something useful happens. Cauchy&ndash;Schwarz says the result is
-        always between −1 and 1 — exactly the range a cosine lives in. So the lecture simply <em>defines</em> the angle
-        that way:
+        Divide the dot product by the two lengths and something useful happens. Cauchy–Schwarz says the result is always
+        between −1 and 1 — exactly the range a cosine lives in. So the lecture simply <em>defines</em> the angle that
+        way:
       </Para>
       <Formula>α = cos⁻¹( ⟨a, b⟩ / (‖a‖‖b‖) )</Formula>
       <Para>
@@ -704,7 +704,7 @@ aᵀb = (3)(1) + (4)(2) = 3 + 8 = 11
 
       <Para>
         The case worth all the attention is <span className="font-mono">⟨a, b⟩ = 0</span>. Then cos α = 0, so α = 90°,
-        and the two vectors are called <strong>orthogonal</strong> — the proper word for &ldquo;at right angles&rdquo;.
+        and the two vectors are called <strong>orthogonal</strong> — the proper word for “at right angles”.
       </Para>
       <Para>
         And here is why that matters so much in practice: you never have to work out an angle to check it. Just see
@@ -712,7 +712,7 @@ aᵀb = (3)(1) + (4)(2) = 3 + 8 = 11
         dimensions.
       </Para>
 
-      <Worked title="Slide 18&rsquo;s example">
+      <Worked title="Slide 18’s example">
         {`a = [2, 2]ᵀ     b = [2, −2]ᵀ
 
 ⟨a, b⟩ = (2)(2) + (2)(−2) = 4 − 4 = 0
@@ -753,8 +753,8 @@ a and b are orthogonal.`}
     <>
       <Para>
         Shine a light straight down onto the line that v₁ points along. The shadow v₂ casts on that line is the{' '}
-        <strong>projection</strong> of v₂ onto v₁. It answers the question &ldquo;how much of v₂ is pointing the same
-        way as v₁?&rdquo;
+        <strong>projection</strong> of v₂ onto v₁. It answers the question “how much of v₂ is pointing the same way as
+        v₁?”
       </Para>
       <Para>
         Slide 19 does not guess the formula. It insists on one condition and lets the algebra deliver: whatever is left
@@ -771,7 +771,7 @@ a and b are orthogonal.`}
         it by computing u·v₁ every time. That is not a coincidence — it is the condition the formula was built from.
       </Para>
 
-      <Worked title="Slide 19&rsquo;s derivation, then slide 20&rsquo;s numbers">
+      <Worked title="Slide 19’s derivation, then slide 20’s numbers">
         {`v must lie along v₁, so  v = λ v₁/‖v₁‖  for some λ.
 And u = v₂ − v must be at right angles to v₁:
 
@@ -795,10 +795,10 @@ Slide 20:   v₁ = (3, 0),  v₂ = (2, 4)
       </Worked>
 
       <Para>
-        Why this is worth the trouble: splitting a vector into &ldquo;the part along something&rdquo; and &ldquo;the
-        part at right angles to it&rdquo; is the move behind least squares, behind principal component analysis, and
-        behind every method that fits a line by making the leftovers as small as possible. The leftover u is what those
-        methods call the <strong>residual</strong>.
+        Why this is worth the trouble: splitting a vector into “the part along something” and “the part at right angles
+        to it” is the move behind least squares, behind principal component analysis, and behind every method that fits
+        a line by making the leftovers as small as possible. The leftover u is what those methods call the{' '}
+        <strong>residual</strong>.
       </Para>
 
       <Terms
@@ -838,8 +838,8 @@ Slide 20:   v₁ = (3, 0),  v₂ = (2, 4)
             die, Ω = {'{1, 2, 3, 4, 5, 6}'}.
           </>,
           <>
-            An <strong>event</strong> is any part of that list. &ldquo;An even number&rdquo; is the event {'{2, 4, 6}'}.
-            A single outcome is an event too.
+            An <strong>event</strong> is any part of that list. “An even number” is the event {'{2, 4, 6}'}. A single
+            outcome is an event too.
           </>,
           <>
             The <strong>algebra of events</strong> is the promise that combining events gives you events again: unions,
@@ -853,9 +853,9 @@ Slide 20:   v₁ = (3, 0),  v₂ = (2, 4)
       </Lab>
 
       <Para>
-        Three operations, three everyday words. <strong>Union</strong> A ∪ B is &ldquo;or&rdquo; — everything in either
-        one. <strong>Intersection</strong> A ∩ B is &ldquo;and&rdquo; — only what is in both.{' '}
-        <strong>Complement</strong> Aᶜ is &ldquo;not&rdquo; — everything A is not.
+        Three operations, three everyday words. <strong>Union</strong> A ∪ B is “or” — everything in either one.{' '}
+        <strong>Intersection</strong> A ∩ B is “and” — only what is in both. <strong>Complement</strong> Aᶜ is “not” —
+        everything A is not.
       </Para>
       <Para>Two more words describe how a collection of events sits inside Ω, and they are easy to mix up.</Para>
       <List
@@ -1009,8 +1009,7 @@ For a fair die:  P(1) = P(2) = ⋯ = P(6) = 1/6
       </Para>
       <Para>
         The lecture is strict about notation, and it helps. <strong>Uppercase X</strong> is the rule.{' '}
-        <strong>Lowercase x</strong> is a value it produced. So &ldquo;P(X = 2)&rdquo; means the chance that the rule
-        gives 2.
+        <strong>Lowercase x</strong> is a value it produced. So “P(X = 2)” means the chance that the rule gives 2.
       </Para>
 
       <Lab>
@@ -1041,7 +1040,7 @@ For a fair die:  P(1) = P(2) = ⋯ = P(6) = 1/6
         values, so no single one can carry any weight — only <em>ranges</em> do. The next part makes that concrete.
       </Para>
 
-      <Worked title="Slide 26&rsquo;s two examples">
+      <Worked title="Slide 26’s two examples">
         {`Discrete
   Toss a coin 3 times.
   Ω = {HHH, HHT, HTH, HTT, THH, THT, TTH, TTT}
@@ -1170,7 +1169,7 @@ Continuous — pdf
         The <strong>expectation</strong> of X, written E[X] or μ, is its long-run average — where the values would
         settle if you ran the experiment forever. Each value is weighted by how likely it is:
       </Para>
-      <Formula>μ = E[X] = Σ x p(x) &nbsp;&nbsp;or&nbsp;&nbsp; ∫ x f(x) dx</Formula>
+      <Formula>μ = E[X] = Σ x p(x)   or   ∫ x f(x) dx</Formula>
       <Para>
         The best picture is a see-saw. Put a weight on each value, sized by its probability, and the expectation is the
         point where the plank balances.
@@ -1182,8 +1181,7 @@ Continuous — pdf
 
       <Para>
         Load the coin and the answer is 1.5 heads. You can never actually get 1.5 heads, and that is not a mistake — an
-        expectation is a balance point, not a prediction. The word &ldquo;expected&rdquo; is misleading, and worth
-        distrusting.
+        expectation is a balance point, not a prediction. The word “expected” is misleading, and worth distrusting.
       </Para>
       <Para>
         When you have data rather than probabilities, the same idea gives the ordinary average x̄ = (1/n)Σxᵢ. It is the
@@ -1239,8 +1237,8 @@ The middle of the interval, as you would hope.`}
         the second thing you always want is how <strong>spread out</strong> they are.
       </Para>
       <Para>
-        The <strong>variance</strong> measures that. Take each value&rsquo;s distance from the mean, square it, and
-        average the squares:
+        The <strong>variance</strong> measures that. Take each value’s distance from the mean, square it, and average
+        the squares:
       </Para>
       <Formula>σ² = E[(X − μ)²]</Formula>
       <Para>
@@ -1341,7 +1339,7 @@ Step 4 — the standard deviation
         The <em>size</em>, though, is nearly useless on its own, because it carries units — measure the same heights in
         centimetres instead of metres and the covariance changes by a factor of 100 without anything real having
         changed. Dividing by the two standard deviations strips the units out and gives the <strong>correlation</strong>
-        , which always sits between −1 and 1. That is the Statistics course&rsquo;s job.
+        , which always sits between −1 and 1. That is the Statistics course’s job.
       </Para>
       <Para>
         One warning that is worth carrying with you: covariance only sees <em>straight-line</em> patterns. Points
@@ -1459,8 +1457,8 @@ A =  ⎢ 2  4  5 ⎥
       </Worked>
 
       <Para>
-        Load this one as <strong>Practice Q2</strong> in part 6 and the read-out prints &ldquo;column 2 = 2 × column
-        1&rdquo; for you.
+        Load this one as <strong>Practice Q2</strong> in part 6 and the read-out prints “column 2 = 2 × column 1” for
+        you.
       </Para>
 
       <Worked title="Q3 — rank without full row reduction">

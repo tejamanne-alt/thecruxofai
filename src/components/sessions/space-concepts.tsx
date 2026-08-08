@@ -270,8 +270,8 @@ export function BasisConcept() {
 
       <H2>Span: what you can reach</H2>
       <P>
-        Take vectors x₁ … xₖ and mix them: λ₁x₁ + λ₂x₂ + ⋯ + λₖxₖ, with the λ&rsquo;s any numbers you like. Every point
-        you can hit this way is the <strong>span</strong>.
+        Take vectors x₁ … xₖ and mix them: λ₁x₁ + λ₂x₂ + ⋯ + λₖxₖ, with the λ’s any numbers you like. Every point you
+        can hit this way is the <strong>span</strong>.
       </P>
       <P>
         Two arrows in the plane usually span the whole plane. But line them up — make one a multiple of the other — and
@@ -289,9 +289,9 @@ export function BasisConcept() {
         reaching zero is the all-zeros one.
       </P>
       <P>
-        The definition looks awkward, and it is written that way on purpose. Saying &ldquo;none of them is a mixture of
-        the others&rdquo; is easier to read but goes wrong when the zero vector is in the set. Three facts follow
-        straight from the definition, and each is draggable below.
+        The definition looks awkward, and it is written that way on purpose. Saying “none of them is a mixture of the
+        others” is easier to read but goes wrong when the zero vector is in the set. Three facts follow straight from
+        the definition, and each is draggable below.
       </P>
 
       <Lab>
@@ -300,7 +300,7 @@ export function BasisConcept() {
 
       <H2>The shape can decide it for you</H2>
       <P>
-        Sometimes you do not need any arithmetic. If you build m vectors out of k independent ingredients and m &gt; k,
+        Sometimes you do not need any arithmetic. If you build m vectors out of k independent ingredients and m {'>'} k,
         the coefficient matrix is k × m: it has at most k pivots, so at least one column is not a pivot column, so a
         non-trivial mixture reaches zero. More vectors than ingredients is always dependent.
       </P>

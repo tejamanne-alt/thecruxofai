@@ -373,7 +373,7 @@ export function SpanLab() {
         {spansPlane ? (
           <>
             These two vectors form a <strong>generating set</strong> for ℝ²: every point on the page is c₁v₁ + c₂v₂ for
-            some pair of numbers. In the lecture&rsquo;s notation, ℝ² = span[{'{'}v₁, v₂{'}'}].
+            some pair of numbers. In the lecture’s notation, ℝ² = span[{'{'}v₁, v₂{'}'}].
           </>
         ) : bothZero ? (
           <>
@@ -532,10 +532,9 @@ export function DependenceFactsLab() {
       </Verdict>
 
       <LabNote>
-        The definition is deliberately awkward. Rather than saying &ldquo;no vector is a combination of the
-        others&rdquo;, it says &ldquo;the only combination giving 0 is the boring one&rdquo;. That version is easier to
-        check — it is a single homogeneous system — and it keeps working when a zero vector is in the collection, where
-        the other phrasing gets tangled.
+        The definition is deliberately awkward. Rather than saying “no vector is a combination of the others”, it says
+        “the only combination giving 0 is the boring one”. That version is easier to check — it is a single homogeneous
+        system — and it keeps working when a zero vector is in the collection, where the other phrasing gets tangled.
       </LabNote>
     </LabBox>
   )

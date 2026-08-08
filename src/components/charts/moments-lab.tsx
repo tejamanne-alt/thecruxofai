@@ -211,7 +211,7 @@ export function VarianceLab() {
               { label: 'sd σ', value: sd.toFixed(3) },
             ]}
           />
-          <Btn onClick={() => setXs([...SLIDE_DATA])}>Load slide 33&rsquo;s data</Btn>
+          <Btn onClick={() => setXs([...SLIDE_DATA])}>Load slide 33’s data</Btn>
           <PanelNote>
             Drag one dot far out to the right. Its square grows much faster than the others, and it ends up dominating
             the total on its own. That is squaring doing its job — and also its main weakness.
@@ -236,8 +236,8 @@ x̄  = ${xs.join(' + ')} over ${xs.length} = ${m.toFixed(3)}
 
       {isSlide && (
         <Verdict ok>
-          These are slide 33&rsquo;s numbers, and it gets variance = 5 and standard deviation ≈ 2.236 — which is what
-          the read-out says.
+          These are slide 33’s numbers, and it gets variance = 5 and standard deviation ≈ 2.236 — which is what the
+          read-out says.
         </Verdict>
       )}
 
@@ -417,8 +417,8 @@ cov(X, Y) = (${terms
 
       {isSlide && (
         <Verdict ok>
-          Slide 35&rsquo;s data. The four products are 4.5, 0.5, 0.5 and 4.5, which add to 10, and dividing by n = 4
-          gives <strong>cov(X, Y) = 2.5</strong>.
+          Slide 35’s data. The four products are 4.5, 0.5, 0.5 and 4.5, which add to 10, and dividing by n = 4 gives{' '}
+          <strong>cov(X, Y) = 2.5</strong>.
         </Verdict>
       )}
 
@@ -430,7 +430,7 @@ cov(X, Y) = (${terms
       <LabNote>
         The catch is that the number has units — here it would be (units of x)×(units of y) — so its size on its own
         tells you very little. Dividing by the two standard deviations fixes that and gives the{' '}
-        <strong>correlation</strong>, which always sits between −1 and 1. That is the next course&rsquo;s job.
+        <strong>correlation</strong>, which always sits between −1 and 1. That is the next course’s job.
       </LabNote>
     </LabBox>
   )

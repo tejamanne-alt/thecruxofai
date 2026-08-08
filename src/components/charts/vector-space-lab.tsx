@@ -238,7 +238,7 @@ export function CombinationLab() {
               setC2(3)
             }}
           >
-            Show the slide&rsquo;s example
+            Show the slide’s example
           </Btn>
         </div>
       </div>
@@ -625,7 +625,7 @@ export function RankVectorsLab() {
 
       <LabNote>
         This is the shortcut slide 8 gives you. Put your p vectors in as rows and work out the rank. If rank = p they
-        are independent; if rank &lt; p they are dependent. It works at any size, which matters because you cannot draw
+        are independent; if rank {'<'} p they are dependent. It works at any size, which matters because you cannot draw
         five vectors in ℝ⁷ and squint at them.
       </LabNote>
       <LabNote>
@@ -779,7 +779,7 @@ export function PivotColumnsLab() {
       </LabNote>
       <LabNote>
         On the slide-10 example the second column is simply twice the first, which the read-out reproduces. That is why
-        the slide can say it &ldquo;is just twice the first column&rdquo; without doing any extra work.
+        the slide can say it “is just twice the first column” without doing any extra work.
       </LabNote>
     </LabBox>
   )

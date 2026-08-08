@@ -146,7 +146,7 @@ export function MatrixAnatomyLab() {
           </Titled>
           <div className="flex flex-col gap-2 pt-5">
             <Btn onClick={() => setB(a.map((r) => [...r]))}>Make them match</Btn>
-            <Btn onClick={() => setB(resize(b, 3, 2))}>Change B&rsquo;s shape</Btn>
+            <Btn onClick={() => setB(resize(b, 3, 2))}>Change B’s shape</Btn>
             <Btn
               onClick={() =>
                 setB(a.map((r) => [...r]).map((r, i) => r.map((v, j) => (i === 0 && j === 0 ? v + 1 : v))))
@@ -526,8 +526,8 @@ export function MultiplyLab() {
       <LabNote>{s.note}</LabNote>
       {swapped && pick === 'lecture' && (
         <Verdict ok={false}>
-          With the lecture&rsquo;s matrices, BA does not even exist. B has 4 columns and A has 2 rows. So &ldquo;is AB
-          the same as BA?&rdquo; sometimes does not even get as far as being a question.
+          With the lecture’s matrices, BA does not even exist. B has 4 columns and A has 2 rows. So “is AB the same as
+          BA?” sometimes does not even get as far as being a question.
         </Verdict>
       )}
     </LabBox>

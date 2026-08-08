@@ -107,8 +107,7 @@ export function Det2Lab() {
 
       <LabNote>
         Try to flatten it. Drag one arrow until it lies along the other and the shaded area disappears. The moment it
-        does, the determinant hits 0. Everything the lecture says about &ldquo;det ≠ 0 means invertible&rdquo; is that
-        picture.
+        does, the determinant hits 0. Everything the lecture says about “det ≠ 0 means invertible” is that picture.
       </LabNote>
     </LabBox>
   )
@@ -214,7 +213,7 @@ export function Det3Lab() {
         is the only bit people forget. Press the three buttons to see each term on its own.
       </LabNote>
       <LabNote>
-        The lecture&rsquo;s own example is loaded: 1(24) − 2(−5) + 3(−4) = 24 + 10 − 12 = <strong>22</strong>.
+        The lecture’s own example is loaded: 1(24) − 2(−5) + 3(−4) = 24 + 10 − 12 = <strong>22</strong>.
       </LabNote>
     </LabBox>
   )
@@ -631,8 +630,8 @@ export function DetRulesLab() {
         rule the previous part leaned on.
       </LabNote>
       <LabNote>
-        &ldquo;Two equal rows gives zero&rdquo; also has a plain meaning: if one row repeats another, the rows do not
-        fill up the space, the box they make is flat, and a flat box has no volume. Such a matrix is called{' '}
+        “Two equal rows gives zero” also has a plain meaning: if one row repeats another, the rows do not fill up the
+        space, the box they make is flat, and a flat box has no volume. Such a matrix is called{' '}
         <strong>singular</strong>.
       </LabNote>
     </LabBox>

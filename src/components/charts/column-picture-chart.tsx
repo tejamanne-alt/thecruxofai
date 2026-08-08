@@ -227,7 +227,7 @@ export function ColumnPictureChart() {
             <div className="flex justify-between text-[12px]">
               <span className="text-zinc-600">the two columns</span>
               <span className="font-mono font-semibold text-zinc-950">
-                ({c1.x}, {c1.y}) &amp; ({c2.x}, {c2.y})
+                ({c1.x}, {c1.y}) & ({c2.x}, {c2.y})
               </span>
             </div>
             <div className="flex justify-between text-[12px]">

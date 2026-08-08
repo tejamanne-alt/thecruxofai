@@ -65,8 +65,8 @@ export function DotProductConcept() {
             wasted against the wheels.
           </>,
           <>
-            That question, &ldquo;how much of this points along that?&rdquo;, is what the dot product answers. And once
-            you can answer it, length and angle come along free: a vector&rsquo;s length is how much of it points along{' '}
+            That question, “how much of this points along that?”, is what the dot product answers. And once you can
+            answer it, length and angle come along free: a vector’s length is how much of it points along{' '}
             <em>itself</em>, and the angle is what you get after dividing out both lengths.
           </>,
         ]}
@@ -115,13 +115,13 @@ export function DotProductConcept() {
       </Lab>
 
       <P>
-        Two inequalities come with it. <strong>Cauchy&ndash;Schwarz</strong> says the dot product can never exceed the
-        two lengths multiplied together — try to break it by dragging, you cannot. The{' '}
-        <strong>triangle inequality</strong> says going straight there is never further than going via a corner.
+        Two inequalities come with it. <strong>Cauchy–Schwarz</strong> says the dot product can never exceed the two
+        lengths multiplied together — try to break it by dragging, you cannot. The <strong>triangle inequality</strong>{' '}
+        says going straight there is never further than going via a corner.
       </P>
       <P>
-        Cauchy&ndash;Schwarz is doing hidden work. It guarantees that ⟨a,b⟩/(‖a‖‖b‖) always lands between −1 and 1 —
-        exactly where a cosine lives — which is what lets the next section define an angle at all.
+        Cauchy–Schwarz is doing hidden work. It guarantees that ⟨a,b⟩/(‖a‖‖b‖) always lands between −1 and 1 — exactly
+        where a cosine lives — which is what lets the next section define an angle at all.
       </P>
 
       <H2>Angle, and being at right angles</H2>
@@ -303,8 +303,8 @@ export function CovarianceConcept() {
 
       <H2>One variable: variance</H2>
       <P>
-        Take each value&rsquo;s distance from the mean, square it, average the squares. Every shaded square below is one
-        of those squared distances, drawn at its real size.
+        Take each value’s distance from the mean, square it, average the squares. Every shaded square below is one of
+        those squared distances, drawn at its real size.
       </P>
 
       <Lab>
@@ -329,8 +329,8 @@ export function CovarianceConcept() {
       </Lab>
 
       <P>
-        Each rectangle is one point&rsquo;s contribution, drawn as an area — teal when the product is positive, red when
-        it is negative. The covariance is their signed average. Drag a point across the horizontal dashed line and its
+        Each rectangle is one point’s contribution, drawn as an area — teal when the product is positive, red when it is
+        negative. The covariance is their signed average. Drag a point across the horizontal dashed line and its
         rectangle flips colour and starts pulling the other way.
       </P>
       <P>

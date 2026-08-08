@@ -606,8 +606,7 @@ export function SolutionSetLab() {
               </div>
             </div>
             <p className="mt-2 text-[11.5px]/[1.55] text-zinc-500">
-              Move the dial as much as you like. Both lines stay green. That is what &ldquo;endless answers&rdquo;
-              means.
+              Move the dial as much as you like. Both lines stay green. That is what “endless answers” means.
             </p>
           </div>
           <PanelNote>

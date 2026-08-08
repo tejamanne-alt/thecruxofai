@@ -246,8 +246,7 @@ P(A ∪ B)  = ${pct(pa).replace('%', '')} + ${pct(pb).replace('%', '')} − ${pc
             {mode === 'exclusive' ? (
               <>
                 When they do not touch, the overlap is zero and the rule loses its last term:{' '}
-                <strong>P(A ∪ B) = P(A) + P(B)</strong>. That is the only thing &ldquo;mutually exclusive&rdquo; buys
-                you.
+                <strong>P(A ∪ B) = P(A) + P(B)</strong>. That is the only thing “mutually exclusive” buys you.
               </>
             ) : independentish ? (
               <>

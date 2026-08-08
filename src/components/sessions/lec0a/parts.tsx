@@ -58,8 +58,8 @@ export const LEC0A_PARTS: Record<string, React.ReactNode> = {
       </Lab>
 
       <Para>
-        The line <code>x = 0:0.1:10</code> reads &ldquo;start at 0, go up in steps of 0.1, stop at 10&rdquo;. That is
-        the <strong>colon operator</strong>, and it is how you make a list without typing it out. Then{' '}
+        The line <code>x = 0:0.1:10</code> reads “start at 0, go up in steps of 0.1, stop at 10”. That is the{' '}
+        <strong>colon operator</strong>, and it is how you make a list without typing it out. Then{' '}
         <code>y = sin(x)</code> takes the sine of every number in that list in one go, and <code>plot(x, y)</code> joins
         the points up.
       </Para>
@@ -269,7 +269,7 @@ c(kA)       =  (ck)A
       <Para>
         <strong>AB is usually not BA.</strong> With ordinary numbers 3 × 5 and 5 × 3 are the same. With matrices they
         are usually different, and quite often one of them does not even exist because the shapes do not line up. So
-        &ldquo;multiply A and B&rdquo; is an incomplete instruction — the order is part of the meaning.
+        “multiply A and B” is an incomplete instruction — the order is part of the meaning.
       </Para>
       <Para>
         <strong>AB can be all zeros without either A or B being zero.</strong> With numbers, if ab = 0 then one of them
@@ -603,9 +603,9 @@ Two matrices connected by a chain of these are called
         échelon is French for a rung of a ladder, and that is exactly the shape you are aiming at: a staircase.
       </Para>
       <Para>
-        In each row, find the first number that is not zero. That is the row&rsquo;s <strong>leading entry</strong>. A
-        matrix is in row echelon form when every leading entry sits strictly further right than the one in the row
-        above, and any all-zero rows have sunk to the bottom.
+        In each row, find the first number that is not zero. That is the row’s <strong>leading entry</strong>. A matrix
+        is in row echelon form when every leading entry sits strictly further right than the one in the row above, and
+        any all-zero rows have sunk to the bottom.
       </Para>
       <Para>That is all it means. Two conditions, both about where the leading entries sit.</Para>
 
@@ -708,7 +708,7 @@ than the last. Three non-zero rows, so the rank is 3.`}
       </Para>
       <Para>
         That uniqueness is what lets rank be defined at all. If different routes gave different numbers of non-zero
-        rows, &ldquo;the rank&rdquo; would be meaningless. It does not, so it is not — which is the next part.
+        rows, “the rank” would be meaningless. It does not, so it is not — which is the next part.
       </Para>
 
       <Terms
@@ -753,8 +753,8 @@ than the last. Three non-zero rows, so the rank is 3.`}
       </Lab>
 
       <Para>
-        The lab has both of the lecture&rsquo;s examples loaded. On slide 24, three rows collapse to two, so rank A = 2.
-        On slide 25 a 5 × 5 matrix — five rows, so it looks like a lot of information — turns out to hold only three
+        The lab has both of the lecture’s examples loaded. On slide 24, three rows collapse to two, so rank A = 2. On
+        slide 25 a 5 × 5 matrix — five rows, so it looks like a lot of information — turns out to hold only three
         genuinely different ones.
       </Para>
       <Para>
@@ -834,8 +834,8 @@ Row 3 was never adding anything new.`}
         and the box goes flat: area 0, determinant 0.
       </Para>
       <Para>
-        That flat case is the whole story of &ldquo;no inverse&rdquo;. If the box is flat, A squashes the plane onto a
-        line — two different starting points can land in the same place — and nothing can un-squash it.
+        That flat case is the whole story of “no inverse”. If the box is flat, A squashes the plane onto a line — two
+        different starting points can land in the same place — and nothing can un-squash it.
       </Para>
 
       <Para>
@@ -1035,7 +1035,7 @@ you will actually use:
       <Para>
         Rule 3 has a plain meaning worth holding on to. If one row repeats another, the rows do not spread out into the
         full space — the box they make is flat, and a flat box has no volume. A matrix like that is called{' '}
-        <strong>singular</strong>, and singular is just another word for &ldquo;no inverse&rdquo;.
+        <strong>singular</strong>, and singular is just another word for “no inverse”.
       </Para>
 
       <Terms
@@ -1227,8 +1227,7 @@ issymmetric(A)         1 if A = Aᵀ, otherwise 0`}
       <Para>
         A <strong>linear system</strong> is a set of equations that all have to be true at the same time, where every
         unknown appears on its own with just a plain number in front of it. No squares, no roots, no two unknowns
-        multiplied together. That restriction is what &ldquo;linear&rdquo; means, and it is the reason all of this
-        machinery works.
+        multiplied together. That restriction is what “linear” means, and it is the reason all of this machinery works.
       </Para>
       <Para>
         With m equations and n unknowns, the numbers in front of the unknowns make an m × n matrix A, the unknowns make
@@ -1383,7 +1382,7 @@ answer:  w₁ = 3,  w₂ = 2,  b = 1`}
       />
       <Takeaway>
         Every row of data becomes one equation, and the unknowns are the model’s weights. Solving the system is what
-        &ldquo;fitting a model&rdquo; means.
+        “fitting a model” means.
       </Takeaway>
     </>
   ),
@@ -1517,7 +1516,7 @@ let x₂ = t:      x₃ = 2t − 1
       <Para>
         Not one answer, though. Five unknowns and rank 3 leaves <strong>two</strong> free, so there are two dials to
         turn. The lab gives you both, and checks all four of the original equations every time you move one. They stay
-        green whatever you pick — which is what &ldquo;endlessly many&rdquo; actually looks like.
+        green whatever you pick — which is what “endlessly many” actually looks like.
       </Para>
 
       <Worked title="Slides 53–60, condensed">
@@ -1825,7 +1824,7 @@ RREF = ⎢ 0  1  2 ⎥        rank A = 2
         The sheet came with no answers. Everything above was worked out and checked — by substituting back, or by
         running it in the console in part 16 — except Q10(ii), which cannot be pinned down from the wording, so no
         number is printed for it. Q6 is not a mistake on your part either: as printed it is genuinely inconsistent, and
-        &ldquo;no solution, because rank A ≠ rank [A|b]&rdquo; is the answer.
+        “no solution, because rank A ≠ rank [A|b]” is the answer.
       </Takeaway>
     </>
   ),

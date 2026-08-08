@@ -248,7 +248,7 @@ export function KMeansSession() {
             </PanelButtons>
             <PanelNote>
               Press “New flags” a few times and settle it each time — the answer can change depending on where the flags
-              started. That&rsquo;s the famous weakness.
+              started. That’s the famous weakness.
             </PanelNote>
           </>
         }
@@ -273,7 +273,7 @@ export function KMeansSession() {
             {
               formula: (
                 <>
-                  Step 1 — assign:&nbsp; cᵢ = argmin<sub>j</sub> ‖xᵢ − μⱼ‖²
+                  Step 1 — assign:  cᵢ = argmin<sub>j</sub> ‖xᵢ − μⱼ‖²
                 </>
               ),
               reading:
@@ -282,7 +282,7 @@ export function KMeansSession() {
             {
               formula: (
                 <>
-                  Step 2 — update:&nbsp; μⱼ = (1/|Cⱼ|) Σ<sub>i ∈ Cⱼ</sub> xᵢ
+                  Step 2 — update:  μⱼ = (1/|Cⱼ|) Σ<sub>i ∈ Cⱼ</sub> xᵢ
                 </>
               ),
               reading:

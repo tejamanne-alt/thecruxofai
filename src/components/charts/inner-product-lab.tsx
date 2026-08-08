@@ -133,8 +133,8 @@ export function DotProductLab() {
         <span className="font-mono">aᵀb</span>: a row times a column is a 1 × 1 matrix, which is just a number.
       </LabNote>
       <LabNote>
-        Slide 13&rsquo;s example: a = (1, 0, 2) and b = (−1, 2, 1) give (1)(−1) + (0)(2) + (2)(1) = 1. It works in any
-        number of dimensions, even though the picture above only goes up to two.
+        Slide 13’s example: a = (1, 0, 2) and b = (−1, 2, 1) give (1)(−1) + (0)(2) + (2)(1) = 1. It works in any number
+        of dimensions, even though the picture above only goes up to two.
       </LabNote>
     </LabBox>
   )
@@ -231,8 +231,8 @@ export function NormLab() {
 
       <div className="grid gap-3 sm:grid-cols-2">
         <Verdict ok={cauchy}>
-          <strong>Cauchy&ndash;Schwarz:</strong> |a·b| ≤ ‖a‖‖b‖ — here {Math.abs(d).toFixed(3)} ≤ {(na * nb).toFixed(3)}
-          . The two sides are only equal when the arrows lie along each other.
+          <strong>Cauchy–Schwarz:</strong> |a·b| ≤ ‖a‖‖b‖ — here {Math.abs(d).toFixed(3)} ≤ {(na * nb).toFixed(3)}. The
+          two sides are only equal when the arrows lie along each other.
         </Verdict>
         <Verdict ok={triangle}>
           <strong>Triangle:</strong> ‖a + b‖ ≤ ‖a‖ + ‖b‖ — here {nsum.toFixed(3)} ≤ {(na + nb).toFixed(3)}. Going
@@ -246,7 +246,7 @@ export function NormLab() {
           setB({ x: 1, y: 2 })
         }}
       >
-        Load slide 17&rsquo;s numbers
+        Load slide 17’s numbers
       </Btn>
 
       {isSlide && (
@@ -269,9 +269,9 @@ aᵀb = 3 + 8 = 11
       )}
 
       <LabNote>
-        Try to break Cauchy&ndash;Schwarz by dragging. You cannot: the closest you will get is making the two arrows
-        point exactly the same way, and then the two sides are equal. That is the only case where they meet, and it is
-        worth remembering — equality means the vectors are dependent.
+        Try to break Cauchy–Schwarz by dragging. You cannot: the closest you will get is making the two arrows point
+        exactly the same way, and then the two sides are equal. That is the only case where they meet, and it is worth
+        remembering — equality means the vectors are dependent.
       </LabNote>
     </LabBox>
   )
@@ -378,8 +378,8 @@ export function AngleLab() {
             <Chip on={d < 0} label="over 90°" />
           </div>
           <PanelNote>
-            Dividing by ‖a‖‖b‖ is what turns the dot product into an angle. Cauchy&ndash;Schwarz guarantees the result
-            sits between −1 and 1, so the cos⁻¹ always has something legal to work on.
+            Dividing by ‖a‖‖b‖ is what turns the dot product into an angle. Cauchy–Schwarz guarantees the result sits
+            between −1 and 1, so the cos⁻¹ always has something legal to work on.
           </PanelNote>
         </div>
       </div>
@@ -391,10 +391,9 @@ export function AngleLab() {
       </Verdict>
 
       <LabNote>
-        <strong>Orthogonal</strong> is the proper word for &ldquo;at right angles&rdquo;. The useful thing is that you
-        never have to work out an angle to check it — just see whether the dot product is zero. That test costs a few
-        multiplications and works in a thousand dimensions, where the word &ldquo;angle&rdquo; stops being something you
-        can picture at all.
+        <strong>Orthogonal</strong> is the proper word for “at right angles”. The useful thing is that you never have to
+        work out an angle to check it — just see whether the dot product is zero. That test costs a few multiplications
+        and works in a thousand dimensions, where the word “angle” stops being something you can picture at all.
       </LabNote>
     </LabBox>
   )
@@ -501,7 +500,7 @@ export function ProjectionLab() {
               setV2({ x: 2, y: 4 })
             }}
           >
-            Load slide 20&rsquo;s numbers
+            Load slide 20’s numbers
           </Btn>
         </div>
       </div>
@@ -527,9 +526,9 @@ check:  u · v₁ = ${nice(check)}   ${Math.abs(check) < 1e-9 ? '✓ right angle
         as u·v₁ = 0, rearrange, and the amount λ falls out. No guessing involved.
       </LabNote>
       <LabNote>
-        Why it matters later: splitting a vector into &ldquo;the part along something&rdquo; and &ldquo;the part at
-        right angles to it&rdquo; is the move behind least squares, behind principal component analysis, and behind
-        every method that fits a line by making the leftovers as small as possible.
+        Why it matters later: splitting a vector into “the part along something” and “the part at right angles to it” is
+        the move behind least squares, behind principal component analysis, and behind every method that fits a line by
+        making the leftovers as small as possible.
       </LabNote>
     </LabBox>
   )
@@ -584,7 +583,7 @@ export function OrthogonalSolveLab() {
       <div className="rounded-lg border border-zinc-950/10 bg-zinc-50 p-4 font-mono text-[13px]/[1.9] text-zinc-800">
         a·b = (1)(2) + (2)(−1) + (3)(k) + (4)(0) + (5)(1)
         <br />
-        &nbsp;&nbsp;&nbsp;&nbsp;= 2 − 2 + 3k + 0 + 5 = 3k + 5 = <strong>{(3 * k + 5).toFixed(3)}</strong>
+            = 2 − 2 + 3k + 0 + 5 = 3k + 5 = <strong>{(3 * k + 5).toFixed(3)}</strong>
       </div>
 
       <Verdict ok={exact}>
