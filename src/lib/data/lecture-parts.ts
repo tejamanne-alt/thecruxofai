@@ -593,6 +593,129 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
     },
   ],
 
+  mllec1: [
+    {
+      id: 'course',
+      title: 'What this course is, and how it is marked',
+      teaser: 'Eleven modules, four books, four pieces of assessment. Press a module to see where it sits.',
+      slides: 'Slides 5–9',
+    },
+    {
+      id: 'landscape',
+      title: 'Data science, AI and machine learning',
+      teaser: 'Three circles inside one another. Press each to see what it covers and what it does not.',
+      slides: 'Slides 11–14',
+    },
+    {
+      id: 'whatisml',
+      title: 'What machine learning actually is',
+      teaser: 'Traditional programming takes data and a program and gives output. Flip two boxes and you have ML.',
+      slides: 'Slide 16',
+    },
+    {
+      id: 'tpe',
+      title: 'Writing a task as ⟨T, P, E⟩',
+      teaser: 'Task, performance, experience. Build all four of the deck’s examples and see what a bad P costs you.',
+      slides: 'Slides 17–18',
+    },
+    {
+      id: 'spam',
+      title: 'Spam filtering, done both ways',
+      teaser: 'Hand-written rules against a learned filter. Add spammer tricks and watch the rule list rot.',
+      slides: 'Slides 19–21',
+    },
+    {
+      id: 'whenml',
+      title: 'When machine learning is worth it',
+      teaser: 'Three good reasons and one famous bad one. Sort eight problems and see which need learning at all.',
+      slides: 'Slides 25–26',
+    },
+    {
+      id: 'pattern',
+      title: 'What makes a 2 a 2?',
+      teaser: 'Hinton’s question. Try to write a rule that catches every 2 and no 7 — and watch it fail.',
+      slides: 'Slide 27',
+    },
+    {
+      id: 'features',
+      title: 'Features, and the thing you are predicting',
+      teaser: 'The deck’s three tables. Tap a column to say whether it is a feature or the target.',
+      slides: 'Slides 30–32',
+    },
+    {
+      id: 'types',
+      title: 'The three kinds of learning',
+      teaser: 'Feedback, none, or delayed. The whole taxonomy from slide 48, one branch at a time.',
+      slides: 'Slides 29, 48–49',
+    },
+    {
+      id: 'classification',
+      title: 'Supervised learning: classification',
+      teaser: 'Drag the threshold on the tumour-size example and watch which patients get called wrong.',
+      slides: 'Slides 33–36',
+    },
+    {
+      id: 'regression',
+      title: 'Supervised learning: regression',
+      teaser: 'Same setup, but y is a number instead of a label. Drag a line and watch the error move.',
+      slides: 'Slide 39',
+    },
+    {
+      id: 'supervisedflow',
+      title: 'The supervised workflow, end to end',
+      teaser: 'Training images to features to a learned model to a prediction. Step through both halves.',
+      slides: 'Slides 37–38',
+    },
+    {
+      id: 'unsupervised',
+      title: 'Unsupervised learning',
+      teaser: 'No labels at all. Move the centres, watch the two distances the goal is written in terms of.',
+      slides: 'Slides 40–43',
+    },
+    {
+      id: 'reinforcement',
+      title: 'Reinforcement learning',
+      teaser: 'An agent, an environment, and a reward. Run the six-step loop and watch a policy improve.',
+      slides: 'Slides 44–47',
+    },
+    {
+      id: 'semisupervised',
+      title: 'Semi-supervised learning',
+      teaser: 'A handful of labels among a crowd of unlabelled points. Add labels one at a time.',
+      slides: 'Slide 50',
+    },
+    {
+      id: 'batching',
+      title: 'Batch, mini-batch and online',
+      teaser: 'How much data the model sees at once. Run all three and compare what each costs.',
+      slides: 'Slide 51',
+    },
+    {
+      id: 'instancemodel',
+      title: 'Instance-based or model-based',
+      teaser: 'Remember every example, or boil them down to a rule. Same new point, two ways to label it.',
+      slides: 'Slide 52',
+    },
+    {
+      id: 'tools',
+      title: 'The tools the course names',
+      teaser: 'Nine open-source tools, what each is for and what it is written in. Filter them.',
+      slides: 'Slides 53–54',
+    },
+    {
+      id: 'tradeoff',
+      title: 'Accuracy against interpretability',
+      teaser: 'The deck’s own chart — and it is labelled “unscientific and opinionated”, so read it that way.',
+      slides: 'Slide 55',
+    },
+    {
+      id: 'workflow',
+      title: 'The machine learning workflow',
+      teaser: 'Eight steps from “should I use ML at all?” to a model on the test set. Walk the car-price example.',
+      slides: 'Slides 56–58',
+    },
+  ],
+
   ism1: [
     {
       id: 'course',

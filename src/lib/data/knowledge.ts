@@ -2698,6 +2698,446 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
     ],
   },
 
+  mllec1: {
+    cheat: [
+      {
+        formula: 'data + program → output',
+        why: 'Traditional programming. A person worked out the rule and wrote it down.',
+      },
+      {
+        formula: 'data + output → program',
+        why: 'Machine learning. Two boxes swap. The program that comes out is the model.',
+      },
+      {
+        formula: 'ML ⊂ AI ⊂ tools of data science',
+        why: 'Every ML method is AI; plenty of AI does no learning at all.',
+      },
+      {
+        formula: '⟨T, P, E⟩',
+        why: 'A well-defined learning task: task, performance measure, experience. Mitchell’s definition.',
+      },
+      {
+        formula: 'learns if P at T improves with E',
+        why: 'The improvement is what makes it learning. A program that never gets better has not learnt.',
+      },
+      {
+        formula: 'T recognise handwriting · P % correct · E labelled images',
+        why: 'Deck example 1. Know all four examples — they are standard exam fare.',
+      },
+      {
+        formula: 'T checkers · P % games won · E games played against itself',
+        why: 'Example 3. Note E is not a dataset — the program generates its own experience.',
+      },
+      {
+        formula: 'P = distance travelled BEFORE AN ERROR',
+        why: 'Example 4. Drop the last three words and the best strategy is to drive fast into a wall. A gameable P will be gamed.',
+      },
+      {
+        formula: 'use ML when expertise does not exist',
+        why: 'Navigating on Mars — nobody has done it, so there is no expert to copy.',
+      },
+      {
+        formula: 'use ML when humans cannot explain their expertise',
+        why: 'Biometrics. You recognise a face and cannot say how.',
+      },
+      {
+        formula: 'use ML when models must be customised',
+        why: 'Personalised medicine. One hand-written rule cannot serve every patient.',
+      },
+      {
+        formula: 'no need to “learn” to calculate payroll',
+        why: 'The deck’s counter-example. When the rule is exact and known, learning only adds error.',
+      },
+      {
+        formula: 'features = attributes = predictors',
+        why: 'Three names for the input columns. The target is the one you would not know for a new case.',
+      },
+      {
+        formula: 'supervised = feedback',
+        why: 'Every example carries its right answer. Labelled data, external supervision.',
+      },
+      { formula: 'unsupervised = no feedback', why: 'No labels anywhere. The machine discovers the output itself.' },
+      {
+        formula: 'reinforcement = delayed feedback',
+        why: 'Rewards and penalties, arriving long after the action. No predefined data at all.',
+      },
+      {
+        formula: 'given (x₁,y₁)…(xₙ,yₙ) learn f(x); y categorical',
+        why: 'Classification. Goal: previously unseen records assigned a class as accurately as possible.',
+      },
+      {
+        formula: 'given (x₁,y₁)…(xₙ,yₙ) learn f(x); y real-valued',
+        why: 'Regression. Word for word the same except for the type of y — that one change is the whole distinction.',
+      },
+      {
+        formula: 'x can be multi-dimensional',
+        why: 'Each dimension one attribute. The threshold becomes a boundary; nothing else changes.',
+      },
+      {
+        formula: 'given x₁…xₙ without labels, output hidden structure',
+        why: 'Unsupervised. No y in the definition, so there is no accuracy to compute.',
+      },
+      {
+        formula: 'intra-cluster small, inter-cluster large',
+        why: 'The clustering goal, in the deck’s own words. The two things you trade off.',
+      },
+      {
+        formula: 'unsupervised CAN have a test phase',
+        why: 'Slide 43. Assign a new point to the cluster with the closer centroid. Easy marks, easily missed.',
+      },
+      {
+        formula: 'observe → act → reward → update policy → iterate',
+        why: 'The RL loop from slide 47. Step 5, updating the policy, is where learning happens.',
+      },
+      {
+        formula: 'semi-supervised = a few labels + many unlabelled',
+        why: 'Google Photos: it groups faces itself, you name each group once.',
+      },
+      {
+        formula: 'batch · mini-batch · online',
+        why: 'All the data, a subset, or one instance per update. Based on how training data is used.',
+      },
+      {
+        formula: 'instance based: compare to known points',
+        why: 'Keep the examples. Cheap to train, slow to predict. k-NN.',
+      },
+      {
+        formula: 'model based: detect patterns, build a model',
+        why: 'Boil the examples into a rule and discard them. Slow to train, fast to predict.',
+      },
+      {
+        formula: 'accuracy ↑ ⟹ interpretability ↓, roughly',
+        why: 'Slide 55 — and it labels itself “unscientific & opinionated”. Random forest is the exception.',
+      },
+      {
+        formula: 'should I use ML? → pattern? → analytic? → data?',
+        why: 'The first four workflow steps, each answerable “no”. Only then does any modelling start.',
+      },
+      {
+        formula: 'generalisation = performance on unseen data',
+        why: 'The last word of the car-price example, and the only score that counts.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'In machine learning, what does the computer produce that traditional programming required as an input?',
+        options: ['The data', 'The output', 'The program', 'The hardware'],
+        answer: 2,
+        explain:
+          'Traditional programming: data + program → output. Machine learning: data + output → program. The program that comes out is what everyone calls the model, and nobody ever writes down the rule it found.',
+      },
+      {
+        q: 'Which nesting does the deck give on slide 11?',
+        options: [
+          'AI ⊂ machine learning ⊂ data science',
+          'Machine learning ⊂ AI ⊂ data science',
+          'Data science ⊂ machine learning ⊂ AI',
+          'They are three separate fields that do not overlap',
+        ],
+        answer: 1,
+        explain:
+          'Machine learning is a subset of AI, and AI is one of the things data science draws on. So every ML method is AI, but a chess engine that searches without learning is AI and not ML.',
+      },
+      {
+        q: 'A well-defined learning task is given by ⟨T, P, E⟩. What is E?',
+        options: ['The error rate', 'The experience it learns from', 'The evaluation set', 'The expected output'],
+        answer: 1,
+        explain:
+          'T is the task, P is the performance measure, E is the experience. In the checkers example E is "games played against itself" — note that E need not be a dataset somebody collected.',
+      },
+      {
+        q: 'For "drive on public four-lane highways", the deck gives P as "average distance travelled before an error". Why not just "distance travelled"?',
+        options: [
+          'Distance is harder to measure',
+          'Because a model maximising plain distance would be rewarded for driving fast and badly',
+          'Because distance is not a number',
+          'There is no difference',
+        ],
+        answer: 1,
+        explain:
+          'The phrase "before an error" is doing all the work. A performance measure that can be satisfied without doing the task will be — the model optimises exactly what you asked for, not what you meant.',
+      },
+      {
+        q: 'Which of these does the deck give as a reason NOT to use machine learning?',
+        options: [
+          'Human expertise does not exist',
+          'Humans cannot explain their expertise',
+          'Calculating payroll',
+          'Models must be customised',
+        ],
+        answer: 2,
+        explain:
+          'The other three are the deck’s three reasons TO use it. Payroll is its counter-example: the rule is known, exact and written in a contract, so learning it from examples could only introduce error.',
+      },
+      {
+        q: 'What does the deck give as the challenge of the traditional, rule-based spam filter?',
+        options: [
+          'It cannot catch any spam',
+          'It is too slow to run',
+          'It becomes a long list of complex rules, hard to maintain',
+          'It needs too much training data',
+        ],
+        answer: 2,
+        explain:
+          'Not that it fails — that it rots. Each new spammer trick means another rule somebody must notice, write, test and keep working. The learned filter is described as shorter, easier to maintain and "most likely" more accurate.',
+      },
+      {
+        q: 'In the market segmentation table (zip code, family income, visits, money spent), which column is the target?',
+        options: ['Money spent in a month', 'Family income', 'Zip code', 'There is no target column'],
+        answer: 3,
+        explain:
+          'Nobody has labelled any customer as a big or low spender — that is what you are trying to discover. No target means this is an unsupervised problem, and even the number of groups is not given.',
+      },
+      {
+        q: 'Classification and regression differ in exactly one respect. Which?',
+        options: [
+          'Classification uses labels and regression does not',
+          'Whether y is categorical or real-valued',
+          'Classification is supervised and regression is unsupervised',
+          'The number of features',
+        ],
+        answer: 1,
+        explain:
+          'Both are supervised, both are given (x, y) pairs, both learn f(x) to predict y. The definitions are word for word the same apart from the type of y — categorical gives classification, real-valued gives regression.',
+      },
+      {
+        q: 'On the tumour example, is there a threshold that classifies every patient correctly?',
+        options: [
+          'Yes, at the midpoint',
+          'No — the two groups overlap, so every threshold trades a missed cancer against a false alarm',
+          'Yes, if you use more decimal places',
+          'Only if the data is normalised',
+        ],
+        answer: 1,
+        explain:
+          'The groups overlap in tumour size, so no single cut separates them. Which mistake is worse is a medical question, not a mathematical one — which is exactly why accuracy is a poor P here.',
+      },
+      {
+        q: 'What is the goal of clustering, in the deck’s own words?',
+        options: [
+          'Maximise accuracy on the test set',
+          'Intra-cluster distances minimised and inter-cluster distances maximised',
+          'Minimise the number of clusters',
+          'Find the labels that were hidden',
+        ],
+        answer: 1,
+        explain:
+          'Points inside a group close together, different groups far apart. There are no labels, so there is no accuracy to maximise — the objective has to be written in distances instead.',
+      },
+      {
+        q: 'Can unsupervised learning make a prediction for a new, unseen point?',
+        options: [
+          'No — it has no labels, so it cannot predict anything',
+          'Yes — assign it to the cluster whose centroid is closer',
+          'Only if you label it first',
+          'Only for regression problems',
+        ],
+        answer: 1,
+        explain:
+          'Slide 43 says so explicitly: given a new cat/dog image, predict which of the two clusters it belongs to, by assigning it to the cluster with the closer centroid. Unsupervised learning too can have a test phase.',
+      },
+      {
+        q: 'What makes the feedback in reinforcement learning "delayed"?',
+        options: [
+          'The computer is slow',
+          'The reward may arrive long after the action that earned it, so working out which action deserves credit is part of the problem',
+          'The agent only learns at the end of training',
+          'The labels arrive after the data',
+        ],
+        answer: 1,
+        explain:
+          'RL is for problems where decision making is sequential and the goal is long-term. The move that lost the game may have been forty moves ago, and nothing told you at the time.',
+      },
+      {
+        q: 'What is a policy in reinforcement learning?',
+        options: [
+          'The reward function',
+          'The agent’s rule for choosing an action given a state',
+          'The set of training labels',
+          'The environment’s response',
+        ],
+        answer: 1,
+        explain:
+          'The policy is what the agent improves. Step 5 of the loop on slide 47 is "update policy (learning step)" — the reward is used to make good choices more likely next time.',
+      },
+      {
+        q: 'Google Photos groups faces automatically, then you name one photo per group. Which kind of learning is that?',
+        options: ['Supervised', 'Unsupervised', 'Semi-supervised', 'Reinforcement'],
+        answer: 2,
+        explain:
+          'It combines the two: the grouping is unsupervised and needs no labels, and naming a group is the supervised half. The deck gives exactly this example for partially labelled data.',
+      },
+      {
+        q: 'Which uses a single training instance at a time?',
+        options: ['Batch learning', 'Mini-batch learning', 'Online (incremental) learning', 'Model-based learning'],
+        answer: 2,
+        explain:
+          'Batch uses all available data at a time, mini-batch uses a subset, online uses one instance. Online is what lets a model keep learning after deployment, which matters when the thing you are predicting drifts.',
+      },
+      {
+        q: 'k-nearest neighbours stores the training examples and compares new points to them. Which type is that?',
+        options: ['Model based', 'Instance based', 'Reinforcement', 'Semi-supervised'],
+        answer: 1,
+        explain:
+          'Instance based: compare new data points to known data points. It does almost nothing at training time and all the work at prediction time — the opposite of model-based learning, which builds a rule and discards the data.',
+      },
+      {
+        q: 'The chart on slide 55 plots accuracy against interpretability. What warning does the slide carry?',
+        options: [
+          'That the results are from a peer-reviewed study',
+          'That it is “unscientific and opinionated”',
+          'That it applies only to small datasets',
+          'It carries no warning',
+        ],
+        answer: 1,
+        explain:
+          'The slide labels itself unscientific and opinionated, and notes it is "on real-world data sets". The trade-off it shows is real and worth knowing; the exact positions are one practitioner’s impression and should be quoted as such.',
+      },
+      {
+        q: 'What is the first question in the ML workflow on slide 57?',
+        options: [
+          'Which algorithm should I use?',
+          'Should I use ML on this problem at all?',
+          'How much data do I have?',
+          'What is my accuracy target?',
+        ],
+        answer: 1,
+        explain:
+          'It comes before everything else, and it can be answered no. The next three — is there a pattern, can I solve it analytically, do I have data — can also end the project. Only after all four does any modelling start.',
+      },
+      {
+        q: 'In the car-price example, what does the deck call evaluating on the test set?',
+        options: ['Optimisation', 'Exploratory data analysis', 'Generalisation', 'Preprocessing'],
+        answer: 2,
+        explain:
+          'Generalisation — how the model behaves on records it has never seen. It is the same idea the classification and regression slides both stated as their goal, and the only score that means anything.',
+      },
+      {
+        q: 'What does the course say it is NOT about?',
+        options: [
+          'Supervised learning',
+          'Unstructured data analytics and time-series/sequence data',
+          'Mathematical foundations',
+          'Model evaluation',
+        ],
+        answer: 1,
+        explain:
+          'Slide 5 names both as out of scope. The focus is strong mathematical foundations of ML algorithms and structured analytics on IID data — independent and identically distributed.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define machine learning, contrast it with traditional programming, and state Mitchell’s ⟨T, P, E⟩ formulation with two examples.',
+        meta: 'Definitions plus contrast and examples · 6–8 marks',
+        points: [
+          'Machine learning is the science and art of programming computers so they can learn from data.',
+          'Arthur Samuel’s more general definition: the field of study that gives computers the ability to learn without being explicitly programmed.',
+          'Contrast: in traditional programming, data and a program are supplied and the computer produces output; in machine learning, data and output are supplied and the computer produces the program, which is called the model.',
+          'Engineering definition: algorithms that improve their performance P at some task T with experience E. A program learns from experience E with respect to tasks T and performance measure P if its performance at T, as measured by P, improves with E.',
+          'A well-defined learning task is therefore given by the triple ⟨T, P, E⟩.',
+          'Example: T = recognising hand-written words; P = percentage of words correctly classified; E = a database of human-labelled images of handwritten words.',
+          'Example: T = playing checkers; P = percent of games won against opponents; E = games played against itself. Note that E need not be a collected dataset.',
+          'The choice of P is critical, since a learner optimises exactly what P rewards. In the driving example P is "average distance travelled before an error"; without the qualifying clause, the measure would reward speed irrespective of safety.',
+        ],
+      },
+      {
+        q: 'State the circumstances in which machine learning is and is not appropriate, with justification.',
+        meta: 'Criteria with examples · 5–6 marks',
+        points: [
+          'ML is appropriate when human expertise does not exist — for example navigating on Mars, where there is no expert to imitate.',
+          'When humans cannot explain the expertise they possess — biometrics and face recognition, which people perform reliably and cannot describe as a rule.',
+          'When models must be customised to the individual case — personalised medicine, where one fixed rule cannot serve every patient.',
+          'When a task cannot be defined well except by examples: it is very hard to write a program to recognise a handwritten digit, since one cannot say what distinguishes a 2 from a 7.',
+          'When relationships and correlations are hidden in data too large for explicit encoding by humans, such as medical diagnosis, and when new knowledge arrives continuously so that any fixed rule set becomes stale.',
+          'ML is not appropriate when the rule is already known exactly: the deck’s example is that there is no need to "learn" to calculate payroll.',
+          'Correspondingly, the ML workflow asks early whether the problem can be solved analytically; an exact solution is preferable to a learned approximation.',
+        ],
+      },
+      {
+        q: 'Compare supervised, unsupervised and reinforcement learning across definition, type of problem, type of data, training and approach.',
+        meta: 'The comparison table, reproduced and explained · 8 marks',
+        points: [
+          'The classification is by the feedback available to the learner: full feedback gives supervised learning, no feedback gives unsupervised, and delayed feedback in the form of rewards or penalties gives reinforcement learning.',
+          'Supervised — definition: the machine learns by using labelled data. Problems: regression and classification. Data: labelled. Training: external supervision. Approach: maps the labelled inputs to the known outputs.',
+          'Unsupervised — definition: the machine is trained on unlabelled data without any guidance. Problems: association and clustering. Data: unlabelled. Training: no supervision. Approach: understands patterns and discovers the output.',
+          'Reinforcement — definition: an agent interacts with its environment by performing actions and learning from errors or rewards. Problems: reward-based. Data: no predefined data. Training: no supervision. Approach: follows the trial-and-error method.',
+          'Semi-supervised learning combines the first two and operates on partially labelled data — a little labelled and much unlabelled, as in a photo hosting service that groups faces and then accepts one name per group.',
+          'Supervised learning subdivides by the type of target: a continuous target gives regression (for example housing price prediction), a categorical target gives classification (for example medical imaging).',
+          'Unsupervised subdivides into clustering (customer segmentation) and association (market basket analysis); reinforcement covers classification-style tasks such as optimised marketing and control tasks such as driverless cars.',
+          'The branch is determined by the data available rather than by the algorithm, which is why classification appears under supervised, semi-supervised and reinforcement branches alike.',
+        ],
+      },
+      {
+        q: 'Define supervised classification and regression formally, and describe a typical supervised learning workflow.',
+        meta: 'Definitions plus pipeline · 6–8 marks',
+        points: [
+          'Classification: given (x₁, y₁), (x₂, y₂), …, (xₙ, yₙ), learn a function f(x) to predict y given x, where y is categorical.',
+          'Regression: identical, except that y is real-valued. The type of the target is the only difference between the two.',
+          'In both cases the stated goal concerns unseen data: previously unseen records should be assigned a class, or a value, as accurately as possible.',
+          'x may be multi-dimensional, each dimension corresponding to one attribute — for the tumour example, clump thickness, uniformity of cell size, uniformity of cell shape, age and tumour size.',
+          'Training phase: labelled training examples pass through feature extraction; the resulting features, together with their labels, are used in the training step to produce a learned model.',
+          'Testing phase: an unseen test example passes through the same feature extraction, and the learned model converts those features into a prediction.',
+          'The feature extraction must be identical in both phases, and the test data must be genuinely held back; evaluating on data used for training measures memorisation rather than generalisation.',
+          'Supervised techniques covered by the course: linear regression, logistic regression, naïve Bayes classifiers, support vector machines, decision trees and random forests, and neural networks.',
+        ],
+      },
+      {
+        q: 'Describe unsupervised learning, state its objective, and explain how it can make predictions despite having no labels.',
+        meta: 'Definition, objective and the test phase · 5–6 marks',
+        points: [
+          'Unsupervised learning is given x₁, x₂, …, xₙ without labels, and must output the hidden structure behind the x’s — clustering being the principal example.',
+          'There is no y in the definition, and consequently no notion of accuracy; the objective must be expressed in terms of the data itself.',
+          'The stated goal is that intra-cluster distances are minimised and inter-cluster distances are maximised: members of a cluster should be close to one another, and distinct clusters should be far apart.',
+          'Despite the absence of labels, a test phase is possible. Given a new instance, it can be assigned to the cluster whose centroid is closer, which constitutes a prediction.',
+          'Clustering techniques named: k-means, hierarchical cluster analysis and expectation maximisation.',
+          'Visualisation and dimensionality reduction techniques named: principal component analysis, kernel PCA, locally-linear embedding and t-distributed stochastic neighbour embedding.',
+          'Applications include personalised recommendation systems, targeted marketing, spam filters, content management for hosted news, and campaigning.',
+        ],
+      },
+      {
+        q: 'Explain reinforcement learning, its loop, and how it differs from supervised learning.',
+        meta: 'Mechanism plus contrast · 6 marks',
+        points: [
+          'Reinforcement learning is a feedback-based technique in which an agent learns automatically using feedback, without any labelled data.',
+          'The agent learns to behave in an environment by performing actions and observing the results: good actions earn positive feedback, bad ones a penalty.',
+          'The loop is: (1) observe the state; (2) select an action using the current policy; (3) perform the action; (4) receive a reward or penalty; (5) update the policy — the learning step; (6) iterate until an optimal policy is found.',
+          'The policy is the agent’s rule for selecting an action given a state; improving it is what learning consists of here.',
+          'The difference from supervised learning is that no correct answer is ever provided. The agent receives only a scalar reward, and must determine for itself which actions were responsible.',
+          'The feedback is delayed: RL addresses problems in which decision making is sequential and the goal is long-term, such as game playing and robotics, so the action responsible for an outcome may lie far in the past.',
+          'The deck’s analogy is with human learning: the agent faces a game-like situation, makes a series of decisions, and through trial and error learns what to do and what not to do; each reward reinforces the behaviour that produced it.',
+        ],
+      },
+      {
+        q: 'Classify learning by how training data is used, and by what the learner retains.',
+        meta: 'Two orthogonal classifications · 5–6 marks',
+        points: [
+          'By how the training data is used: batch learning uses all available data at a time during training; mini-batch learning uses a subset at a time; online or incremental learning uses a single training instance at a time.',
+          'The trade-off is between stability and cost: batch updates are the most stable and require all data in memory, online updates are noisy but require almost none and permit learning to continue after deployment.',
+          'Online learning is the appropriate choice under concept drift, where the relationship being modelled changes over time and a model trained once becomes stale.',
+          'By what the learner retains: instance-based learning compares new data points to known data points, retaining the training examples themselves.',
+          'Model-based learning detects patterns in the training data and builds a predictive model, after which the training data is no longer required.',
+          'Instance-based methods are inexpensive to train and expensive to query, since prediction requires searching the stored examples; model-based methods are the reverse.',
+          'These two classifications are independent of the supervised/unsupervised/reinforcement division, and independent of one another.',
+        ],
+      },
+      {
+        q: 'Describe the machine learning workflow, and illustrate it with the used-car price example.',
+        meta: 'The full workflow with an example · 6–8 marks',
+        points: [
+          'The workflow begins with questions that may terminate the project: should machine learning be used on this problem at all; is there a pattern to detect; can the problem be solved analytically; is data available.',
+          'If those are cleared: gather and organise the data; preprocess, clean and visualise it; choose a model, a loss function and a regularisation scheme; optimise, including a search over hyper-parameters; and analyse performance and mistakes.',
+          'The final step directs the practitioner to iterate back to the data-gathering step, or as far back as the analytic-solution question — the workflow is a loop rather than a linear sequence.',
+          'Car price example — define the objective: predict the price of a used car from attributes such as mileage.',
+          'Data gathering: survey data and past purchase data.',
+          'Data preprocessing: form a training set and a test set; decide the representation of the input features and of the output. Exploratory data analysis follows.',
+          'Choose the form of model: linear regression. Define system performance evaluation via an objective function.',
+          'Optimise performance by setting appropriate parameters, then evaluate on the test set — that is, assess generalisation to unseen records.',
+          'Note that only one of the eight steps selects an algorithm; the remainder concern problem formulation, data and evaluation.',
+        ],
+      },
+    ],
+  },
+
   lec1: {
     cheat: [
       { formula: 'Ax = b', why: 'A whole system in three letters. A is the numbers, x the unknowns, b the answers.' },

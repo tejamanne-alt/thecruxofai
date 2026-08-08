@@ -137,8 +137,18 @@ export function NumBox({
 }
 
 /** The frame every lab sits in. */
+/**
+ * The frame every lab sits in. `data-lab` marks it so a verification run can
+ * find the interactive part of a page and tell its controls apart from the
+ * page furniture — the tabs and the previous/next links, which are on every
+ * part whether or not it has a lab.
+ */
 export function LabBox({ children }: { children: React.ReactNode }) {
-  return <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">{children}</div>
+  return (
+    <div data-lab className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+      {children}
+    </div>
+  )
 }
 
 export function LabNote({ children }: { children: React.ReactNode }) {

@@ -86,7 +86,7 @@
       "id": "ml",
       "group": "s1",
       "name": "Machine Learning",
-      "topics": ["regression", "kmeans"],
+      "topics": ["regression", "kmeans", "mllec1"],
       "syllabus": "Introduction to Machine Learning; various kinds of learning; supervised and unsupervised learning; the ML workflow; Bayesian learning, MAP hypothesis, Bayes optimal classifier, naive Bayes; linear models for regression; linear models for classification; non-linear models; decision trees; MDL principle; instance based learning; support vector machines; ensemble learning; clustering, k-means, GMM; model evaluation and comparison."
     },
     {
@@ -412,6 +412,11 @@
       "chart": "clusters",
       "blurb": "Plant k flags, everyone joins the nearest one, flags move. Step through it.",
       "kind": "concept"
+    },
+    "mllec1": {
+      "label": "Lecture 1 — Introduction to Machine Learning",
+      "blurb": "What machine learning is, when it is worth using, and the three kinds of it. Write a task as ⟨T, P, E⟩, drag a decision boundary, and watch an agent learn by being rewarded.",
+      "kind": "chapter"
     },
     "perceptron": {
       "label": "The perceptron",
