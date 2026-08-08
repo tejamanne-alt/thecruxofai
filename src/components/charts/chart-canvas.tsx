@@ -38,9 +38,21 @@ export interface DragHandle {
    * chart can mix the two.
    */
   grab?: 'near' | 'anywhere'
+  /**
+   * What this mark is, in words, for the keyboard layer below. Falls back to
+   * the id, which is usually a bare letter or an index and reads poorly.
+   */
+  label?: string
 }
 
 const GRAB_RADIUS = 20
+
+/** Keep a keyboard step inside the plot, whichever way the axis runs. */
+function clampTo(v: number, a: number, b: number) {
+  const lo = Math.min(a, b)
+  const hi = Math.max(a, b)
+  return v < lo ? lo : v > hi ? hi : v
+}
 
 /** Per-kind hit radius, in pixels. Centroids are big targets, curve samples small. */
 const HIT_RADIUS: Record<string, number> = { cent: 22, curve: 14 }
@@ -76,6 +88,10 @@ export interface ChartCanvasProps {
    * Marks the reader can pick up. Supplying these turns the chart from
    * something you watch into something you operate, which is the whole point
    * of the site — so prefer adding a handle over adding another slider.
+   *
+   * Each one also becomes a focusable element over the canvas, so give it a
+   * `label`: it is what a screen reader reads out, and the only name the
+   * handle has anywhere outside the drawing.
    */
   handles?: (f: Frame) => DragHandle[]
   /**
@@ -114,6 +130,18 @@ export function ChartCanvas({
   // over a stale handles function. Refreshed in the effect below.
   const handlesRef = useRef(handles)
 
+  // Where the keyboard layer's markers go. Handle positions are only known
+  // after a draw has handed back a frame, so they are published from paint()
+  // rather than worked out during render. The signature guard is what stops
+  // render → paint → setState → render from looping: once the marks stop
+  // moving the signature repeats and no state is set.
+  const [keyMarks, setKeyMarks] = useState<DragHandle[]>([])
+  const keySigRef = useRef('')
+  // A key press moves from where the last one left off, not from the mark's
+  // drawn position, so a lab that snaps to a coarse grid still steps: several
+  // small presses accumulate until they cross the next snap point.
+  const keyFromRef = useRef<{ id: string; px: number; py: number } | null>(null)
+
   function paint() {
     const c = canvasRef.current
     if (!c) return
@@ -130,7 +158,48 @@ export function ChartCanvas({
     g.font = '11px Inter, sans-serif'
     g.textBaseline = 'middle'
 
-    frameRef.current = draw(g, W, H, { disp: dispRef.current ?? targets, hover })
+    const f = draw(g, W, H, { disp: dispRef.current ?? targets, hover })
+    frameRef.current = f
+    publishKeyMarks(f)
+  }
+
+  /** Keep the focusable markers sitting on top of the marks they stand for. */
+  function publishKeyMarks(f: Frame) {
+    const marks = handles && onDragTo ? handles(f) : []
+    const sig = marks.map((h) => `${h.id}@${Math.round(h.px)},${Math.round(h.py)}:${h.label ?? ''}`).join('|')
+    if (sig === keySigRef.current) return
+    keySigRef.current = sig
+    setKeyMarks(marks)
+  }
+
+  /**
+   * A canvas holds no elements, so there is nothing for Tab to land on and
+   * nothing for a screen reader to name. Every handle therefore gets a real
+   * element of its own in the layer below, and this is what the arrow keys do
+   * to it: the same thing a drag does, one step at a time.
+   */
+  function moveByKey(e: React.KeyboardEvent, h: DragHandle) {
+    const f = frameRef.current
+    if (!f || !onDragTo) return
+    const step: Record<string, [number, number]> = {
+      ArrowLeft: [-1, 0],
+      ArrowRight: [1, 0],
+      ArrowUp: [0, -1],
+      ArrowDown: [0, 1],
+    }
+    const dir = step[e.key]
+    if (!dir) return
+    e.preventDefault()
+
+    // A fortieth of the plot per press, four times that with Shift. Small
+    // enough to be precise, large enough that a chart snapping to halves still
+    // moves on the first press rather than the third.
+    const size = Math.max(4, (f.R - f.L) / 40) * (e.shiftKey ? 4 : 1)
+    const from = keyFromRef.current?.id === h.id ? keyFromRef.current : { id: h.id, px: h.px, py: h.py }
+    const px = clampTo(from.px + dir[0] * size, f.L, f.R)
+    const py = clampTo(from.py + dir[1] * size, f.T, f.B)
+    keyFromRef.current = { id: h.id, px, py }
+    onDragTo(h.id, f.ux(px), f.uy(py))
   }
 
   // Chart-space values glide toward their target; the read-outs beside the
@@ -338,6 +407,30 @@ export function ChartCanvas({
             dragging ? 'cursor-grabbing' : overHandle ? 'cursor-grab' : 'cursor-crosshair'
           )}
         />
+        {/*
+         * The keyboard layer. Transparent to the pointer from the wrapper
+         * down, so pressing and dragging still belong entirely to the canvas
+         * underneath and nothing about the mouse behaviour changes — but Tab
+         * reaches every mark, and the arrow keys move it.
+         */}
+        {keyMarks.length > 0 && (
+          <div className="pointer-events-none absolute inset-0">
+            {keyMarks.map((h) => (
+              <button
+                key={h.id}
+                type="button"
+                data-handle={h.id}
+                className="crux-handle"
+                style={{ left: h.px, top: h.py }}
+                aria-label={`${h.label ?? `Handle ${h.id}`} — press the arrow keys to move it, or drag it on the chart`}
+                onKeyDown={(e) => moveByKey(e, h)}
+                onBlur={() => {
+                  if (keyFromRef.current?.id === h.id) keyFromRef.current = null
+                }}
+              />
+            ))}
+          </div>
+        )}
         {tip && hover && (
           <div
             className="pointer-events-none absolute z-2 flex flex-col gap-[7px] rounded-lg bg-zinc-950 px-[13px] py-3 text-zinc-50 shadow-[0_8px_24px_rgba(0,0,0,0.28)]"
@@ -362,7 +455,7 @@ export function ChartCanvas({
       <p className="text-[11.5px] text-zinc-400">
         {caption ??
           (handles
-            ? 'Drag the markers — or just press where you want one, and it comes to you. Hover anything for the numbers behind it.'
+            ? 'Drag the markers — or just press where you want one, and it comes to you. Tab to a marker and the arrow keys move it too. Hover anything for the numbers behind it.'
             : 'Hover anything on the chart — every dot, flag and marker explains itself.')}
       </p>
     </div>

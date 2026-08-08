@@ -467,12 +467,19 @@ export function ParallelogramLab() {
         candidates={() => []}
         tooltip={() => null}
         targets={{}}
-        handles={(f) => v.map((w, i) => ({ id: String(i), px: f.px(w.x), py: f.py(w.y) }))}
+        handles={(f) =>
+          v.map((w, i) => ({
+            id: String(i),
+            label: `Vector ${i === 0 ? 'u' : 'v'}, at (${w.x}, ${w.y})`,
+            px: f.px(w.x),
+            py: f.py(w.y),
+          }))
+        }
         onDragTo={(id, x, y) => {
           const i = Number(id)
           setV(v.map((w, j) => (j === i ? { x: snap(clamp(x, -1, 6)), y: snap(clamp(y, -1, 6)) } : w)))
         }}
-        caption="Drag either of the two short arrows. The teal one is always their sum, and the shape between them is always a parallelogram."
+        caption="Drag either of the two short arrows, or Tab to one and use the arrow keys. The teal one is always their sum, and the shape between them is always a parallelogram."
       />
 
       <Verdict ok>

@@ -1123,8 +1123,16 @@ export function SurfaceLab() {
           tooltip={() => null}
           targets={{ w0, w1 }}
           height={300}
-          caption="Darker is worse. Press anywhere to move the weights there."
-          handles={(f: Frame) => [{ id: 'w', px: f.px(w0), py: f.py(w1), grab: 'anywhere' as const }]}
+          caption="Darker is worse. Press anywhere to move the weights there, or Tab to the marker and use the arrow keys."
+          handles={(f: Frame) => [
+            {
+              id: 'w',
+              label: `The weights, w₀ = ${w0.toFixed(2)} and w₁ = ${w1.toFixed(2)}`,
+              px: f.px(w0),
+              py: f.py(w1),
+              grab: 'anywhere' as const,
+            },
+          ]}
           onDragTo={(_id, x, y) => {
             setW0(Math.round(clamp(x, -2, 3.5) * 100) / 100)
             setW1(Math.round(clamp(y, -0.5, 3.5) * 100) / 100)

@@ -123,6 +123,18 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-svh w-full bg-zinc-100">
+      {/*
+       * The sidebar lists every session, so reaching the page itself took 55
+       * presses of Tab — and the labs are the page. Off-screen until focused,
+       * then it puts itself on top of everything.
+       */}
+      <a
+        href="#page"
+        className="fixed top-3 left-3 z-40 -translate-y-[200%] rounded-lg bg-zinc-950 px-4 py-2 text-[13px] font-semibold text-white focus:translate-y-0"
+      >
+        Skip to the page
+      </a>
+
       {/* Desktop sidebar */}
       <aside className="sticky top-0 hidden h-svh w-72 shrink-0 lg:block">
         <SidebarContent onAddSession={setAddGroup} onAccountClick={onAccountClick} />
@@ -164,7 +176,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <MenuIcon />
         </button>
 
-        <main className="min-h-[calc(100svh-79px)] rounded-lg bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05)] ring-1 ring-zinc-950/[0.06] lg:p-10">
+        <main
+          id="page"
+          tabIndex={-1}
+          className="min-h-[calc(100svh-79px)] rounded-lg bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05)] ring-1 ring-zinc-950/[0.06] focus:outline-none lg:p-10"
+        >
           <div className="mx-auto max-w-[1120px]">{children}</div>
         </main>
       </div>
