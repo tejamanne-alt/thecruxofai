@@ -1,4 +1,6 @@
 import { DL1_PARTS } from '@/components/sessions/dl1/parts'
+import { DL2_PARTS } from '@/components/sessions/dl2/parts'
+import { DL3_PARTS } from '@/components/sessions/dl3/parts'
 import { ISM1_PARTS } from '@/components/sessions/ism1/parts'
 import { ISM2_PARTS } from '@/components/sessions/ism2/parts'
 import { LEC0A_PARTS } from '@/components/sessions/lec0a/parts'
@@ -26,6 +28,8 @@ const BODIES: Record<string, Record<string, React.ReactNode>> = {
   lec3: LEC3_PARTS,
   mllec1: MLLEC1_PARTS,
   dl1: DL1_PARTS,
+  dl2: DL2_PARTS,
+  dl3: DL3_PARTS,
   ism1: ISM1_PARTS,
   ism2: ISM2_PARTS,
 }

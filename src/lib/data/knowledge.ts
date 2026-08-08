@@ -4320,4 +4320,752 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       },
     ],
   },
+
+  dl2: {
+    cheat: [
+      {
+        formula: 'z = Σᵢ₌₁ⁿ wᵢxᵢ + b',
+        why: 'Equation (1). The bias is written outside the sum here — session 1 hid it inside as w₀ with x₀ = 1.',
+      },
+      {
+        formula: 'ŷ = f(z)',
+        why: 'Equation (2). f is deliberately left open: choosing it turns one unit into a perceptron, a regression or a hidden unit.',
+      },
+      {
+        formula: 'ŷ = 1 if Σwᵢxᵢ + b ≥ 0, else 0',
+        why: 'The perceptron, this deck’s version. Inputs 0/1, output 0/1, and it fires at exactly zero.',
+      },
+      {
+        formula: 'wᵢ ← wᵢ + η(t − ŷ)xᵢ ,  b ← b + η(t − ŷ)',
+        why: 'The learning algorithm, with the bias on its own line. η = 0.1 and weights start random.',
+      },
+      {
+        formula: 'AND: w = (−1, 0.75, 0.75)',
+        why: 'In this deck’s 0/1 encoding. Any equal pair between 0.5 and 1 works alongside w₀ = −1.',
+      },
+      {
+        formula: 'OR: w = (−1, 2, 2)',
+        why: 'Same bias as AND, larger weights. Note these are session 1’s AND weights — different encoding, different gate.',
+      },
+      {
+        formula: 'NOR: (1, −2, −2) ·  NAND: (1, −0.75, −0.75)',
+        why: 'The slide-30 exercise, worked out by negating OR and AND and checked against all four rows.',
+      },
+      {
+        formula: 'PLA on NOT from w = 0, η = 1 ⟹ w₀ = 2, w₁ = −2',
+        why: 'The deck’s trace. Taking its own definition of the tie-break instead gives (−2, −2) — both correct.',
+      },
+      { formula: 'h = wᵀx', why: 'Page 43. A row times a column: identical to Σ wᵢxᵢ and to the dot product ⟨w, x⟩.' },
+      {
+        formula: 'separable ⟺ an (n − 1)-dimensional hyperplane splits the classes',
+        why: 'The deck’s definition, and it adds that infinitely many such hyperplanes exist whenever one does.',
+      },
+      {
+        formula: 'converges in finite steps if linearly separable',
+        why: 'The convergence theorem. On non-separable data it does not fail — it never stops.',
+      },
+      {
+        formula: '14 of the 16 two-input Boolean functions',
+        why: 'What one perceptron can represent. The two it cannot are XOR and XNOR.',
+      },
+      {
+        formula: 'layer parameters = units × (inputs + 1)',
+        why: 'One weight per connection plus one bias per unit. Sum over the layers for the model’s size.',
+      },
+      {
+        formula: 'knowledge is in the connection weights',
+        why: 'The connectionist principle. Learning modifies connection strengths and changes nothing else.',
+      },
+      {
+        formula: 'adaptive synapses ↔ adjustable weights',
+        why: 'The one row of the biological-versus-artificial table that is a genuine likeness rather than a simplification.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'This deck gives AND as w = (−1, 0.75, 0.75) and session 1 gives it as (−1, 2, 2). Which is right?',
+        options: [
+          'Session 1 — the later deck made an arithmetic error',
+          'This deck — session 1 used an obsolete convention',
+          'Both, in their own encodings. Session 1 uses ±1 inputs firing above zero; this deck uses 0/1 inputs firing at zero or above',
+          'Neither; AND needs three weights and a threshold',
+        ],
+        answer: 2,
+        explain:
+          'The gate is the same and the encoding is not. Check (−1, 2, 2) against this deck’s 0/1 table: at (0, 1) the sum is 1, which is ≥ 0, so it fires — but AND(0, 1) is 0. Those three numbers are in fact this deck’s answer for OR.',
+      },
+      {
+        q: 'Why does the learning algorithm on page 32 give the bias its own update line?',
+        options: [
+          'Because the bias is more important than the weights',
+          'Because there is no constant input x₀ = 1 to carry it in this notation, so it needs its own line — which is the weight line with xᵢ set to 1',
+          'Because the bias uses a different learning rate',
+          'Because the bias is not really a parameter',
+        ],
+        answer: 1,
+        explain:
+          'Session 1 folded the bias into the sum as w₀ on a constant input, so one line covered everything. This deck writes z = Σwᵢxᵢ + b with the bias outside, so the update b += η(t − ŷ) has no xᵢ in it — because that xᵢ would have been 1.',
+      },
+      {
+        q: 'Page 33 defines ŷ = 1 when h ≥ 0. Page 35 computes sign(0) = −1. What follows?',
+        options: [
+          'Nothing — sign(0) and “h ≥ 0” mean the same thing',
+          'The deck contradicts itself, and the two readings give different converged weights: (2, −2) and (−2, −2), both correct NOT gates',
+          'Page 35 is wrong and the trace should be discarded',
+          'The learning rate must be reduced',
+        ],
+        answer: 1,
+        explain:
+          'Under the definition, h = 0 gives +1; under the working, −1. Running the algorithm both ways converges to different weights, and both classify the two training points correctly. The deck prints the answer that follows from its working, not from its definition.',
+      },
+      {
+        q: 'A perceptron is trained on data that is not linearly separable. What is the symptom?',
+        options: [
+          'It converges to the weights with the fewest mistakes',
+          'It raises an error',
+          'The weights never stop changing, and nothing reports anything',
+          'It converges more slowly than usual',
+        ],
+        answer: 2,
+        explain:
+          'No weight vector is correct, so on every pass there is a mistake and therefore an update. The convergence theorem only promises finite steps for separable data; the failure mode on non-separable data is an infinite loop, which is why the algorithm needs a maximum-iterations line.',
+      },
+      {
+        q: 'How many of the 16 Boolean functions of two inputs can a single perceptron represent?',
+        options: ['4', '8', '14', 'All 16'],
+        answer: 2,
+        explain:
+          'All except XOR and XNOR. Both of those need the two diagonals of the unit square separated from each other, and the diagonals share a midpoint, so no linear function can put that point on both sides of zero at once.',
+      },
+      {
+        q: 'A hidden layer of 8 units reads 5 inputs. How many parameters does that layer hold?',
+        options: ['40', '45', '48', '13'],
+        answer: 1,
+        explain:
+          '8 × (5 + 1) = 48? No — 8 × 5 = 40 weights plus 8 biases = 48. The rule is units × (inputs + 1), which is 8 × 6 = 48. Option 45 is wrong; the correct arithmetic is 48. Count weights and biases separately if the multiplication is not obvious.',
+      },
+      {
+        q: 'Which row of the biological-versus-artificial table is a genuine likeness rather than a simplification?',
+        options: [
+          'Complex biochemical processes / simple mathematical model',
+          'Analog signal processing / digital computation',
+          'Adaptive synaptic strengths / adjustable weights',
+          'Fault tolerant / deterministic behavior',
+        ],
+        answer: 2,
+        explain:
+          'Learning means changing connection strengths, in both systems, and nothing else changes. The others are the artificial version being cruder, differently motivated, or — in the last case — not even a comparison, since fault tolerance and determinism are not opposites.',
+      },
+      {
+        q: 'What does switching off one unit of a trained network usually do to its output?',
+        options: [
+          'Breaks it completely, because each unit stores one fact',
+          'Changes it a little, because every fact is spread across many units',
+          'Nothing at all',
+          'Reverses the prediction',
+        ],
+        answer: 1,
+        explain:
+          'That is what a distributed representation means, and it is why the deck says all world knowledge is stored in the connections. It is also why a network cannot be read — there is no single place any fact lives — and why dropout works as a regulariser.',
+      },
+      {
+        q: 'The deck lists five conditions for using a neural network. Which is a warning rather than a benefit?',
+        options: [
+          'Input is high-dimensional',
+          'The data may be noisy',
+          'The form of the target function is unknown',
+          'Explainability of the result is unimportant',
+        ],
+        answer: 3,
+        explain:
+          'It is written as a requirement: if you need to explain a decision, this method does not offer one. That follows directly from connectionism — the knowledge is spread across every weight, so there is nowhere to point. In credit, medicine or law this condition can rule the method out however well it scores.',
+      },
+      {
+        q: 'Starting from zero weights on a 0/1 gate, what does changing η do to the learning algorithm’s run?',
+        options: [
+          'Changes which rows are misclassified at each step',
+          'Scales all the weights but leaves every decision in the run identical',
+          'Always makes it converge faster',
+          'Nothing — η is ignored when weights start at zero',
+        ],
+        answer: 1,
+        explain:
+          'Every update adds exactly ±η times an input of 0 or 1, so the run stays on a grid of multiples of η. Multiplying z by a positive constant never changes its sign, so the same rows are wrong in the same order. Random initial weights break this, which is one reason the slide asks for them.',
+      },
+    ],
+    exam: [
+      {
+        q: 'State the perceptron model as given in this session, derive the weights for the AND gate, and verify them against every row of the truth table.',
+        meta: 'Define & derive · ~8 marks',
+        points: [
+          'State the encoding first: inputs in {0, 1}, and ŷ = 1 if Σᵢ wᵢxᵢ + b ≥ 0 and 0 otherwise. Say so before working, because a different session of this course uses a different convention.',
+          'Write the perceptron equation with the bias as w₀ on a constant input: ŷ = w₀x₀ + w₁x₁ + w₂x₂ with x₀ = 1.',
+          'Turn the four rows into conditions: w₀ < 0; w₀ + w₂ < 0; w₀ + w₁ < 0; and w₀ + w₁ + w₂ ≥ 0.',
+          'Give a solution: w₀ = −1, w₁ = w₂ = 0.75, and note it is not unique — any equal pair c with 0.5 ≤ c < 1 works with w₀ = −1.',
+          'Substitute each row back: −1, −0.25, −0.25 and +0.5, giving 0, 0, 0, 1 as required.',
+          'Optionally give the boundary as 0.75x₁ + 0.75x₂ = 1, which cuts the corner (1, 1) off from the other three.',
+        ],
+      },
+      {
+        q: 'State the perceptron learning algorithm precisely, apply it to the NOT gate from zero weights with η = 1, and comment on any ambiguity you meet.',
+        meta: 'Apply & discuss · ~10 marks',
+        points: [
+          'State the algorithm: initialise η and the weights, then for each example compute ŷ, and if ŷ ≠ t update wᵢ ← wᵢ + η(t − ŷ)xᵢ and b ← b + η(t − ŷ); repeat until convergence or a maximum number of iterations.',
+          'State the convergence theorem: on linearly separable data the algorithm converges in finite steps.',
+          'Set up the NOT gate in the ±1 encoding used on the relevant slide: x₁ = −1 with t = 1, and x₁ = 1 with t = −1, starting from w₀ = w₁ = 0.',
+          'Note the ambiguity explicitly: the definition gives ŷ = 1 when h ≥ 0, and the deck’s worked arithmetic takes sign(0) = −1. State which you are using before continuing.',
+          'Following sign(0) = −1: epoch 1 example 1 has h = 0 so ŷ = −1 ≠ t = 1; update gives w₁ = −2, w₀ = 2. The remaining three checks all pass with no change, so it converges at w₀ = 2, w₁ = −2.',
+          'Following h ≥ 0 giving +1: example 1 passes without update, example 2 has h = 0 so ŷ = +1 ≠ t = −1 and the update gives w₀ = −2, w₁ = −2, which then converges.',
+          'Verify whichever answer you give against both training rows, and note that both sets of weights are correct NOT gates.',
+          'Observe that in each case the decision boundary lands exactly on a training point, so the answer depends on the tie-break — which is why the ambiguity matters.',
+        ],
+      },
+      {
+        q: 'Define linear separability, state its relationship to the perceptron, and explain what "an infinite number of separating hyperplanes" implies in practice.',
+        meta: 'Define & discuss · ~8 marks',
+        points: [
+          'Two sets of points in n-dimensional space are linearly separable if some (n − 1)-dimensional hyperplane has one class strictly on each side.',
+          'For a single perceptron this is exactly the condition for a correct weight vector to exist, and therefore the condition in the convergence theorem.',
+          'Give the failure case: XOR, where no such line exists, and state the consequence that the learning algorithm cycles indefinitely rather than halting.',
+          'On infinitude: if one separator exists, it can be tilted or shifted slightly and still separate, so there are infinitely many.',
+          'The practical implication is that being correct on the training data does not pick out a single model, so something else must — and that something decides behaviour on unseen data.',
+          'Name the standard resolution: prefer the separator with the widest margin, which is what a support vector machine computes, and note the perceptron has no opinion about it.',
+          'Note that the perceptron’s answer therefore depends on its initialisation and on the order the examples are presented in.',
+        ],
+      },
+      {
+        q: 'Compare biological and artificial neurons, and explain what the connectionist principles claim.',
+        meta: 'Compare & explain · ~7 marks',
+        points: [
+          'Map the four biological parts onto the artificial ones: dendrites to the inputs, synapses to the weights, cell body to the summation and activation, axon to the single output.',
+          'Give the deck’s comparison rows: biochemical against mathematical, analog against digital, adaptive synapses against adjustable weights, parallel processing against parallel computation possible, learning through experience against learning through algorithms, fault tolerant against deterministic.',
+          'Identify the third row as the genuine likeness — learning means changing connection strengths in both — and treat the others as simplifications or differences.',
+          'State the four connectionist principles: intelligence emerges from simple processing units; knowledge is stored in the connection weights; learning modifies connection strengths; processing is parallel and distributed.',
+          'Explain the consequence of a distributed representation: no single unit holds any fact, so removing one degrades performance gradually rather than breaking the network.',
+          'Draw the trade-off: that same property is why the result cannot be explained, which the deck lists as a condition of use rather than a drawback.',
+        ],
+      },
+    ],
+  },
+
+  dl3: {
+    cheat: [
+      {
+        formula: 'y = w₀ + w₁x₁ + … + w_d x_d',
+        why: 'Linear regression. A weighted sum of the features plus a bias, and nothing else.',
+      },
+      {
+        formula: 'x̃ = [1, x₁, …, x_d]ᵀ',
+        why: 'The augmented example. The leading 1 is what turns the bias into an ordinary weight w₀.',
+      },
+      {
+        formula: 'X ∈ ℝᴺˣ⁽ᵈ⁺¹⁾ ,  w ∈ ℝᵈ⁺¹ ,  y ∈ ℝᴺ',
+        why: 'The design matrix, the weights and the targets. Rows are examples; the parameter count equals the column count.',
+      },
+      { formula: 'ŷ = f(wᵀx) ,  ŷ = Xw', why: 'One prediction, then all of them in a single matrix product.' },
+      {
+        formula: 'f(z) = z ,  f ′(z) = 1',
+        why: 'The identity activation. Gradients pass through unchanged, and any real output is reachable.',
+      },
+      {
+        formula: 'ℓ = ½(wᵀx⁽ⁱ⁾ − y⁽ⁱ⁾)²',
+        why: 'The loss on one example. The ½ makes the derivative clean and moves the minimum nowhere.',
+      },
+      {
+        formula: 'J(w) = (1/2N)‖Xw − y‖² = (1/2N)(Xw − y)ᵀ(Xw − y)',
+        why: 'The total loss, as the squared length of the error vector.',
+      },
+      {
+        formula: 'w* = arg min_w J(w)',
+        why: 'The goal. arg min is the w that minimises J, not the minimum value itself.',
+      },
+      {
+        formula: 'squared error: differentiable · convex · penalises large errors · MLE under Gaussian noise',
+        why: 'The deck’s four reasons for choosing it. The third is also why one bad label can drag the whole fit.',
+      },
+      {
+        formula: '∇J(w) = (1/N) Σ (wᵀx⁽ⁱ⁾ − y⁽ⁱ⁾) x⁽ⁱ⁾ = (1/N) Xᵀ(Xw − y)',
+        why: 'Each example’s error weighted by its own input. Its shape must match w.',
+      },
+      {
+        formula: 'w⁽ᵗ⁺¹⁾ = w⁽ᵗ⁾ − (η/N) Xᵀ(Xw⁽ᵗ⁾ − y)',
+        why: 'The update. Every parameter moves at once, against its own slope.',
+      },
+      {
+        formula: 'stop when ‖∇J‖ < ε',
+        why: 'The convergence test, with ε around 10⁻⁴. Alternatives: a small change in loss, an iteration cap, or a rising validation loss.',
+      },
+      {
+        formula: 'the worked example: J 7.5 → 1.51 in one step',
+        why: 'X = [[1,1],[1,2],[1,3]], y = (2,4,5), w = 0, η = 0.1. Gradient (−3.67, −8.33), new w (0.367, 0.833).',
+      },
+      {
+        formula: 'MSE = (1/N)Σ(ŷ − y)² ·  RMSE = √MSE ·  MAE = (1/N)Σ|y − ŷ|',
+        why: 'The three error metrics. RMSE is in the target’s units; MAE is far less moved by outliers.',
+      },
+      {
+        formula: 'R² = 1 − SS_res/SS_tot',
+        why: 'Compared against predicting the mean. 1 perfect, 0 ties with the baseline, negative is worse than it.',
+      },
+      {
+        formula: 'z-score: x′ = (x − μ)/σ ;  min-max: x′ = (x − min)/(max − min)',
+        why: 'The deck’s two scalings. They change how many iterations training needs, not what the answer is.',
+      },
+      {
+        formula: 'the error surface is convex with a single global minimum',
+        why: 'True for a linear model with squared error. One non-linear activation and the guarantee is gone.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'Why is the identity chosen as the activation for regression?',
+        options: [
+          'Because it is the fastest to compute',
+          'Because the output must be able to take any real value, and its derivative of 1 lets the gradient pass through unchanged',
+          'Because it makes the loss convex',
+          'Because it prevents overfitting',
+        ],
+        answer: 1,
+        explain:
+          'Two reasons, both on the slide. A bounded activation would make some targets unreachable, and a derivative of exactly 1 means the chain rule neither shrinks nor amplifies what comes back. Convexity comes from the squared-error loss, not from the activation.',
+      },
+      {
+        q: 'What is the column of ones in the design matrix for?',
+        options: [
+          'To normalise the features',
+          'To give the bias something to multiply, so it becomes an ordinary weight w₀',
+          'To count the examples',
+          'To make the matrix square',
+        ],
+        answer: 1,
+        explain:
+          'Without it every formula needs an "and then add b" clause. With it, ŷ = Xw covers the bias too, and the gradient and update are single expressions. It also means you must scale the features before adding the column, since standardising a constant column divides by zero.',
+      },
+      {
+        q: 'Why does the loss have a ½ in front of the squared error?',
+        options: [
+          'To halve the learning rate',
+          'To make the loss smaller so it converges faster',
+          'So that differentiating the square cancels it, leaving a clean gradient with no stray factor of 2',
+          'Because the errors are counted twice',
+        ],
+        answer: 2,
+        explain:
+          'Differentiating ½e² gives e; differentiating e² gives 2e, and that 2 would follow you through every subsequent formula. Scaling a loss by a positive constant never moves its minimum, so the ½ costs nothing. PyTorch omits it, which is why its MSE is twice this J.',
+      },
+      {
+        q: 'In the deck’s worked example, one iteration reduces the loss from 7.5 to about 1.51. Where are the weights?',
+        options: [
+          'At the minimum, (2/3, 3/2)',
+          'At (0.367, 0.833) — about half way to the minimum, even though 80% of the loss is gone',
+          'Still at (0, 0)',
+          'Past the minimum, because η was too large',
+        ],
+        answer: 1,
+        explain:
+          'The loss falls fast at first because the surface is steep far from the bottom, and slowly later because it is flat near it. This gap between "most of the loss gone" and "most of the way there" is normal and worth expecting.',
+      },
+      {
+        q: 'Multiplying one feature column by 100 changes what?',
+        options: [
+          'The best-fitting line, which becomes worse',
+          'Nothing at all',
+          'Nothing about the answer, but the number of gradient descent iterations goes up sharply',
+          'The number of parameters',
+        ],
+        answer: 2,
+        explain:
+          'The same fit is available — the weight on that column just becomes a hundredth of what it was. What changes is the shape of the loss surface: it becomes far more stretched, the largest usable learning rate falls, and the shallow direction takes many more steps. That is what feature scaling fixes.',
+      },
+      {
+        q: 'A model scores R² = −0.2 on the test set. What does that mean?',
+        options: [
+          'The R² calculation has a bug, since R² cannot be negative',
+          'The model is worse on unseen data than always predicting the mean of the targets',
+          'The model explains 20% of the variance',
+          'The features are negatively correlated with the target',
+        ],
+        answer: 1,
+        explain:
+          'R² = 0 is exactly the score of predicting ȳ for everything, so negative means losing to that baseline. The deck notes it is possible on a test set. In practice it usually means severe overfitting, or a test set drawn from a different distribution than the training set.',
+      },
+      {
+        q: 'RMSE is 8.0 and MAE is 3.0 on the same predictions. What does the gap tell you?',
+        options: [
+          'One of them has been computed incorrectly, since they should be equal',
+          'The errors are uneven — a few are much larger than the rest',
+          'The model is underfitting',
+          'The target needs rescaling',
+        ],
+        answer: 1,
+        explain:
+          'RMSE is never below MAE, and the two are equal only when every error has the same size. A large gap means the squared measure is being dominated by a small number of large errors, which is worth investigating before reporting either number alone.',
+      },
+      {
+        q: 'The training loss becomes NaN after a few iterations. What is the first thing to try?',
+        options: [
+          'Add regularisation',
+          'Collect more data',
+          'Decrease the learning rate, and check the feature scales',
+          'Increase the number of iterations',
+        ],
+        answer: 2,
+        explain:
+          'NaN means the numbers overflowed, which for gradient descent means the steps grew instead of shrinking — a learning rate above the divergence threshold, often made worse by badly scaled features. Regularisation and more data address overfitting, which is a different symptom entirely.',
+      },
+      {
+        q: 'The error surface for linear regression with squared error is convex. Does that hold for a neural network with a hidden layer?',
+        options: [
+          'Yes, convexity is a property of the squared-error loss',
+          'No — a non-linear activation destroys it, and the surface acquires many local minima and saddle points',
+          'Yes, provided the learning rate is small enough',
+          'Only if the network has fewer parameters than examples',
+        ],
+        answer: 1,
+        explain:
+          'Convexity here comes from J being quadratic in w, which needs the model to be linear in w. One non-linear activation and that is gone. Everything module 4 does about optimisation is a response to losing this guarantee — and it is why deep learning papers speak of "a good minimum" rather than "the minimum".',
+      },
+      {
+        q: 'What does "batch" mean in batch gradient descent?',
+        options: [
+          'The weights are updated in batches, several at a time',
+          'Every training example is used to compute each single update',
+          'The data is processed in chunks of 32',
+          'Training runs as a scheduled batch job',
+        ],
+        answer: 1,
+        explain:
+          'Line 4 of the algorithm computes ∇J over the whole dataset before line 5 takes one step. That makes each gradient exact and each step expensive. Mini-batch — a chunk per step — and stochastic — one example per step — are the alternatives, and mini-batch is what is used in practice.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Derive the gradient of the squared-error loss for linear regression, and state the batch gradient descent algorithm that uses it.',
+        meta: 'Derive & state · ~10 marks',
+        points: [
+          'Write the loss for one example: ℓ = ½(wᵀx⁽ⁱ⁾ − y⁽ⁱ⁾)², and the total J(w) = (1/N) Σᵢ ℓ.',
+          'Differentiate one term by the chain rule: the outer derivative of ½u² is u, giving (wᵀx⁽ⁱ⁾ − y⁽ⁱ⁾); the inner derivative of wᵀx with respect to w is x⁽ⁱ⁾.',
+          'So one example contributes (wᵀx⁽ⁱ⁾ − y⁽ⁱ⁾)x⁽ⁱ⁾, and ∇J(w) = (1/N) Σᵢ (wᵀx⁽ⁱ⁾ − y⁽ⁱ⁾)x⁽ⁱ⁾.',
+          'Write the matrix form ∇J(w) = (1/N)Xᵀ(Xw − y), and check the shapes: Xᵀ is (d + 1) × N, the error is N × 1, so ∇J is (d + 1) × 1 — one entry per parameter, as required.',
+          'State the algorithm: initialise w⁽⁰⁾ = 0 or random; repeat computing the gradient and updating w⁽ᵗ⁺¹⁾ = w⁽ᵗ⁾ − η∇J(w⁽ᵗ⁾); stop when ‖∇J‖ < ε or a maximum iteration count is reached.',
+          'Explain "batch": the gradient uses every training example before a single step is taken, so each step is exact and costs one pass over the data.',
+          'Comment on η: too large overshoots and can diverge to NaN, too small converges slowly; the deck suggests trying 0.001, 0.01, 0.1 and 1.0 and plotting the loss curves.',
+        ],
+      },
+      {
+        q: 'Given X = [[1,1],[1,2],[1,3]], y = (2, 4, 5)ᵀ, w⁽⁰⁾ = 0 and η = 0.1, carry out one iteration of batch gradient descent and report the loss before and after.',
+        meta: 'Compute · ~10 marks',
+        points: [
+          'Predictions: ŷ⁽⁰⁾ = Xw⁽⁰⁾ = (0, 0, 0)ᵀ.',
+          'Initial loss: J = (1/2N)‖Xw − y‖² = (1/6)(4 + 16 + 25) = 45/6 = 7.5.',
+          'Error vector: e⁽⁰⁾ = ŷ − y = (−2, −4, −5)ᵀ.',
+          'Gradient: ∇J = (1/3)Xᵀe = (1/3)(−2 − 4 − 5, −2 − 8 − 15)ᵀ = (1/3)(−11, −25)ᵀ = (−3.67, −8.33)ᵀ.',
+          'Update: w⁽¹⁾ = 0 − 0.1(−3.67, −8.33)ᵀ = (0.367, 0.833)ᵀ.',
+          'New predictions: ŷ⁽¹⁾ = Xw⁽¹⁾ = (1.20, 2.03, 2.87)ᵀ; new errors (−0.80, −1.97, −2.13)ᵀ.',
+          'New loss: J = (1/6)(0.64 + 3.88 + 4.54) ≈ 1.51, an approximately 80% reduction.',
+          'For full marks, note that this is one step of many: the exact least-squares solution is w = (2/3, 3/2) with a loss of 1/36 ≈ 0.028, so the weights are only about half way there even though most of the loss has gone.',
+        ],
+      },
+      {
+        q: 'Justify the choice of squared error as the objective function for regression, and describe when you would choose something else.',
+        meta: 'Discuss · ~8 marks',
+        points: [
+          'Give the deck’s four reasons: differentiable and smooth everywhere so it is easy to optimise; convex for a linear model so there is a single global minimum; penalises large errors quadratically; and it is the maximum likelihood estimate under Gaussian noise.',
+          'Expand on convexity: J is quadratic in w, so the surface is a bowl and any downhill route reaches the best answer — a guarantee that fails as soon as a non-linear activation is introduced.',
+          'Expand on the statistical reason: if the errors are Gaussian, minimising squared error is exactly maximising the likelihood of the observed data.',
+          'Give the cost: quadratic growth means one badly wrong or mislabelled target contributes enormously, and can drag the whole fit. Squared error predicts the mean of the targets, which is the same sensitivity seen in the statistics course.',
+          'Name the alternative: absolute error, which predicts the median and is far more robust, at the price of a non-differentiable corner at zero.',
+          'Mention Huber loss as the compromise — squared near zero and absolute far from it.',
+          'Conclude with the decision rule: choose the loss that matches what a mistake actually costs in the application, and note that the loss you optimise need not be the metric you report.',
+        ],
+      },
+      {
+        q: 'Explain how a regression model should be evaluated, defining each metric you name.',
+        meta: 'Define & explain · ~8 marks',
+        points: [
+          'State the principle: evaluate on unseen data. Split into a training set used to fit w and a test set used to estimate generalisation.',
+          'Give the two errors as the same formula over different rows: J_train over the training indices, J_test over the test indices.',
+          'Define MSE = (1/N)Σ(ŷ − y)², noting its units are the target’s squared.',
+          'Define RMSE = √MSE, and say why it is preferred for reporting: it is in the target’s own units.',
+          'Define MAE = (1/N)Σ|y − ŷ|, and note it is less sensitive to outliers because errors are not squared.',
+          'Define R² = 1 − SS_res/SS_tot with SS_tot = Σ(y − ȳ)², and interpret: 1 is a perfect fit, 0 is no better than predicting the mean, and negative is worse than that baseline and is possible on a test set.',
+          'Note that RMSE ≥ MAE always, with equality only when all errors are the same size, so the gap between them measures how uneven the errors are.',
+          'Warn about leakage: any scaling or selection must be fitted on the training rows only, or the test score is no longer an estimate of generalisation.',
+        ],
+      },
+      {
+        q: 'A training run produces a loss that becomes NaN. Diagnose it, and describe the other failure modes on the deck’s debugging checklist.',
+        meta: 'Diagnose · ~7 marks',
+        points: [
+          'NaN or Inf means numerical overflow. The causes are a learning rate too large, so successive steps grow rather than shrink, and badly scaled features which make the gradients large to begin with.',
+          'The fix is to decrease η and scale the features; note the exact threshold is computable for a linear model — descent converges when η < 2/λmax(XᵀX/N).',
+          'Loss oscillating: the same cause, a learning rate slightly too large, so steps overshoot and come back. Fix by decreasing η or applying a learning-rate decay.',
+          'Loss not decreasing: a learning rate too small, or a bug in the gradient — a wrong sign, or a plus where the update should subtract. Fix by increasing η and verifying the code.',
+          'Training fine but test error high: overfitting, from too many features relative to the amount of data. Fix by regularisation, more data, or a simpler model.',
+          'Give the diagnostic order: examine the training loss alone first, since the first three symptoms are optimisation problems; only once it falls smoothly does the gap to the test loss mean anything.',
+          'Add the symptom the slide omits: a loss that falls and then flattens well above zero, with both errors mediocre, is underfitting and needs more capacity rather than less.',
+        ],
+      },
+    ],
+  },
+
+  activation: {
+    cheat: [
+      {
+        formula: 'ŷ = f(z),  z = Σ wᵢxᵢ + b',
+        why: 'The interface every unit in the course plugs into. f is the only thing that varies between models.',
+      },
+      {
+        formula: 'step: 1 if z ≥ 0 else 0 ,  f ′ = 0',
+        why: 'The perceptron. No usable derivative, so it cannot be trained by gradient descent — hence its own rule.',
+      },
+      {
+        formula: 'identity: f(z) = z ,  f ′(z) = 1',
+        why: 'Regression. Any real output is reachable, and the gradient passes back unchanged.',
+      },
+      {
+        formula: 'ReLU: max(0, z) ,  f ′ = 1 or 0',
+        why: 'The usual hidden-layer choice. Not in these decks. Cheap, and enough of a bend to stop layers collapsing.',
+      },
+      {
+        formula: 'σ(z) = 1/(1 + e⁻ᶻ) ,  f ′ ≤ 0.25',
+        why: 'The sigmoid. Useful for a probability; its small derivative is why deep stacks of it stopped working.',
+      },
+      {
+        formula: 'W₂(W₁x + b₁) + b₂ = (W₂W₁)x + const',
+        why: 'Two linear layers are one. The reason a non-linearity between them is compulsory rather than optional.',
+      },
+      {
+        formula: 'the last activation is decided by the target',
+        why: 'Identity for an unbounded number, sigmoid for a probability, softmax for one of K classes.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'A network has ten nn.Linear layers and no activation functions between them. What can it represent?',
+        options: [
+          'Any continuous function, by the universal approximation theorem',
+          'Exactly what a single linear layer can represent',
+          'Ten times as much as one layer',
+          'Nothing — it will not train',
+        ],
+        answer: 1,
+        explain:
+          'Composing linear maps gives a linear map, so the ten weight matrices collapse into one product. It trains happily, plateaus at whatever one layer can do, and never reports a problem. XOR is the four-point test that exposes it.',
+      },
+      {
+        q: 'Why can gradient descent not train a perceptron directly?',
+        options: [
+          'Because the weights are integers',
+          'Because the step activation has a derivative of zero wherever it is defined, so nothing about the error reaches the weights',
+          'Because the loss is not convex',
+          'Because the learning rate cannot be chosen',
+        ],
+        answer: 1,
+        explain:
+          'The chain rule multiplies by f′, and for a step that is zero on both sides of the jump and undefined at it. The perceptron rule works around this by never differentiating — it just adds η(t − ŷ)x. Swapping in a differentiable activation is what makes gradient descent available.',
+      },
+      {
+        q: 'You are predicting house prices and add a ReLU to the output layer. What happens?',
+        options: [
+          'Training becomes faster',
+          'The model can no longer predict negative values, and its gradient vanishes for any example it currently predicts below zero',
+          'Nothing — ReLU is the identity for positive numbers',
+          'The loss becomes non-convex',
+        ],
+        answer: 1,
+        explain:
+          'It may look harmless because prices are positive, but any example the model currently scores below zero gets a gradient of zero and can never recover. The output activation should be chosen from the target, and for an unbounded number that means no activation at all.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Explain the role of the activation function, and justify the choice made for the perceptron, for linear regression, and for a hidden layer.',
+        meta: 'Explain & justify · ~8 marks',
+        points: [
+          'State the interface: a unit computes z = Σwᵢxᵢ + b and then ŷ = f(z); f is what decides the unit’s behaviour.',
+          'Three properties matter: the output range, whether f is differentiable and what its derivative is, and whether f is non-linear.',
+          'Perceptron: a step, chosen because the task is a binary decision. Its derivative is zero, so gradient descent is unavailable and a bespoke update rule is used instead.',
+          'Linear regression: the identity, chosen because the target is an unbounded real number and because f′ = 1 lets the gradient pass through unchanged.',
+          'Hidden layer: a non-linear differentiable function such as ReLU, chosen because without one the layers collapse — W₂(W₁x + b₁) + b₂ is a single linear map.',
+          'Give XOR as the proof that the collapse matters: a two-layer network with no activation fails it exactly as one perceptron does.',
+          'Note the vanishing gradient consequence: sigmoid’s derivative peaks at 0.25, so deep stacks of it multiply the returning gradient towards zero, which is why ReLU replaced it.',
+        ],
+      },
+    ],
+  },
+
+  metrics: {
+    cheat: [
+      {
+        formula: 'MSE = (1/N) Σ (ŷ − y)²',
+        why: 'The training loss without the ½. Units are the target’s, squared, so it is hard to interpret directly.',
+      },
+      { formula: 'RMSE = √MSE', why: 'Back in the target’s own units. The number to put in front of a person.' },
+      {
+        formula: 'MAE = (1/N) Σ |y − ŷ|',
+        why: 'The average size of an error. Every unit counts the same, so a few extreme cases do not dominate.',
+      },
+      {
+        formula: 'R² = 1 − SS_res/SS_tot',
+        why: 'Compared against predicting ȳ. 1 perfect, 0 ties with the baseline, negative loses to it.',
+      },
+      {
+        formula: 'RMSE ≥ MAE, always',
+        why: 'Equal only when every error is the same size, so the gap between them measures how uneven the errors are.',
+      },
+      {
+        formula: 'R² never falls when a feature is added',
+        why: 'On the training set. Which is why models of different sizes must be compared on held-back data.',
+      },
+      {
+        formula: 'compute all of them on unseen data',
+        why: 'Every one of these numbers is meaningless on the rows the model was fitted to.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'Why report RMSE rather than MSE?',
+        options: [
+          'RMSE is always smaller',
+          'RMSE is in the same units as the target, so the number means something',
+          'RMSE is less sensitive to outliers',
+          'MSE cannot be computed on a test set',
+        ],
+        answer: 1,
+        explain:
+          'If you predict rupees, MSE is in rupees squared, which nobody can interpret. Taking the square root puts it back into rupees. It is exactly as sensitive to outliers as MSE — the robust alternative is MAE.',
+      },
+      {
+        q: 'A model scores R² = 0.0 on the training set. What does that mean?',
+        options: [
+          'It fits perfectly',
+          'It is exactly as accurate as predicting the mean of y for every example',
+          'Half the variance is explained',
+          'The calculation failed',
+        ],
+        answer: 1,
+        explain:
+          'SS_res equals SS_tot, so the fraction is 1 and R² is 0. That is the score of the do-nothing baseline, so a real model scoring it has a bug or is being given features with no signal. It is worth computing before spending time on tuning.',
+      },
+      {
+        q: 'On one model RMSE and MAE are both 4.0. What does that tell you?',
+        options: [
+          'Every error has the same size',
+          'The model is perfect',
+          'Half the errors are positive',
+          'The target needs rescaling',
+        ],
+        answer: 0,
+        explain:
+          'RMSE is never below MAE, and they coincide only when the errors are all equal in magnitude. Equality is therefore a strong statement about the error distribution — in practice a small gap means even errors and a large gap means a few outliers dominate.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define MSE, RMSE, MAE and R², and explain how you would choose which to report.',
+        meta: 'Define & discuss · ~8 marks',
+        points: [
+          'MSE = (1/N)Σ(ŷ − y)², the mean of the squared errors, in the target’s units squared.',
+          'RMSE = √MSE, in the target’s own units, which is why it is the standard number to report.',
+          'MAE = (1/N)Σ|y − ŷ|, the mean size of an error, also in the target’s units and much less affected by extreme cases.',
+          'R² = 1 − SS_res/SS_tot with SS_tot = Σ(y − ȳ)²: the share of the target’s variation the model accounts for, measured against a baseline of predicting the mean.',
+          'Interpret R²: 1 perfect, 0 equal to the baseline, negative worse than it and possible on a test set.',
+          'Note RMSE ≥ MAE always, with equality only when all errors are equal, so reporting both exposes uneven errors.',
+          'Choose by what a mistake costs: squared measures if large errors are disproportionately bad, MAE if every unit of error costs the same.',
+          'Add the discipline: all of them must be computed on data held back from training, with any scaling fitted on the training rows only.',
+        ],
+      },
+    ],
+  },
+
+  designmat: {
+    cheat: [
+      {
+        formula: 'x̃ = [1, x₁, …, x_d]ᵀ',
+        why: 'The augmented example. The leading 1 is what lets the bias be an ordinary weight.',
+      },
+      {
+        formula: 'X ∈ ℝᴺˣ⁽ᵈ⁺¹⁾',
+        why: 'The design matrix: one row per example, one column per feature, ones in the first column.',
+      },
+      {
+        formula: 'w ∈ ℝᵈ⁺¹',
+        why: 'One weight per column, bias first. The parameter count and the column count are the same number.',
+      },
+      {
+        formula: 'ŷ = Xw ∈ ℝᴺ',
+        why: 'Every prediction at once. Inner dimensions d + 1 match, so the result is one answer per row.',
+      },
+      {
+        formula: 'h = wᵀx',
+        why: 'A single prediction: a 1 × (d + 1) row times a (d + 1) × 1 column. The dot product under another name.',
+      },
+      {
+        formula: '∇J = (1/N)Xᵀ(Xw − y) ∈ ℝᵈ⁺¹',
+        why: 'The gradient has one entry per weight because Xᵀ is (d + 1) × N and the error is N × 1.',
+      },
+      {
+        formula: 'w* = (XᵀX)⁻¹Xᵀy',
+        why: 'The exact answer, in one step, at a cost of about d³. Fine at ten features, impossible at a hundred thousand.',
+      },
+      {
+        formula: 'scale first, augment second',
+        why: 'Standardising a column of ones divides by a standard deviation of zero and fills the model with NaNs.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'X is 500 × 8 and w is 8 × 1. What shape is Xw, and what does each entry mean?',
+        options: [
+          '8 × 1, one entry per feature',
+          '500 × 1, one prediction per example',
+          '500 × 8, one prediction per feature per example',
+          'The product does not exist',
+        ],
+        answer: 1,
+        explain:
+          'The inner dimensions are both 8, so the product exists and the outer dimensions give the shape: 500 × 1. Each entry is one row of X dotted with w, which is one example’s prediction. With a ones column that 8 means 7 real features plus the bias.',
+      },
+      {
+        q: 'Why must feature scaling happen before the ones column is added?',
+        options: [
+          'Because scaling is slower on a wider matrix',
+          'Because standardising a constant column divides by a standard deviation of zero, producing NaNs',
+          'Because the ones column would be scaled to zeros',
+          'It does not matter which order you use',
+        ],
+        answer: 1,
+        explain:
+          'The ones column has no variation, so its standard deviation is 0 and the z-score divides by zero. The NaNs then spread through every subsequent calculation. Scale the real features, then augment — or let a Pipeline handle the ordering for you.',
+      },
+      {
+        q: 'Why does deep learning use gradient descent rather than the closed-form solution (XᵀX)⁻¹Xᵀy?',
+        options: [
+          'The closed form is only an approximation',
+          'The closed form needs a learning rate',
+          'Inverting a (d + 1) × (d + 1) matrix costs about d³, which is impossible for large d — and it does not exist at all for a non-linear model',
+          'Gradient descent is more accurate',
+        ],
+        answer: 2,
+        explain:
+          'For a small linear problem the closed form is exact and better. It stops being usable as d grows, and it does not exist once the model is non-linear — which is every model after this session. Gradient descent scales and generalises, which is the only reason it wins.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Explain the design matrix formulation of linear regression, including the shapes of every object and the reason for the leading column of ones.',
+        meta: 'Explain · ~7 marks',
+        points: [
+          'Define the augmented example x̃ = [1, x₁, …, x_d]ᵀ and state that the leading 1 exists so the bias can be carried as an ordinary weight w₀.',
+          'Define X ∈ ℝᴺˣ⁽ᵈ⁺¹⁾ with one row per training example, y ∈ ℝᴺ, and w ∈ ℝᵈ⁺¹.',
+          'State ŷ = Xw and check the shapes: (N × (d + 1)) times ((d + 1) × 1) gives N × 1, one prediction per example.',
+          'Give the loss in this notation: J(w) = (1/2N)‖Xw − y‖² = (1/2N)(Xw − y)ᵀ(Xw − y).',
+          'Give the gradient ∇J = (1/N)Xᵀ(Xw − y) and check that its shape (d + 1) × 1 matches w, as a gradient must.',
+          'State the practical benefits: no special case for the bias in any formula, all N predictions in one operation, and short enough expressions to differentiate by hand.',
+          'Give the two cautions: scaling must be applied before the ones column is added, and regularisation should normally exclude w₀ since the bias is not a claim about any feature.',
+        ],
+      },
+    ],
+  },
 }
