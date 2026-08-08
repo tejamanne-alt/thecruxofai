@@ -3777,4 +3777,547 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       },
     ],
   },
+
+  dl1: {
+    cheat: [
+      {
+        formula: 'z = Σᵢ wᵢxᵢ,  x₀ = 1',
+        why: 'The perceptron’s weighted sum, slide 53. x₀ is nailed to 1 so the threshold can be carried as the ordinary weight w₀.',
+      },
+      {
+        formula: 'h = +1 if z > 0 ;  h = −1 if z ≤ 0',
+        why: 'The activation. The ≤ matters: z exactly 0 gives −1, which is what makes the deck’s NOT-gate answer work.',
+      },
+      {
+        formula: 'Δwᵢ = η(t − o)xᵢ,  wᵢ ← wᵢ + Δwᵢ',
+        why: 'The perceptron learning rule, slide 66. Zero when t = o, so it learns only from mistakes.',
+      },
+      {
+        formula: 'converges if linearly separable and η small',
+        why: 'Slide 67. Both conditions. On non-separable data it does not fail loudly — it cycles forever.',
+      },
+      {
+        formula: 'AND: w = (−1, 2, 2)   OR: w = (2, 2, 2)',
+        why: 'The deck’s answers on slides 58 and 61, in the ±1 encoding. Check all four rows before quoting them.',
+      },
+      {
+        formula: 'NOR: w = (−2, −2, −2)   NAND: w = (1, −2, −2)',
+        why: 'The slide-60 exercise. Negate every weight of OR and of AND — negating the weights negates the output.',
+      },
+      {
+        formula: 'NOT: w₀ − w₁ > 0 and w₀ + w₁ ≤ 0 ⟹ w = (1, −1)',
+        why: 'Slide 56. Its printed second condition uses a strict <, but its own answer makes the sum exactly 0, so read it as ≤.',
+      },
+      {
+        formula: 'PLA on NOT from w = 0, η = 1 ⟹ w₀ = 2, w₁ = −2',
+        why: 'The trace on slide 69. Twice the hand answer, and the same boundary — scaling w never moves it.',
+      },
+      {
+        formula: 'a perceptron is a hyperplane in ℝⁿ',
+        why: 'Slide 72. One dimension fewer than the space, with w as its normal vector — at right angles to it, not on it.',
+      },
+      {
+        formula: 'c(w · x + b) = 0 has the same solutions for any c > 0',
+        why: 'Why two different-looking weight vectors can be the same classifier. Only the sign of z is reported.',
+      },
+      {
+        formula: '2x₁ + 3x₂ − 25 = 0',
+        why: 'The separable example, slide 75. All thirteen points check out; (0,0) is pink and (10,10) is white.',
+      },
+      {
+        formula: 'XOR is not linearly separable',
+        why: 'Both diagonals of the unit square share the midpoint (½, ½), and a linear score is average-preserving.',
+      },
+      {
+        formula: 'XOR = OR and NAND',
+        why: 'Slide 80’s hidden layer, read off: n₁ is OR, n₂ is NAND, n₃ is AND. Fires on sum ≥ threshold, in 0/1 outputs.',
+      },
+      {
+        formula: 'data · model · objective · algorithm',
+        why: 'The four components of any deep learning problem, slide 30. Remove one and there is no learning problem left.',
+      },
+      {
+        formula: 'lower is better, by convention',
+        why: 'Slide 34. It is why objective functions are called loss functions, and why training is always minimisation.',
+      },
+      {
+        formula: 'squared error for numbers, error rate for categories',
+        why: 'Slide 35’s two standard objectives. They can rank the same two models in opposite orders.',
+      },
+      {
+        formula: 'overfitting = good on training, bad on unseen',
+        why: 'Slide 36’s definition, word for word. The model has to generalise, and the training loss alone never tells you whether it does.',
+      },
+      {
+        formula: 'depth = number of layers contributing to the model',
+        why: 'Slide 15. Slide 12 draws the line for the word “deep” at three or more layers.',
+      },
+      {
+        formula: 'DL ⊂ NN ⊂ ML ⊂ AI',
+        why: 'Slide 13’s nested circles. Data science overlaps rather than nests, because plenty of it does no learning.',
+      },
+      {
+        formula: '10¹⁰ neurons · 10⁴–10⁵ connections · 0.001 s switching',
+        why: 'Slide 45. The argument is that a second of thought cannot be a long chain, so it must be massively parallel.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'A perceptron computes z = 0 for some input. What does it output?',
+        options: ['+1', '−1', '0', 'Undefined — the input is on the boundary'],
+        answer: 1,
+        explain:
+          'Slide 53 writes h = 1 only if the sum is strictly greater than 0, and h = −1 if it is less than or equal to 0. So exactly zero gives −1. The trace on slide 69 confirms it: its first row has z = 0 and prints h = −1.',
+      },
+      {
+        q: 'Why is the input x₀ fixed at 1?',
+        options: [
+          'To normalise the other inputs',
+          'So the threshold can be carried as the ordinary weight w₀ and every comparison is against zero',
+          'Because a perceptron needs an odd number of inputs',
+          'To make the weight vector a unit vector',
+        ],
+        answer: 1,
+        explain:
+          'Firing when w₁x₁ + w₂x₂ > θ is the same as firing when w₁x₁ + w₂x₂ − θ > 0. Setting w₀ = −θ on a constant input of 1 folds the threshold into the weights, so the rule always compares against zero.',
+      },
+      {
+        q: 'The perceptron learning rule is run on data that is not linearly separable. What happens?',
+        options: [
+          'It converges to the weights with the fewest mistakes',
+          'It stops and reports failure',
+          'It never settles — the weights keep changing indefinitely',
+          'It converges, but only if η is small enough',
+        ],
+        answer: 2,
+        explain:
+          'Slide 54 says the rule can fail to converge if the examples are not linearly separable. Since no weight vector is correct, there is always a misclassified example to react to, so the update never becomes zero. It does not announce anything — it just never settles.',
+      },
+      {
+        q: 'Training the NOT gate from w = 0 with η = 1 gives w₀ = 2, w₁ = −2. The hand solution on slide 56 was w₀ = 1, w₁ = −1. Which is right?',
+        options: [
+          'The trained one — the hand solution is an approximation',
+          'The hand solution — the training run has not finished converging',
+          'Both. They define the same boundary; only the length of w differs, and only the sign of z is reported',
+          'Neither, because both make one row give z = 0',
+        ],
+        answer: 2,
+        explain:
+          'z = 1 − x₁ and z = 2 − 2x₁ are zero at the same place and have the same sign everywhere else. Scaling every weight by a positive constant scales z without changing its sign, and the perceptron reports nothing but that sign.',
+      },
+      {
+        q: 'Which of these Boolean functions can a single perceptron NOT represent?',
+        options: ['NAND', 'NOR', 'OR', 'XOR'],
+        answer: 3,
+        explain:
+          'Slide 54 says a perceptron can represent AND, OR, NAND and NOR — all linearly separable — but not XOR, which is not. The proof is that both diagonals of the unit square share the midpoint (½, ½), and a linear score at a midpoint is the average of its values at the two ends.',
+      },
+      {
+        q: 'In the XOR network of slide 80, what does the hidden unit n₂ compute?',
+        options: ['AND', 'NAND', 'OR', 'NOR'],
+        answer: 1,
+        explain:
+          'n₂ has weights −1 and −1 and threshold −1, so it fires when −x₁ − x₂ ≥ −1, that is when x₁ + x₂ ≤ 1. That is true for every input except (1, 1), which is NAND. n₁ is OR and n₃ is AND, so the network computes XOR = OR and NAND.',
+      },
+      {
+        q: 'Two models are scored on the same five examples. Squared error prefers model A and error rate prefers model B. What has gone wrong?',
+        options: [
+          'One of the two measures has been computed incorrectly',
+          'Nothing — they are different objectives measuring different things, and disagreement is expected',
+          'The threshold must be wrong',
+          'The data is not linearly separable',
+        ],
+        answer: 1,
+        explain:
+          'Squared error looks at how far each score is from the truth; error rate looks only at which side of the threshold it fell. A model that is right every time but barely, and a model that is confident and wrong once, are ranked differently by the two. "Which model is better" is not answerable until you say which measure you mean.',
+      },
+      {
+        q: 'Why is the error rate almost never the function that gradient descent minimises?',
+        options: [
+          'It is too slow to compute',
+          'It is not defined for regression',
+          'It is flat everywhere and then jumps, so its derivative is zero wherever it exists',
+          'It cannot be made lower-is-better',
+        ],
+        answer: 2,
+        explain:
+          'Nudging a weight usually moves no example across the threshold, so the count does not change at all — and then one crosses and it jumps. A slope of zero gives gradient descent nothing to follow, so a smooth stand-in like cross-entropy is optimised and the error rate is reported.',
+      },
+      {
+        q: 'Slide 12 gives five definitions of deep learning. Which is the only one you can actually apply as a test?',
+        options: [
+          'Inspired by the human brain',
+          'Teaches computers to learn by example',
+          'A neural network with three or more layers',
+          'Gets its name from adding more layers',
+        ],
+        answer: 2,
+        explain:
+          '"Inspired by the brain" is not a checkable property, and "learn by example" is the definition of machine learning generally. Counting layers is the only one that decides the question for a network in front of you.',
+      },
+      {
+        q: 'A model’s training loss keeps falling while its loss on held-back data climbs. What is this called, and what should you do?',
+        options: [
+          'Underfitting — increase the model’s capacity',
+          'Overfitting — reduce capacity, add regularisation, or stop earlier',
+          'Divergence — reduce the learning rate',
+          'Class imbalance — reweight the loss',
+        ],
+        answer: 1,
+        explain:
+          'Slide 36 defines overfitting as performing well on the training set and failing to generalise to unseen data. The instinct to make the model bigger is exactly wrong here; the fixes are weight decay, dropout, early stopping, or more data.',
+      },
+      {
+        q: 'Doubling every weight of a perceptron, including the bias, does what to its decision boundary?',
+        options: [
+          'Moves it twice as far from the origin',
+          'Rotates it by 90°',
+          'Leaves it exactly where it was',
+          'Makes it twice as steep',
+        ],
+        answer: 2,
+        explain:
+          'w · x + b = 0 and 2(w · x + b) = 0 have identical solution sets, so the boundary does not move. What changes is ‖w‖, which matters only once a smooth activation replaces the step — a larger ‖w‖ makes the model more confident, which is what weight decay is aimed at.',
+      },
+      {
+        q: 'Slide 45 says a neuron switches in about 0.001 s and a scene is recognised in about 1 s, then concludes "100 inference steps". What is the issue?',
+        options: [
+          'None — 1 ÷ 0.001 is 100',
+          '1 s ÷ 1 ms is 1000, not 100; the figure of 100 comes from 0.1 s, as in Mitchell chapter 4',
+          'The switching time should be 0.01 s',
+          'Inference steps are not the same as switches',
+        ],
+        answer: 1,
+        explain:
+          'The two lines on the slide do not agree. The division gives 1000 for the numbers printed; 100 corresponds to a recognition time of 0.1 second, which is the value in the Mitchell chapter the deck cites on slide 82. Either way the argument survives: a few hundred or a few thousand sequential steps cannot account for a second of thought, so the computation must be massively parallel.',
+      },
+    ],
+    exam: [
+      {
+        q: 'State the definition of a perceptron and show how to represent the AND gate with one. Give the weights and verify them against every row of the truth table.',
+        meta: 'Define & derive · ~8 marks',
+        points: [
+          'A perceptron takes a vector of real-valued inputs, computes a linear combination of them, and outputs 1 if the result exceeds a threshold and −1 otherwise.',
+          'Write z = Σ wᵢxᵢ over i = 0, 1, 2 with x₀ = 1 always, so the threshold is carried as w₀; h = +1 if z > 0 and h = −1 if z ≤ 0.',
+          'State the encoding being used: rewrite the 0/1 truth table into ±1, as slide 55 does, and say so before starting.',
+          'Turn each row into an inequality: three rows require z < 0 and the (1, 1) row requires z > 0.',
+          'Give the deck’s solution w₀ = −1, w₁ = w₂ = 2, and substitute each row back: −5, −1, −1 and +3.',
+          'Note that the solution is not unique — the conditions are inequalities, so the answers form a region, and any positive multiple of a solution is a solution.',
+          'Optionally give the boundary as x₁ + x₂ = ½, separating the single point (1, 1) from the other three.',
+        ],
+      },
+      {
+        q: 'Prove that XOR cannot be represented by a single perceptron, and describe a network that can.',
+        meta: 'Prove & construct · ~10 marks',
+        points: [
+          'Suppose w₀, w₁, w₂ existed with z(x₁, x₂) = w₀ + w₁x₁ + w₂x₂ classifying XOR correctly.',
+          'The points requiring +1 are (0,1) and (1,0), so z(0,1) > 0 and z(1,0) > 0; averaging gives z(½, ½) > 0 because z is linear.',
+          'The points requiring 0 are (0,0) and (1,1), so both are ≤ 0; averaging gives z(½, ½) ≤ 0.',
+          'Both diagonals of the unit square share the midpoint (½, ½), so z(½, ½) would be both greater than 0 and not greater than 0 — a contradiction, so no such weights exist.',
+          'Conclude XOR is not linearly separable, and note slide 54’s consequence: the perceptron learning rule can fail to converge on such data, cycling indefinitely rather than halting.',
+          'Construct the fix from slide 80: two inputs, a hidden layer of two units, one output unit; weights 1, 1 into n₁ with threshold 1, weights −1, −1 into n₂ with threshold −1, and weights 1, 1 into n₃ with threshold 2, firing when the sum reaches the threshold.',
+          'Trace all four inputs to obtain outputs 0, 1, 1, 0, and identify the units: n₁ is OR, n₂ is NAND, n₃ is AND, so XOR = OR and NAND.',
+          'State the general lesson: one hyperplane is not enough, and a hidden layer maps the data into coordinates where one hyperplane is.',
+        ],
+      },
+      {
+        q: 'State the perceptron learning rule, explain each symbol, and apply it to the NOT gate starting from zero weights with η = 1.',
+        meta: 'Apply · ~10 marks',
+        points: [
+          'Write wᵢ ← wᵢ + Δwᵢ with Δwᵢ = η(t − o)xᵢ, where t is the target, o the perceptron output and η the learning rate.',
+          'Explain that (t − o) is zero when the answer is right, so the rule learns only from mistakes; xᵢ scales the change by how involved that input was; η moderates the size of every step.',
+          'Set up the NOT gate in the ±1 encoding: x₁ = −1 with t = +1, and x₁ = +1 with t = −1, with x₀ = 1 throughout.',
+          'Row 1: z = 0 + 0(−1) = 0, so h = −1 since sign(0) = −1; t ≠ h, so Δw₁ = 1(1 − (−1))(−1) = −2 and Δw₀ = 1(1 − (−1))(1) = 2, giving w₁ = −2, w₀ = 2.',
+          'Row 2: z = 2 + (−2)(1) = 0, so h = −1 = t; both updates are zero and the weights are unchanged.',
+          'Row 3 (second pass): z = 2 + (−2)(−1) = 4, so h = +1 = t; no change. A whole pass has changed nothing, so it has converged at w₀ = 2, w₁ = −2.',
+          'Observe this is twice the hand solution w₀ = 1, w₁ = −1 from slide 56, and explain that scaling w leaves the boundary and every prediction unchanged.',
+          'State the convergence conditions from slide 67: the data must be linearly separable and η sufficiently small; η may be decayed as iterations increase.',
+        ],
+      },
+      {
+        q: 'Name the four core components of a deep learning problem and explain, for each, what fails without it.',
+        meta: 'Explain · ~8 marks',
+        points: [
+          'The data that we can learn from; without it there is nothing to fit, and the objective has nothing to be evaluated on.',
+          'A model of how to transform the data; without it there are no predictions to score and no parameters to adjust.',
+          'An objective function quantifying how well or badly the model is doing; without it two settings of the parameters cannot be told apart, so none can be preferred.',
+          'An algorithm to adjust the parameters to optimise the objective; without it the problem is well posed and unsolvable, since exhaustive search over millions of parameters is impossible.',
+          'Add the convention that objectives are written so lower is better, which is why they are called loss functions.',
+          'Name the usual choices: squared error for regression, error rate for classification, and gradient descent as the family every deep learning optimiser belongs to.',
+          'Note the relation to Mitchell’s ⟨T, P, E⟩: E is the data, P is the objective with its sign flipped, T is what the model computes, and there is no letter for the optimisation algorithm.',
+        ],
+      },
+      {
+        q: 'Explain what it means for a perceptron to represent a hyperplane, and state precisely the role of the weight vector and of the bias.',
+        meta: 'Explain · ~7 marks',
+        points: [
+          'A perceptron represents a hyperplane decision surface in the n-dimensional space of examples, outputting +1 on one side and −1 on the other (slide 72).',
+          'A hyperplane has one dimension fewer than the space it sits in: a point in ℝ¹, a line in ℝ², a plane in ℝ³.',
+          'The boundary is the set of x with w · x + b = 0; when b = 0 this is exactly the set of vectors orthogonal to w, so w is the normal vector — at right angles to the surface, not lying in it.',
+          'Turning w tilts the boundary; changing b slides it along w without turning it. The perpendicular distance from the origin to the boundary is −b ÷ ‖w‖.',
+          'Scaling w and b by the same positive constant leaves the boundary and every prediction unchanged, because only the sign of z is reported.',
+          'Consequence: ‖w‖ is not a property of the classifier under a step activation, but becomes one under a sigmoid, where a large ‖w‖ makes the transition sharp — which is the mechanism weight decay acts on.',
+          'Consequence: without the bias every boundary passes through the origin, and even the NOT gate cannot be represented.',
+        ],
+      },
+      {
+        q: 'Define overfitting, explain how it is detected, and describe how the choice of objective function can itself cause a model to behave badly.',
+        meta: 'Define & discuss · ~8 marks',
+        points: [
+          'Overfitting is performing well on the training set while failing to generalise to unseen data (slide 36).',
+          'Detection needs two numbers, not one: the loss on the training set and the loss on data held back from training. Overfitting is the training loss continuing to fall while the held-back loss rises.',
+          'Distinguish underfitting: if the training loss is also poor, the model lacks capacity and should be made more flexible, not less.',
+          'Name the standard cures: reduce capacity, add weight decay or dropout, stop early, or obtain more data. Note module 4 of the course is devoted to these.',
+          'On objectives: the loss is defined with respect to the parameters and depends on the dataset, so a model optimises exactly the number it was given.',
+          'Give a concrete failure: error rate treats a missed positive and a false alarm as equally costly, so a model minimising it will trade one for the other regardless of what the application needs.',
+          'Give a second: squared error is minimised by the mean of the targets, so a few extreme or mislabelled targets pull every prediction with them; an absolute-error loss predicts the median instead.',
+          'Conclude that the cure for a badly chosen objective is to change the objective — class weighting, a different loss, a moved threshold — not more training.',
+        ],
+      },
+    ],
+  },
+
+  neuron: {
+    cheat: [
+      {
+        formula: 'z = w₀·1 + w₁x₁ + … + wₙxₙ',
+        why: 'The neuron’s score. A dot product of the weight vector with the input vector.',
+      },
+      { formula: 'h = +1 if z > 0, else −1', why: 'The threshold activation. Exactly zero counts as “else”.' },
+      {
+        formula: 'w₀ = −θ on x₀ = 1',
+        why: 'How a threshold θ becomes an ordinary weight, so every comparison is against zero.',
+      },
+      {
+        formula: 'w ⊥ the decision boundary',
+        why: 'The boundary is where w · x = −w₀, so w points across it and never along it.',
+      },
+      {
+        formula: 'no bias ⟹ boundary through the origin',
+        why: 'Which makes even the NOT gate unrepresentable. This is why nn.Linear defaults to bias=True.',
+      },
+      {
+        formula: 'nn.Linear(n, k) = k neurons over n inputs',
+        why: 'A k × n weight matrix and a bias vector of length k. The forward pass is one matrix–vector product.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'What does the bias weight w₀ do to the decision boundary?',
+        options: [
+          'Rotates it',
+          'Slides it without rotating it',
+          'Scales the inputs',
+          'Nothing — it only affects the output value',
+        ],
+        answer: 1,
+        explain:
+          'w₁ and w₂ set the direction of the normal vector, and therefore the tilt of the boundary. w₀ rides on a constant input, so changing it moves the boundary along that normal without turning it.',
+      },
+      {
+        q: 'A neuron has w₁ = w₂ = 0 and w₀ = 3. What does it output?',
+        options: ['+1 for every input', '−1 for every input', '+1 on one side of a line and −1 on the other', '0'],
+        answer: 0,
+        explain:
+          'z = 3 for every input, which is greater than zero, so the output is +1 everywhere. With no direction to look along there is no boundary at all — the neuron has the same opinion about the whole space.',
+      },
+      {
+        q: 'Why can gradient descent not be used to train a neuron with a step activation?',
+        options: [
+          'Because the step is not continuous at zero',
+          'Because the step’s derivative is zero wherever it is defined, so there is no slope to follow',
+          'Because the weights are not real numbers',
+          'It can — that is what the perceptron rule does',
+        ],
+        answer: 1,
+        explain:
+          'A step is flat on both sides of the jump, so its derivative is zero everywhere it exists and the chain rule returns nothing usable. The perceptron rule sidesteps this by never differentiating anything — it just adds η(t − o)x. Sigmoid and ReLU exist to restore a usable slope.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Describe the artificial neuron precisely, explaining the role of each part, and show how the threshold is absorbed into the weights.',
+        meta: 'Define & derive · ~7 marks',
+        points: [
+          'Inputs x₁ … xₙ, one weight per input, a summation and an activation function producing the output ŷ.',
+          'The weight wᵢ says how much input i counts and in which direction; a negative weight argues against firing.',
+          'Firing when Σᵢ₌₁ⁿ wᵢxᵢ > θ is the same as firing when Σ wᵢxᵢ − θ > 0.',
+          'Define x₀ = 1 and w₀ = −θ; then the condition is Σᵢ₌₀ⁿ wᵢxᵢ > 0, so the threshold is carried as an ordinary weight and every comparison is against zero.',
+          'Geometrically the boundary is w · x + w₀ = 0, a hyperplane whose normal vector is w; w₀ slides it and w tilts it.',
+          'State the consequence: with no bias the boundary is forced through the origin, and even the NOT gate becomes unrepresentable.',
+          'Relate to code: nn.Linear(n, k) holds a k × n weight matrix plus a length-k bias, so a layer is k of these neurons sharing the same inputs.',
+        ],
+      },
+    ],
+  },
+
+  linsep: {
+    cheat: [
+      {
+        formula: '∃ w, b : sign(w · xᵢ + b) = tᵢ for all i',
+        why: 'Linearly separable: some hyperplane gets every example right. ∃ is “there exists”.',
+      },
+      { formula: 'separable + small η ⟹ the perceptron rule converges', why: 'Slide 67. Both conditions are needed.' },
+      {
+        formula: 'not separable ⟹ the rule cycles forever',
+        why: 'It does not fail loudly. There is always a mistake, so the weights never settle.',
+      },
+      {
+        formula: 'z(½a + ½b) = ½z(a) + ½z(b)',
+        why: 'A linear score is average-preserving — the one line the XOR proof turns on.',
+      },
+      {
+        formula: 'both diagonals of the square meet at (½, ½)',
+        why: 'Which is why XOR forces one point to be both above and not above zero.',
+      },
+      {
+        formula: 'add x₁x₂ ⟹ XOR separable in ℝ³',
+        why: 'Separability is a property of the features, not of the problem. This is the kernel idea in miniature.',
+      },
+      {
+        formula: 'AND, OR, NAND, NOR are separable; XOR is not',
+        why: 'Slide 54. In each separable case one corner of the square is cut off from the other three.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'Is linear separability a property of the problem or of the features?',
+        options: [
+          'Of the problem — some problems simply are not separable',
+          'Of the features — the same problem can be separable in one feature space and not in another',
+          'Of the learning rate',
+          'Of the number of training examples',
+        ],
+        answer: 1,
+        explain:
+          'XOR is not separable in (x₁, x₂), and is separable in (x₁, x₂, x₁x₂). Adding a feature changed nothing about the problem and everything about the answer. This is exactly what a kernel does, at scale.',
+      },
+      {
+        q: 'The perceptron rule is run on non-separable data and the weights are still changing after ten thousand passes. What is the correct diagnosis?',
+        options: [
+          'The learning rate is too small',
+          'This is expected: with no correct weight vector there is always a mistake, so it never converges',
+          'The data must be normalised',
+          'The implementation has a bug',
+        ],
+        answer: 1,
+        explain:
+          'Slide 54 warns that the rule can fail to converge if the examples are not linearly separable. Since no weights satisfy every example, the update is never zero for a whole pass. Nothing reports this — the only symptom is that it never settles.',
+      },
+      {
+        q: 'Thirteen points are separated correctly by 2x₁ + 3x₂ − 25 = 0. Which of these is also a correct separator?',
+        options: ['4x₁ + 6x₂ − 50 = 0', '3x₁ + 2x₂ − 25 = 0', '2x₁ + 3x₂ + 25 = 0', '−2x₁ − 3x₂ − 25 = 0'],
+        answer: 0,
+        explain:
+          'Multiplying every coefficient by the same positive constant leaves the solution set — and the sign of the score at every point — unchanged. Swapping the coefficients tilts the line, changing the sign flips which side is which, and changing the constant slides it.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define linear separability, state its relationship to the perceptron convergence theorem, and give two distinct ways of handling data that is not linearly separable.',
+        meta: 'Define & discuss · ~9 marks',
+        points: [
+          'A labelled dataset is linearly separable when some hyperplane w · x + b = 0 has every example of one class strictly on one side and every example of the other on the other side.',
+          'For a single perceptron this is exactly the condition for a correct weight vector to exist.',
+          'State slide 67’s guarantee: the perceptron learning algorithm converges if the training data is linearly separable and the learning rate is sufficiently small.',
+          'State the failure mode from slide 54: on non-separable data the rule can fail to converge, cycling indefinitely rather than halting or reporting anything.',
+          'First remedy — change the feature space: adding the feature x₁x₂ makes XOR separable by a plane in ℝ³. Generalised, this is the kernel trick.',
+          'Second remedy — add a hidden layer: several hyperplanes combined by a further unit, as in the XOR network where OR and NAND feed an AND.',
+          'Mention a third, practical option: use a method that tolerates non-separability, such as logistic regression, which minimises a smooth loss and converges regardless.',
+          'Note that when many separators exist, the margin — the width of the gap — is a principled way to choose between them, and a perceptron has no opinion about it.',
+        ],
+      },
+    ],
+  },
+
+  lossfn: {
+    cheat: [
+      {
+        formula: 'L(w) = Σᵢ (ŷᵢ − tᵢ)²',
+        why: 'Squared error. The standard loss for a numerical target, and a bowl in the parameters.',
+      },
+      {
+        formula: 'error rate = (1/m) Σᵢ [ŷᵢ ≠ tᵢ]',
+        why: 'The fraction on the wrong side. It ignores how wrong each one was.',
+      },
+      {
+        formula: 'lower is better, by convention',
+        why: 'Which is why objective functions are called loss functions, and why training is always minimisation.',
+      },
+      {
+        formula: 'squared error is minimised by the mean',
+        why: 'So a squared-error model chases the average of the targets, and extreme labels drag every prediction with them.',
+      },
+      {
+        formula: 'absolute error is minimised by the median',
+        why: 'Swapping the loss changes what the model predicts, not just how fast it gets there.',
+      },
+      {
+        formula: 'd(error rate)/dw = 0 almost everywhere',
+        why: 'Flat, then a jump. No slope, so it is reported rather than optimised.',
+      },
+      {
+        formula: 'optimise a surrogate, report the metric',
+        why: 'Cross-entropy goes into loss.backward(); accuracy, precision and recall go into the report.',
+      },
+      {
+        formula: 'the threshold is a hyperparameter',
+        why: 'Moving it changes precision and recall without touching a single weight.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'Why are objective functions conventionally written so that lower is better?',
+        options: [
+          'Because losses cannot be negative',
+          'So that every training problem is a minimisation and one piece of machinery solves all of them',
+          'Because probabilities are between 0 and 1',
+          'It is required by the chain rule',
+        ],
+        answer: 1,
+        explain:
+          'It is a convention and nothing more, but a useful one: with every objective written as something to minimise, gradient descent works unchanged on all of them. Slide 34 says exactly this, and adds that “loss function” is the name that follows from it.',
+      },
+      {
+        q: 'A regression model trained with squared error is badly skewed by a handful of extreme targets. What is the most direct fix?',
+        options: [
+          'Train for longer',
+          'Increase the learning rate',
+          'Change the loss — absolute error predicts the median rather than the mean',
+          'Add more layers',
+        ],
+        answer: 2,
+        explain:
+          'Squaring makes a point twice as far away count four times as much, and the minimiser of squared error is the mean. Absolute error weights every point equally and is minimised by the median, which is far less sensitive to a heavy tail. This is the same mean-against-median trade-off from the statistics course.',
+      },
+      {
+        q: 'Your model reports 97% accuracy and users are unhappy because it misses the rare positive cases. What has gone wrong?',
+        options: [
+          'The model is underfitting',
+          'The objective is wrong: accuracy treats a missed positive and a false alarm as equally costly',
+          'The learning rate is too high',
+          'The data is not linearly separable',
+        ],
+        answer: 1,
+        explain:
+          'Nothing is wrong with the training — the model optimised exactly what it was asked to. With a rare positive class, predicting the majority everywhere already scores highly. The cure is to change the objective: weight the classes, or move the threshold, both of which are decisions you make and not things training can infer.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Explain what an objective function is, why squared error and error rate can rank two models differently, and why error rate is not the function that gets minimised.',
+        meta: 'Explain · ~8 marks',
+        points: [
+          'An objective function turns a model’s predictions on a dataset into a single number, arranged by convention so that lower is better — hence “loss function”.',
+          'Squared error sums (prediction − truth)² and therefore measures how far each prediction is from the truth, penalising a large error far more than several small ones.',
+          'Error rate counts the fraction of examples on the wrong side of a threshold and is indifferent to how far each one was.',
+          'Give the mechanism for disagreement: a model that is confident and wrong once can have lower squared error than a model that is right every time but only barely, so the two orderings differ.',
+          'Note that error rate depends on the threshold and squared error does not, so one of the two changes when the threshold moves and the other does not.',
+          'Error rate is piecewise constant: nudging a weight moves no example across the boundary until suddenly one does, so its derivative is zero wherever it exists.',
+          'Conclude that a smooth surrogate — cross-entropy for classification, squared error for regression — is minimised, and the error rate is reported.',
+          'Add the statistical consequence: squared error is minimised by the mean of the targets and absolute error by the median, so the choice of loss decides what the model predicts.',
+        ],
+      },
+    ],
+  },
 }

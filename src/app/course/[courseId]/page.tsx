@@ -74,6 +74,11 @@ export default async function CoursePage({
               Nothing above is invented — the brochure genuinely prints this course by title only.
             </p>
           )}
+          {course.note && (
+            <p className="mt-3 rounded-lg border border-dashed border-zinc-950/15 bg-zinc-50 p-3 text-xs/[1.6] text-zinc-600">
+              {course.note}
+            </p>
+          )}
         </div>
 
         <div className="flex flex-col gap-4">

@@ -26,6 +26,30 @@ Build it as a **chapter** under the right course, in the **Chapters** bucket. Ne
    is a different cut through the same material, aimed at someone who has forgotten it rather than someone
    revising it.
 
+## The courses are one programme, not six reading lists
+
+A neuron is a dot product. A layer is a matrix multiply. "Lower is better" is the squared error from the
+statistics course. The perceptron rule is gradient descent with the step size written as η. Those links are
+the point of taking the courses together, so they are data in `src/lib/data/connections.ts`, not sentences
+buried in a page.
+
+- **A link is a row, and the row is written once.** `from` is the newer page, `to` is the page it leans on.
+  The reverse direction is derived, so an older page can never disagree with the page that uses it.
+- **Both ends are told.** `PartShell` renders the block on every part page from that one file, so adding a
+  link makes the earlier lecture say "this comes back later" without its own file being touched. Never
+  hand-write a cross-reference into a part body — put it in the data.
+- **`carries` names the object being handed over**, not the topic. "z = w · x", "the m × n design matrix",
+  "η, the learning rate". If the label would fit between any two pages, the link is not worth having.
+- **`detail` is two sentences and it is the whole value.** The first says what the earlier page gives; the
+  second says exactly what this page does with it. A reader who has forgotten the earlier page should be able
+  to decide from the `detail` alone whether they need to go back.
+- **A new chapter links out to every course it actually uses.** Maths, statistics and the ML course all get
+  linked where the material genuinely comes from them, and the chapter's front page carries `ConnectionMap`,
+  which groups the whole web by the course being drawn on.
+- **A stale anchor renders as nothing, so count them.** `resolveAnchor` drops a link whose page does not
+  exist rather than shipping a 404 — which means verification has to compare the number of links rendered
+  against the number declared, not just check that the ones shown resolve.
+
 ## Why machine learning cares — on every single page
 
 This is the reason I am reading any of it. Every page under the programme curriculum carries the block, and
