@@ -147,8 +147,45 @@ function walk(node, file, onPair) {
   }
 }
 
+/**
+ * HTML entities are the cause rather than a symptom, so they are reported on
+ * their own. A JSX text node containing an entity AND spanning more than one
+ * line loses the space at its start, and Prettier re-wraps prose constantly, so
+ * any entity is a glued word waiting to happen. Writing the character itself
+ * removes the whole class of bug.
+ */
+const ENTITY = /&(?:[a-zA-Z][a-zA-Z0-9]{1,10}|#\d{1,5}|#[xX][0-9a-fA-F]{1,5});/g
+const ENTITY_FIX = {
+  '&ldquo;': '“',
+  '&rdquo;': '”',
+  '&lsquo;': '‘',
+  '&rsquo;': '’',
+  '&ndash;': '–',
+  '&mdash;': '—',
+  '&hellip;': '…',
+  '&nbsp;': 'a real non-breaking space',
+  '&amp;': '&',
+  '&lt;': "{'<'}",
+  '&gt;': "{'>'}",
+  '&#123;': "{'{'}",
+  '&#125;': "{'}'}",
+}
+const entities = []
+
 for (const file of files) {
   const src = readFileSync(file, 'utf8')
+
+  // Only JSX text can carry an entity that matters — skip strings and comments.
+  const scrubbed = src.replace(
+    /\/\*[\s\S]*?\*\/|\/\/[^\n]*|'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*`/g,
+    (m) => m.replace(/[^\n]/g, ' ')
+  )
+  let em
+  while ((em = ENTITY.exec(scrubbed)) !== null) {
+    const line = scrubbed.slice(0, em.index).split('\n').length
+    entities.push({ file, line, ent: em[0], fix: ENTITY_FIX[em[0]] ?? 'the character itself' })
+  }
+
   let compiled
   try {
     compiled = await swc.transform(src, {
@@ -217,6 +254,7 @@ function locate(file, tail, head) {
   return { ...h, line: raw.slice(0, h.at).split('\n').length }
 }
 
+for (const e of entities) console.log(`ENTITY ${e.file}:${e.line}  ${e.ent} — write ${e.fix} instead`)
 for (const n of notes) console.log(`note  ${n.file}  ${n.glued}`)
 for (const e of errors) {
   const loc = locate(e.file, e.tail, e.head)
@@ -249,9 +287,17 @@ if (process.argv.includes('--fix')) {
   process.exit(0)
 }
 
-if (errors.length === 0) {
+if (entities.length) {
+  console.log(
+    `\n${entities.length} HTML entit${entities.length === 1 ? 'y' : 'ies'} in JSX text. These cause the glued-word bug:` +
+      ` a text node holding an entity and spanning two lines loses the space at its start. Write the character itself.`
+  )
+}
+if (errors.length === 0 && entities.length === 0) {
   console.log(`\nno glued words in ${files.length} .tsx files (${notes.length} deliberate join(s) noted)`)
   process.exit(process.exitCode ?? 0)
 }
-console.log(`\n${errors.length} place(s) where JSX glues two words together. Write the space as {' '}.`)
+if (errors.length) {
+  console.log(`\n${errors.length} place(s) where JSX glues two words together. Write the space as {' '}.`)
+}
 process.exit(1)
