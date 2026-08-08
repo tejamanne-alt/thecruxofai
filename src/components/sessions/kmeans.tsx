@@ -5,6 +5,7 @@ import { clamp, dot, drawAxes, halo, palette, type Frame } from '@/lib/chart/fra
 import { kmData, seedCentroids, type Point } from '@/lib/model/dataset'
 import { assignToCentroids, inertiaOf, moveCentroids } from '@/lib/model/math'
 import { useState } from 'react'
+import { UsedInAiml } from './algebra'
 import {
   ChartRow,
   Explainers,
@@ -353,6 +354,31 @@ export function KMeansSession() {
           ]}
         />
       </Explainers>
+
+      <UsedInAiml
+        rows={[
+          {
+            what: 'It is module M10 of the ML course',
+            how: 'k-means is the standard clustering algorithm and the first unsupervised method most people meet. The market segmentation example from ML Lecture 1 — split customers into groups nobody has labelled — is exactly this.',
+          },
+          {
+            what: 'The objective is the two distances from ML Lecture 1',
+            how: 'Assign each point to the nearest centre, then move each centre to the average of its members. Every step reduces the within-cluster distance, which is precisely the goal the lecture states: intra-cluster small, inter-cluster large.',
+          },
+          {
+            what: 'Choosing k is the hard part, and it is your choice',
+            how: 'Nothing in the data announces how many groups there are. The elbow method and the silhouette score are the usual guides, and both are heuristics — which is why unsupervised results get argued for rather than simply reported.',
+          },
+          {
+            what: 'It is sensitive to scale and to the starting flags',
+            how: 'Because it works in distances, a feature measured in thousands dominates one measured in units — so standardising first is not optional. Different random starts also give different answers, which is why k-means++ initialisation and repeated restarts are standard.',
+          },
+          {
+            what: 'Prediction without labels is still possible',
+            how: 'A new point joins the cluster whose centre is closer. That is the test phase slide 43 of ML Lecture 1 insists unsupervised learning can have, and it is what makes a fitted clustering usable on data it has never seen.',
+          },
+        ]}
+      />
     </div>
   )
 }

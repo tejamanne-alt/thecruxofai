@@ -21,7 +21,7 @@ import {
   ParameterKLab,
   ParameterLab,
 } from '@/components/charts/systems-lab'
-import { Para, Takeaway, Terms, Worked } from '../session-parts'
+import { Para, Takeaway, Terms, WhyAiml, Worked } from '../session-parts'
 
 /** A little spacer so a lab never sits flush against the words above it. */
 function Lab({ children }: { children: React.ReactNode }) {
@@ -91,6 +91,20 @@ export const LEC0A_PARTS: Record<string, React.ReactNode> = {
           },
         ]}
       />
+      <WhyAiml method="NumPy · vectorised code · why loops are slow">
+        <p className="mb-2">
+          Octave’s whole idea — write <span className="font-mono">y = sin(x)</span> once and have it act on ten thousand
+          numbers — is the idea every ML library is built on. In NumPy and PyTorch this is called{' '}
+          <strong>vectorisation</strong>, and it is why training code contains almost no loops.
+        </p>
+        <p>
+          The reason is hardware, not style. A loop in Python does one multiply per interpreter step; a vectorised call
+          hands the whole array to compiled code that uses the CPU’s wide registers, or ships it to a GPU running
+          thousands of multiplies at once. The same line of maths can differ by a factor of a hundred in speed depending
+          on which of the two you wrote.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Octave works on whole lists at once, and a plot is only ever the points you gave it joined with straight lines.
       </Takeaway>
@@ -161,6 +175,20 @@ a₂₃ = 6     row 2, column 3`}
           },
         ]}
       />
+      <WhyAiml method="the shape of every dataset · tensors · batch dimensions">
+        <p className="mb-2">
+          A dataset in machine learning <em>is</em> a matrix: one row per instance, one column per feature. The{' '}
+          <span className="font-mono">X</span> you pass to <span className="font-mono">model.fit(X, y)</span> is exactly
+          the box of numbers on this page, and its shape m × n is the first thing anybody checks when something goes
+          wrong.
+        </p>
+        <p>
+          Deep learning extends the idea to <strong>tensors</strong> — boxes with more than two indices — because a
+          batch of colour images needs four: which image, which colour channel, which row of pixels, which column. Every
+          shape error you will ever debug is the m × n bookkeeping on this page, one dimension deeper.
+        </p>
+      </WhyAiml>
+
       <Takeaway>A matrix is a box of numbers, m rows by n columns. Rows are always said first.</Takeaway>
     </>
   ),
@@ -221,6 +249,19 @@ c(kA)       =  (ck)A
           },
         ]}
       />
+      <WhyAiml method="gradient updates · ensembling · weight averaging">
+        <p className="mb-2">
+          Adding two matrices and scaling one are the two operations that training runs on. A gradient step is literally{' '}
+          <span className="font-mono">W ← W − η·G</span>: scale the gradient matrix by the learning rate, subtract it
+          from the weights. Nothing more complicated than this page.
+        </p>
+        <p>
+          The shape rule matters just as much. Adding two matrices needs identical shapes, which is why averaging the
+          weights of two models only works when the models have the same architecture — and why an ensemble of
+          differently-shaped models has to combine <em>predictions</em> instead.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Addition and scaling happen one slot at a time, so every rule you already know still holds. Addition needs both
         boxes to be the same shape.
@@ -307,6 +348,20 @@ BA does not exist: B has 4 columns, A has 2 rows.`}
           },
         ]}
       />
+      <WhyAiml method="a neural network layer · attention · GPU throughput">
+        <p className="mb-2">
+          This is the single most-executed operation in machine learning. A fully connected layer is{' '}
+          <span className="font-mono">Y = XW</span>, an m × n data matrix times an n × p weight matrix — one row against
+          one column, exactly as on this page. Attention is three of these stacked together.
+        </p>
+        <p>
+          It is also why the shape rule is worth internalising rather than looking up. The inner dimensions must match,
+          and the fact that AB and BA are different objects is what forces you to think about whether your data is
+          rows-as-instances or columns-as-instances. Get that backwards and the code either crashes or, worse, runs and
+          trains on nonsense.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Row of the left meets column of the right: multiply the pairs and add. The inner shapes must match, and swapping
         the order gives a different answer — if it gives one at all.
@@ -361,6 +416,20 @@ BA does not exist: B has 4 columns, A has 2 rows.`}
           },
         ]}
       />
+      <WhyAiml method="backpropagation · the normal equations · gram matrices">
+        <p className="mb-2">
+          The transpose is how gradients travel backwards through a network. If the forward pass is{' '}
+          <span className="font-mono">Y = XW</span>, the gradient flowing back to X is{' '}
+          <span className="font-mono">G·Wᵀ</span> — the same weights, tipped over. Every backpropagation derivation is
+          full of transposes for this reason.
+        </p>
+        <p>
+          The rule that catches people, (AB)ᵀ = BᵀAᵀ with the order reversed, is not a curiosity either. It is what
+          makes XᵀX symmetric, and that symmetry is what the normal equations of least squares, the covariance matrix
+          and every kernel Gram matrix all depend on.
+        </p>
+      </WhyAiml>
+
       <Takeaway>Aᵀ swaps rows and columns. (AB)ᵀ = BᵀAᵀ — transpose each and reverse the order.</Takeaway>
     </>
   ),
@@ -431,6 +500,20 @@ BA does not exist: B has 4 columns, A has 2 rows.`}
           },
         ]}
       />
+      <WhyAiml method="covariance matrices · sparse data · efficient storage">
+        <p className="mb-2">
+          These shapes are not trivia — each one buys a shortcut. A <strong>symmetric</strong> matrix stores half as
+          much and has real eigenvalues, which is why covariance matrices and kernel matrices are always symmetric. A{' '}
+          <strong>diagonal</strong> matrix is the assumption behind naïve Bayes: features treated as independent.
+        </p>
+        <p>
+          <strong>Sparse</strong> is the one with the biggest practical consequence. A bag-of-words matrix over a
+          50,000-word vocabulary is more than 99% zeros, and storing only the non-zeros is the difference between a
+          model that fits in memory and one that does not. <span className="font-mono">scipy.sparse</span> exists
+          entirely for this case.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Each named shape is a promise of less work later. Identity does nothing when you multiply by it; triangular
         makes determinants free; sparse makes big problems fit.
@@ -513,6 +596,20 @@ x₁ = −3x₂, not just at the origin.  →  positive semi-definite.`}
           },
         ]}
       />
+      <WhyAiml method="valid covariance matrices · convex loss surfaces · Cholesky">
+        <p className="mb-2">
+          Positive definiteness is the property that separates a well-behaved optimisation problem from a hopeless one.
+          When the second-derivative matrix of a loss is positive definite, the surface is a bowl with a single lowest
+          point, and gradient descent is guaranteed to head towards it rather than towards a saddle.
+        </p>
+        <p>
+          It is also a hard requirement on covariance matrices: a Gaussian’s density contains Σ⁻¹ and √det Σ, and both
+          need it. In practice the test is a <strong>Cholesky decomposition</strong> — it succeeds exactly when the
+          matrix is positive definite, so “did Cholesky fail?” is how libraries check, and adding a small multiple of
+          the identity is how they repair a matrix that is only just short.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Positive definite means xᵀAx is above zero for every x. For a 2 × 2, check the top-left number and the
         determinant are both above zero.
@@ -588,6 +685,20 @@ Two matrices connected by a chain of these are called
           },
         ]}
       />
+      <WhyAiml method="what a solver actually does · numerical stability">
+        <p className="mb-2">
+          Every linear solver in every ML library performs these three moves. When you call{' '}
+          <span className="font-mono">numpy.linalg.solve</span>, this is the machinery underneath — swap, scale,
+          subtract, until the system is easy to read off.
+        </p>
+        <p>
+          Knowing that the moves preserve the answer is what lets you trust the result, and knowing which move is{' '}
+          <em>illegal</em> matters just as much. Swapping two columns silently relabels your unknowns, which in ML terms
+          means your fitted coefficients now belong to different features than you think. The numbers still look
+          plausible, which is what makes it dangerous.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Three moves: swap rows, scale a row by something non-zero, add a multiple of one row to another. Rows only —
         columns are the unknowns, and renaming those mid-calculation ruins the answer.
@@ -662,6 +773,19 @@ than the last. Three non-zero rows, so the rank is 3.`}
           },
         ]}
       />
+      <WhyAiml method="detecting redundant features before you fit">
+        <p className="mb-2">
+          Reducing a data matrix to this staircase is how you find out whether your features are genuinely independent.
+          The steps land in the columns that carry new information, and any column without a step is a feature
+          reconstructible from the others.
+        </p>
+        <p>
+          That matters before you fit anything. Two columns encoding the same thing — floor area in square metres and in
+          square feet — make the fit unstable and its coefficients meaningless, and elimination is the mechanical way to
+          catch it rather than eyeballing a correlation matrix.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Row echelon form is a staircase of leading entries, each further right than the last. Get there and the system
         solves itself from the bottom up.
@@ -728,6 +852,19 @@ than the last. Three non-zero rows, so the rank is 3.`}
           },
         ]}
       />
+      <WhyAiml method="why a well-posed fit has one answer">
+        <p className="mb-2">
+          The reduced form being unique is what makes “the rank” a property of the data rather than of whoever did the
+          arithmetic. Two people preprocessing the same dataset by different routes must reach the same conclusion about
+          how many independent features it has, or the notion would be useless.
+        </p>
+        <p>
+          It is the same uniqueness that underwrites least squares having a single best answer when the feature columns
+          are independent. When they are not, the reduced form shows you exactly which combinations of weights are
+          indistinguishable from the data — and that is precisely the set of models your fit cannot tell apart.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         RREF: every step is a 1 and its column is otherwise zero. A matrix has many REFs but only one RREF, whichever
         route you take.
@@ -805,6 +942,19 @@ Row 3 was never adding anything new.`}
           },
         ]}
       />
+      <WhyAiml method="collinearity · effective dimensionality · PCA">
+        <p className="mb-2">
+          Rank is how much your data really says. A table with 300 feature columns whose rank is 12 contains 12
+          independent directions and 288 restatements of them, and no method can conjure information the rank says is
+          not there.
+        </p>
+        <p>
+          When features are collinear the fitted weights become unstable — tiny changes in the data swing them wildly —
+          because many different weight vectors give identical predictions. Rank is the diagnostic, and PCA is the
+          standard response: keep the directions that carry the variation and discard the rest.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Rank counts genuinely different rows. Copies and combinations collapse to zero and do not count.
       </Takeaway>
@@ -881,6 +1031,19 @@ det A = 1(4·6 − 5·0) − 2(0·6 − 5·1) + 3(0·0 − 4·1)
           },
         ]}
       />
+      <WhyAiml method="singular matrices · why a fit can fail outright">
+        <p className="mb-2">
+          A determinant of zero is the alarm that says a matrix has no inverse, and in ML that usually means the data
+          let you down rather than the algorithm. The area interpretation makes it concrete: zero area means the columns
+          lie on top of each other, which means two features carry the same information.
+        </p>
+        <p>
+          The classic case is the dummy variable trap. Encode a category with one column per level <em>and</em> keep an
+          intercept, and the columns sum to a constant — the determinant goes to zero and the fit has no unique answer.
+          Every library either drops a column for you or fails loudly, and this is why.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         det A = ad − bc for a 2 × 2, and it is the area of the box the columns make. Zero area means no inverse.
       </Takeaway>
@@ -984,6 +1147,19 @@ No swaps were used, so det B = 1 × 1 × 3 × 1 = 3.`}
           },
         ]}
       />
+      <WhyAiml method="log-determinants · Gaussian likelihoods · practical scale">
+        <p className="mb-2">
+          The cofactor expansion is the definition, and its cost is why nobody uses it. Expanding an n × n determinant
+          this way takes roughly n! operations; for a 20 × 20 covariance matrix that is more arithmetic than has ever
+          been done. Row reduction does it in about n³.
+        </p>
+        <p>
+          The quantity itself turns up constantly. The log-likelihood of a multivariate Gaussian contains log det Σ, so
+          fitting one means evaluating a determinant on every step. Libraries compute it through a Cholesky or LU
+          factorisation — as a sum of logs of the diagonal — precisely to avoid the expansion this page starts from.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Expand along whichever row or column has the most zeros — or skip all that, row-reduce to triangular, and
         multiply the diagonal. Count your row swaps: each one flips the sign.
@@ -1054,6 +1230,19 @@ you will actually use:
           },
         ]}
       />
+      <WhyAiml method="how factorisations stay cheap · numerical shortcuts">
+        <p className="mb-2">
+          These rules are why a determinant is affordable at all. det(AB) = det A · det B is what lets a library factor
+          a matrix once and read the determinant off the pieces, and det of a triangular matrix being the product of its
+          diagonal is what makes that read-off trivial.
+        </p>
+        <p>
+          The rule that a repeated row forces the determinant to zero is the one you meet as a bug. Duplicate rows in a
+          design matrix, or a feature that is an exact multiple of another, and the determinant collapses — which is the
+          same singular-matrix failure as the previous part, arriving from the other direction.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Adding a multiple of a row changes nothing; swapping flips the sign; scaling scales it. det(AB) = det(A)·det(B),
         which is why a zero determinant means no inverse.
@@ -1148,6 +1337,20 @@ R1 ← R1 − 4R2     ⎡ 1  0 │  4/5  −3/5 ⎤     the right half
           },
         ]}
       />
+      <WhyAiml method="why libraries never actually invert a matrix">
+        <p className="mb-2">
+          The closed-form solution to linear regression is written w = (XᵀX)⁻¹Xᵀy, and every textbook prints it that
+          way. It is also almost never how the computation is done.
+        </p>
+        <p>
+          Forming an inverse is slower than solving the system directly and numerically far worse — it squares the
+          condition number, losing roughly twice as many digits of accuracy. So{' '}
+          <span className="font-mono">numpy.linalg.lstsq</span> and every serious library solve the system through a
+          factorisation instead. Knowing that the inverse exists is what makes the formula meaningful; computing it is
+          what you avoid.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         A⁻¹ undoes A. For a 2 × 2, swap the diagonal, flip the other two, divide by ad − bc. At any size, row-reduce [A
         | I] until the left half is I and read A⁻¹ off the right.
@@ -1214,6 +1417,20 @@ issymmetric(A)         1 if A = Aᵀ, otherwise 0`}
           },
         ]}
       />
+      <WhyAiml method="the read-eval loop every practitioner lives in">
+        <p className="mb-2">
+          Typing a command, seeing a matrix come back, and adjusting is how numerical work is actually done — in Octave
+          here, in a Jupyter notebook later. Step 6 of the ML workflow, exploratory data analysis, is this loop applied
+          to a dataset.
+        </p>
+        <p>
+          The specific functions matter too. <span className="font-mono">rank</span>,{' '}
+          <span className="font-mono">det</span> and <span className="font-mono">inv</span> are the three checks you run
+          on a design matrix before trusting a fit: is it full rank, is it singular, and can the system be solved at
+          all. All three have exact NumPy equivalents.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Every method in this lecture is one Octave command. Learn the method so you can tell when the command has told
         you something surprising.
@@ -1294,6 +1511,19 @@ any bⱼ ≠ 0     →  non-homogeneous`}
           },
         ]}
       />
+      <WhyAiml method="training as solving equations · the nullspace of a model">
+        <p className="mb-2">
+          Fitting a linear model is solving Ax = b, with one equation per training example and one unknown per weight.
+          The homogeneous case Ax = 0 is not an academic aside either — its solutions are exactly the weight changes
+          that leave every prediction untouched.
+        </p>
+        <p>
+          That is why the distinction matters. If Ax = 0 has answers other than zero, your fitted weights are one of
+          infinitely many that fit the data equally well, and interpreting any individual coefficient is meaningless.
+          Regularisation is, in part, a way of choosing which of those equally good answers to return.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Ax = b in three letters. If b is all zeros the system is homogeneous and always has at least the all-zeros
         answer. Otherwise nothing is guaranteed.
@@ -1380,6 +1610,19 @@ answer:  w₁ = 3,  w₂ = 2,  b = 1`}
           },
         ]}
       />
+      <WhyAiml method="linear regression, seen as a system of equations">
+        <p className="mb-2">
+          This is linear regression before anyone calls it that. Each house is one equation, the unknowns are the
+          weights on each feature, and solving the system finds the model. It is the same problem module M3 of the ML
+          course spends a fortnight on.
+        </p>
+        <p>
+          It also shows why real fitting is not solving. With more houses than weights the system is overdetermined and
+          usually has <em>no</em> exact solution, because real data has noise. Least squares is the answer to that: stop
+          demanding every equation hold exactly, and find the weights that come closest overall.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Every row of data becomes one equation, and the unknowns are the model’s weights. Solving the system is what
         “fitting a model” means.
@@ -1485,6 +1728,19 @@ let x₂ = t:      x₃ = 2t − 1
           },
         ]}
       />
+      <WhyAiml method="under-determined and over-determined models">
+        <p className="mb-2">
+          These three outcomes are three familiar situations in machine learning. Exactly one answer is the well-posed
+          fit. Endlessly many is having more parameters than data — the modern deep learning regime, where infinitely
+          many weight settings fit the training set perfectly and something else has to choose between them.
+        </p>
+        <p>
+          No answer at all is the overdetermined case, and it is the normal one for real data: more examples than
+          parameters, no line through every point. Recognising which of the three you are in, by comparing the two
+          ranks, tells you whether you need more data, more regularisation, or a loss function that tolerates error.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Compare rank A with rank [A|b]. Different means no answer. Same means yes, and then the count of free unknowns —
         unknowns minus rank — decides between one answer and endless.
@@ -1567,6 +1823,20 @@ Then with x₂ = s and x₅ = t free:
           },
         ]}
       />
+      <WhyAiml method="hyper-parameters that change the answer’s existence">
+        <p className="mb-2">
+          A single number deciding whether a system has a solution is a small version of something you meet constantly.
+          A regularisation strength, a learning rate, a kernel width — each is one dial, set from outside, that changes
+          not just the answer but whether a usable answer exists.
+        </p>
+        <p>
+          The lesson worth carrying is that the interesting values are the ones where behaviour <em>changes</em>, not
+          the ones in the middle of a smooth range. That is exactly why hyper-parameter search uses a logarithmic grid:
+          you are looking for the point at which the character of the solution flips, and it is rarely where you first
+          guess.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Carry the unknown letter through the elimination like any other number. The row it ends up in tells you exactly
         which values are allowed.
@@ -1819,6 +2089,19 @@ RREF = ⎢ 0  1  2 ⎥        rank A = 2
         is fine for a 1000 × 1000 system and hopeless for a ten-million-square one, and why so much of numerical
         computing is about avoiding the full method.
       </Para>
+
+      <WhyAiml method="the arithmetic under every model">
+        <p className="mb-2">
+          Every question on this sheet is one step of something a library does for you thousands of times a second: a
+          multiply, an elimination, a rank, an inverse. Working them by hand once is what makes the library’s output
+          something you can sanity-check rather than something you have to trust.
+        </p>
+        <p>
+          It also builds the habit the ML workflow depends on. When a fit returns absurd coefficients, the practitioners
+          who diagnose it quickly are the ones who can look at a design matrix and see a rank deficiency, rather than
+          reaching for a different algorithm and hoping.
+        </p>
+      </WhyAiml>
 
       <Takeaway>
         The sheet came with no answers. Everything above was worked out and checked — by substituting back, or by

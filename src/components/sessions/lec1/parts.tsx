@@ -13,7 +13,7 @@ import { PlanesLab } from '@/components/charts/planes-lab'
 import { TwoLinesChart } from '@/components/charts/two-lines-chart'
 import { CombineLab, LineExplorer, SolutionSetLab, VectorAddLab } from '@/components/charts/vector-labs'
 import { WorkshopLab } from '@/components/charts/workshop-lab'
-import { Para, Takeaway, Terms, Worked } from '../session-parts'
+import { Para, Takeaway, Terms, WhyAiml, Worked } from '../session-parts'
 
 /** A little spacer so a lab never sits flush against the words above it. */
 function Lab({ children }: { children: React.ReactNode }) {
@@ -95,6 +95,20 @@ export const LEC1_PARTS: Record<string, React.ReactNode> = {
           },
         ]}
       />
+      <WhyAiml method="the linear model · why “linear” is a restriction worth having">
+        <p className="mb-2">
+          Linear is the shape almost every method starts from. A linear regression, a logistic regression and a single
+          layer of a neural network are all this expression — a weighted sum of features, with no feature multiplied by
+          another.
+        </p>
+        <p>
+          The restriction is what buys you everything else. Linear problems have exact solutions, convex loss surfaces
+          with one lowest point, and coefficients you can read and explain. Every nonlinear method in the course is
+          priced against that baseline, and a surprising number of them are linear models applied to transformed
+          features.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         A vector is not only an arrow. It is anything you can add and stretch without leaving the family.
       </Takeaway>
@@ -167,6 +181,18 @@ export const LEC1_PARTS: Record<string, React.ReactNode> = {
           },
         ]}
       />
+      <WhyAiml method="one training example, written down">
+        <p className="mb-2">
+          A single linear equation is one row of a training set: these feature values, this target. Fitting a model
+          means finding weights that make many such equations as nearly true as possible at once.
+        </p>
+        <p>
+          Seeing it this way explains what an intercept is for. Without a constant term every fitted line is forced
+          through the origin, which asserts that zero features means zero target — false for house prices, exam marks
+          and almost everything else. Adding a column of ones is how libraries put the intercept back.
+        </p>
+      </WhyAiml>
+
       <Takeaway>One linear equation with two unknowns gives you a line of right answers, not a single one.</Takeaway>
     </>
   ),
@@ -235,6 +261,18 @@ Answer:  x = 2,  y = −1`}
           },
         ]}
       />
+      <WhyAiml method="the training set as a whole">
+        <p className="mb-2">
+          Stack one equation per training example and you have the system this page is about. Ax = b, with A the design
+          matrix, x the weights and b the observed targets — the compact form of “fit this model to this data”.
+        </p>
+        <p>
+          The shape of that system decides what is possible. More examples than weights is the normal, overdetermined
+          case where no exact solution exists and least squares steps in. Fewer examples than weights is the modern
+          regime where infinitely many perfect fits exist and regularisation has to pick one.
+        </p>
+      </WhyAiml>
+
       <Takeaway>Adding one equation to another can knock out an unknown, and it never changes the answer.</Takeaway>
     </>
   ),
@@ -309,6 +347,18 @@ Answer:  x = 2,  y = −1`}
         at all.
       </Para>
 
+      <WhyAiml method="a constraint problem, and why real fits are not exact">
+        <p className="mb-2">
+          The workshop is a system with an exact answer because the numbers were chosen to have one. Real data never is:
+          measurement noise means no set of weights satisfies every equation.
+        </p>
+        <p>
+          That gap is the reason least squares exists. Instead of demanding Ax = b exactly, you minimise ‖Ax − b‖² and
+          accept the closest fit. Every regression you run is this workshop problem with the demand for exactness
+          relaxed.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         A table of “how much of each thing does each product use” is already a matrix. You have been writing them for
         years without using the word.
@@ -372,6 +422,19 @@ x₁ − x₂ + 2x₃ = 2        x₁ − x₂ + 2x₃ = 2        x₁ − x₂ 
         whole line of answers survives.
       </Para>
 
+      <WhyAiml method="under-fitting, over-fitting and identifiability">
+        <p className="mb-2">
+          Zero, one, or endlessly many is not an abstract trichotomy — it is the diagnosis for a fit. One answer means
+          the model is identifiable. Endlessly many means several different weight vectors explain the data equally
+          well, so no individual coefficient can be interpreted.
+        </p>
+        <p>
+          Zero answers is the ordinary case for real data, and it is not a failure. It means no model of this form fits
+          perfectly, which is exactly when you stop solving and start optimising — minimising error rather than
+          eliminating it.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         “No answer” means your equations disagree. “Endless answers” means one of them was not telling you anything new.
       </Takeaway>
@@ -429,6 +492,17 @@ x₁ − x₂ + 2x₃ = 2        x₁ − x₂ + 2x₃ = 2        x₁ − x₂ 
           },
         ]}
       />
+      <WhyAiml method="geometry in dimensions you cannot draw">
+        <p className="mb-2">
+          Two equations meeting in a line, three in a point: this is the picture behind a solution, and it stops being
+          drawable at four features. Real models have hundreds.
+        </p>
+        <p>
+          The value of having seen the picture is that the words survive the loss of the image. A “hyperplane” in a
+          300-dimensional feature space is the object a support vector machine positions, and knowing what the 3-D
+          version looks like is what makes module M7 comprehensible rather than symbolic.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -479,6 +553,17 @@ x₁ − x₂ + 2x₃ = 2        x₁ − x₂ + 2x₃ = 2        x₁ − x₂ 
           },
         ]}
       />
+      <WhyAiml method="the design matrix">
+        <p className="mb-2">
+          Writing the system as a matrix is what makes it computable. A is the design matrix — one row per training
+          example, one column per feature — and that object is the input to every fitting routine in every library.
+        </p>
+        <p>
+          The compact notation is not just shorthand. It is what lets the whole training set be handed to a GPU as one
+          array, and what makes the derivative of the loss with respect to all the weights a single matrix expression
+          rather than a page of partial derivatives.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -552,6 +637,18 @@ I A = A I = A              I is the do-nothing matrix:
           },
         ]}
       />
+      <WhyAiml method="the operations training is assembled from">
+        <p className="mb-2">
+          Adding matrices, scaling them, multiplying them: a forward pass is a chain of these, and a backward pass is
+          the same chain with transposes. Nothing more exotic happens inside a linear layer.
+        </p>
+        <p>
+          The shape discipline is the practical payoff. Most of the errors you will hit when writing model code are
+          shape mismatches, and the rule that inner dimensions must agree is the one being violated. Reading the error
+          as a statement about which of your matrices is oriented the wrong way is a skill worth building early.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         A row of the first matrix meets a column of the second. If they are not the same length, the multiplication
         simply does not exist.
@@ -627,6 +724,17 @@ A⁻¹  =     ────────  ⎣ −c   a ⎦      as long as ad − 
           { term: 'singular', def: 'The word for a square matrix with no inverse. Its determinant is zero.' },
         ]}
       />
+      <WhyAiml method="the closed form, and why it is not used">
+        <p className="mb-2">
+          The textbook solution to linear regression is w = (XᵀX)⁻¹Xᵀy, and the inverse in that formula is the object on
+          this page. It is what makes the solution exist and be unique.
+        </p>
+        <p>
+          It is also what libraries carefully avoid computing. Forming an inverse is slower and numerically worse than
+          solving the system directly — it squares the condition number and loses roughly twice the digits. So the
+          formula is how you reason about the answer, and a QR factorisation is how you obtain it.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -666,6 +774,19 @@ A⁻¹  =     ────────  ⎣ −c   a ⎦      as long as ad − 
         applies to it. And when A is square and has an inverse, you can even write the answer down straight away as x =
         A⁻¹b.
       </Para>
+
+      <WhyAiml method="the compact statement of a fit">
+        <p className="mb-2">
+          Ax = b in three letters is how every linear problem in the rest of the course is written. Recognising it in
+          the wild — in the normal equations, in a constraint set, in a step of an optimiser — is what makes those
+          derivations readable.
+        </p>
+        <p>
+          It also frames the two questions worth asking of any model: does a solution exist, and is it unique. Both are
+          answered by comparing ranks, and both have direct interpretations — enough data of the right kind, and
+          features that are not restatements of each other.
+        </p>
+      </WhyAiml>
 
       <Takeaway>
         Ax = b is the sentence the rest of the course is written in. Getting used to reading it is the job of this
@@ -735,6 +856,17 @@ A⁻¹  =     ────────  ⎣ −c   a ⎦      as long as ad − 
           },
         ]}
       />
+      <WhyAiml method="the column picture · span · what a model can reach">
+        <p className="mb-2">
+          Reading Ax as a mixture of the columns of A is the view that makes least squares make sense. The set of
+          achievable predictions is the span of the feature columns, and b usually lies outside it.
+        </p>
+        <p>
+          That is the whole geometry of fitting: you cannot reach b, so you find the closest point you can reach, which
+          is the projection onto that span. Every discussion of what a model is “capable of representing” — including
+          the capacity of a neural network — is this idea in a more complicated space.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -808,6 +940,19 @@ Put the two halves together:
           },
         ]}
       />
+      <WhyAiml method="the family of models a dataset cannot distinguish">
+        <p className="mb-2">
+          A general solution written as one particular answer plus anything from the nullspace is exactly the set of
+          models that fit your data equally well. The particular part is a fit; the nullspace part is what the data
+          leaves undetermined.
+        </p>
+        <p>
+          This is what regularisation resolves. When infinitely many weight vectors are consistent with the training
+          set, adding a penalty on ‖w‖ picks the smallest one — a choice made by you, not by the data, and worth being
+          conscious of.
+        </p>
+      </WhyAiml>
+
       <Takeaway>All the answers = one answer you found + everything that adds up to nothing.</Takeaway>
     </>
   ),
@@ -854,6 +999,19 @@ ERO3   Rᵢ ← Rᵢ + β Rⱼ        add a multiple of one row
         are left with has more answers than the one you were asked about. The lab on the next page refuses to do it, and
         tells you why.
       </Para>
+
+      <WhyAiml method="what a solver is allowed to do">
+        <p className="mb-2">
+          The three legal row operations are the primitives inside every linear solver. Knowing they preserve the
+          solution set is why you can trust a library’s answer without re-deriving it.
+        </p>
+        <p>
+          The illegal move is the instructive one. Swapping columns reorders the unknowns, which in a fitting context
+          means your coefficients silently now belong to different features. Nothing errors; the numbers are simply
+          attached to the wrong names — a failure mode worth recognising because it can survive all the way into a
+          report.
+        </p>
+      </WhyAiml>
 
       <Takeaway>
         These three moves change how a system looks but never which values solve it. That is what makes the whole method
@@ -917,6 +1075,16 @@ x₁ − x₂ + 2x₃ = 2          ⎢ 1  −1   2 │ 2 ⎥
           },
         ]}
       />
+      <WhyAiml method="doing the elimination yourself">
+        <p className="mb-2">
+          Driving elimination by hand once is what makes a solver’s output checkable. When a fit returns something
+          implausible, the people who diagnose it fastest are the ones who can look at the matrix and see why.
+        </p>
+        <p>
+          It is the same loop as exploratory data analysis in the ML workflow: try a step, look at what came back,
+          adjust. Building the habit here on six numbers is much cheaper than building it on a real dataset.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -984,6 +1152,17 @@ one or more free variables           →  endless answers,
           },
         ]}
       />
+      <WhyAiml method="reading structure off a design matrix">
+        <p className="mb-2">
+          The staircase form is where the structure of a dataset becomes visible: how many independent features there
+          really are, and which ones are combinations of the others.
+        </p>
+        <p>
+          That count is the rank, and it decides whether the fit has a unique answer before you run it. Reaching echelon
+          form is the cheapest honest answer to “is my design matrix full rank?”, and it is what a library computes
+          internally when it warns you about a singular matrix.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -1013,6 +1192,18 @@ one or more free variables           →  endless answers,
         them to any single answer and you have the general solution — the same two-half recipe as before, but now handed
         to you by the method instead of spotted by eye.
       </Para>
+
+      <WhyAiml method="a unique answer, whoever does the arithmetic">
+        <p className="mb-2">
+          The reduced form being unique is what makes conclusions about a dataset reproducible. Two people preprocessing
+          the same table by different routes must agree on how many independent features it has.
+        </p>
+        <p>
+          The same uniqueness is why a well-posed least-squares problem has one best answer rather than a matter of
+          opinion. When it does not — when the reduced form reveals free variables — the reduced form also tells you
+          exactly which combinations of weights the data cannot separate.
+        </p>
+      </WhyAiml>
 
       <Takeaway>The tidiest form turns “solve the system” into “read the system”.</Takeaway>
     </>
@@ -1054,6 +1245,17 @@ one or more free variables           →  endless answers,
           },
         ]}
       />
+      <WhyAiml method="the procedure a library runs for you">
+        <p className="mb-2">
+          This recipe is what <span className="font-mono">numpy.linalg.solve</span> does, minus the pivoting strategy
+          that keeps it numerically stable. Having followed it once, the function stops being a black box.
+        </p>
+        <p>
+          It also makes the cost visible. Elimination is roughly n³ operations, which is why solving a system with
+          10,000 features is a serious computation and why iterative methods and gradient descent exist as alternatives
+          once n gets large.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -1094,6 +1296,18 @@ finish with    [ I │ A⁻¹ ]`}
         Which is the same thing the determinant told you back in part 9, arrived at by a completely different road. Set
         the bottom row of A to something that makes the determinant zero and try running it.
       </Para>
+
+      <WhyAiml method="[A | I] → [I | A⁻¹], and when to use it">
+        <p className="mb-2">
+          The augmented trick is a neat piece of bookkeeping: run the same elimination on the identity and the inverse
+          appears. It generalises to any size, unlike the 2 × 2 formula.
+        </p>
+        <p>
+          Knowing it also makes clear why it is the wrong tool for solving one system. Inverting costs about three times
+          as much as solving directly, and loses accuracy on the way. Compute an inverse when you genuinely need the
+          matrix itself — a covariance inverse in a Mahalanobis distance, say — and solve directly the rest of the time.
+        </p>
+      </WhyAiml>
 
       <Takeaway>
         One method — three legal moves in a set order — answers “solve this”, “how many answers are there”, and “what is
