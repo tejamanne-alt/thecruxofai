@@ -13,7 +13,7 @@ import {
 } from '@/components/charts/basis-lab'
 import { GroupCheckLab, NullspaceSpaceLab, VectorSpaceAxiomLab, WhatIsAVectorLab } from '@/components/charts/space-lab'
 import { DependenceFactsLab, SpanLab, SubspaceTestLab } from '@/components/charts/subspace-lab'
-import { Para, Takeaway, Terms, Worked } from '../session-parts'
+import { Para, Takeaway, Terms, WhyAiml, Worked } from '../session-parts'
 
 /** A little spacer so a lab never sits flush against the words above it. */
 function Lab({ children }: { children: React.ReactNode }) {
@@ -92,6 +92,19 @@ export const LEC2_PARTS: Record<string, React.ReactNode> = {
           },
         ]}
       />
+      <WhyAiml method="the nullspace of a model · why weights can be meaningless">
+        <p className="mb-2">
+          The set of answers to Ax = 0 is not an abstraction — it is the set of changes you can make to a fitted weight
+          vector without altering a single prediction. If it contains anything other than zero, your coefficients are
+          one arbitrary choice among infinitely many.
+        </p>
+        <p>
+          That is why the closure property matters so much. It says those indistinguishable models form a whole space,
+          not a handful of special cases, so no amount of extra data of the same kind will pin the weights down. Only
+          new features, or a regulariser that expresses a preference, will.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         The answers to Ax = 0 are closed under adding and stretching; the answers to Ax = b are not. That difference is
         what the rest of the lecture is about.
@@ -178,6 +191,20 @@ export const LEC2_PARTS: Record<string, React.ReactNode> = {
           { term: 'Abelian', say: 'ah-BEE-lee-un', def: 'A group where the order of combining makes no difference.' },
         ]}
       />
+      <WhyAiml method="the structure behind an optimiser step">
+        <p className="mb-2">
+          The four group properties are exactly what an optimiser relies on without ever naming them. Weight updates
+          compose, they associate, doing nothing leaves the model alone, and every step can in principle be undone —
+          which is what makes checkpointing and rollback coherent.
+        </p>
+        <p>
+          The inverse property is also where the analogy breaks in an instructive way. Floating-point arithmetic is{' '}
+          <em>not</em> associative, so summing a batch of gradients in a different order gives a slightly different
+          answer. That is why distributed training runs are not bit-for-bit reproducible unless the reduction order is
+          fixed.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Four promises: closure, associativity, an identity, and inverses. Abelian adds a fifth — order does not matter.
         The one that usually fails is inverses.
@@ -270,6 +297,19 @@ for all λ, ψ ∈ ℝ and all x, y ∈ 𝒱.`}
           },
         ]}
       />
+      <WhyAiml method="embedding arithmetic · why you can average models">
+        <p className="mb-2">
+          Every time you add two embeddings, average a batch of gradients, or interpolate between two model checkpoints,
+          you are relying on the two closure promises: the result is still a member of the space, and still means
+          something.
+        </p>
+        <p>
+          Take them away and familiar operations stop being defined. Model soups — averaging the weights of several
+          fine-tuned models — work because weight space is a vector space; the same trick applied to decision trees is
+          meaningless, because a tree plus a tree is not a tree.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Two operations. Addition has to make an Abelian group; scaling has to distribute, associate, and leave things
         alone when you scale by 1.
@@ -327,6 +367,19 @@ for all λ, ψ ∈ ℝ and all x, y ∈ 𝒱.`}
           },
         ]}
       />
+      <WhyAiml method="function spaces · kernels · why matrices count as vectors">
+        <p className="mb-2">
+          Nothing in the definition mentions columns of numbers, and that is what lets the same theory cover the objects
+          ML actually uses. Weight <em>matrices</em> are vectors in this sense, which is why you can add and scale them
+          during training.
+        </p>
+        <p>
+          The bigger payoff is function spaces. Kernel methods in module M7 treat functions as vectors, and Fourier and
+          wavelet analysis do the same. All the vocabulary on the following pages — span, independence, basis, dimension
+          — transfers to them unchanged, which is why nobody has to redefine it.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Matrices and polynomials are vectors too, because they obey the same axioms. Prove something once, use it
         everywhere.
@@ -414,6 +467,19 @@ the nullspace of A, i.e. {x : Ax = 0}   SUBSPACE
           },
         ]}
       />
+      <WhyAiml method="constraints that keep a model well defined">
+        <p className="mb-2">
+          The subspace test is what tells you whether a constraint you have imposed still leaves a space you can do
+          arithmetic in. Requiring model outputs to sum to zero gives a subspace; requiring them to sum to one does not,
+          because it misses the origin.
+        </p>
+        <p>
+          That distinction has teeth. Constraints that form a subspace can be handled by projecting onto them — cheap
+          and exact. Constraints that do not, like a simplex of probabilities, need different machinery entirely, which
+          is why softmax exists rather than a simple linear projection.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Three things to check: not empty, closed under adding, closed under scaling. And if the zero vector is missing,
         stop — it is not a subspace.
@@ -473,6 +539,18 @@ the nullspace of A, i.e. {x : Ax = 0}   SUBSPACE
           },
         ]}
       />
+      <WhyAiml method="model capacity · what a linear model can represent">
+        <p className="mb-2">
+          The span of your feature columns is the exact set of predictions a linear model can produce. If the target
+          lies outside it, no choice of weights reaches it, and least squares settles for the closest point instead.
+        </p>
+        <p>
+          This is the precise meaning of a model being “not expressive enough”. Adding a feature enlarges the span;
+          adding a nonlinear transform of an existing feature enlarges it too, which is why polynomial features and
+          kernels help at all. Under-fitting is the target sitting far from the span.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         A linear combination is the only way to build new vectors. Everything you can reach is the span, and a span is
         always a subspace.
@@ -548,6 +626,19 @@ the nullspace of A, i.e. {x : Ax = 0}   SUBSPACE
           },
         ]}
       />
+      <WhyAiml method="multicollinearity · redundant features">
+        <p className="mb-2">
+          Linear dependence among feature columns is the formal name for multicollinearity, and it is the reason a
+          regression can report confident-looking coefficients that mean nothing. Several weight vectors give identical
+          predictions, so the fit picks one arbitrarily.
+        </p>
+        <p>
+          The definition being written the awkward way — only the all-zeros mixture reaches zero — is worth the effort,
+          because it is the version that survives the zero-vector case and generalises to functions. It is also the form
+          the rank test mechanises, which is how you actually detect the problem on 300 columns.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Independent means the only way to reach 0 is to take none of anything. Dependent means one vector repeats what
         the others already say — and a zero vector always makes a set dependent.
@@ -631,6 +722,18 @@ all three columns are pivot columns
           },
         ]}
       />
+      <WhyAiml method="detecting rank deficiency in a design matrix">
+        <p className="mb-2">
+          Row reducing and counting pivots is the practical test for whether your features are independent, and it is
+          what a library is doing when it warns that a matrix is singular or rank-deficient.
+        </p>
+        <p>
+          The fact that two correct routes give different staircases but the same pivot columns matters for trust. It
+          means the diagnosis does not depend on which library or which pivoting strategy ran — the count and the
+          identity of the redundant columns come out the same either way.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Vectors as columns, row-reduce, count pivot columns. Different routes give different staircases but always the
         same pivot columns — judge your working by those.
@@ -691,6 +794,19 @@ all three columns are pivot columns
           },
         ]}
       />
+      <WhyAiml method="working in coefficients instead of raw features">
+        <p className="mb-2">
+          Testing the coefficient columns rather than the vectors themselves is what lets you reason about a model built
+          on transformed features. Once your data has been mapped into a new basis — by PCA, or by a random projection —
+          independence questions move to the coefficients.
+        </p>
+        <p>
+          It is also the trick behind the kernel methods in module M7. You never touch the transformed vectors, some of
+          which live in infinite-dimensional spaces; you work entirely with coefficients and inner products, and this
+          page is why that is legitimate.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Build new vectors from an independent set, and the new ones are independent exactly when their coefficient
         columns are. From then on you work with columns of numbers, whatever the vectors really are.
@@ -754,6 +870,18 @@ check it on the b's, one coefficient at a time:
     b₄:   7(−1) + 15(4)   + 18(−3) + 1   = −7 + 60 − 54 + 1  = 0  ✓`}
       </Worked>
 
+      <WhyAiml method="the coefficient matrix, and why m > k is fatal">
+        <p className="mb-2">
+          Reducing the coefficient matrix is how you find the exact combination that collapses to zero — which is to
+          say, the exact linear relationship among your features. Not just that redundancy exists, but what it is.
+        </p>
+        <p>
+          That specificity is what makes the diagnosis actionable. Being told “columns 1, 2, 3 and 4 are dependent” is
+          unhelpful; being told 7c₁ + 15c₂ + 18c₃ + c₄ = 0 tells you which measurement to drop or which encoding
+          introduced the problem.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Reduce the coefficient columns. A column without a pivot hands you the combination that reaches zero, and that
         combination can be checked on the coefficients alone.
@@ -812,6 +940,20 @@ check it on the b's, one coefficient at a time:
           },
         ]}
       />
+      <WhyAiml method="more parameters than data · the over-parameterised regime">
+        <p className="mb-2">
+          More vectors than ingredients is always dependent, and it is the situation modern machine learning lives in. A
+          network with more parameters than training examples cannot have a unique best fit — infinitely many settings
+          achieve the same training loss.
+        </p>
+        <p>
+          This used to be considered fatal and is now routine, which changes the question. Since the data cannot choose
+          among those fits, something else must: weight decay, early stopping, or the implicit bias of the optimiser
+          itself. Knowing that the choice is being made by your training procedure rather than by the data is the useful
+          takeaway.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         More vectors than ingredients means dependent, always. It is a counting argument about pivots, and it needs no
         arithmetic at all.
@@ -885,6 +1027,18 @@ check it on the b's, one coefficient at a time:
           },
         ]}
       />
+      <WhyAiml method="PCA components · choosing a representation">
+        <p className="mb-2">
+          A basis is a coordinate system for your data, and choosing a good one is half of feature engineering. PCA
+          hands you an orthonormal basis ordered by how much variation each direction carries.
+        </p>
+        <p>
+          The non-uniqueness is the opportunity. The same subspace can be described by countless bases, and some make
+          the structure obvious while others hide it — which is exactly what “learning a representation” means.
+          Autoencoders and word embeddings are both searches for a better basis.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         A basis reaches everything and repeats nothing. There are many bases for one space, but each gives every vector
         exactly one set of coordinates.
@@ -948,6 +1102,18 @@ check it on the b's, one coefficient at a time:
           },
         ]}
       />
+      <WhyAiml method="intrinsic dimensionality · the bottleneck of an autoencoder">
+        <p className="mb-2">
+          Dimension is not the number of columns, and the gap between the two is where a lot of practical value sits. A
+          dataset with 300 features whose points lie near a 12-dimensional surface has intrinsic dimension 12.
+        </p>
+        <p>
+          That number is what you are choosing when you set the width of an autoencoder’s bottleneck, the number of PCA
+          components to keep, or the size of an embedding. Set it below the intrinsic dimension and you lose real
+          structure; well above it and you are modelling noise.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Dimension is the size of a basis, not the number of components. A line inside ℝ³ has dimension 1, and its
         vectors still take three numbers to write down.
@@ -1030,6 +1196,19 @@ CHECK, component by component:
         by the same exact-fraction code that runs everywhere else on this site, and the relation it produced was then
         checked by substituting back — the five components agree exactly.
       </Para>
+
+      <WhyAiml method="feature selection with a reason attached">
+        <p className="mb-2">
+          The three-step recipe is a principled way to reduce a set of features to an independent subset — and
+          crucially, it keeps your <em>original</em> columns rather than replacing them with combinations.
+        </p>
+        <p>
+          That distinction is what separates this from PCA. PCA gives you new axes that are mixtures of everything and
+          are usually uninterpretable; this keeps real, named features and drops the redundant ones. When somebody has
+          to act on the model — a clinician, a lender — keeping the original columns is often worth more than the extra
+          compression.
+        </p>
+      </WhyAiml>
 
       <Takeaway>
         Spanning vectors as columns, row-reduce, keep the ones at pivot columns. Here that leaves three of the four, so

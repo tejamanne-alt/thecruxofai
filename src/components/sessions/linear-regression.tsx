@@ -5,6 +5,7 @@ import { accentColour, clamp, dot, drawAxes, grip, halo, type Frame } from '@/li
 import { lrData } from '@/lib/model/dataset'
 import { bestFit, mse } from '@/lib/model/math'
 import { useState } from 'react'
+import { UsedInAiml } from './algebra'
 import {
   AnalogyCallout,
   ChartRow,
@@ -362,6 +363,31 @@ export function LinearRegressionSession() {
           ]}
         />
       </Explainers>
+
+      <UsedInAiml
+        rows={[
+          {
+            what: 'It is module M3, and lab 2 of the ML course',
+            how: 'Predicting a number from features is the first supervised method the course covers, and the one every later regression is compared against. Its definition is the one from ML Lecture 1: learn f(x) to predict y, with y real-valued.',
+          },
+          {
+            what: 'Squared error is a choice, and it chooses the mean',
+            how: 'Minimising squared error makes the model predict the conditional mean. Swapping to absolute error makes it predict the median instead — which is the robust choice when outliers are real but not what you care about.',
+          },
+          {
+            what: 'The closed form exists but is not what runs',
+            how: 'w = (XᵀX)⁻¹Xᵀy is exact, and forming that inverse squares the condition number and loses accuracy. Libraries build an orthonormal basis for the columns of X instead — the QR route from Lecture 3 of Mathematical Foundations.',
+          },
+          {
+            what: 'Collinear features make the coefficients meaningless',
+            how: 'If two feature columns say the same thing, many different weight vectors give identical predictions, and the fit returns an arbitrary one. That is the rank story from Lecture 2, and it is why anybody reading the coefficients needs to check for it first.',
+          },
+          {
+            what: 'Regularisation decides what counts as best',
+            how: 'Adding a penalty on the weights changes the answer deliberately. The L2 penalty shrinks them smoothly; the L1 penalty drives some to exactly zero and so selects features — the diamond-versus-circle picture from Lecture 3.',
+          },
+        ]}
+      />
     </div>
   )
 }

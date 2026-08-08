@@ -5,7 +5,7 @@
 import { CentreLab, VarianceLab } from '@/components/charts/stats-centre-lab'
 import { CourseMapLab, DataTypeSorter, MeasurementLevelLab } from '@/components/charts/stats-sorting-lab'
 import { BoxPlotLab, QuartileLab, SampleSizeLab } from '@/components/charts/stats-spread-lab'
-import { Para, Takeaway, Terms, Worked } from '../session-parts'
+import { Para, Takeaway, Terms, WhyAiml, Worked } from '../session-parts'
 
 function Lab({ children }: { children: React.ReactNode }) {
   return <div className="my-6">{children}</div>
@@ -76,6 +76,19 @@ T3  Introduction to Time Series and Forecasting, 2nd edition
         skewed data, the five-point summary, and how to spot an outlier. The books to reach for are T1 and T2.
       </Para>
 
+      <WhyAiml method="why statistics sits under machine learning">
+        <p className="mb-2">
+          Every model in the ML course is a statistical claim. A regression predicts a conditional mean, a classifier
+          predicts a conditional probability, and a confidence interval is what stops you announcing a result that is
+          noise.
+        </p>
+        <p>
+          The descriptive half of this course is also the practical half of the ML workflow. Step 6 — exploratory data
+          analysis — is exactly the centre, spread and shape you are about to learn, run on a dataset before any model
+          is chosen.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Statistics is not sums for their own sake. Every technique here exists to help somebody make a decision without
         guessing.
@@ -139,6 +152,19 @@ T3  Introduction to Time Series and Forecasting, 2nd edition
           { term: 'continuous', def: 'Measured. Always another value between any two.' },
         ]}
       />
+      <WhyAiml method="encoding · why a column’s type decides the model">
+        <p className="mb-2">
+          Whether a column is categorical or numerical decides everything downstream: which model can use it, how it
+          must be encoded, and which metric scores the result. A categorical target means classification; a numerical
+          one means regression.
+        </p>
+        <p>
+          Get the type wrong and the failure is silent. Feed a categorical column coded as 1, 2, 3 into a linear model
+          and you have asserted that category 3 is three times category 1 and that the gaps are equal — a claim about
+          the world hidden inside an encoding choice. One-hot encoding exists to avoid exactly that.
+        </p>
+      </WhyAiml>
+
       <Takeaway>Count it and it is discrete. Measure it and it is continuous. Neither, and it is categorical.</Takeaway>
     </>
   ),
@@ -191,6 +217,17 @@ T3  Introduction to Time Series and Forecasting, 2nd edition
           { term: 'ratio', def: 'Equal gaps and a true zero. Everything works.' },
         ]}
       />
+      <WhyAiml method="what arithmetic a feature will tolerate">
+        <p className="mb-2">
+          The four levels tell you which operations are meaningful. Nominal data can only be counted; ordinal can be
+          ranked but not averaged; interval and ratio can be added and scaled.
+        </p>
+        <p>
+          This decides real modelling choices. Averaging a satisfaction rating of poor/average/good is technically
+          computable and statistically dubious, which is why ordinal data is often better served by a tree-based model
+          that only ever compares, or by an ordinal regression that respects the ranking without inventing distances.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -250,6 +287,18 @@ x̄ = Σ(f·Y) / N = 658 / 332 = 1.98 hours`}
           { term: 'balance point', def: 'The spot where the distances either side cancel out. That is the mean.' },
         ]}
       />
+      <WhyAiml method="what squared-error loss actually predicts">
+        <p className="mb-2">
+          This is the most direct link between the two courses. Minimising mean squared error produces the{' '}
+          <strong>mean</strong> — that is what a regression trained on MSE is estimating, conditional on the features.
+        </p>
+        <p>
+          The balance-point property is the reason. Squared error is smallest exactly where the deviations cancel, which
+          is the mean by definition. So the loss you choose is not a technicality: it decides which summary of the
+          target distribution your model reports.
+        </p>
+      </WhyAiml>
+
       <Takeaway>The mean uses every value, which makes it stable — and lets one wild value drag it about.</Takeaway>
     </>
   ),
@@ -308,6 +357,19 @@ So the mode is 3: the most common outcome is three failures in a day.`}
           { term: 'multi-modal', def: 'More than two peaks.' },
         ]}
       />
+      <WhyAiml method="what a classifier predicts · majority-class baselines">
+        <p className="mb-2">
+          A classifier that outputs a single label is predicting the <strong>mode</strong> of the conditional
+          distribution — the most likely class given the features. That is what{' '}
+          <span className="font-mono">predict()</span> returns when <span className="font-mono">predict_proba()</span>{' '}
+          gives the full picture.
+        </p>
+        <p>
+          The mode is also the honest baseline for any classification problem. Always predicting the majority class
+          costs nothing to implement, and on imbalanced data it can score 95% accuracy — which is why beating that
+          baseline, not the raw accuracy, is the number worth reporting.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -374,6 +436,18 @@ Ten getting-ready times, in order:
           { term: '50th percentile', def: 'Another name for the median. 50% of the data sits below it.' },
         ]}
       />
+      <WhyAiml method="absolute-error loss · robust regression">
+        <p className="mb-2">
+          Where squared error predicts the mean, <strong>absolute</strong> error predicts the median. Swapping MSE for
+          MAE in a regression changes what the model is estimating, not just how it is scored.
+        </p>
+        <p>
+          That is the choice you make when outliers are real but not what you care about. Predicting delivery times or
+          house prices with MAE gives a model that ignores a few extreme cases instead of being dragged towards them —
+          and quantile regression generalises the same idea to any percentile.
+        </p>
+      </WhyAiml>
+
       <Takeaway>The mean asks how big the values are. The median only asks what order they are in.</Takeaway>
     </>
   ),
@@ -442,6 +516,17 @@ Ten getting-ready times, in order:
           },
         ]}
       />
+      <WhyAiml method="why you plot the target before choosing a loss">
+        <p className="mb-2">
+          The shape of a distribution decides how to model it. A long right tail — incomes, response times, sales —
+          makes a mean-based model chase the tail and under-predict for almost everybody.
+        </p>
+        <p>
+          The standard response is to model log(y) instead, which turns a skewed target into a roughly symmetric one and
+          turns multiplicative errors into additive ones. Noticing the skew is step 6 of the workflow; the transform is
+          step 6 as well, and skipping both is a common reason a regression under-performs for no visible reason.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -498,6 +583,19 @@ Group 2:   1  15   5   5   6   3   5   2   3      total 45
         nobody in the set.
       </Para>
 
+      <WhyAiml method="why a single metric hides the problem">
+        <p className="mb-2">
+          Two datasets with the same mean can be completely different, and the same is true of models. Two classifiers
+          with identical accuracy can fail on entirely different cases, which is why module M11 of the ML course reports
+          a whole confusion matrix rather than one number.
+        </p>
+        <p>
+          This is the argument for looking at the distribution of errors, not just their average. A model with low mean
+          error and a fat tail of catastrophic mistakes may be far worse in practice than one with slightly higher
+          average error and no disasters — and no single summary statistic will tell you which you have.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Always report a measure of centre and a measure of spread together. Either one on its own can mislead.
       </Takeaway>
@@ -553,6 +651,17 @@ range = 7 − 2 = 5`}
           },
         ]}
       />
+      <WhyAiml method="feature scaling · min-max normalisation">
+        <p className="mb-2">
+          The range is what min-max scaling divides by, mapping every feature into [0, 1] so that no column dominates a
+          distance calculation purely because of its units.
+        </p>
+        <p>
+          Its weakness is exactly why standardisation is usually preferred. The range depends on the two most extreme
+          points, so one outlier compresses everything else into a narrow band. A feature scaled this way can end up
+          with 99% of its values between 0.01 and 0.05, which is worse than not scaling at all.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -634,6 +743,19 @@ standard deviation  s  = √( SS / (n − 1) )`}
           },
         ]}
       />
+      <WhyAiml method="standardisation · the bias-variance trade-off">
+        <p className="mb-2">
+          Dividing by the standard deviation is what <span className="font-mono">StandardScaler</span> does, and it is
+          required before k-means, k-NN, SVMs and any gradient-based method — otherwise a feature measured in thousands
+          drowns one measured in units.
+        </p>
+        <p>
+          Variance also names half of the central trade-off in modelling. A model with high variance changes a lot when
+          the training sample changes, which is overfitting seen through this lens. The squaring on this page is why the
+          two error components add cleanly, and that decomposition is what module M11 is built on.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Square the distances so they stop cancelling, average them, then square-root it to get back to sensible units.
       </Takeaway>
@@ -702,6 +824,19 @@ a sample from it       s² = SS / (n − 1)  s = √(SS / (n − 1))`}
           },
         ]}
       />
+      <WhyAiml method="why n − 1 · training error versus true error">
+        <p className="mb-2">
+          The n versus n − 1 distinction is the first appearance of a theme that runs through all of machine learning: a
+          quantity measured on the data you have is optimistically biased as an estimate of the truth.
+        </p>
+        <p>
+          The reason is the same in both cases. The sample variance divides by n − 1 because the spread was measured
+          around the sample’s <em>own</em> mean, which sits closer to the data than the true mean does. Training
+          accuracy is optimistic for the identical reason — the model was fitted to those very points — and a held-out
+          test set is the correction.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         A sample hugs its own mean too closely. Dividing by n − 1 instead of n corrects for that, and the smaller the
         sample the more it matters.
@@ -768,6 +903,17 @@ position of Q3     = 3 × (n + 1) / 4`}
           { term: 'percentile', def: 'The same idea with 100 cuts instead of 4. Q1 is the 25th percentile.' },
         ]}
       />
+      <WhyAiml method="robust summaries · reporting model errors">
+        <p className="mb-2">
+          The five-number summary is what a box plot draws, and it is the right way to report a distribution of model
+          errors. Quoting only the mean absolute error hides whether the worst case is twice that or a hundred times.
+        </p>
+        <p>
+          It is also how latency and cost are reported in production systems: p50, p90, p99. A model whose median
+          inference time is fine and whose 99th percentile times out is a broken system, and only the quantiles reveal
+          it.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -842,6 +988,19 @@ Every value sits between 5 and 25, so that data has no outliers.`}
           { term: 'outlier', def: 'A value far from the rest. Worth investigating, not automatically deleting.' },
         ]}
       />
+      <WhyAiml method="spotting problems before modelling · outlier rules">
+        <p className="mb-2">
+          A box plot per feature is one of the fastest ways to see what a dataset needs. Skew, wildly different scales,
+          and impossible values all show up immediately.
+        </p>
+        <p>
+          The 1.5 × IQR fence is a rule of thumb rather than a law, and treating it as one is where people go wrong. A
+          flagged point may be a data-entry error to remove, a genuine extreme to keep, or the very thing you are trying
+          to detect — fraud and equipment failure both live in the tails. Deleting outliers by rule can delete the
+          signal.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         The box is the middle half. The whiskers are everything else that looks normal. The dots beyond them are what
         you go and check.
@@ -902,6 +1061,18 @@ Every value sits between 5 and 25, so that data has no outliers.`}
           </>,
         ]}
       />
+
+      <WhyAiml method="the summaries that precede every model">
+        <p className="mb-2">
+          Each question here is a step of exploratory data analysis: find the centre, measure the spread, check the
+          shape, look for the extremes. That is what step 6 of the ML workflow consists of.
+        </p>
+        <p>
+          The habit is what carries over. Practitioners who compute these by reflex catch the impossible values, the
+          wrong units and the duplicated rows before fitting anything — which is cheaper than diagnosing them later from
+          a model that trained fine and predicts badly.
+        </p>
+      </WhyAiml>
 
       <Takeaway>
         For any dataset, the same five questions: where is the middle, how spread out is it, which way does it lean, is

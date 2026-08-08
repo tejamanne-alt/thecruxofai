@@ -4,6 +4,7 @@ import { ChartCanvas, type HitTarget } from '@/components/charts/chart-canvas'
 import { accentColour, clamp, dot, drawAxes, halo, type Frame } from '@/lib/chart/frame'
 import { grad, loss } from '@/lib/model/math'
 import { useState } from 'react'
+import { UsedInAiml } from './algebra'
 import {
   ChartRow,
   Explainers,
@@ -363,6 +364,31 @@ export function GradientDescentSession() {
           ]}
         />
       </Explainers>
+
+      <UsedInAiml
+        rows={[
+          {
+            what: 'It is how essentially every model is trained',
+            how: 'Linear and logistic regression, support vector machines and every neural network are fitted by walking downhill on a loss surface. Module M3 of the ML course pairs this with linear regression in lab 2, and the same loop scales unchanged to billions of parameters.',
+          },
+          {
+            what: 'The learning rate is the hyper-parameter you tune first',
+            how: 'Too small and training crawls; too large and the steps overshoot and the loss diverges. That is not a subtlety of this page — it is the single most common reason a training run fails, and the reason schedules that shrink the rate over time exist.',
+          },
+          {
+            what: 'Stochastic and mini-batch versions are what actually run',
+            how: 'Computing the gradient on all the data at once is exact and expensive. Using one example, or a chunk, gives a noisier step far more cheaply — the batch/mini-batch/online distinction from ML Lecture 1, seen from the optimiser’s side.',
+          },
+          {
+            what: 'Local minima are the honest caveat',
+            how: 'Gradient descent finds a bottom, not necessarily the bottom. For a convex loss — least squares, logistic regression — there is only one, which is why those problems are considered solved. For a neural network there are many, and the practical finding is that most are good enough.',
+          },
+          {
+            what: 'The gradient is a vector of partial derivatives',
+            how: 'This is why the prerequisites for the ML course list partial derivatives explicitly. The direction of steepest ascent is the vector of them, and backpropagation is the chain rule applied to compute it efficiently through many layers.',
+          },
+        ]}
+      />
     </div>
   )
 }

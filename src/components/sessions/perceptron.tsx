@@ -5,6 +5,7 @@ import { accentColour, clamp, dot, drawAxes, halo, type Frame } from '@/lib/char
 import { pcData } from '@/lib/model/dataset'
 import { accuracyOf, misclassified, trainEpoch } from '@/lib/model/math'
 import { useState } from 'react'
+import { UsedInAiml } from './algebra'
 import { ChartRow, Explainers, MathBlock, PanelButton, PanelButtons, PanelNote, SessionHeader } from './session-parts'
 
 export function PerceptronSession() {
@@ -308,6 +309,31 @@ export function PerceptronSession() {
           ]}
         />
       </Explainers>
+
+      <UsedInAiml
+        rows={[
+          {
+            what: 'It is the ancestor of every neural network',
+            how: 'A single unit that takes a weighted sum of inputs and fires if it clears a threshold is one neuron. Stack layers of them, replace the hard threshold with a smooth function, and you have the networks module M4 and beyond are built from.',
+          },
+          {
+            what: 'The update rule is learning made visible',
+            how: 'Get an example wrong, nudge the weights towards it; get it right, change nothing. That is a full training loop with no calculus in it, and it makes concrete what improving with experience E means in the ⟨T, P, E⟩ definition.',
+          },
+          {
+            what: 'The decision boundary is a hyperplane',
+            how: 'The line it draws in two dimensions is a plane in three and a hyperplane in many — the same object a support vector machine positions in module M7, chosen there by a different criterion.',
+          },
+          {
+            what: 'It only works when the classes are linearly separable',
+            how: 'If no straight boundary separates the data, the rule never settles. That limitation is the historical reason interest collapsed for a while, and the reason hidden layers and kernels were invented — both are ways of bending the boundary.',
+          },
+          {
+            what: 'Its guarantee is unusually clean',
+            how: 'When a separating boundary exists, the rule is proven to find one in a finite number of updates. Very few learning algorithms come with a promise that simple, which is why it is still the first one taught.',
+          },
+        ]}
+      />
     </div>
   )
 }

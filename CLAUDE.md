@@ -17,15 +17,37 @@ Build it as a **chapter** under the right course, in the **Chapters** bucket. Ne
 4. **Record where it came from.** Each part carries the slide numbers it was built from, so any claim on the
    page can be traced back to the deck.
 5. **Write the cheat sheet, quiz and exam entries** into `knowledge.ts` for the chapter.
-6. **Every part ends with what it is for in ML and AI.** Not a line tacked on — a real paragraph naming the
-   method that uses the idea and what breaks without it. This is a course in maths *for* machine learning,
-   and the connection is the reason any of it is being learnt.
+6. **Every page under the programme curriculum ends with why ML and AI care.** No exceptions — every part of
+   every chapter, and every concept page. See the section below for what that block has to contain.
 7. **Then look at the Concepts bucket.** A chapter follows one lecture in the order it was taught. A concept takes
    one reusable idea and explains it on its own terms, so it can be reached from anywhere and used by a later
    course. After adding a chapter, add or extend the concepts the lecture introduced — one page each, reusing the
    chapter's labs, ending with links back to the parts it was drawn from. Do not duplicate the chapter; a concept
    is a different cut through the same material, aimed at someone who has forgotten it rather than someone
    revising it.
+
+## Why machine learning cares — on every single page
+
+This is the reason I am reading any of it. Every page under the programme curriculum carries the block, and
+it is judged as content, not as a footer.
+
+- **Every part page uses `WhyAiml`; every concept and chapter front page uses `UsedInAiml`.** A page without
+  one is not finished, and neither is a new lecture that adds parts without them.
+- **It must be about *this* page.** Write it against the idea the page just taught, not the chapter's general
+  area. The block on "determinant" talks about singular covariance matrices; the block on "rank" talks about
+  collinear features. Two neighbouring parts must never be able to swap blocks without anyone noticing.
+- **Name the real method, in the `method` field and in the prose.** The loss function, the kernel, the layer,
+  the regulariser, the library call. "Used in AI" on its own says nothing; "this is why `numpy.linalg.lstsq`
+  uses QR and not the normal equations" says something.
+- **Two paragraphs, not one line.** The first says where the idea shows up and what it does there. The second
+  earns its place — what *breaks* without it, the failure it explains, the exam-worthy consequence, or the
+  practical decision it settles.
+- **Statistics counts as ML too.** For the statistics course, connect to the modelling: the mean is what a
+  squared-error loss predicts, the median is what absolute-error predicts, and outliers are why that choice
+  matters.
+- **Still bound by the verification rule.** Do not invent benchmark numbers or attribute a claim to a paper
+  you have not checked. Name methods and describe mechanisms — those are checkable — rather than quoting
+  figures.
 
 ## Never print an answer you cannot verify
 

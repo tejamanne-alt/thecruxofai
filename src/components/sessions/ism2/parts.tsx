@@ -4,7 +4,7 @@
  */
 import { CommitteeLab, DiceLab, IndependenceLab, SampleSpaceLab } from '@/components/charts/prob-space-lab'
 import { AxiomLab, ConvergeLab, VennLab } from '@/components/charts/prob-venn-lab'
-import { Para, Takeaway, Terms, Worked } from '../session-parts'
+import { Para, Takeaway, Terms, WhyAiml, Worked } from '../session-parts'
 
 function Lab({ children }: { children: React.ReactNode }) {
   return <div className="my-6">{children}</div>
@@ -65,6 +65,18 @@ export const ISM2_PARTS: Record<string, React.ReactNode> = {
           { term: 'trial', def: 'One run of the experiment.' },
         ]}
       />
+      <WhyAiml method="sampling · why a train/test split is a random experiment">
+        <p className="mb-2">
+          Splitting a dataset into training and test sets is a random experiment in exactly this sense: a procedure
+          whose outcome is not determined in advance. Which rows land in the test set is the outcome.
+        </p>
+        <p>
+          That is why a single test score is an estimate rather than a fact, and why module M11 of the ML course uses
+          cross-validation. Repeating the experiment with different splits and averaging is the only way to separate how
+          good the model is from how lucky the split was.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Probability does not predict your next coin flip. It describes what happens when you flip it a great many times.
       </Takeaway>
@@ -118,6 +130,18 @@ The possible outcomes are accepted (a) and rejected (r):
           { term: 'set', def: 'A collection of things, written inside curly brackets.' },
         ]}
       />
+      <WhyAiml method="the set of classes a model can predict">
+        <p className="mb-2">
+          The sample space is the list of everything that can happen, and for a classifier that is precisely the set of
+          labels it is allowed to output. A softmax layer assigns a probability to each member of it.
+        </p>
+        <p>
+          Getting it wrong causes a specific, common failure. If a class appears in production that was not in the
+          training sample space, the model cannot express it — it will confidently assign the input to one of the
+          classes it does know. Out-of-distribution detection exists because the sample space you trained on is rarely
+          the whole one.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -178,6 +202,16 @@ For "the die shows more than 3":
           { term: 'equally likely', def: 'Every outcome has the same chance. Only then can you just count.' },
         ]}
       />
+      <WhyAiml method="what a decision threshold defines">
+        <p className="mb-2">
+          An event is any subset of outcomes, and that is what a decision rule produces. “The model predicts fraud” is
+          the event that the predicted probability exceeds your threshold — a subset of all possible outputs.
+        </p>
+        <p>
+          Thinking of it as a set is what makes the metrics readable. A true positive is the intersection of “model says
+          yes” with “truth is yes”; the confusion matrix is nothing but four such intersections, counted.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -223,6 +257,18 @@ so  P(A)  = 1 − P(Aᶜ)`}
           { term: 'at least one', def: 'Almost always a hint to work out "none at all" and subtract from 1.' },
         ]}
       />
+      <WhyAiml method="why binary metrics come in pairs">
+        <p className="mb-2">
+          P(Aᶜ) = 1 − P(A) is why binary classification metrics always come in complementary pairs. Specificity is one
+          minus the false-positive rate; a miss rate is one minus recall.
+        </p>
+        <p>
+          It also explains a shortcut worth knowing. Computing “the probability of at least one failure among n
+          independent components” directly means summing many cases; computing one minus the probability of no failures
+          takes a single line. That trick recurs whenever you reason about a system of many parts.
+        </p>
+      </WhyAiml>
+
       <Takeaway>When an event looks awkward to count, count its opposite and take it away from 1.</Takeaway>
     </>
   ),
@@ -268,6 +314,18 @@ so  P(A)  = 1 − P(Aᶜ)`}
           { term: 'Venn diagram', def: 'Overlapping circles drawn inside a box, where the box is the sample space.' },
         ]}
       />
+      <WhyAiml method="combining conditions · feature construction">
+        <p className="mb-2">
+          Union, intersection and complement are how you build compound conditions on data — customers who churned{' '}
+          <em>and</em> are on the premium plan, transactions that are large <em>or</em> foreign. Every filter you write
+          is one of these.
+        </p>
+        <p>
+          They are also the algebra behind a confusion matrix and behind ensemble voting rules. An ensemble that flags a
+          case if any member flags it is taking a union; one that requires all members to agree is taking an
+          intersection, and the two have very different precision and recall.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -318,6 +376,19 @@ if mutually exclusive   P(A ∪ B) = P(A) + P(B)
           { term: 'disjoint', def: 'Another word for mutually exclusive. Common in books.' },
         ]}
       />
+      <WhyAiml method="softmax versus sigmoid · single-label or multi-label">
+        <p className="mb-2">
+          This is one of the highest-value distinctions on the site, because it decides your output layer. Classes that
+          are mutually exclusive and exhaustive — exactly one is true — get a <strong>softmax</strong>, which forces the
+          probabilities to sum to one.
+        </p>
+        <p>
+          Classes that are not mutually exclusive — a photo can contain both a cat and a dog — need independent{' '}
+          <strong>sigmoids</strong>, one per label, each free to be high at once. Using a softmax there is a real and
+          common bug: it forces the labels to compete when they should not, and the model can never confidently report
+          two at the same time.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -378,6 +449,18 @@ if mutually exclusive   P(A ∪ B) = P(A) + P(B)
           { term: 'subjective probability', def: 'A considered degree of belief. Not countable, still useful.' },
         ]}
       />
+      <WhyAiml method="frequentist and subjective probability in modelling">
+        <p className="mb-2">
+          The two definitions map onto two ways of reading a model’s output. The frequentist reading — the long-run
+          fraction of times this is right — is what a calibration plot tests. The subjective reading is what a Bayesian
+          prior encodes.
+        </p>
+        <p>
+          Both appear in module M8 of the ML course. A naïve Bayes classifier multiplies a prior, which is a degree of
+          belief, by likelihoods estimated as frequencies from training data. Knowing which is which is what makes the
+          formula readable rather than mechanical.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -426,6 +509,19 @@ if mutually exclusive   P(A ∪ B) = P(A) + P(B)
           { term: 'permissible assignment', def: 'A set of probabilities that obeys all three axioms.' },
         ]}
       />
+      <WhyAiml method="valid probability outputs · calibration">
+        <p className="mb-2">
+          The three axioms are the specification a model’s output layer has to meet before its numbers can be called
+          probabilities. Non-negativity and summing to one are exactly what softmax enforces.
+        </p>
+        <p>
+          Meeting them is necessary and not sufficient. A model can satisfy every axiom and still be badly{' '}
+          <strong>calibrated</strong> — outputting 0.9 for cases that are right only 60% of the time. Any downstream
+          decision that compares a probability with a cost threshold depends on calibration, which is why module M11
+          checks it separately from accuracy.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Nothing negative, nothing above 1, and everything adds to exactly 1. Check those three before trusting any set
         of probabilities.
@@ -481,6 +577,18 @@ if mutually exclusive   P(A ∪ B) = P(A) + P(B)
           },
         ]}
       />
+      <WhyAiml method="why you cannot just add probabilities">
+        <p className="mb-2">
+          The subtraction in P(A ∪ B) = P(A) + P(B) − P(A ∩ B) is the correction for double counting, and forgetting it
+          is a real source of wrong answers when combining conditions or reasoning about ensembles.
+        </p>
+        <p>
+          The same correction appears as the union bound in learning theory, which bounds the probability that{' '}
+          <em>any</em> of many hypotheses looks good by chance. That bound is the formal reason why testing many models
+          on the same test set inflates your confidence — the more you try, the more likely one looks good for no
+          reason.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -546,6 +654,19 @@ Test:   P(A) × P(B) = (3/36)(9/36) = 27/1296 = 1/48
           { term: 'multiplication rule', def: 'For independent events only, P(A ∩ B) = P(A) × P(B).' },
         ]}
       />
+      <WhyAiml method="the “naïve” in naïve Bayes">
+        <p className="mb-2">
+          Independence is the assumption that makes naïve Bayes tractable: treat every feature as independent given the
+          class, and a joint probability over hundreds of features becomes a product of simple terms.
+        </p>
+        <p>
+          The assumption is nearly always false — in text, the words “machine” and “learning” plainly co-occur — and the
+          classifier often works well anyway, because it only needs to rank classes correctly, not to estimate
+          probabilities accurately. Knowing both halves of that, that the assumption is wrong and that it usually does
+          not matter for the ranking, is exactly what module M8 expects you to say.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Exclusive is about happening together. Independent is about telling you something. Different questions,
         different tests.
@@ -590,6 +711,19 @@ c)  neither 7 nor 11
         Part (c) is the complement trick from part 4 again. Counting all the sums that are not 7 or 11 would take a
         while; counting the eight that are is quick, and then you subtract.
       </Para>
+
+      <WhyAiml method="enumerating outcomes · sanity-checking a model">
+        <p className="mb-2">
+          Working a small probability out by listing every outcome is the check you run against a model that reports
+          something surprising. If a simulator or a classifier gives a number a hand-count contradicts, the code is
+          wrong.
+        </p>
+        <p>
+          It is also the logic behind Monte Carlo methods. When enumeration is impossible, you sample instead and count
+          what fraction of samples fall in the event — the same idea, approximated. Every dropout-based uncertainty
+          estimate and every bootstrap confidence interval works this way.
+        </p>
+      </WhyAiml>
 
       <Takeaway>
         When outcomes are equally likely you can just count. The hard part is making sure you are counting the right
@@ -663,6 +797,18 @@ when they are equal, so P(A) = P(B) = 1/2
 maximum P(A)·P(B) = 1/4`}
       </Worked>
 
+      <WhyAiml method="conditional reasoning · the base-rate trap">
+        <p className="mb-2">
+          Working through a probability question carefully is the discipline behind reading a classifier’s output
+          correctly, and the base rate is where intuition fails hardest.
+        </p>
+        <p>
+          The canonical case is a rare disease. A test with 99% accuracy for a condition affecting 1 in 10,000 gives a
+          positive result that is still almost certainly wrong, because the base rate dominates. Precision on an
+          imbalanced dataset behaves exactly the same way, which is why accuracy alone is worthless there.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         The addition rule has four quantities in it. Give me any three and I can find the fourth — that is most of what
         these questions are testing.
@@ -730,6 +876,18 @@ P(majority women) = 120 / 792 = 5/33 ≈ 0.1515`}
           { term: 'n!', say: 'n factorial', def: 'n × (n−1) × … × 2 × 1. And 0! is defined as 1.' },
         ]}
       />
+      <WhyAiml method="the size of a hypothesis space · combinatorial explosion">
+        <p className="mb-2">
+          Counting arrangements is what tells you how large a search is. The number of possible feature subsets,
+          decision trees, or hyper-parameter combinations is a counting problem, and it grows faster than intuition
+          expects.
+        </p>
+        <p>
+          That growth is why exhaustive search is usually impossible and why practical methods are greedy or random. A
+          random hyper-parameter search beats a grid search on the same budget precisely because of how these counts
+          behave in many dimensions.
+        </p>
+      </WhyAiml>
     </>
   ),
 
@@ -814,6 +972,18 @@ ii) exactly one    = (0.6 − 0.5) + (0.8 − 0.5)
           </>,
         ]}
       />
+
+      <WhyAiml method="the probability behind probabilistic models">
+        <p className="mb-2">
+          Each question here is a step of the reasoning that module M8 of the ML course runs at scale: combining events,
+          conditioning on what is known, and being careful about independence.
+        </p>
+        <p>
+          The habit that transfers is checking a probability against common sense before trusting it. A model that
+          reports a 30% chance of an event you know is rare is telling you something is wrong — with the data, the
+          encoding, or the calibration — and the arithmetic on this sheet is what lets you notice.
+        </p>
+      </WhyAiml>
 
       <Takeaway>
         Almost every one of these is the same three moves: write down the sample space, work out which outcomes you

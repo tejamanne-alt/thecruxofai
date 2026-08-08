@@ -20,7 +20,7 @@ import {
   RankVectorsLab,
   VectorBasicsLab,
 } from '@/components/charts/vector-space-lab'
-import { Para, Takeaway, Terms, Worked } from '../session-parts'
+import { Para, Takeaway, Terms, WhyAiml, Worked } from '../session-parts'
 
 /** A little spacer so a lab never sits flush against the words above it. */
 function Lab({ children }: { children: React.ReactNode }) {
@@ -116,6 +116,19 @@ stretching:         λx = (λx₁, λx₂, …, λxₙ)     for any real λ`}
           },
         ]}
       />
+      <WhyAiml method="embeddings · feature vectors · the shape of an instance">
+        <p className="mb-2">
+          One row of your dataset is a vector, and so is a word embedding, an image flattened into pixels, and the
+          weight vector of a trained model. Adding and stretching are the only two moves, and every method in the course
+          is built from them.
+        </p>
+        <p>
+          It is worth noticing how much rests on so little. “The embedding of <em>king</em> minus <em>man</em> plus{' '}
+          <em>woman</em>” is a sentence that only means anything because these two operations exist and stay inside the
+          space. Without closure the arithmetic would produce something that is not an embedding at all.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         A vector is a list of numbers with exactly two operations: add two of them, or stretch one. Neither ever takes
         you outside the family.
@@ -172,6 +185,18 @@ The amounts 2 and 3 are the whole answer.`}
           },
         ]}
       />
+      <WhyAiml method="what a linear layer computes · weighted features">
+        <p className="mb-2">
+          A linear combination is exactly what one neuron does: take some of each input, add them up. The coefficients
+          are the weights, and training is the search for good ones.
+        </p>
+        <p>
+          It is also what every prediction from a linear model is — price = w₁·area + w₂·rooms + w₃·age. When people say
+          a model is “linear”, this expression is what they mean, and the whole of modules M3 and M4 of the ML course is
+          about choosing its coefficients well.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         A linear combination is c₁v₁ + ⋯ + cₘvₘ. It is the only thing adding and stretching lets you build, and the rest
         of the lecture is about which points you can reach with it.
@@ -253,6 +278,19 @@ adding anything new.`}
           },
         ]}
       />
+      <WhyAiml method="multicollinearity · unstable coefficients">
+        <p className="mb-2">
+          Dependent features are the quiet killer of a linear model. If one column is a mixture of others, infinitely
+          many weight vectors give identical predictions, so the fit still runs and reports a number — but the
+          individual coefficients are arbitrary.
+        </p>
+        <p>
+          The practical symptom is instability: refit on a slightly different sample and the weights swing wildly,
+          sometimes changing sign. Anybody trying to read the model — “does area matter more than rooms?” — gets a
+          different answer each time. Independence is what makes that question answerable at all.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Independent means the only way to mix down to zero is to take none of anything. Dependent means one vector is a
         mixture of the others and could be deleted.
@@ -326,6 +364,18 @@ linearly INDEPENDENT.`}
           },
         ]}
       />
+      <WhyAiml method="spotting redundancy in a feature set">
+        <p className="mb-2">
+          The three worked cases are the three situations you meet in a real feature table: two columns that are the
+          same thing rescaled, a column that is a mixture of two others, and a genuinely independent set.
+        </p>
+        <p>
+          The middle case is the one that hides. Nobody ships a dataset with area in square metres and square feet side
+          by side, but “total spend”, “spend on food” and “spend on everything else” is exactly the same trap, and it
+          appears in real data all the time.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Dependence belongs to the collection, not to a single vector. The same two vectors can be independent alone and
         part of a dependent set once a third arrives.
@@ -397,6 +447,18 @@ Also:
           },
         ]}
       />
+      <WhyAiml method="the effective dimension of your data">
+        <p className="mb-2">
+          Rank scales to the sizes real data comes in. With 300 features you cannot draw anything, but a rank of 12
+          tells you at once that there are only 12 independent directions and the rest are restatements.
+        </p>
+        <p>
+          That number decides real choices. It bounds how many components PCA can usefully keep, it tells you whether a
+          least-squares fit has a unique answer, and when it comes out lower than the column count it says the design
+          matrix is singular before you waste time fitting.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Lay p vectors out as rows and take the rank. rank = p means independent; rank {'<'} p means dependent. And more
         vectors than components is always dependent, with no working at all.
@@ -462,6 +524,18 @@ specifically columns 1 and 3 — form an independent set.`}
           },
         ]}
       />
+      <WhyAiml method="choosing which features to keep">
+        <p className="mb-2">
+          The pivot columns pick out a maximal independent subset — which is to say, they tell you exactly which
+          features to keep and which to drop. And the reduced form tells you what the dropped ones were made of.
+        </p>
+        <p>
+          That last part is what makes this better than dropping columns by correlation. Knowing that column 5 is
+          2×column 1 plus column 3 is an explanation you can take to whoever collected the data, rather than a threshold
+          you chose because it looked reasonable.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Vectors as columns, then row-reduce. Pivot columns are the independent ones; every other column is a mixture of
         the pivot columns to its left, with the amounts printed in the tidied matrix.
@@ -520,6 +594,18 @@ specifically columns 1 and 3 — form an independent set.`}
 
 3 pivot columns, 3 columns  →  linearly independent.`}
       </Worked>
+
+      <WhyAiml method="working past the point where pictures stop">
+        <p className="mb-2">
+          Three vectors with four components each cannot be drawn, and that is the ordinary case rather than the awkward
+          one — real feature spaces have hundreds of dimensions and nobody visualises them.
+        </p>
+        <p>
+          This is why the algebraic test matters more than geometric intuition. The elimination that decides
+          independence here is the same elimination that runs on a 10,000 × 300 design matrix, and it is indifferent to
+          whether a human could picture the result.
+        </p>
+      </WhyAiml>
 
       <Takeaway>
         Count pivot columns, not surviving rows. Three pivots for three vectors means no free choice, so the only
@@ -601,6 +687,18 @@ Both sides give 50.  ✓`}
           },
         ]}
       />
+      <WhyAiml method="the inner loop of every model · similarity scores">
+        <p className="mb-2">
+          When people say a GPU performs trillions of operations a second, this is the operation. A neural network layer
+          is a pile of dot products; so is a similarity search over a million embeddings.
+        </p>
+        <p>
+          Its sign carries meaning too. A positive dot product means two vectors lean the same way, which is why a
+          recommender ranks candidates by exactly this quantity, and why the raw scores inside an attention layer are
+          dot products between queries and keys before anything else happens to them.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         The dot product multiplies matching parts and adds. Its sign says which way two vectors lean, and it is the
         source of both length and angle.
@@ -676,6 +774,18 @@ aᵀb = (3)(1) + (4)(2) = 3 + 8 = 11
           },
         ]}
       />
+      <WhyAiml method="weight decay · gradient clipping · Cauchy-Schwarz bounds">
+        <p className="mb-2">
+          The norm of the weight vector is what regularisation penalises: adding λ‖w‖² to a loss is the standard defence
+          against overfitting, and it works by preferring small weights over large ones.
+        </p>
+        <p>
+          Cauchy–Schwarz is doing quiet work as well. It is the only reason cosine similarity is guaranteed to land in
+          [−1, 1], and therefore the reason a similarity score means anything comparable across pairs. Without the
+          bound, a score of 4.7 would be possible and the number would be uninterpretable.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         The norm is √⟨a, a⟩ — Pythagoras, in any number of dimensions. Cauchy–Schwarz caps the dot product at ‖a‖‖b‖,
         which is what makes angles possible.
@@ -741,6 +851,18 @@ a and b are orthogonal.`}
           { term: 'π/2', say: 'pi over two', def: '90° in radians. Maths tends to use radians rather than degrees.' },
         ]}
       />
+      <WhyAiml method="cosine similarity · why direction beats distance">
+        <p className="mb-2">
+          Cosine similarity is this formula unchanged, and it is the default way to compare two embeddings in search,
+          recommendation and retrieval-augmented generation.
+        </p>
+        <p>
+          The reason angle is preferred over distance is that it ignores length. A long document and a short one about
+          the same subject have embeddings pointing the same way with very different magnitudes — Euclidean distance
+          calls them dissimilar, and the angle correctly calls them close.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         The angle is cos⁻¹ of the dot product divided by the two lengths. A dot product of zero means orthogonal, and
         that is the check you actually use.
@@ -817,6 +939,18 @@ Slide 20:   v₁ = (3, 0),  v₂ = (2, 4)
           },
         ]}
       />
+      <WhyAiml method="least squares · residuals · orthogonality of errors">
+        <p className="mb-2">
+          Projection is what “best fit” means. Least squares finds the point in the span of your feature columns closest
+          to the observed data, and that point is precisely the projection of y onto that span.
+        </p>
+        <p>
+          The leftover is the residual, and the fact that it comes out at right angles is not decoration — it is the
+          defining property that produces the normal equations. Every residual plot you inspect afterwards is looking at
+          that orthogonal remainder and asking whether it still contains structure the model missed.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         The projection is v = (v₂ᵀv₁ / v₁ᵀv₁) v₁, and it comes from demanding that the leftover be at right angles to
         v₁. That leftover is what model-fitting calls the residual.
@@ -903,6 +1037,19 @@ Exhaustive:  A₁ = {1, 2}, A₂ = {3, 4}, A₃ = {5, 6}
           { term: 'exhaustive', def: 'Together they cover all of Ω, so one of them must happen.' },
         ]}
       />
+      <WhyAiml method="the vocabulary probabilistic models are written in">
+        <p className="mb-2">
+          Sample space, event, mutually exclusive, exhaustive — this is the language every probabilistic model in the
+          course is defined in. Naïve Bayes, module M8, cannot even be stated without it.
+        </p>
+        <p>
+          The distinction that earns its keep is exclusive versus exhaustive. A multi-class classifier’s outputs must be
+          exhaustive, which is why a softmax sums to one; a multi-label classifier’s must not be exclusive, which is why
+          it uses independent sigmoids instead. Choosing the wrong output layer is choosing the wrong one of these two
+          words.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Ω is everything that could happen; an event is part of it. Union is or, intersection is and, complement is not.
         Exclusive means no overlap; exhaustive means no gaps.
@@ -988,6 +1135,19 @@ For a fair die:  P(1) = P(2) = ⋯ = P(6) = 1/6
           },
         ]}
       />
+      <WhyAiml method="why a model’s output probabilities must sum to one">
+        <p className="mb-2">
+          The three axioms are what makes a softmax layer look the way it does. Non-negativity and P(Ω) = 1 are exactly
+          the two constraints the exponential-and-normalise construction is designed to satisfy.
+        </p>
+        <p>
+          They also explain a real failure. A model whose class scores do not sum to one is not producing probabilities,
+          however much they look like them — and any downstream decision that multiplies or thresholds those numbers is
+          unsound. Calibration, in module M11, is the business of checking that a model’s claimed probabilities behave
+          like real ones.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Three axioms: never negative, the whole space is 1, and probabilities add when events cannot happen together.
         Everything else in probability comes from these.
@@ -1068,6 +1228,18 @@ Continuous
           },
         ]}
       />
+      <WhyAiml method="turning outcomes into numbers a model can use">
+        <p className="mb-2">
+          A random variable is the bridge from “what happened” to “a number”, and that bridge is the first step of every
+          feature-engineering pipeline. A categorical outcome becomes a one-hot vector; a click becomes a 0 or 1.
+        </p>
+        <p>
+          The distinction between the outcome and the number assigned to it matters when you encode. Giving the
+          categories poor, average, good the values 1, 2, 3 asserts that the gaps are equal and that good minus poor
+          means something — a claim about the world hidden inside a choice of encoding.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         A random variable turns outcomes into numbers. Uppercase is the rule, lowercase is a value. Discrete means a
         countable list; continuous means an interval, where single values have probability zero.
@@ -1155,6 +1327,19 @@ Continuous — pdf
           },
         ]}
       />
+      <WhyAiml method="the output layer of a classifier">
+        <p className="mb-2">
+          A probability mass function over classes is literally what a classifier returns. The requirement that the
+          values are non-negative and sum to one is what the softmax enforces, and each bar is a genuine probability you
+          can act on.
+        </p>
+        <p>
+          The continuous case behaves differently and the difference bites. A density can exceed 1, so a model that
+          outputs a density — a mixture density network, or the likelihood term in a variational autoencoder — can
+          legitimately report values above one, and reading them as probabilities is simply wrong.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         A pmf gives probabilities you can read straight off. A pdf gives densities — you must work out an area first,
         which is why single values have probability zero.
@@ -1222,6 +1407,19 @@ The middle of the interval, as you would hope.`}
           },
         ]}
       />
+      <WhyAiml method="what a loss function averages">
+        <p className="mb-2">
+          Training minimises an <em>expected</em> loss. In practice you average over a batch, which is the empirical
+          version of the sum on this page — and the whole justification for mini-batch training is that this average
+          estimates the expectation.
+        </p>
+        <p>
+          The warning that an expectation need not be an attainable value carries over directly. A model predicting the
+          expected number of purchases can output 1.4, which no customer will ever make; that is correct behaviour for a
+          regression, and misreading it as a prediction of what will happen is a common mistake in reporting.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Expectation is the balance point of a distribution: each value weighted by its probability. It need not be a
         value the variable can actually take.
@@ -1301,6 +1499,19 @@ Step 4 — the standard deviation
           },
         ]}
       />
+      <WhyAiml method="the bias-variance trade-off · uncertainty estimates">
+        <p className="mb-2">
+          Variance is half of the most important trade-off in the subject. A model too simple for the data has high
+          bias; one too flexible has high variance, meaning it swings wildly with the particular sample it was trained
+          on. Module M11 is largely about navigating between them.
+        </p>
+        <p>
+          It also underlies feature scaling. Standardising a column divides by its standard deviation, which is what
+          stops a feature measured in thousands from dominating one measured in units — and that matters to every
+          distance-based and gradient-based method in the course.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Variance is the average squared distance from the mean; the standard deviation is its square root, back in the
         original units. This lecture divides by n — the Statistics course divides by n − 1.
@@ -1386,6 +1597,19 @@ exactly 2x, so the two always move together.`}
           },
         ]}
       />
+      <WhyAiml method="the covariance matrix · PCA · whitening">
+        <p className="mb-2">
+          Collect every pairwise covariance into one symmetric matrix and you have the object behind PCA, behind the
+          multivariate normal, and behind whitening a dataset. Module M10 of the ML course runs on it.
+        </p>
+        <p>
+          Its two limitations are both practical. The magnitude carries the product of two units and so cannot be
+          compared across pairs — which is why correlation exists. And it sees only straight-line relationships, so a
+          strong curved dependence can produce a covariance near zero. Reporting “no relationship” from that number
+          alone is a real and common error.
+        </p>
+      </WhyAiml>
+
       <Takeaway>
         Covariance multiplies the two distances-from-average for each point and averages the results. Its sign says
         whether the variables move together; its size means little until you divide the units out.
@@ -1545,6 +1769,18 @@ Check:  3(−5/3) + 5 = −5 + 5 = 0   ✓`}
 The negative dot product told you in advance that the angle
 would be over 90°, so this is a useful sanity check.`}
       </Worked>
+
+      <WhyAiml method="the arithmetic behind the methods">
+        <p className="mb-2">
+          These questions are the operations a library performs for you: a dot product, a norm, a projection, an
+          expectation, a covariance. Doing them once by hand is what turns a function call into something you can check.
+        </p>
+        <p>
+          It is also how the two halves of this lecture join up. The covariance of two columns is a dot product of their
+          centred versions, divided by n — so the geometry from the first half and the statistics from the second are
+          the same arithmetic wearing different names.
+        </p>
+      </WhyAiml>
 
       <Takeaway>
         All six are decidable and all six were checked. Q1 by substituting back into the third equation that the working
