@@ -8,6 +8,10 @@ export type TopicId =
   | 'gradient'
   | 'kmeans'
   | 'perceptron'
+  | 'neuron'
+  | 'linsep'
+  | 'lossfn'
+  | 'dl1'
   | 'matmul'
   | 'determinant'
   | 'rank'
@@ -64,6 +68,12 @@ export interface Course {
   syllabus: string
   /** True when the brochure prints the title without a syllabus. */
   syllabusIsPlaceholder: boolean
+  /**
+   * Anything that differs between the brochure and how the course is really
+   * running — the semester it is taught in, say. Printed under the syllabus so
+   * the page never quietly contradicts the published document.
+   */
+  note?: string
 }
 
 export interface SessionMeta {
@@ -92,7 +102,9 @@ function placeholderSyllabus(group: GroupId) {
 export const groups: Group[] = raw.groups as Group[]
 
 export const courses: Course[] = (
-  raw.courses as Array<Omit<Course, 'syllabus' | 'syllabusIsPlaceholder'> & { syllabus: string | null }>
+  raw.courses as Array<
+    Omit<Course, 'syllabus' | 'syllabusIsPlaceholder' | 'note'> & { syllabus: string | null; note?: string }
+  >
 ).map((c) => ({
   id: c.id,
   group: c.group,
@@ -100,6 +112,7 @@ export const courses: Course[] = (
   topics: c.topics,
   syllabus: c.syllabus ?? placeholderSyllabus(c.group),
   syllabusIsPlaceholder: c.syllabus === null,
+  note: c.note,
 }))
 
 export const sessions: SessionMeta[] = Object.entries(

@@ -1,8 +1,10 @@
 'use client'
 
+import type { TopicId } from '@/lib/data/curriculum'
 import clsx from 'clsx'
 import type React from 'react'
 import { useState } from 'react'
+import { Connections } from './connections'
 
 /* ---------------------------------------------------------------- headings */
 
@@ -302,6 +304,8 @@ export function SubSections({ items }: { items: SubSectionItem[] }) {
  * never need the left menu.
  */
 export function PartShell({
+  topic,
+  part,
   chapter,
   chapterHref,
   title,
@@ -313,6 +317,9 @@ export function PartShell({
   next,
   children,
 }: {
+  /** Which page this is, so the cross-course links can be looked up. */
+  topic: TopicId
+  part: string
   chapter: string
   chapterHref: string
   title: string
@@ -341,6 +348,12 @@ export function PartShell({
       <p className="crux-prose mb-6 max-w-[660px] text-[15px]/[1.6] text-zinc-700">{teaser}</p>
 
       {children}
+
+      {/*
+       * Driven entirely by connections.ts, so an older lecture is told it is
+       * being used by a later one without its own file changing.
+       */}
+      <Connections topic={topic} part={part} />
 
       <div className="mt-10 grid gap-3 border-t border-zinc-950/[0.08] pt-5 sm:grid-cols-2">
         {prev ? (

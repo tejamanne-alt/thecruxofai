@@ -4,13 +4,13 @@
     {
       "id": "s1",
       "label": "Semester 1",
-      "meta": "4 courses",
+      "meta": "5 courses",
       "hint": "core"
     },
     {
       "id": "s2",
       "label": "Semester 2",
-      "meta": "2 core + 2 electives",
+      "meta": "1 core + 2 electives",
       "hint": "core"
     },
     {
@@ -91,10 +91,11 @@
     },
     {
       "id": "dnn",
-      "group": "s2",
+      "group": "s1",
       "name": "Deep Neural Networks",
-      "topics": ["perceptron"],
-      "syllabus": "Introduction to neural networks; linear neural networks for regression and classification; deep feedforward networks; backpropagation; deep network training; regularization and optimization; transfer learning and fine-tuning; convolutional neural networks; recurrent neural networks; attention mechanisms; transformers and vision transformers."
+      "topics": ["perceptron", "neuron", "linsep", "lossfn", "dl1"],
+      "syllabus": "Introduction to neural networks; linear neural networks for regression and classification; deep feedforward networks; backpropagation; deep network training; regularization and optimization; transfer learning and fine-tuning; convolutional neural networks; recurrent neural networks; attention mechanisms; transformers and vision transformers.",
+      "note": "The brochure prints this course under Semester 2. It sits here under Semester 1 because that is when the sessions are actually running — the syllabus above is still the published one, word for word."
     },
     {
       "id": "drl",
@@ -423,6 +424,26 @@
       "chart": "boundary",
       "blurb": "One neuron rotating a line into place, one mistake at a time.",
       "kind": "concept"
+    },
+    "neuron": {
+      "label": "The artificial neuron",
+      "blurb": "Weights, a sum and a decision. Drag three weights and watch one number decide the answer — the same dot product you met in the maths course, wearing a different hat.",
+      "kind": "concept"
+    },
+    "linsep": {
+      "label": "Linear separability and the decision boundary",
+      "blurb": "When one straight line is enough, and what it costs when it is not. Move a boundary through thirteen points, then meet the four points no line can ever split.",
+      "kind": "concept"
+    },
+    "lossfn": {
+      "label": "Objective functions: what learning actually minimises",
+      "blurb": "Lower is better, by convention. Compare squared error against error rate on the same predictions and watch them disagree about which model is best.",
+      "kind": "concept"
+    },
+    "dl1": {
+      "label": "Session 1 — Fundamentals of Neural Networks",
+      "blurb": "What makes learning deep, the four parts every deep learning problem has, and the single neuron the whole field is built on. Solve a logic gate by hand, train one with the perceptron rule, then find the gate that breaks it and fix it with a hidden layer.",
+      "kind": "chapter"
     },
     "matmul": {
       "label": "Multiplying matrices",

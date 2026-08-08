@@ -889,6 +889,159 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
       slides: 'Slides 34–39',
     },
   ],
+
+  dl1: [
+    {
+      id: 'map',
+      title: 'What this course is',
+      teaser: 'Ten modules, six labs, and where the marks are. Move the sliders and watch the grade you would need.',
+      slides: 'Slides 4–7',
+    },
+    {
+      id: 'whatisdl',
+      title: 'What makes learning “deep”',
+      teaser:
+        'Five definitions from one slide, and the one word they all share. Stack layers and watch the features change.',
+      slides: 'Slides 12, 15',
+    },
+    {
+      id: 'nesting',
+      title: 'AI, machine learning, neural networks, deep learning',
+      teaser: 'Four rings inside each other. Drop a technique in and find out which ring it lands in.',
+      slides: 'Slides 13, 14',
+    },
+    {
+      id: 'whynow',
+      title: 'Why deep learning, and why now',
+      teaser: 'Ten reasons on one slide. Drag the amount of data and watch which model wins.',
+      slides: 'Slides 17, 18',
+    },
+    {
+      id: 'history',
+      title: 'Seventy years in one line',
+      teaser: 'From the 1943 artificial neuron to ChatGPT, with two winters in between. Scrub the timeline.',
+      slides: 'Slide 19',
+    },
+    {
+      id: 'apps',
+      title: 'What people actually build',
+      teaser:
+        'Input, output, network type. Pick an application and see which of the two supervised shapes it really is.',
+      slides: 'Slides 21–28',
+    },
+    {
+      id: 'components',
+      title: 'The four parts of every deep learning problem',
+      teaser: 'Data, model, objective, algorithm. Take one away and see exactly what stops working.',
+      slides: 'Slides 29, 30',
+    },
+    {
+      id: 'data',
+      title: 'Data: examples, features, labels, dimensionality',
+      teaser: 'Turn four things in the world into rows of numbers, and watch the shape of the matrix appear.',
+      slides: 'Slides 31, 32',
+    },
+    {
+      id: 'model',
+      title: 'Model: a program with the numbers left blank',
+      teaser:
+        'A model family is a program with holes in it. Fill the holes and watch one family produce many programs.',
+      slides: 'Slides 33, 38–40',
+    },
+    {
+      id: 'objective',
+      title: 'Objective functions: lower is better',
+      teaser: 'Squared error for numbers, error rate for categories. Move a prediction and watch the two disagree.',
+      slides: 'Slides 34, 35',
+    },
+    {
+      id: 'generalise',
+      title: 'Training loss is not the point',
+      teaser: 'The moment training loss and unseen loss part company has a name. Turn up the flexibility and find it.',
+      slides: 'Slide 36',
+    },
+    {
+      id: 'optimiser',
+      title: 'The algorithm that does the searching',
+      teaser:
+        'Gradient descent, named as the family every deep learning optimiser belongs to. Roll a ball down a loss.',
+      slides: 'Slide 37',
+    },
+    {
+      id: 'brain',
+      title: 'The observation about the brain',
+      teaser:
+        'Ten billion neurons, a millisecond each, one second to recognise a scene. Work out how many steps that leaves.',
+      slides: 'Slides 44–48',
+    },
+    {
+      id: 'neuron',
+      title: 'The artificial neuron',
+      teaser: 'Inputs, weights, a sum, a decision. Drag three weights and watch one number change its mind.',
+      slides: 'Slides 49–51',
+    },
+    {
+      id: 'perceptron',
+      title: 'The perceptron',
+      teaser: 'The sum, then the threshold. Drag the boundary and watch every point be re-judged.',
+      slides: 'Slides 52, 53',
+    },
+    {
+      id: 'notgate',
+      title: 'Solving the NOT gate by hand',
+      teaser: 'Two rows, two inequalities, one region of answers. Type weights in and watch both rows go green.',
+      slides: 'Slides 54–56',
+    },
+    {
+      id: 'andor',
+      title: 'AND and OR, worked in full',
+      teaser: 'Four rows each, and the deck’s own answers reproduced. Drag the boundary until all four rows agree.',
+      slides: 'Slides 57–62',
+    },
+    {
+      id: 'exercise',
+      title: 'The exercise: NOR and NAND',
+      teaser:
+        'The deck asks and does not answer. Two answers worked out here, and checked by the lab against all four rows.',
+      slides: 'Slide 60',
+    },
+    {
+      id: 'learning',
+      title: 'The perceptron learning algorithm',
+      teaser: 'Δw = η(t − o)x, one symbol at a time, and why it converges only sometimes.',
+      slides: 'Slides 65–67',
+    },
+    {
+      id: 'trace',
+      title: 'The training trace, row by row',
+      teaser: 'The deck’s own table for the NOT gate. Step through it and land on its numbers exactly.',
+      slides: 'Slides 68, 69',
+    },
+    {
+      id: 'hyperplane',
+      title: 'What a perceptron can represent',
+      teaser: 'One hyperplane, and w is the arrow at right angles to it. Turn the arrow, watch the plane follow.',
+      slides: 'Slide 72',
+    },
+    {
+      id: 'separable',
+      title: 'Linearly separable data',
+      teaser: 'Thirteen points and one line, straight from the deck. Every point checked against 2x₁ + 3x₂ − 25.',
+      slides: 'Slides 73–76',
+    },
+    {
+      id: 'xor',
+      title: 'The data no line can split',
+      teaser: 'Four points and a proof by exhaustion. Try every line you like — the lab keeps score.',
+      slides: 'Slides 77–79',
+    },
+    {
+      id: 'mlp',
+      title: 'The fix: a hidden layer',
+      teaser: 'Two neurons in the middle turn XOR into something a third can finish. Push all four inputs through it.',
+      slides: 'Slides 80, 81',
+    },
+  ],
 }
 
 export function partsOf(topic: TopicId): PartMeta[] {

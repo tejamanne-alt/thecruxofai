@@ -1,3 +1,4 @@
+import { DL1_PARTS } from '@/components/sessions/dl1/parts'
 import { ISM1_PARTS } from '@/components/sessions/ism1/parts'
 import { ISM2_PARTS } from '@/components/sessions/ism2/parts'
 import { LEC0A_PARTS } from '@/components/sessions/lec0a/parts'
@@ -24,6 +25,7 @@ const BODIES: Record<string, Record<string, React.ReactNode>> = {
   lec2: LEC2_PARTS,
   lec3: LEC3_PARTS,
   mllec1: MLLEC1_PARTS,
+  dl1: DL1_PARTS,
   ism1: ISM1_PARTS,
   ism2: ISM2_PARTS,
 }
@@ -75,6 +77,8 @@ export default async function PartPage({
 
   return (
     <PartShell
+      topic={sessionId}
+      part={partId}
       chapter={sessionById[sessionId].label}
       chapterHref={`/session/${sessionId}`}
       title={part.title}
