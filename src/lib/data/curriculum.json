@@ -93,7 +93,7 @@
       "id": "dnn",
       "group": "s1",
       "name": "Deep Neural Networks",
-      "topics": ["perceptron", "neuron", "linsep", "lossfn", "dl1"],
+      "topics": ["perceptron", "neuron", "activation", "linsep", "lossfn", "metrics", "designmat", "dl1", "dl2", "dl3"],
       "syllabus": "Introduction to neural networks; linear neural networks for regression and classification; deep feedforward networks; backpropagation; deep network training; regularization and optimization; transfer learning and fine-tuning; convolutional neural networks; recurrent neural networks; attention mechanisms; transformers and vision transformers.",
       "note": "The brochure prints this course under Semester 2. It sits here under Semester 1 because that is when the sessions are actually running — the syllabus above is still the published one, word for word."
     },
@@ -439,6 +439,31 @@
       "label": "Objective functions: what learning actually minimises",
       "blurb": "Lower is better, by convention. Compare squared error against error rate on the same predictions and watch them disagree about which model is best.",
       "kind": "concept"
+    },
+    "activation": {
+      "label": "Activation functions: the bend that makes depth worth having",
+      "blurb": "The step that cannot be trained, the identity that changes nothing, and the shapes in between. Stack two layers with each and watch which ones collapse.",
+      "kind": "concept"
+    },
+    "metrics": {
+      "label": "Scoring a regression: MSE, RMSE, MAE and R²",
+      "blurb": "Four numbers about the same predictions. Drag one point to the far end and watch which of them notice.",
+      "kind": "concept"
+    },
+    "designmat": {
+      "label": "The design matrix, and predicting a whole dataset at once",
+      "blurb": "Glue a column of ones onto your data and the bias becomes an ordinary weight. Then every prediction in the set is one matrix multiply.",
+      "kind": "concept"
+    },
+    "dl2": {
+      "label": "Session 2 — The perceptron",
+      "blurb": "The same unit again, in the notation the rest of the course uses: z = Σwᵢxᵢ + b, then an activation. Solve the gates in the 0/1 encoding, run the learning algorithm with a separate bias update, and keep the four output conventions straight.",
+      "kind": "chapter"
+    },
+    "dl3": {
+      "label": "Session 3 — Linear neural networks for regression",
+      "blurb": "One neuron with no bend at all. Build the design matrix, write the squared-error loss, take its gradient, and follow the deck's own numerical example from a loss of 7.5 down to 1.51 in a single step.",
+      "kind": "chapter"
     },
     "dl1": {
       "label": "Session 1 — Fundamentals of Neural Networks",

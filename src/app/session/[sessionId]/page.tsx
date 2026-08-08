@@ -1,6 +1,9 @@
 import { AlgebraSession } from '@/components/sessions/algebra'
 import { Dl1Overview } from '@/components/sessions/dl1/overview'
+import { Dl2Overview } from '@/components/sessions/dl2/overview'
+import { Dl3Overview } from '@/components/sessions/dl3/overview'
 import { LinSepConcept, LossConcept, NeuronConcept } from '@/components/sessions/dnn-concepts'
+import { ActivationConcept, DesignMatConcept, MetricsConcept } from '@/components/sessions/dnn-concepts2'
 import { GradientDescentSession } from '@/components/sessions/gradient-descent'
 import { Ism1Overview } from '@/components/sessions/ism1/overview'
 import { Ism2Overview } from '@/components/sessions/ism2/overview'
@@ -43,6 +46,11 @@ const OVERVIEWS: Record<TopicId, () => React.ReactElement> = {
   linsep: LinSepConcept,
   lossfn: LossConcept,
   dl1: Dl1Overview,
+  dl2: Dl2Overview,
+  dl3: Dl3Overview,
+  activation: ActivationConcept,
+  metrics: MetricsConcept,
+  designmat: DesignMatConcept,
   matmul: MatrixMultiplyConcept,
   determinant: DeterminantConcept,
   rank: RankConcept,

@@ -1042,6 +1042,270 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
       slides: 'Slides 80, 81',
     },
   ],
+
+  dl2: [
+    {
+      id: 'module',
+      title: 'What module 2 is for',
+      teaser:
+        'The same unit as session 1, in the notation the rest of the course uses. Line the two decks up and see what actually changed.',
+      slides: 'PDF pages 2–3',
+    },
+    {
+      id: 'brain',
+      title: 'How humans learn, and the arithmetic behind it',
+      teaser: 'Association, ten billion neurons, a millisecond each. Work out how many steps that leaves.',
+      slides: 'PDF pages 4–6',
+    },
+    {
+      id: 'bioneuron',
+      title: 'The biological neuron, part by part',
+      teaser:
+        'Dendrites in, soma decides, axon out, synapses connect. Trace a signal through and see which artificial part each one became.',
+      slides: 'PDF page 7',
+    },
+    {
+      id: 'neuron',
+      title: 'The artificial neuron N',
+      teaser: 'One weight per feature, saying how much it matters. Drag the weights and watch importance change hands.',
+      slides: 'PDF pages 8–10',
+    },
+    {
+      id: 'maths',
+      title: 'z = Σ wᵢxᵢ + b, then f',
+      teaser:
+        'The two equations the whole course is written in. Pick an activation and watch the same z become four different answers.',
+      slides: 'PDF page 11',
+    },
+    {
+      id: 'compare',
+      title: 'Biological against artificial',
+      teaser:
+        'Six rows, and only some of them are flattering. Take each claim and decide whether it is a likeness or a difference.',
+      slides: 'PDF page 12',
+    },
+    {
+      id: 'ann',
+      title: 'From one neuron to a network',
+      teaser: 'Layers, and three kinds of interconnection. Build a network and watch the parameter count explode.',
+      slides: 'PDF pages 13–14',
+    },
+    {
+      id: 'whenann',
+      title: 'When a neural network is the right answer',
+      teaser: 'Five conditions, and one of them is a warning. Score a problem against all five.',
+      slides: 'PDF pages 15–16',
+    },
+    {
+      id: 'connectionism',
+      title: 'Connectionism: the knowledge is in the wiring',
+      teaser: 'No single unit knows anything. Delete one and watch the network barely notice.',
+      slides: 'PDF pages 17–18',
+    },
+    {
+      id: 'perceptron',
+      title: 'The perceptron, as this deck defines it',
+      teaser: 'Rosenblatt 1958, and an output of 1 or 0 decided by ≥ 0. Drag the boundary and watch the rule fire.',
+      slides: 'PDF pages 19–21',
+    },
+    {
+      id: 'andgate',
+      title: 'AND, in the 0/1 encoding',
+      teaser:
+        'Four rows, four inequalities, and the deck’s answer w = (−1, 0.75, 0.75). Every row checked as you watch.',
+      slides: 'PDF pages 22–26',
+    },
+    {
+      id: 'orgate',
+      title: 'OR, and how little has to change',
+      teaser: 'Same bias, bigger weights. Slide from the AND answer to the OR answer and see the corner change hands.',
+      slides: 'PDF pages 27–29',
+    },
+    {
+      id: 'exercise',
+      title: 'The exercise: NOR and NAND',
+      teaser:
+        'The deck asks and does not answer. Worked out here in its own encoding, and checked against all four rows.',
+      slides: 'PDF page 30',
+    },
+    {
+      id: 'pla',
+      title: 'The learning algorithm, line by line',
+      teaser: 'Random start, η = 0.1, and a bias that updates on its own line. Run it on any gate and watch it stop.',
+      slides: 'PDF pages 31–32',
+    },
+    {
+      id: 'nottrace',
+      title: 'The NOT gate, worked epoch by epoch',
+      teaser: 'The deck’s own four steps, reproduced by running the rule — including the two labels it gets wrong.',
+      slides: 'PDF pages 33–35',
+    },
+    {
+      id: 'xor',
+      title: 'XOR, and why one line cannot do it',
+      teaser:
+        'The same four points in the 0/1 encoding. Try every line the lab will let you, then read the two-line proof.',
+      slides: 'PDF pages 36–37',
+    },
+    {
+      id: 'separable',
+      title: 'Linearly separable data, defined properly',
+      teaser: 'An (n − 1)-dimensional hyperplane, and infinitely many of them. Count the separators for yourself.',
+      slides: 'PDF pages 39–41',
+    },
+    {
+      id: 'fourparts',
+      title: 'The perceptron as a full learning system',
+      teaser:
+        'Data, model, objective, algorithm — with an objective named for the first time. Then h = wᵀx in one line.',
+      slides: 'PDF pages 42–43',
+    },
+    {
+      id: 'encodings',
+      title: 'Four conventions, and how not to lose marks',
+      teaser:
+        'This deck uses three output rules and session 1 used a fourth. Feed one set of weights to each and watch the answers disagree.',
+      slides: 'PDF pages 21, 33, 43 · Session 1 slide 53',
+    },
+  ],
+
+  dl3: [
+    {
+      id: 'whatis',
+      title: 'What regression is',
+      teaser:
+        'A continuous number out, not a category. Drag a target between the two kinds of task and watch the name change.',
+      slides: 'Slides 4–5',
+    },
+    {
+      id: 'linear',
+      title: 'What makes it linear',
+      teaser:
+        'A weighted sum of the features and nothing else. Bend the truth and watch a straight model fail honestly.',
+      slides: 'Slides 7–9',
+    },
+    {
+      id: 'components',
+      title: 'The four components, for regression',
+      teaser:
+        'The same checklist as session 1, filled in with this session’s answers. Take one away and see what stops.',
+      slides: 'Slide 11',
+    },
+    {
+      id: 'design',
+      title: 'The design matrix',
+      teaser: 'Glue a column of ones on the front and the bias becomes an ordinary weight. Build X row by row.',
+      slides: 'Slide 12',
+    },
+    {
+      id: 'neuron',
+      title: 'Linear regression is one neuron',
+      teaser:
+        'Same picture as the perceptron, different last box. Feed a point through both and watch where they part.',
+      slides: 'Slides 13–14',
+    },
+    {
+      id: 'identity',
+      title: 'The identity activation',
+      teaser: 'f(z) = z, and f′(z) = 1. Compare it against the step and see which one a gradient can pass through.',
+      slides: 'Slides 15–16',
+    },
+    {
+      id: 'loss',
+      title: 'Squared error, per example and in total',
+      teaser:
+        'The ½ that makes the derivative tidy, and the 1/N that makes it a mean. Drag a point and watch both numbers move.',
+      slides: 'Slide 17',
+    },
+    {
+      id: 'whysq',
+      title: 'Why squared error and not something else',
+      teaser:
+        'Four reasons on one slide, and the vector form. Swap in absolute error and watch which of the four survive.',
+      slides: 'Slide 18',
+    },
+    {
+      id: 'surface',
+      title: 'The error surface',
+      teaser:
+        'Every choice of weights is a point, and the height is the loss. Drag the line and watch the bowl fill in.',
+      slides: 'Slide 19',
+    },
+    {
+      id: 'gd',
+      title: 'Gradient descent, the idea',
+      teaser: 'Stand on the surface and step downhill. One step at a time, with the slope deciding the direction.',
+      slides: 'Slide 20',
+    },
+    {
+      id: 'batch',
+      title: 'The batch algorithm, line by line',
+      teaser: 'Nine lines of pseudocode. Step through them and watch each variable change.',
+      slides: 'Slide 21',
+    },
+    {
+      id: 'gradient',
+      title: 'Computing the gradient',
+      teaser: '∇J = (1/N)Xᵀ(Xw − y), built up one matrix at a time and checked against the sum it came from.',
+      slides: 'Slide 22',
+    },
+    {
+      id: 'update',
+      title: 'The update rule, and what η does',
+      teaser: 'Too large overshoots, too small crawls. Find the value where it stops converging at all.',
+      slides: 'Slides 23–24',
+    },
+    {
+      id: 'example',
+      title: 'The worked example, step by step',
+      teaser:
+        'Three houses, w = 0, η = 0.1. Follow the deck from a loss of 7.5 to 1.51 in one iteration, every number recomputed.',
+      slides: 'Slides 26–30',
+    },
+    {
+      id: 'graph',
+      title: 'The computational graph',
+      teaser:
+        'Forwards to the loss, backwards to the gradient. Press each node and watch the value flowing through it.',
+      slides: 'Slide 31',
+    },
+    {
+      id: 'traintest',
+      title: 'Training error against test error',
+      teaser: 'Two numbers from the same formula on different rows. Move the split and watch them come apart.',
+      slides: 'Slide 33',
+    },
+    {
+      id: 'metrics',
+      title: 'MSE, RMSE and MAE',
+      teaser: 'Three summaries of the same errors. Drag one point to the far end and see which ones panic.',
+      slides: 'Slide 34',
+    },
+    {
+      id: 'r2',
+      title: 'R², and what “no better than the mean” means',
+      teaser: 'A score with a baseline built in. Push a model below zero and find out what that says about it.',
+      slides: 'Slide 35',
+    },
+    {
+      id: 'tips',
+      title: 'Choosing η, stopping, scaling',
+      teaser: 'The practical half. Put two features on wildly different scales and watch training crawl.',
+      slides: 'Slides 39–40',
+    },
+    {
+      id: 'debug',
+      title: 'The debugging checklist',
+      teaser: 'Four symptoms with named causes. Break the training run four ways and match each to its line.',
+      slides: 'Slide 41',
+    },
+    {
+      id: 'summary',
+      title: 'The whole loop, in one picture',
+      teaser: 'Data, model, objective, learning — round and round. Run the loop end to end and watch it settle.',
+      slides: 'Slides 43–45',
+    },
+  ],
 }
 
 export function partsOf(topic: TopicId): PartMeta[] {
