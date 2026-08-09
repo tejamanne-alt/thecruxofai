@@ -1,6 +1,7 @@
 'use client'
 
 import { ChartCanvas, type HitTarget } from '@/components/charts/chart-canvas'
+import { LabBox } from '@/components/charts/matrix-ui'
 import {
   ChartRow,
   PanelButton,
@@ -136,7 +137,7 @@ export function SampleSizeLab() {
   const errN1 = draws ? ((avgN1 - TRUE_VAR) / TRUE_VAR) * 100 : 0
 
   return (
-    <div className="grid items-start gap-5 rounded-lg border border-zinc-950/10 p-4 lg:grid-cols-[minmax(0,1fr)_300px]">
+    <LabBox layout="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_300px]">
       <div className="flex flex-col gap-4">
         <p className="text-[13px]/[1.65] text-zinc-700">
           There is a population of {POP_SIZE} values hiding behind this. Its true variance is{' '}
@@ -201,7 +202,7 @@ export function SampleSizeLab() {
           more the correction matters — which is why it exists at all.
         </PanelNote>
       </div>
-    </div>
+    </LabBox>
   )
 }
 
@@ -230,7 +231,7 @@ export function QuartileLab() {
   }
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <div className="overflow-x-auto">
         <div className="inline-flex gap-1">
           {s.sorted.map((v, i) => {
@@ -314,7 +315,7 @@ position of Q3     = 3 × (n + 1) / 4 = ${show(posQ3, 2)}`}
         Five numbers describe the whole set: the smallest ({show(s.min, 1)}), Q1 ({show(s.q1, 2)}), the median (
         {show(s.median, 2)}), Q3 ({show(s.q3, 2)}) and the largest ({show(s.max, 1)}). That is the five-point summary.
       </PanelNote>
-    </div>
+    </LabBox>
   )
 }
 

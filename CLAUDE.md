@@ -208,6 +208,11 @@ Run the real thing in a browser and prove it works:
   the arrow keys, a slider, a tick box, a number box or a button, in that order. It exists because the
   element-hunting version could not see a canvas at all and quietly passed four drag-only labs it had
   never touched. Adding a lab means this must still pass, and so must the count — 204 part routes today.
+- **Every lab goes through `LabBox` or `ChartRow`, and nothing else draws that frame.** Both set
+  `data-lab`, and the checker looks for controls inside it and nowhere else — so a part with no lab now
+  fails instead of quietly passing on a tab button. Twenty labs used to draw the border, radius and
+  padding by hand, which is why a third of the site was unmarked. If a lab needs a different layout, pass
+  `layout` to `LabBox`; do not hand-roll the frame again.
 - Every control the reader has to *see* is checked by reading its size and colour back out of the page, not
   by trusting that the CSS applied. A pseudo-element that silently paints nothing looks fine in a
   screenshot test and wrong on a laptop.

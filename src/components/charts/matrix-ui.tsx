@@ -136,16 +136,21 @@ export function NumBox({
   )
 }
 
-/** The frame every lab sits in. */
 /**
  * The frame every lab sits in. `data-lab` marks it so a verification run can
  * find the interactive part of a page and tell its controls apart from the
  * page furniture — the tabs and the previous/next links, which are on every
  * part whether or not it has a lab.
+ *
+ * Twenty labs in the older chapters drew this same frame by hand, so they
+ * carried no marker and nothing could scope a check to them. The frame — the
+ * border, the radius, the padding — belongs here. `layout` stays at the call
+ * site, because whether a lab stacks or splits into chart-and-panel is about
+ * that lab, not about being a lab.
  */
-export function LabBox({ children }: { children: React.ReactNode }) {
+export function LabBox({ children, layout }: { children: React.ReactNode; layout?: string }) {
   return (
-    <div data-lab className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <div data-lab className={clsx('rounded-lg border border-zinc-950/10 p-4', layout ?? 'flex flex-col gap-4')}>
       {children}
     </div>
   )

@@ -1,5 +1,6 @@
 'use client'
 
+import { LabBox } from '@/components/charts/matrix-ui'
 import clsx from 'clsx'
 import { useState } from 'react'
 
@@ -44,7 +45,7 @@ export function MatrixProductLab() {
   }
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <div className="flex flex-wrap items-start gap-6">
         <Labelled title={`A — ${a.length} rows × ${a[0].length} columns`}>
           <Editable grid={a} onEdit={(i, j, v) => edit(a, setA, i, j, v)} highlightRow={sel?.i ?? null} />
@@ -110,7 +111,7 @@ export function MatrixProductLab() {
           ? 'BA happens to work too, and it gives a different answer — order matters.'
           : `BA does not work at all: a row of B is ${b[0].length} long but a column of A is ${a.length} long.`}
       </p>
-    </div>
+    </LabBox>
   )
 }
 
@@ -137,7 +138,7 @@ export function InverseExplorer() {
   const show = (v: number) => (Number.isInteger(v) ? String(v) : v.toFixed(2))
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <div className="flex flex-wrap items-start gap-6">
         <Labelled title="A — change any number">
           <Editable
@@ -216,7 +217,7 @@ export function InverseExplorer() {
           The do-nothing matrix
         </Chip>
       </div>
-    </div>
+    </LabBox>
   )
 }
 

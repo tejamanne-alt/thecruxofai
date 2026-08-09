@@ -1,5 +1,6 @@
 'use client'
 
+import { LabBox } from '@/components/charts/matrix-ui'
 import { PanelButton, PanelButtons, PanelNote } from '@/components/sessions/session-parts'
 import {
   addRow,
@@ -127,7 +128,7 @@ export function EliminationLab() {
   const rowOptions = Array.from({ length: rowCount }, (_, i) => i)
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <div>
         <div className="mb-2 text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">
           Pick a system to work on
@@ -320,7 +321,7 @@ export function EliminationLab() {
           </p>
         </div>
       </div>
-    </div>
+    </LabBox>
   )
 }
 
@@ -408,7 +409,7 @@ export function InverseByElimination() {
   }
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <p className="text-[13px]/[1.65] text-zinc-700">
         The left half starts as your matrix A and the right half starts as the identity. Press <strong>Run it</strong>{' '}
         and watch them swap jobs.
@@ -495,6 +496,6 @@ export function InverseByElimination() {
         Why does this work? Each column of A⁻¹ answers the little system Ax = (one column of the identity). They all
         share the same A, so they need the same row moves — and doing them side by side does all of them at once.
       </PanelNote>
-    </div>
+    </LabBox>
   )
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { LabBox } from '@/components/charts/matrix-ui'
 import { PanelNote, RangeInput } from '@/components/sessions/session-parts'
 import clsx from 'clsx'
 import { useState } from 'react'
@@ -30,7 +31,7 @@ export function MatrixShapeLab() {
             : 'a rectangular matrix'
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <div className="flex flex-wrap items-center gap-4">
         <Stepper label="Rows" value={rows} onChange={setRows} />
         <Stepper label="Columns" value={cols} onChange={setCols} />
@@ -94,7 +95,7 @@ export function MatrixShapeLab() {
         Set the columns to 1. You now have a column vector. Vectors are not a different thing from matrices — they are
         just very thin ones.
       </PanelNote>
-    </div>
+    </LabBox>
   )
 }
 
@@ -127,7 +128,7 @@ export function MatrixAddLab() {
     : b
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <div className="flex flex-wrap items-start gap-5">
         <Titled title={`A — 2 × 3`}>
           <Cells
@@ -192,7 +193,7 @@ export function MatrixAddLab() {
           Every single number gets multiplied. Nothing clever happens. Set it to 0 and the whole box goes to zero.
         </p>
       </div>
-    </div>
+    </LabBox>
   )
 }
 
@@ -209,7 +210,7 @@ export function TransposeLab() {
   const t: Grid = m[0].map((_, j) => m.map((r) => r[j]))
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <div className="flex flex-wrap items-start gap-6">
         <Titled title={`A — ${m.length} × ${m[0].length}`}>
           <Cells
@@ -245,7 +246,7 @@ export function TransposeLab() {
         Tip it over twice and you are back where you started. That is the rule (Aᵀ)ᵀ = A, and it really is just that
         obvious.
       </PanelNote>
-    </div>
+    </LabBox>
   )
 }
 
@@ -270,7 +271,7 @@ export function SystemMatrixLab() {
   }
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <div className="grid items-start gap-5 md:grid-cols-2">
         <div>
           <div className="mb-2 text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">
@@ -331,7 +332,7 @@ export function SystemMatrixLab() {
         Row 1 of A meets the column x, giving {a[0].map((v, j) => `${term(v, names[j], j === 0)} `).join('')}— and that
         has to equal {b[0]}. Which is exactly what the long version says.
       </PanelNote>
-    </div>
+    </LabBox>
   )
 }
 

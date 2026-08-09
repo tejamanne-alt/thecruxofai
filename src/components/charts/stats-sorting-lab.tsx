@@ -1,5 +1,6 @@
 'use client'
 
+import { LabBox } from '@/components/charts/matrix-ui'
 import { PanelButton, PanelButtons, PanelNote } from '@/components/sessions/session-parts'
 import clsx from 'clsx'
 import { useState } from 'react'
@@ -53,7 +54,7 @@ function Sorter({
   }
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <p className="text-[13px]/[1.65] text-zinc-700">{intro}</p>
         <span className="text-[12px] text-zinc-500">
@@ -121,7 +122,7 @@ function Sorter({
       </PanelButtons>
 
       <PanelNote>{note}</PanelNote>
-    </div>
+    </LabBox>
   )
 }
 
@@ -309,7 +310,7 @@ export function CourseMapLab() {
   const [open, setOpen] = useState(1)
 
   return (
-    <div className="grid items-start gap-5 rounded-lg border border-zinc-950/10 p-4 lg:grid-cols-[minmax(0,1fr)_300px]">
+    <LabBox layout="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_300px]">
       <div className="flex flex-col gap-2">
         <div className="text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">
           The six modules — click one
@@ -375,6 +376,6 @@ export function CourseMapLab() {
           all done online.
         </p>
       </div>
-    </div>
+    </LabBox>
   )
 }

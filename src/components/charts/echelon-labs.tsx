@@ -1,5 +1,6 @@
 'use client'
 
+import { LabBox } from '@/components/charts/matrix-ui'
 import { PanelButton, PanelButtons, PanelNote } from '@/components/sessions/session-parts'
 import clsx from 'clsx'
 import { useState } from 'react'
@@ -100,7 +101,7 @@ export function PivotLab() {
   }
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <div className="flex flex-wrap gap-2">
         {PUZZLES.map((p) => (
           <button
@@ -205,7 +206,7 @@ export function PivotLab() {
         A row of all zeros has no pivot at all. That is fine — it just means that equation repeated something the others
         already said.
       </PanelNote>
-    </div>
+    </LabBox>
   )
 }
 
@@ -243,7 +244,7 @@ export function NullspaceLab() {
   const check = recipe ? RREF.map((row) => row.reduce((s, v, j) => s + v * recipe[j], 0)) : null
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <p className="text-[13px]/[1.65] text-zinc-700">
         This matrix is as tidy as it gets: every pivot is a 1, and it is the only number that is not zero in its column.
         Click one of the two <strong>orange</strong> columns — the ones with no pivot.
@@ -339,7 +340,7 @@ export function NullspaceLab() {
         One free column, one recipe. Two free columns, two recipes. Add any amount of them to an answer you already
         have, and you land on another answer.
       </PanelNote>
-    </div>
+    </LabBox>
   )
 }
 
@@ -386,7 +387,7 @@ export function SweepLab() {
   const s = STAGES[stage]
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <div className="flex flex-wrap items-center gap-3">
         <PanelButtons>
           <PanelButton primary onClick={() => setStage((v) => Math.min(STAGES.length - 1, v + 1))}>
@@ -440,6 +441,6 @@ export function SweepLab() {
         Every one of those moves is one of the three legal ones. So the answers were never at risk at any point — that
         is the whole reason this method is allowed to work.
       </PanelNote>
-    </div>
+    </LabBox>
   )
 }

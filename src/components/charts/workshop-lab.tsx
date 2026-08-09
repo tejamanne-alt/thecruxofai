@@ -1,5 +1,6 @@
 'use client'
 
+import { LabBox } from '@/components/charts/matrix-ui'
 import { PanelButton, PanelButtons, PanelNote, Slider } from '@/components/sessions/session-parts'
 import { useState } from 'react'
 
@@ -30,7 +31,7 @@ export function WorkshopLab() {
   const set = (i: number, v: number) => setX(x.map((old, j) => (j === i ? v : old)))
 
   return (
-    <div className="grid items-start gap-5 rounded-lg border border-zinc-950/10 p-4 lg:grid-cols-[minmax(0,1fr)_300px]">
+    <LabBox layout="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_300px]">
       <div className="flex flex-col gap-3">
         <div className="text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">
           What your plan uses up
@@ -112,6 +113,6 @@ export function WorkshopLab() {
           be hopeless — which is why the rest of this chapter builds a method.
         </PanelNote>
       </div>
-    </div>
+    </LabBox>
   )
 }
