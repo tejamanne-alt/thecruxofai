@@ -1,5 +1,6 @@
 'use client'
 
+import { LabBox } from '@/components/charts/matrix-ui'
 import { PanelButton, PanelButtons, PanelNote, RangeInput } from '@/components/sessions/session-parts'
 import clsx from 'clsx'
 import { useState } from 'react'
@@ -47,7 +48,7 @@ export function SampleSpaceLab({ showComplement = false }: { showComplement?: bo
   }
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <div className="flex flex-wrap gap-2">
         {EXPERIMENTS.map((e) => (
           <button
@@ -151,7 +152,7 @@ export function SampleSpaceLab({ showComplement = false }: { showComplement?: bo
           </>
         )}
       </PanelNote>
-    </div>
+    </LabBox>
   )
 }
 
@@ -187,7 +188,7 @@ export function DiceLab() {
   const hits = cells.filter(([a, b]) => c.test(a, b))
 
   return (
-    <div className="grid items-start gap-5 rounded-lg border border-zinc-950/10 p-4 lg:grid-cols-[minmax(0,1fr)_290px]">
+    <LabBox layout="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_290px]">
       <div className="overflow-x-auto">
         <table className="border-collapse font-mono text-[12px]">
           <thead>
@@ -263,7 +264,7 @@ export function DiceLab() {
           sum of 12 only one, so the sums are not equally likely — but the 36 squares are.
         </PanelNote>
       </div>
-    </div>
+    </LabBox>
   )
 }
 
@@ -298,7 +299,7 @@ export function IndependenceLab() {
   const pct = (v: number) => `${(v * 100).toFixed(1)}%`
 
   return (
-    <div className="grid items-start gap-5 rounded-lg border border-zinc-950/10 p-4 lg:grid-cols-[minmax(0,1fr)_290px]">
+    <LabBox layout="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_290px]">
       <div className="flex flex-col gap-4">
         <div className="grid grid-cols-2 gap-2">
           {cells.map(([k, v]) => (
@@ -401,7 +402,7 @@ export function IndependenceLab() {
           zero you can never satisfy both at the same time.
         </PanelNote>
       </div>
-    </div>
+    </LabBox>
   )
 }
 
@@ -440,7 +441,7 @@ export function CommitteeLab() {
   const k = g(wanted, total) || 1
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <div className="flex flex-wrap gap-4">
         {[
           ['Men', men, setMen, 12],
@@ -526,6 +527,6 @@ export function CommitteeLab() {
         half, so with 5 seats that is 3 or more women — two separate splits, and you add them because they cannot both
         happen at once.
       </PanelNote>
-    </div>
+    </LabBox>
   )
 }

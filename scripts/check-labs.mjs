@@ -15,6 +15,9 @@
  * tailwind.css — which is what a keyboard user needs anyway, and what this
  * drives.
  *
+ * Everything is looked for inside `[data-lab]`, never in the page at large,
+ * so a part with no lab fails instead of quietly passing on a tab button.
+ *
  * Needs a server already running:
  *
  *   npm run build && npx next start -p 3000
@@ -39,10 +42,14 @@ for (const chapter of src.matchAll(/^ {2}(\w+): \[$/gm)) {
 }
 const wanted = ONLY ? routes.filter((r) => r.includes(ONLY)) : routes
 
-/* Buttons every part page carries whether or not it has a lab. Clicking one
- * navigates, which would change the text and pass the check for the wrong
- * reason. */
-const FURNITURE = /^(sign in|sign out|cheat sheet|cheat|quiz|exam|overview|menu|close|open main menu)$/i
+/* Every lab root carries `data-lab` — both `LabBox` and `ChartRow` set it — so
+ * controls can be found inside the lab and nowhere else. That matters: the
+ * tabs and the previous/next links are on every part whether it has a lab or
+ * not, and clicking one navigates, which changes the text and would pass the
+ * check for entirely the wrong reason. Scoping here replaced a list of button
+ * labels to skip, which only ever knew about the furniture it had already met.
+ */
+const LAB = '[data-lab]'
 
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM ?? '/opt/pw-browsers/chromium' })
 const page = await browser.newPage({ viewport: { width: 1400, height: 1000 } })
@@ -64,11 +71,18 @@ for (const route of wanted) {
   // Hydration has to have happened, or nothing responds and every page "fails".
   await page.waitForTimeout(250)
 
+  const labs = await page.locator(LAB).count()
+  if (labs === 0) {
+    failures.push(`${route}: no ${LAB} on the page — a part without a lab is not finished`)
+    console.log(`FAIL  ${route.padEnd(34)} no lab`)
+    continue
+  }
+
   const before = await body()
   let how = null
 
   /* 1. Canvas handles, through the keyboard layer laid over the canvas. */
-  const handles = page.locator('main [data-handle]')
+  const handles = page.locator(`${LAB} [data-handle]`)
   for (let i = 0; i < (await handles.count()) && !how; i++) {
     const h = handles.nth(i)
     await h.scrollIntoViewIfNeeded().catch(() => {})
@@ -85,7 +99,7 @@ for (const route of wanted) {
 
   /* 2. Sliders. Click near one end, then the other, so a slider already at the
    * clicked position still registers a change. */
-  const sliders = page.locator('main input[type=range]')
+  const sliders = page.locator(`${LAB} input[type=range]`)
   for (let i = 0; i < (await sliders.count()) && !how; i++) {
     const el = sliders.nth(i)
     await el.scrollIntoViewIfNeeded().catch(() => {})
@@ -104,7 +118,7 @@ for (const route of wanted) {
   /* 3. Tick boxes and radios. These take a click, not a value — `fill` throws
    * on them, which is how the one lab driven entirely by check boxes came to
    * look broken when it was not. */
-  const ticks = page.locator('main input[type=checkbox], main input[type=radio]')
+  const ticks = page.locator(`${LAB} input[type=checkbox], ${LAB} input[type=radio]`)
   for (let i = 0; i < (await ticks.count()) && !how; i++) {
     const el = ticks.nth(i)
     await el.scrollIntoViewIfNeeded().catch(() => {})
@@ -114,7 +128,7 @@ for (const route of wanted) {
   }
 
   /* 4. Number boxes. */
-  const nums = page.locator('main input:not([type=range]):not([type=checkbox]):not([type=radio])')
+  const nums = page.locator(`${LAB} input:not([type=range]):not([type=checkbox]):not([type=radio])`)
   for (let i = 0; i < (await nums.count()) && !how; i++) {
     const el = nums.nth(i)
     if (!(await el.isEditable().catch(() => false))) continue
@@ -127,12 +141,12 @@ for (const route of wanted) {
 
   /* 5. Buttons, last, because a lab that has one usually has several and the
    * first is not always the interesting one. */
-  const buttons = page.locator('main button:not([disabled])')
+  const buttons = page.locator(`${LAB} button:not([disabled])`)
   for (let i = 0; i < (await buttons.count()) && !how; i++) {
     const b = buttons.nth(i)
     if (await b.getAttribute('data-handle')) continue
     const label = ((await b.innerText().catch(() => '')) || '').trim()
-    if (!label || FURNITURE.test(label)) continue
+    if (!label) continue
     await b.scrollIntoViewIfNeeded().catch(() => {})
     await b.click({ timeout: 2500 }).catch(() => {})
     await page.waitForTimeout(90)

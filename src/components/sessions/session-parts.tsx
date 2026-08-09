@@ -58,9 +58,19 @@ export function AnalogyCallout({
 
 /* -------------------------------------------------------- chart + controls */
 
+/**
+ * A chart with its read-out panel beside it. The other lab root, alongside
+ * `LabBox` — the older chapters were built on this one and never went through
+ * `LabBox` at all, which is why they carried no `data-lab` and a check could
+ * not tell their controls from the tabs and the previous/next links.
+ *
+ * The marker goes here rather than the layout being changed to sit inside a
+ * `LabBox`: that would wrap a second border and 16px of padding around every
+ * chart on six chapters, which is a redesign, not a fix.
+ */
 export function ChartRow({ chart, panel }: { chart: React.ReactNode; panel: React.ReactNode }) {
   return (
-    <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_300px]">
+    <div data-lab className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_300px]">
       {chart}
       <div className="flex flex-col gap-[18px] rounded-lg border border-zinc-950/10 bg-zinc-50 p-5">{panel}</div>
     </div>

@@ -39,6 +39,11 @@ in that order. Pass a fragment to narrow it: `npm run check:labs -- lec0b`. See
 [the section on operating a chart without a mouse](#and-with-no-mouse-at-all) for why the handle case needed
 building before this could work at all.
 
+It looks for those controls inside `[data-lab]` and nowhere else, which is why every lab has to go through
+`LabBox` or `ChartRow` — the two components that set the marker. Scoping is what lets a part with **no** lab
+fail rather than quietly pass by clicking a tab; the earlier version searched the whole page and had to skip
+buttons by name from a hand-written list, which knew only about the furniture it had already met.
+
 ## Stack
 
 - **Next.js 16** (App Router, React 19) — every view is a real URL, so sessions and tabs are linkable and shareable
@@ -127,7 +132,17 @@ one line to remember.
 
 ### Every part has something to operate
 
-Not one shared demo at the top — a lab in the part that needs it. Lecture 1 ships fourteen, in five files:
+Not one shared demo at the top — a lab in the part that needs it. Every one sits in a `LabBox`, or in a
+`ChartRow` when it splits into a chart with a read-out panel beside it. Those two components own the frame —
+the border, the 8px radius, the 16px padding — and both stamp `data-lab` on it, which is the only reason a
+check can tell a lab's own controls from the tabs and the previous/next links.
+
+Twenty labs in the older chapters used to draw that frame by hand, so a third of the part pages carried no
+marker at all. They now go through `LabBox`; the five that split into two columns pass their grid as
+`layout`, because whether a lab stacks or splits is about that lab, while the frame is about being a lab.
+Do not hand-roll it again — a hand-rolled frame is invisible to every check that scopes to a lab.
+
+Lecture 1 ships fourteen, in five files:
 
 | File                    | What is in it                                                                                                                                                                   |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

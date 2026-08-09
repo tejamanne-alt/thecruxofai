@@ -1,6 +1,7 @@
 'use client'
 
 import { ChartCanvas } from '@/components/charts/chart-canvas'
+import { LabBox } from '@/components/charts/matrix-ui'
 import { ChartRow, PanelButton, PanelButtons, PanelNote, ReadOut, Slider } from '@/components/sessions/session-parts'
 import { accentColour, clamp, type Frame } from '@/lib/chart/frame'
 import { useState } from 'react'
@@ -467,7 +468,7 @@ export function AxiomLab() {
   const ok = !negative && !overOne && sumOk
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-zinc-950/10 p-4">
+    <LabBox>
       <p className="text-[13px]/[1.65] text-zinc-700">
         An experiment has four outcomes A, B, C and D, and no two can happen together. Pick an assignment and see
         whether it is allowed — and if not, which rule it breaks.
@@ -536,7 +537,7 @@ export function AxiomLab() {
         These are the axioms in action. P(S) = 1, every P(E) sits between 0 and 1, and for events that cannot happen
         together the probabilities simply add. Everything else in probability is built on those three.
       </PanelNote>
-    </div>
+    </LabBox>
   )
 }
 
