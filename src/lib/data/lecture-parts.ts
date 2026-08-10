@@ -716,6 +716,120 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
     },
   ],
 
+  mllec2: [
+    {
+      id: 'why',
+      title: 'Why a space, and not just an answer',
+      teaser:
+        'Set b to zero and the answers stop being a list and start being a space. Move b and watch closure break.',
+      slides: 'Slides 1–2',
+    },
+    {
+      id: 'groups',
+      title: 'Groups: one operation, four promises',
+      teaser: 'Seven candidate sets, four lights each. Press one that fails and the lab hands you the counterexample.',
+      slides: 'Slides 3–4',
+    },
+    {
+      id: 'spaces',
+      title: 'A vector space: an inner and an outer operation',
+      teaser:
+        'Type λ and ψ and see each axiom worked out both ways. Then break one operation and watch which promise dies.',
+      slides: 'Slides 5–6',
+    },
+    {
+      id: 'whatcounts',
+      title: 'What else counts as a vector',
+      teaser:
+        'A column, a whole weight matrix, a batch of images. Add two and scale them — the same two operations throughout.',
+      slides: 'Slides 7–8',
+    },
+    {
+      id: 'subspaces',
+      title: 'A space inside a space',
+      teaser:
+        'Eight candidate subsets from real modelling. Drag two vectors and try to knock the sum outside each one.',
+      slides: 'Slides 9–11',
+    },
+    {
+      id: 'nullspace',
+      title: 'The nullspace, and why it always is one',
+      teaser:
+        'The set of directions your model cannot see. Drag a weight along it and watch every prediction hold still.',
+      slides: 'Slide 12',
+    },
+    {
+      id: 'combination',
+      title: 'Linear combination, and the question it leads to',
+      teaser: 'Reach a target feature vector by mixing the ones you have — or find out that you cannot.',
+      slides: 'Slides 13–14',
+    },
+    {
+      id: 'independence',
+      title: 'Independent, or carrying nothing new',
+      teaser:
+        'The definition is written awkwardly on purpose. Drag one column onto the plane of the others and watch it die.',
+      slides: 'Slides 15–17',
+    },
+    {
+      id: 'pivots',
+      title: 'Checking it with elimination',
+      teaser:
+        'The deck’s own 2 × 3 example, one row move at a time, with the pivot columns lighting up as they appear.',
+      slides: 'Slides 18–19',
+    },
+    {
+      id: 'worked',
+      title: 'Three vectors in ℝ⁴, eliminated',
+      teaser:
+        'Run the deck’s example and land on the deck’s matrix. Take a different legal route and land somewhere else.',
+      slides: 'Slides 20–21',
+    },
+    {
+      id: 'coords',
+      title: 'Vectors built out of other vectors',
+      teaser: 'Test the coefficients instead of the vectors. Edit a coefficient and watch both verdicts move together.',
+      slides: 'Slides 22–25',
+    },
+    {
+      id: 'fourx',
+      title: 'The four-vector example',
+      teaser: 'The deck finds 7, 15, 18, 1. Load them and watch all four columns cancel to zero, row by row.',
+      slides: 'Slides 26–29',
+    },
+    {
+      id: 'counting',
+      title: 'When the shape alone decides',
+      teaser:
+        'More vectors than ingredients is dependent before you look at a single number. Move two dials and see why.',
+      slides: 'Slides 30–31',
+    },
+    {
+      id: 'span',
+      title: 'Generating set, and span',
+      teaser: 'Everything you can reach by mixing. Line two generators up and watch the plane collapse to a line.',
+      slides: 'Slides 32–34',
+    },
+    {
+      id: 'basis',
+      title: 'Basis: big enough, and no bigger',
+      teaser: 'Four equivalent definitions and three bases of ℝ³ that look nothing alike. Rewrite one vector in each.',
+      slides: 'Slides 35–37',
+    },
+    {
+      id: 'dimension',
+      title: 'Dimension is not the number of components',
+      teaser: 'A line through ℝ³ is one-dimensional, and its vectors still carry three numbers each. Drag along it.',
+      slides: 'Slides 38–39',
+    },
+    {
+      id: 'findbasis',
+      title: 'Finding a basis, and the deck’s last example',
+      teaser: 'Three steps. Then the ℝ⁵ example the slides pose and never answer — worked out and substituted back.',
+      slides: 'Slides 40–41',
+    },
+  ],
+
   ism1: [
     {
       id: 'course',

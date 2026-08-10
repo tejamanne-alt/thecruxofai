@@ -30,6 +30,7 @@ export type TopicId =
   | 'lec2'
   | 'lec3'
   | 'mllec1'
+  | 'mllec2'
   | 'ism1'
   | 'ism2'
   | 'centre'
