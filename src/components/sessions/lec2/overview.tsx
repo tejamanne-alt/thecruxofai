@@ -3,6 +3,7 @@
 import { partsOf } from '@/lib/data/lecture-parts'
 import Link from 'next/link'
 import { UsedInAiml } from '../algebra'
+import { ConnectionMap } from '../connections'
 import { AnalogyCallout, Explainers, MathBlock, SessionHeader } from '../session-parts'
 
 /**
@@ -211,6 +212,8 @@ export function Lecture2Overview() {
           },
         ]}
       />
+
+      <ConnectionMap topic="lec2" />
     </div>
   )
 }
