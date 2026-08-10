@@ -832,17 +832,17 @@ export const CONNECTIONS: Connection[] = [
       'Every entry of Xw is one row of X dotted with w, which is the multiplication rule from the maths course applied N times in one call. The design matrix is not new mathematics — it is the same product, arranged so the bias needs no special case.',
   },
 
-  /* -------------------------------- ML Lecture 2, vector spaces ---------- */
+  /* ------------------ Lecture 2, vector spaces: where it reaches out ------ */
   {
-    from: { topic: 'mllec2', part: 'why' },
+    from: { topic: 'lec2', part: 'why' },
     to: { topic: 'lec1', part: 'general' },
     kind: 'builds-on',
     carries: 'x = xₚ + xₙ, the general solution',
     detail:
-      'The maths course showed that every solution of Ax = b is one particular solution plus anything from the homogeneous system, which is why an under-determined system has a whole family of answers rather than two or three. This page says what that family is: only the homogeneous half is closed under addition, so only Ax = 0 gives a space, and Ax = b for b ≠ 0 gives that space shifted off the origin.',
+      'Lecture 1 showed that every solution of Ax = b is one particular solution plus anything from the homogeneous system, which is why an under-determined system has a whole family of answers rather than two or three. This page says what that family is: only the homogeneous half is closed under addition, so only Ax = 0 gives a space, and Ax = b for b ≠ 0 gives that space shifted off the origin.',
   },
   {
-    from: { topic: 'mllec2', part: 'why' },
+    from: { topic: 'lec2', part: 'why' },
     to: { topic: 'regression' },
     kind: 'used-by',
     carries: 'the normal equations XᵀXw = Xᵀy',
@@ -850,15 +850,7 @@ export const CONNECTIONS: Connection[] = [
       'The regression page fits a line by minimising the squared error, which comes down to solving XᵀXw = Xᵀy. When two feature columns duplicate each other that system has no unique answer, and this page names the shape of the ambiguity: a particular w plus the whole nullspace of X, which is exactly the shifted space above.',
   },
   {
-    from: { topic: 'mllec2', part: 'groups' },
-    to: { topic: 'lec2', part: 'groups' },
-    kind: 'same-idea',
-    carries: 'the same four promises, in the maths course',
-    detail:
-      'This is the same lecture, taught in Mathematical Foundations as its Topic 2 and filed there as a chapter of its own. The definitions are identical — closure, associativity, identity, inverse, and Abelian on top — so read whichever framing you prefer; the maths version stays closer to the algebra, and this one asks throughout what the structure buys a model.',
-  },
-  {
-    from: { topic: 'mllec2', part: 'spaces' },
+    from: { topic: 'lec2', part: 'spaces' },
     to: { topic: 'dl3', part: 'update' },
     kind: 'used-by',
     carries: 'w ← w − η∇L, one scaling and one addition',
@@ -866,47 +858,47 @@ export const CONNECTIONS: Connection[] = [
       'The Deep Neural Networks session derives the update rule and then applies it for pages on end without ever asking what makes it legal. It is legal because the parameters live in a vector space: the update is the outer operation followed by the inner one, and closure is the promise that the result is still a model.',
   },
   {
-    from: { topic: 'mllec2', part: 'whatcounts' },
+    from: { topic: 'lec2', part: 'examples' },
     to: { topic: 'lec0a', part: 'algebra' },
     kind: 'builds-on',
     carries: 'A + B and λA, entry by entry',
     detail:
-      'Lecture 0a defined adding two matrices and multiplying one by a number, and made the point that the shapes have to match. Those two operations are precisely what slide 8 needs to call ℝᵐˣⁿ a vector space, so nothing new is being defined here — the old definitions are being recognised as an instance of the general one.',
+      'Lecture 0a defined adding two matrices and multiplying one by a number, and made the point that the shapes have to match. Those two operations are precisely what slide 8 needs in order to call ℝᵐˣⁿ a vector space, so nothing new is being defined here — the old definitions are being recognised as an instance of the general one.',
   },
   {
-    from: { topic: 'mllec2', part: 'whatcounts' },
+    from: { topic: 'lec2', part: 'examples' },
     to: { topic: 'mllec1', part: 'features' },
-    kind: 'builds-on',
+    kind: 'used-by',
     carries: 'one row of a dataset',
     detail:
-      'Lecture 1 laid out the feature tables and named the columns as features and the target. This page says what one of those rows is mathematically: a point in ℝⁿ, and therefore something you may add and scale — which is what lets a model average two examples or take a step between them.',
+      'The Machine Learning lecture laid out feature tables and named the columns as features and the target. A row of one of those tables is the first example on this page: a point in ℝⁿ, and therefore something you may add and scale — which is what lets a model average two examples or take a step between them.',
   },
   {
-    from: { topic: 'mllec2', part: 'subspaces' },
+    from: { topic: 'lec2', part: 'subspaces' },
     to: { topic: 'vectorspace' },
     kind: 'same-idea',
     carries: 'the three-line subspace test',
     detail:
-      'The concept page states the same test — non-empty, closed under scaling, closed under addition — and works it on the standard geometric examples. Come here for the version aimed at sets of model parameters, and go there if the definition itself is what will not stick.',
+      'The concept page states the same test — non-empty, closed under scaling, closed under addition — and works it on the standard geometric examples. Go there if the definition itself is what will not stick; stay here for it in the order the lecture built it, with the candidates you can try to break by dragging.',
   },
   {
-    from: { topic: 'mllec2', part: 'subspaces' },
+    from: { topic: 'lec2', part: 'subspaces' },
     to: { topic: 'centre' },
     kind: 'builds-on',
     carries: 'the mean, subtracted before anything else',
     detail:
-      'The statistics course defines the mean as the balance point of the data. This page explains why every PCA pipeline subtracts it first: a subspace is closed under scaling and so must contain the origin, and uncentred data lies near a flat set that misses it — so the object PCA looks for is not there to be found until the mean is removed.',
+      'The statistics course defines the mean as the balance point of the data. It is why every PCA pipeline subtracts it first: a subspace is closed under scaling and so must contain the origin, and uncentred data lies near a flat set that misses it — so the object PCA looks for is not there to be found until the mean is removed.',
   },
   {
-    from: { topic: 'mllec2', part: 'nullspace' },
+    from: { topic: 'lec2', part: 'subspaces' },
     to: { topic: 'rank' },
     kind: 'builds-on',
     carries: 'rank + nullity = number of columns',
     detail:
-      'The rank page counts how many of your columns say something new. This page names what the rest amount to: the nullspace, whose dimension is exactly the shortfall, and whose members are the weight changes that leave every prediction untouched. Rank tells you how much information you have; nullity tells you how much of the model the data will never pin down.',
+      'The rank page counts how many of your columns say something new. The nullspace on this page is what the rest amount to: its dimension is exactly the shortfall, and its members are the weight changes that leave every prediction untouched. Rank tells you how much information you have; nullity tells you how much of a model the data will never pin down.',
   },
   {
-    from: { topic: 'mllec2', part: 'nullspace' },
+    from: { topic: 'lec2', part: 'subspaces' },
     to: { topic: 'covariance' },
     kind: 'used-by',
     carries: 'a singular covariance matrix',
@@ -914,7 +906,7 @@ export const CONNECTIONS: Connection[] = [
       'The covariance page builds the matrix that records how features move together. If two features are exact copies, that matrix is singular — its nullspace is non-trivial — and every method that needs to invert it, from the Mahalanobis distance to a Gaussian mixture model, fails at that exact point. This page is why the failure is structural rather than a numerical accident.',
   },
   {
-    from: { topic: 'mllec2', part: 'combination' },
+    from: { topic: 'lec2', part: 'span' },
     to: { topic: 'neuron' },
     kind: 'used-by',
     carries: 'z = w · x',
@@ -922,79 +914,15 @@ export const CONNECTIONS: Connection[] = [
       'A neuron computes a weighted sum of its inputs, which is a linear combination with the weights as the coefficients. Everything on this page about what a set of vectors can and cannot reach is therefore a statement about what a single unit can and cannot compute before its activation is applied.',
   },
   {
-    from: { topic: 'mllec2', part: 'combination' },
+    from: { topic: 'lec2', part: 'span' },
     to: { topic: 'lec0b', part: 'combination' },
     kind: 'builds-on',
     carries: 'λ₁x₁ + λ₂x₂, drawn as arrows',
     detail:
-      'Lecture 0b introduced the linear combination geometrically, as scaling two arrows and laying them nose to tail. This page keeps the definition and drops the picture, because from here on the vectors have four or five components and there is nothing left to draw.',
+      'Lecture 0b introduced the linear combination geometrically, as scaling two arrows and laying them nose to tail, and let you read the two amounts off the plane. This page keeps that picture for two vectors and then states the definition for k of them, because from the next part onwards the vectors have four or five components and there is nothing left to draw.',
   },
   {
-    from: { topic: 'mllec2', part: 'independence' },
-    to: { topic: 'lec0b', part: 'independence' },
-    kind: 'same-idea',
-    carries: 'Σ λᵢxᵢ = 0 with some λᵢ ≠ 0',
-    detail:
-      'The definition is word for word the one from Lecture 0b, so if it made sense there nothing needs relearning. What is new here is the reading behind it — dependence means one vector is redundant — and the three consequences on slide 17, including that any set containing the zero vector is dependent whatever else is in it.',
-  },
-  {
-    from: { topic: 'mllec2', part: 'independence' },
-    to: { topic: 'mllec1', part: 'features' },
-    kind: 'used-by',
-    carries: 'the one-hot columns of a categorical feature',
-    detail:
-      'Lecture 1 showed feature tables with categorical columns in them, and every such column becomes several 0/1 columns before a model sees it. Those columns always sum to the all-ones column, which is the intercept — an exact linear dependence you create yourself, and the reason encoders offer an option to drop one level.',
-  },
-  {
-    from: { topic: 'mllec2', part: 'pivots' },
-    to: { topic: 'lec0a', part: 'echelon' },
-    kind: 'builds-on',
-    carries: 'the staircase, and its leading entries',
-    detail:
-      'Lecture 0a built the row-echelon form move by move and named the leading entry of each row. This page puts that machinery to a different use: the vectors go in as columns and the rows get operated on, because row operations cannot change which combinations of the columns vanish — so the pivot positions answer a question about the columns.',
-  },
-  {
-    from: { topic: 'mllec2', part: 'pivots' },
-    to: { topic: 'rank' },
-    kind: 'same-idea',
-    carries: 'rank = the number of pivots',
-    detail:
-      'The rank page counts pivots and calls the answer rank; this page counts the same pivots and calls the answer the number of independent vectors. They are one number with two names, which is worth knowing before an exam asks for either.',
-  },
-  {
-    from: { topic: 'mllec2', part: 'worked' },
-    to: { topic: 'lec0a', part: 'rref' },
-    kind: 'builds-on',
-    carries: 'why the reduced form is unique and the echelon form is not',
-    detail:
-      'Lecture 0a made the point by taking two different routes and landing in the same reduced form. This page takes two routes that land on genuinely different echelon forms, to show what does and does not survive the choice: the pivot positions do, so the independence verdict never depends on how you eliminated.',
-  },
-  {
-    from: { topic: 'mllec2', part: 'coords' },
-    to: { topic: 'matmul' },
-    kind: 'builds-on',
-    carries: 'Bλ as a combination of B’s columns',
-    detail:
-      'The whole argument of slides 22 to 25 turns on reading Bλ as a mixture of the columns of B with the entries of λ as the amounts — the column picture from the multiplication page rather than the row-times-column one. Read it the other way and the step B(Σ ψⱼλⱼ) = 0 has no obvious meaning.',
-  },
-  {
-    from: { topic: 'mllec2', part: 'fourx' },
-    to: { topic: 'lec2', part: 'worked' },
-    kind: 'same-idea',
-    carries: 'the coefficients 7, 15, 18, 1',
-    detail:
-      'The maths course works this identical example, since it is the same deck — same four x vectors, same reduced form, same combination reaching the zero vector. Worth opening both if the step from the last column (−7, −15, −18, 0)ᵀ to the combination 7c₁ + 15c₂ + 18c₃ + c₄ = 0 is the part that will not sit still.',
-  },
-  {
-    from: { topic: 'mllec2', part: 'counting' },
-    to: { topic: 'dl3', part: 'traintest' },
-    kind: 'used-by',
-    carries: 'a perfect training score that proves nothing',
-    detail:
-      'The Deep Neural Networks session insists on a held-back test set because training error can be driven down without the model learning anything. This page supplies the sharpest case of that: with more features than samples the columns are guaranteed dependent, so infinitely many weight vectors fit the training data exactly — and they disagree everywhere else.',
-  },
-  {
-    from: { topic: 'mllec2', part: 'span' },
+    from: { topic: 'lec2', part: 'span' },
     to: { topic: 'designmat' },
     kind: 'used-by',
     carries: 'ŷ = Xw, and where it can land',
@@ -1002,7 +930,63 @@ export const CONNECTIONS: Connection[] = [
       'The design matrix page shows how a whole dataset is predicted in one multiplication. This page says what the set of possible predictions is: as w ranges over everything, Xw ranges over the span of X’s columns and nothing else — so least squares is the projection of y onto that span, and a feature already inside it cannot reduce the training error at all.',
   },
   {
-    from: { topic: 'mllec2', part: 'span' },
+    from: { topic: 'lec2', part: 'independence' },
+    to: { topic: 'lec0b', part: 'independence' },
+    kind: 'same-idea',
+    carries: 'Σ λᵢxᵢ = 0 with some λᵢ ≠ 0',
+    detail:
+      'The definition is word for word the one from Lecture 0b, so if it made sense there nothing needs relearning. What is new here is the reading behind it — dependence means one vector is redundant — and the three consequences on slide 17, including that any set containing the zero vector is dependent whatever else is in it.',
+  },
+  {
+    from: { topic: 'lec2', part: 'independence' },
+    to: { topic: 'mllec1', part: 'features' },
+    kind: 'used-by',
+    carries: 'the one-hot columns of a categorical feature',
+    detail:
+      'The Machine Learning lecture showed feature tables with categorical columns in them, and every such column becomes several 0/1 columns before a model sees it. Those columns always sum to the all-ones column, which is the intercept — an exact linear dependence you create yourself, and the reason encoders offer an option to drop one level.',
+  },
+  {
+    from: { topic: 'lec2', part: 'pivots' },
+    to: { topic: 'lec0a', part: 'echelon' },
+    kind: 'builds-on',
+    carries: 'the staircase, and its leading entries',
+    detail:
+      'Lecture 0a built the row-echelon form move by move and named the leading entry of each row. This page puts that machinery to a different use: the vectors go in as columns and the rows get operated on, because row operations cannot change which combinations of the columns vanish — so the pivot positions answer a question about the columns.',
+  },
+  {
+    from: { topic: 'lec2', part: 'pivots' },
+    to: { topic: 'rank' },
+    kind: 'same-idea',
+    carries: 'rank = the number of pivots',
+    detail:
+      'The rank page counts pivots and calls the answer rank; this page counts the same pivots and calls the answer the number of independent vectors. They are one number with two names, which is worth knowing before an exam asks for either.',
+  },
+  {
+    from: { topic: 'lec2', part: 'pivots' },
+    to: { topic: 'lec0a', part: 'rref' },
+    kind: 'builds-on',
+    carries: 'why the reduced form is unique and the echelon form is not',
+    detail:
+      'Lecture 0a made the point by taking two different routes and landing in the same reduced form. This page takes two routes that land on genuinely different echelon forms, to show what does and does not survive the choice: the pivot positions do, so the independence verdict never depends on how you eliminated.',
+  },
+  {
+    from: { topic: 'lec2', part: 'coords' },
+    to: { topic: 'matmul' },
+    kind: 'builds-on',
+    carries: 'Bλ as a combination of B’s columns',
+    detail:
+      'The whole argument of slides 22 to 25 turns on reading Bλ as a mixture of the columns of B with the entries of λ as the amounts — the column picture from the multiplication page rather than the row-times-column one. Read it the other way and the step B(Σ ψⱼλⱼ) = 0 has no obvious meaning.',
+  },
+  {
+    from: { topic: 'lec2', part: 'counting' },
+    to: { topic: 'dl3', part: 'traintest' },
+    kind: 'used-by',
+    carries: 'a perfect training score that proves nothing',
+    detail:
+      'The Deep Neural Networks session insists on a held-back test set because training error can be driven down without the model learning anything. This page supplies the sharpest case of that: with more features than samples the columns are guaranteed dependent, so infinitely many weight vectors fit the training data exactly — and they disagree everywhere else.',
+  },
+  {
+    from: { topic: 'lec2', part: 'basis' },
     to: { topic: 'basis' },
     kind: 'same-idea',
     carries: 'span, generating set, basis',
@@ -1010,7 +994,7 @@ export const CONNECTIONS: Connection[] = [
       'The concept page carries the same three definitions and the same worked collapse of a plane to a line. Use it when you want the idea on its own; use this chapter when you want it in the order the lecture built it, with the elimination that decides which generators to keep.',
   },
   {
-    from: { topic: 'mllec2', part: 'basis' },
+    from: { topic: 'lec2', part: 'basis' },
     to: { topic: 'lec3', part: 'orthobasis' },
     kind: 'used-by',
     carries: 'an orthonormal basis',
@@ -1018,15 +1002,7 @@ export const CONNECTIONS: Connection[] = [
       'Lecture 3 adds two requirements to the definition on this page: every basis vector has length 1 and any two are at right angles. Nothing about being a basis changes, but finding the coordinates stops needing a matrix inverse and becomes a dot product per component — which is why almost every practical basis you meet, PCA components included, is built to be orthonormal.',
   },
   {
-    from: { topic: 'mllec2', part: 'dimension' },
-    to: { topic: 'lec2', part: 'dimension' },
-    kind: 'same-idea',
-    carries: 'dim(𝒰) counts basis vectors, not components',
-    detail:
-      'The maths course teaches this same slide in its own Lecture 2 and draws the same distinction with the same example, span{(0, 1)ᵀ}. The pages differ only in what they do next: that one goes on to the geometry, this one goes on to why a 4096-pixel image is not a 4096-dimensional problem.',
-  },
-  {
-    from: { topic: 'mllec2', part: 'findbasis' },
+    from: { topic: 'lec2', part: 'findbasis' },
     to: { topic: 'lec0a', part: 'rank' },
     kind: 'builds-on',
     carries: 'copy a row and watch the count drop',
