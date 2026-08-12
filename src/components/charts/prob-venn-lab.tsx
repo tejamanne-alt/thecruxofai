@@ -19,7 +19,7 @@ const RED = '#dc2626'
  * being a formula to remember and becomes a thing you can see: the middle bit
  * got counted twice, so take it off once.
  */
-function lensArea(r1: number, r2: number, d: number) {
+export function lensArea(r1: number, r2: number, d: number) {
   if (d >= r1 + r2) return 0
   if (d <= Math.abs(r1 - r2)) return Math.PI * Math.min(r1, r2) ** 2
   const a = r1 * r1 * Math.acos((d * d + r1 * r1 - r2 * r2) / (2 * d * r1))

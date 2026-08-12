@@ -8,6 +8,14 @@ Build it as a **chapter** under the right course, in the **Chapters** bucket. Ne
 
 1. **Read every slide.** If the PDF has no text layer, render the pages and read them as images. Do not skim
    or summarise from the first few slides.
+   - A OneNote or scanned export has **no text layer at all** — extracting text gives you the page headers and
+     nothing else. Render every page and read it. A silent, near-empty text extraction is the tell.
+   - A `.pptx` hides most of its maths in **pictures**, so pulling the slide XML gives you the prose and loses
+     every formula, worked answer and table. Unzip the deck, map each slide to the images it references through
+     `ppt/slides/_rels/slideN.xml.rels`, and read the big ones. Composite them onto white first — these PNGs
+     have alpha, and pasting them without a background renders solid black.
+   - Where the deck and the handwritten board cover the same example, read **both**. The board usually carries
+     the derivation the slide skipped, and that derivation is the part worth putting on the page.
 2. **Split it into parts.** One part per idea, usually 10–20 of them. Each part is:
    - its own route (`/session/<chapterId>/<partId>`),
    - its own numbered row in the left menu, under the chapter,
@@ -57,14 +65,14 @@ it is judged as content, not as a footer.
 
 - **Every part page uses `WhyAiml`; every concept and chapter front page uses `UsedInAiml`.** A page without
   one is not finished, and neither is a new lecture that adds parts without them.
-- **It must be about *this* page.** Write it against the idea the page just taught, not the chapter's general
+- **It must be about _this_ page.** Write it against the idea the page just taught, not the chapter's general
   area. The block on "determinant" talks about singular covariance matrices; the block on "rank" talks about
   collinear features. Two neighbouring parts must never be able to swap blocks without anyone noticing.
 - **Name the real method, in the `method` field and in the prose.** The loss function, the kernel, the layer,
   the regulariser, the library call. "Used in AI" on its own says nothing; "this is why `numpy.linalg.lstsq`
   uses QR and not the normal equations" says something.
 - **Two paragraphs, not one line.** The first says where the idea shows up and what it does there. The second
-  earns its place — what *breaks* without it, the failure it explains, the exam-worthy consequence, or the
+  earns its place — what _breaks_ without it, the failure it explains, the exam-worthy consequence, or the
   practical decision it settles.
 - **Statistics counts as ML too.** For the statistics course, connect to the modelling: the mean is what a
   squared-error loss predicts, the median is what absolute-error predicts, and outliers are why that choice
@@ -101,10 +109,10 @@ enough on its own. When in doubt, go longer and slower — I would rather scroll
   `∀`, `∈`, `Aᵀ` — all of them, every time a page is the first to use one.
 - **Never assume a step is obvious.** If a line of algebra skips something, put the missing line in. The
   places I get lost are exactly the ones a lecturer thought were too small to write down.
-- **Say what a thing is *for* before what it *is*.** A definition I cannot motivate is a definition I will
+- **Say what a thing is _for_ before what it _is_.** A definition I cannot motivate is a definition I will
   not remember.
 - **Go beyond the deck where the deck is thin.** Extra examples, a second way of seeing it, the special
-  case that makes it click, the mistake people make in exams. This is wanted, not padding — *but* anything
+  case that makes it click, the mistake people make in exams. This is wanted, not padding — _but_ anything
   not from the slides must be marked as such, and it is still bound by the rule above it: if I cannot
   verify it, it does not go on the page. Beyond-the-deck material must never be presented as the
   lecture's own.
@@ -139,6 +147,10 @@ Plain, everyday English. The reader is a beginner and may not be a native speake
   real answer.
 - **Check the interaction can actually reach every case you claim it can.** Work the maths through before
   trusting a slider to demonstrate three outcomes.
+- **Never define a component inside a lab's render.** A little `Bar`, `Bag` or `Num` helper written inside the
+  lab function is a new component type on every render, so React throws its subtree away and rebuilds it — a
+  typed-in number box loses focus mid-keystroke. `react-hooks/static-components` catches it; hoist the helper to
+  module scope and pass what it needs as props.
 
 ## It has to work in every browser, not just yours
 
@@ -174,12 +186,17 @@ editor can compile to `whatangle` purely because the space happened to fall at a
 type-checks, and you only find it by reading the page.
 
 - **Never write an HTML entity in JSX text. This is the big one.** `&ldquo;` `&rsquo;` `&nbsp;` `&amp;` and
-  friends trigger a real SWC bug: a text node that contains an entity *and* spans more than one line loses
+  friends trigger a real SWC bug: a text node that contains an entity _and_ spans more than one line loses
   the space at its start. So `<strong>not</strong> is the complement…` renders as `notis the complement` —
   but only when there is an entity somewhere later in the same paragraph, which is why it looks random.
   Write the character itself: `“` `”` `’` `–` `…`, a real non-breaking space, a bare `&`. For the ones that
   are JSX syntax, use an expression: `{'{'}`, `{'}'}`, `{'<'}`, `{'>'}`. This single rule removed 38 of the
   39 glued words on the site.
+- **The linter will tell you to break the rule above. Do not let it.** `react/no-unescaped-entities` flags a bare
+  `'` in JSX text and helpfully offers `&apos;`, `&rsquo;` and `&#39;` — every one of which is the entity that
+  causes the bug. The fix is the real typographic character: write `’`, not an entity and not a bare `'`. Same for
+  quotes: `“` and `”`. Fix them at the exact line and column ESLint reports rather than sweeping the file, or you
+  will change apostrophes inside string literals and code where the bare character is correct.
 - **Prettier is the formatter, and it runs before the check, not after.** `npm run format`, then
   `npm run check:spaces`. Note that Prettier turns a mid-line `{' '}` back into a plain space — it only
   keeps the `{' '}` form where it wraps a line — so you cannot fix a mid-line join that way. Remove the
@@ -207,13 +224,13 @@ Run the real thing in a browser and prove it works:
   Chromium and fails the page unless something on it actually changed the text: a chart handle moved with
   the arrow keys, a slider, a tick box, a number box or a button, in that order. It exists because the
   element-hunting version could not see a canvas at all and quietly passed four drag-only labs it had
-  never touched. Adding a lab means this must still pass, and so must the count — 204 part routes today.
+  never touched. Adding a lab means this must still pass, and so must the count — 220 part routes today.
 - **Every lab goes through `LabBox` or `ChartRow`, and nothing else draws that frame.** Both set
   `data-lab`, and the checker looks for controls inside it and nowhere else — so a part with no lab now
   fails instead of quietly passing on a tab button. Twenty labs used to draw the border, radius and
   padding by hand, which is why a third of the site was unmarked. If a lab needs a different layout, pass
   `layout` to `LabBox`; do not hand-roll the frame again.
-- Every control the reader has to *see* is checked by reading its size and colour back out of the page, not
+- Every control the reader has to _see_ is checked by reading its size and colour back out of the page, not
   by trusting that the CSS applied. A pseudo-element that silently paints nothing looks fine in a
   screenshot test and wrong on a laptop.
 - Where the lecture gives an answer, the tool must reproduce **that** answer.

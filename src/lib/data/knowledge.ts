@@ -3488,6 +3488,157 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
     ],
   },
 
+  ism3: {
+    cheat: [
+      {
+        formula: 'P(A | B) = P(A ∩ B) / P(B)',
+        why: 'The definition. Being told B happened makes B the new 100%; needs P(B) ≠ 0.',
+      },
+      {
+        formula: 'P(A ∩ B) = P(A)·P(B | A) = P(B)·P(A | B)',
+        why: 'The multiplication rule. The definition with the division cleared, both ways round.',
+      },
+      {
+        formula: 'P(A ∩ B ∩ C) = P(A)·P(B | A)·P(C | A ∩ B)',
+        why: 'Chained by treating A ∩ B as one event. Each factor is conditioned on everything to its left.',
+      },
+      {
+        formula: 'P(A ∩ B′) = P(A) − P(A ∩ B)',
+        why: '"A but not B", which is never given directly. A splits along the edge of B into two disjoint parts.',
+      },
+      { formula: 'A ∩ (A ∪ B) = A', why: 'Absorption. What makes P(A | A ∪ B) = P(A) / P(A ∪ B).' },
+      {
+        formula: 'B ⊆ A ⟹ P(B | A) = P(B)/P(A),  P(A | B) = 1',
+        why: 'When one event sits inside another, A ∩ B is just B and one answer needs no arithmetic.',
+      },
+      {
+        formula: 'independent ⟺ P(A ∩ B) = P(A)·P(B) ⟺ P(A | B) = P(A)',
+        why: 'Two statements of one fact. Not the same as mutually exclusive — that is the opposite.',
+      },
+      {
+        formula: 'P(at least one) = 1 − P(none)',
+        why: 'The complement route. One subtraction instead of adding up every case.',
+      },
+      {
+        formula: 'P(B) = Σ P(Aᵢ)·P(B | Aᵢ)',
+        why: 'Total probability. Needs the Aᵢ mutually exclusive and exhaustive.',
+      },
+      {
+        formula: 'P(A | B) = P(B | A)·P(A) / P(B)',
+        why: "Bayes' theorem. Work out the denominator with total probability first.",
+      },
+    ],
+    quiz: [
+      {
+        q: 'Of 46,687 loan applicants, 32,219 are middle-aged and 27,368 of those did not default. What is the probability that an applicant did not default, given they are middle-aged?',
+        options: ['27368 / 46687', '27368 / 32219', '32219 / 46687', '27368 / 38130'],
+        answer: 1,
+        explain:
+          'Being told the applicant is middle-aged reduces the sample space to those 32,219 people, so the denominator is the column total, not the grand total. P(A ∩ B)/P(B) = (27368/46687) / (32219/46687), and the 46,687 cancels — leaving 27368/32219 ≈ 0.8494. Answer (d) is the reverse question, P(middle-aged | did not default).',
+      },
+      {
+        q: 'A and B are mutually exclusive events, each with probability above zero. What is P(A | B)?',
+        options: ['P(A)', '0', '1', 'Cannot be worked out without more information'],
+        answer: 1,
+        explain:
+          'P(A | B) = P(A ∩ B)/P(B), and mutually exclusive means P(A ∩ B) = 0, so the whole thing is 0. This is worth holding onto because it shows exclusive events are strongly dependent, not independent: being told B happened tells you A definitely did not.',
+      },
+      {
+        q: 'Every compact disc player is an audio component. P(audio) = 0.6 and P(CD player) = 0.05. What is P(CD player | audio)?',
+        options: ['0.05', '0.0833', '0.12', '1'],
+        answer: 1,
+        explain:
+          'Because the CD players sit inside the audio components, A ∩ B = B, so P(B | A) = P(B)/P(A) = 0.05/0.6 = 0.0833. Note it is larger than P(B) = 0.05: conditioning on a set that contains your event has ruled out all the video repairs, so the CD players are a bigger share of what remains.',
+      },
+      {
+        q: 'Three adults are chosen with replacement from a group where 272 of 300 are right-handed. What is the quickest route to P(at least one is right-handed)?',
+        options: [
+          'Add the probabilities of exactly one, exactly two and exactly three',
+          'Work out 1 − (28/300)³',
+          'Work out 1 − (272/300)³',
+          'Multiply 272/300 by three',
+        ],
+        answer: 1,
+        explain:
+          'The opposite of "at least one right-handed" is "all three left-handed", which is a single outcome: (28/300)³ = 0.0008. So the answer is 1 − 0.0008 = 0.9992. Option (c) subtracts the wrong thing — that is the complement of "all three right-handed".',
+      },
+      {
+        q: 'Which condition is NOT required for P(B) = Σ P(Aᵢ)·P(B | Aᵢ) to hold?',
+        options: [
+          'The Aᵢ must be mutually exclusive',
+          'The Aᵢ must cover the whole sample space',
+          'The Aᵢ must all have the same probability',
+          'Each P(Aᵢ) must be non-zero for its conditional to be defined',
+        ],
+        answer: 2,
+        explain:
+          'The slices may be any sizes at all — the petrol-station example uses 0.40, 0.35 and 0.25. What the theorem needs is that they do not overlap, so nothing gets counted twice, and that they leave nothing out, so no route to B is missed.',
+      },
+      {
+        q: 'On a channel, P(1 transmitted) = 0.4, P(1 received | 1 transmitted) = 0.95 and P(1 received | 0 transmitted) = 0.10. Given a 1 is received, what is the probability a 1 was transmitted?',
+        options: ['0.95', '0.44', '0.863', '0.40'],
+        answer: 2,
+        explain:
+          'First total probability: P(B) = 0.95(0.4) + 0.10(0.6) = 0.44. Then Bayes: P(A | B) = 0.95(0.4)/0.44 = 0.863. Note it is well below the channel’s 0.95 reliability, because 1s are the rarer signal — that gap is the base rate at work.',
+      },
+      {
+        q: 'A test is 99% accurate for a disease that affects 1 person in 10,000. Someone tests positive. Roughly what is the chance they have it?',
+        options: ['About 99%', 'About 1%', 'About 50%', 'About 90%'],
+        answer: 1,
+        explain:
+          'Out of a million people, about 100 have the disease and 99 of them test positive; of the 999,900 who do not, about 1% — nearly 10,000 people — also test positive. So P(disease | positive) ≈ 99/10099 ≈ 1%. The prior is doing all the work, which is the same effect that makes precision collapse on a rare class.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define conditional probability and derive the multiplication rule for three events, P(A ∩ B ∩ C) = P(A)·P(B | A)·P(C | A ∩ B).',
+        meta: 'Define & derive · ~8 marks',
+        points: [
+          'Define P(A | B) = P(A ∩ B)/P(B) for P(B) ≠ 0, and say what it means: B becomes the new sample space.',
+          'Justify from counting: both sides of the ratio divide by |S|, which cancels, leaving the count in A ∩ B over the count in B.',
+          'Rearrange to the two-event rule P(A ∩ B) = P(A)·P(B | A), noting the symmetric form P(B)·P(A | B).',
+          'Apply the definition with A ∩ B as the conditioning event: P(C | A ∩ B) = P(C ∩ (A ∩ B)) / P(A ∩ B) = P(A ∩ B ∩ C)/P(A ∩ B).',
+          'Multiply up and substitute P(A ∩ B) = P(A)P(B | A) to obtain the three-event result.',
+          'State the condition P(A ∩ B) ≠ 0, and note the pattern generalises to n events.',
+        ],
+      },
+      {
+        q: 'Show that P(A | B) = P(A) and P(A ∩ B) = P(A)·P(B) are equivalent, and explain why mutually exclusive events with non-zero probability cannot be independent.',
+        meta: 'Prove & distinguish · ~8 marks',
+        points: [
+          'Forwards: assume P(A | B) = P(A); substitute the definition P(A ∩ B)/P(B) = P(A) and multiply up to get P(A ∩ B) = P(A)P(B).',
+          'Backwards: assume P(A ∩ B) = P(A)P(B); then P(A | B) = P(A)P(B)/P(B) = P(A), the P(B) cancelling.',
+          'State the conditions: P(B) ≠ 0 for the conditional form; the product form needs none, which is why it is the better definition.',
+          'Mutually exclusive means A ∩ B = ∅, so P(A ∩ B) = 0, while P(A)P(B) > 0 when both are positive — the two cannot be equal.',
+          'Interpret: exclusivity is an extreme dependence, since A occurring determines that B did not.',
+        ],
+      },
+      {
+        q: 'State and prove the law of total probability, and use it with Bayes’ theorem on the binary channel: P(1 sent) = 0.4, P(1 received | 1 sent) = 0.95, P(0 received | 0 sent) = 0.90.',
+        meta: 'State, prove & compute · ~10 marks',
+        points: [
+          'State: for a partition A₁ … Aₖ of S (mutually exclusive and exhaustive) and any event B, P(B) = Σ P(Aᵢ)P(B | Aᵢ).',
+          'Proof: B = B ∩ S, then substitute S = A₁ ∪ … ∪ Aₖ and apply the distributive law to get B = (B ∩ A₁) ∪ … ∪ (B ∩ Aₖ).',
+          'Justify adding: the pieces B ∩ Aᵢ are pairwise disjoint, since a common element would force Aᵢ ∩ Aⱼ ≠ ∅; then apply the third axiom.',
+          'Replace each P(B ∩ Aᵢ) by P(Aᵢ)P(B | Aᵢ) using the multiplication rule.',
+          'Compute P(1 received) = 0.95(0.4) + 0.10(0.6) = 0.44, noting P(1 received | 0 sent) = 1 − 0.90 = 0.10 by the complement rule.',
+          'Apply Bayes: P(1 sent | 1 received) = 0.95(0.4)/0.44 = 0.863.',
+          'Comment: the posterior 0.863 sits between the prior 0.4 and the reliability 0.95 — a rare signal needs strong evidence.',
+        ],
+      },
+      {
+        q: 'A two-way table gives counts by category and outcome. Explain how to read P(A | B) and P(B | A) from it, and why the two differ.',
+        meta: 'Explain with an example · ~6 marks',
+        points: [
+          'Both are the same joint cell count on top; only the denominator changes — a row total for one, a column total for the other.',
+          'The grand total cancels: P(A ∩ B)/P(B) = (n_AB/N)/(n_B/N) = n_AB/n_B, so it never appears in the answer.',
+          'Worked instance: with 27,368 middle-aged non-defaulters, 32,219 middle-aged and 38,130 non-defaulters, P(no default | middle-aged) = 0.849 while P(middle-aged | no default) = 0.718.',
+          'Conclude that the two are answers to different questions, and identify the confusion-matrix analogue: precision versus recall.',
+        ],
+      },
+    ],
+  },
+
   centre: {
     cheat: [
       { formula: 'x̄ = Σx / n', why: 'The mean. Uses every value, so every value can pull it.' },
@@ -3773,6 +3924,144 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
           'Write P(A) = P(A∩Bᶜ) + P(A∩B) and P(B) = P(Aᶜ∩B) + P(A∩B); substitute.',
           'Obtain P(A ∪ B) = P(A) + P(B) − P(A ∩ B); note the special case when A ∩ B = ∅.',
           'Derive P(Aᶜ) = 1 − P(A) from S = A ∪ Aᶜ with A ∩ Aᶜ = ∅ and P(S) = 1.',
+        ],
+      },
+    ],
+  },
+
+  conditional: {
+    cheat: [
+      { formula: 'P(A | B) = P(A ∩ B) / P(B)', why: 'Conditioning shrinks the sample space to B and rescales.' },
+      {
+        formula: 'P(A ∩ B) = P(A)·P(B | A) = P(B)·P(A | B)',
+        why: 'The multiplication rule. Use whichever conditional the question hands you.',
+      },
+      { formula: 'P(A ∩ B′) = P(A) − P(A ∩ B)', why: '"A but not B". A splits along the edge of B.' },
+      {
+        formula: 'P(A | B) + P(A′ | B) = 1',
+        why: 'Conditioning is still a probability, so complements still add to 1.',
+      },
+      {
+        formula: 'independent ⟺ P(A ∩ B) = P(A)·P(B)',
+        why: 'The news changes nothing. Equivalent to P(A | B) = P(A), and the opposite of mutually exclusive.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'P(A | B) = 0.8 and P(B) = 0.5. What is P(A ∩ B)?',
+        options: ['0.8', '0.4', '1.6', 'Cannot be found from these'],
+        answer: 1,
+        explain:
+          'Multiply the definition up: P(A ∩ B) = P(B)·P(A | B) = 0.5 × 0.8 = 0.4. Note that P(A) itself is still unknown — a conditional probability plus its condition gives you the intersection, not the individual event.',
+      },
+      {
+        q: 'Why can P(A | B) be much larger than P(A)?',
+        options: [
+          'Because conditional probabilities are not real probabilities',
+          'Because dividing by P(B) rescales the overlap against a smaller world',
+          'Because P(A | B) counts outcomes twice',
+          'It cannot — conditioning never increases a probability',
+        ],
+        answer: 1,
+        explain:
+          'Conditioning throws away every outcome outside B, so the overlap is measured against P(B) rather than against 1. When B is small the same overlap is a much bigger share of it. Conditioning can push a probability either way, or leave it alone — that last case is independence.',
+      },
+      {
+        q: 'A classifier has 40 true positives, 10 false positives and 60 false negatives. Which quantity is 40/50?',
+        options: [
+          'Recall, P(predicted positive | actually positive)',
+          'Precision, P(actually positive | predicted positive)',
+          'Accuracy',
+          'The false positive rate',
+        ],
+        answer: 1,
+        explain:
+          'The 50 is the predicted-positive total (40 + 10), so this conditions on the prediction: precision. Recall would divide by the actual-positive total, 40 + 60 = 100, giving 0.4. Same numerator, different denominators — the two directions of one conditional.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define conditional probability from first principles and show that P(A | B) and P(B | A) are in general different.',
+        meta: 'Define & explain · ~6 marks',
+        points: [
+          'Define P(A | B) = P(A ∩ B)/P(B), P(B) ≠ 0, and interpret it as restricting the sample space to B.',
+          'Derive it by counting: both counts divide by |S|, which cancels, leaving |A ∩ B| / |B|.',
+          'Note both conditionals share the numerator P(A ∩ B) but divide by different events, so they agree only when P(A) = P(B).',
+          'Give a concrete asymmetry, such as P(rain | clouds) against P(clouds | rain), or precision against recall.',
+          'State the multiplication rule linking them: P(B)P(A | B) = P(A)P(B | A), which is one step from Bayes.',
+        ],
+      },
+    ],
+  },
+
+  bayes: {
+    cheat: [
+      {
+        formula: 'S = A₁ ∪ … ∪ Aₖ,  Aᵢ ∩ Aⱼ = ∅',
+        why: 'A partition: exhaustive and mutually exclusive. Both conditions are needed.',
+      },
+      { formula: 'P(B) = Σ P(Aᵢ)·P(B | Aᵢ)', why: 'Total probability. Every route to B, weighted by its slice.' },
+      { formula: 'P(Aᵢ | B) = P(B | Aᵢ)·P(Aᵢ) / P(B)', why: 'Bayes. The line above supplies the denominator.' },
+      {
+        formula: 'P(A) = P(B)P(A | B) + P(B′)P(A | B′)',
+        why: 'The two-slice case, and by far the most common in exams.',
+      },
+      {
+        formula: 'posterior ∝ likelihood × prior',
+        why: 'The denominator is the same for every hypothesis, so a comparison can ignore it.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'A job finishes on time with probability 0.42 if it rains and 0.90 if it does not. It rains with probability 0.45. What is the probability it finishes on time?',
+        options: ['0.66', '0.684', '0.42', '0.90'],
+        answer: 1,
+        explain:
+          'Rain and no rain partition the sample space, so P(on time) = 0.45 × 0.42 + 0.55 × 0.90 = 0.189 + 0.495 = 0.684. As a weighted average it must land between 0.42 and 0.90, which is a quick check on the arithmetic.',
+      },
+      {
+        q: 'In Bayes’ theorem, what does the denominator P(B) represent?',
+        options: [
+          'The prior probability of the hypothesis',
+          'How likely the observed evidence was, across all the hypotheses',
+          'The probability the hypothesis is wrong',
+          'A normalising constant with no meaning',
+        ],
+        answer: 1,
+        explain:
+          'P(B) is the evidence — the total probability of what you saw, summed over every slice of the partition. It is the same for every hypothesis you might compare, which is why implementations of naive Bayes skip it and rank the unnormalised products instead.',
+      },
+      {
+        q: 'Four secretaries handle 20%, 60%, 15% and 5% of files and misfile them with probabilities 0.05, 0.1, 0.1 and 0.05. A misfiled report turns up. What is the chance the first secretary is to blame?',
+        options: ['0.05', '0.20', '0.1143', '0.0100'],
+        answer: 2,
+        explain:
+          'Total probability first: P(misfiled) = 0.2(0.05) + 0.6(0.1) + 0.15(0.1) + 0.05(0.05) = 0.0875. Then Bayes: 0.0100/0.0875 = 0.1143. Note it is below the 0.20 prior, because the first secretary is a careful one who handles few files.',
+      },
+    ],
+    exam: [
+      {
+        q: 'State and prove the law of total probability, and derive Bayes’ theorem from it.',
+        meta: 'State, prove & derive · ~10 marks',
+        points: [
+          'State the partition conditions: A₁ … Aₖ mutually exclusive with union S, and B any event.',
+          'Begin the proof with B = B ∩ S, the step that lets the partition into the expression.',
+          'Distribute: B = (B ∩ A₁) ∪ … ∪ (B ∩ Aₖ), citing the distributive law for sets.',
+          'Argue the pieces are pairwise disjoint — a shared element would put Aᵢ and Aⱼ in contact — and apply the additivity axiom.',
+          'Substitute P(B ∩ Aᵢ) = P(Aᵢ)P(B | Aᵢ) to reach P(B) = Σ P(Aᵢ)P(B | Aᵢ).',
+          'For Bayes, equate the two forms of the multiplication rule P(Aᵢ)P(B | Aᵢ) = P(B)P(Aᵢ | B) and divide.',
+          'Conclude P(Aᵢ | B) = P(B | Aᵢ)P(Aᵢ) / Σⱼ P(Aⱼ)P(B | Aⱼ), and name prior, likelihood, evidence and posterior.',
+        ],
+      },
+      {
+        q: 'Explain, with a numerical example, why a highly accurate test for a rare condition still produces mostly false positives.',
+        meta: 'Explain & compute · ~6 marks',
+        points: [
+          'Set up: let the prevalence P(D) be small, and the test have high sensitivity P(+ | D) and high specificity P(− | D′).',
+          'Apply total probability: P(+) = P(D)P(+ | D) + P(D′)P(+ | D′), noting the second term is small per person but multiplied by a very large group.',
+          'Apply Bayes to obtain P(D | +) and show it is dominated by the prior when P(D) is small.',
+          'Worked figures: prevalence 1 in 10,000 with 99% accuracy gives roughly 99 true positives against about 10,000 false ones, so P(D | +) ≈ 1%.',
+          'Draw the ML parallel: precision on a rare class stays low however good the recall, because the prior sits in the numerator.',
         ],
       },
     ],

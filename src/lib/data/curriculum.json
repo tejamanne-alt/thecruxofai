@@ -72,7 +72,18 @@
       "id": "stats",
       "group": "s1",
       "name": "Introduction to Statistical Methods",
-      "topics": ["centre", "spread", "outliers", "probability", "events", "ism1", "ism2"],
+      "topics": [
+        "centre",
+        "spread",
+        "outliers",
+        "probability",
+        "events",
+        "conditional",
+        "bayes",
+        "ism1",
+        "ism2",
+        "ism3"
+      ],
       "syllabus": null
     },
     {
@@ -540,6 +551,11 @@
       "blurb": "Drag two circles until they overlap and watch the addition rule explain itself. Then roll 36 dice outcomes, test the axioms, and sort out independent from mutually exclusive.",
       "kind": "chapter"
     },
+    "ism3": {
+      "label": "Lecture 3 — Conditional probability, independence and Bayes",
+      "blurb": "News arrives and the odds move. Shrink the sample space onto what you were told, chain the multiplication rule down a tree, then split the world into slices and turn the last one round with Bayes.",
+      "kind": "chapter"
+    },
     "centre": {
       "label": "Averages: mean, median and mode",
       "blurb": "Three answers to \"where is the middle?\". Drag one dot to the far end and see which of them chases it.",
@@ -563,6 +579,16 @@
     "events": {
       "label": "Events as sets: and, or, not",
       "blurb": "Every probability question is a set question first. Build events by hand, then let area do the arithmetic.",
+      "kind": "concept"
+    },
+    "conditional": {
+      "label": "Conditional probability: what a probability does when you learn something",
+      "blurb": "Being told something happened throws away part of the sample space. Shade the part that survives and watch the number move.",
+      "kind": "concept"
+    },
+    "bayes": {
+      "label": "Total probability and Bayes' rule",
+      "blurb": "Split the world into slices, add up the routes to an event, then run the last arrow backwards to ask which slice you came from.",
       "kind": "concept"
     }
   }

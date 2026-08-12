@@ -130,6 +130,26 @@ Inside a part, four things recur: `Para` for the explaining, `Terms` for the jar
 and how to say it aloud where that helps), `Worked` for worked examples in a monospaced block, and `Takeaway` for the
 one line to remember.
 
+### Getting the lecture out of the files it arrives in
+
+A lecture turns up as two files and neither of them gives up its content by being read as text. Both failures are
+silent, which is why they are worth writing down.
+
+**The handwritten pages are images.** A OneNote or scanned PDF export has no text layer, so extracting text returns
+the page headers — "New Section 1 Page 4" — and nothing else. A total of a few hundred characters across a dozen
+pages is the tell. Render every page at a readable scale and read them as images. These pages are usually where the
+derivations live: the deck states P(A ∩ B ∩ C) = P(A)P(B|A)P(C|A∩B), and the board is where it is actually derived.
+
+**The deck's maths is pictures.** Pulling text out of `ppt/slides/slideN.xml` gives you the prose and drops every
+formula, worked answer and table, because those are embedded PNGs. So a solution slide extracts as the single word
+"Solution". Unzip the `.pptx`, map each slide to its images through `ppt/slides/_rels/slideN.xml.rels`, sort by file
+size — the content image is the big one, the rest are bullets and rules — and read those. Composite them onto a
+white background first: they carry alpha, and pasting one straight into an RGB canvas renders it solid black.
+
+Read both sources for the same example. Where they disagree, that disagreement is content: see the vowel counts in
+ISM Lecture 3 part 8, where the bag drawn on the slide and the arithmetic on the solution slide cannot both be
+right, so the page prints the question, states the conflict and gives no answer.
+
 ### Every part has something to operate
 
 Not one shared demo at the top — a lab in the part that needs it. Every one sits in a `LabBox`, or in a
@@ -310,12 +330,29 @@ The first two are the foundations everything else leans on, so they come first i
 | k-means clustering | Machine Learning         | Change k, alternate the assign and move steps, reseed to land in a different local minimum                                           |
 | The perceptron     | Deep Neural Networks     | Train a pass at a time and watch the boundary rotate as the mistakes run out                                                         |
 
-And three chapters, each covering a real lecture end to end. A chapter is split into parts — see below:
+And twelve chapters, each covering a real lecture end to end. A chapter is split into parts, every part is its own
+route and its own row in the left menu, and every part has something to operate — 220 part routes in all:
 
-| Chapter                                                      | Course                              | What you can do to it                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------ | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Lecture 1 — Linear equations, matrices, Gaussian elimination | Mathematical Foundations            | 18 parts, each its own page and its own row in the left menu, each with something to operate. Drag two lines until they coincide; spin three sheets in a box; mix matrix columns until a target becomes unreachable; click the pivots and get marked; run elimination one legal row operation at a time on the lecture's own systems |
-| Lecture 1 — Describing data: centre, spread and outliers     | Introduction to Statistical Methods | 14 parts. Drag a dot and watch the mean chase it while the median stays put; grow the squared deviations as literal squares; take samples until the divide-by-n formula visibly lands short; count quartile positions the lecture's way; push a value past a fence and watch it flag                                                 |
+| Chapter                                                       | Course                              | Parts |
+| ------------------------------------------------------------- | ----------------------------------- | ----- |
+| Lecture 0a — Matrices, determinants and linear systems        | Mathematical Foundations            | 21    |
+| Lecture 0b — Vectors, dot products and probability            | Mathematical Foundations            | 19    |
+| Lecture 1 — Linear equations & Gaussian elimination           | Mathematical Foundations            | 18    |
+| Lecture 2 — Vector spaces, independence and basis             | Mathematical Foundations            | 14    |
+| Lecture 3 — Analytic geometry                                 | Mathematical Foundations            | 20    |
+| Lecture 1 — Describing data: centre, spread and outliers      | Introduction to Statistical Methods | 14    |
+| Lecture 2 — Probability: events, axioms and the addition rule | Introduction to Statistical Methods | 14    |
+| Lecture 3 — Conditional probability, independence and Bayes   | Introduction to Statistical Methods | 16    |
+| Lecture 1 — Introduction to Machine Learning                  | Machine Learning                    | 20    |
+| Session 1 — Fundamentals of Neural Networks                   | Deep Neural Networks                | 24    |
+| Session 2 — The perceptron                                    | Deep Neural Networks                | 19    |
+| Session 3 — Linear neural networks for regression             | Deep Neural Networks                | 21    |
+
+To give a sense of what "something to operate" means: in ISM Lecture 1 you drag a dot and watch the mean chase it
+while the median stays put; in Maths Lecture 1 you run Gaussian elimination one legal row operation at a time on the
+lecture's own systems; in ISM Lecture 3 you drag two circles until one of them becomes the sample space, walk the
+multiplication rule down a tree a stage at a time, and slide a channel's reliability until the prior and posterior
+bars line up.
 
 Concepts drawn from those chapters, each reusing the chapter's own labs and linking back to the parts it came from:
 
@@ -326,6 +363,11 @@ Concepts drawn from those chapters, each reusing the chapter's own labs and link
 | Outliers and the box plot             | ISM Lecture 1, parts 9, 12–13  |
 | Probability: what the number means    | ISM Lecture 2, parts 1, 7–8    |
 | Events as sets: and, or, not          | ISM Lecture 2, parts 4–6, 9–10 |
+| Conditional probability               | ISM Lecture 3, parts 1–2, 4, 7 |
+| Total probability and Bayes' rule     | ISM Lecture 3, parts 12–15     |
+
+(The Deep Neural Networks and Mathematical Foundations courses carry their own concept pages too — the full list is
+the Concepts bucket under each course in the left menu.)
 
 Every session ends with a **Where this shows up in AI & ML** section — not "you will need this one day", but the places
 the idea appears by name in things already on the site.

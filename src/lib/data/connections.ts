@@ -1009,6 +1009,128 @@ export const CONNECTIONS: Connection[] = [
     detail:
       'Lecture 0a introduced rank by duplicating a row and watching the number of independent rows fall. The three-step recipe on this page is that observation turned into a procedure for columns: eliminate, and keep the original spanning vectors sitting at the pivot positions.',
   },
+
+  /* ----------------------------------- ISM Lecture 3, into the earlier ones */
+  {
+    from: { topic: 'ism3', part: 'revise' },
+    to: { topic: 'ism2', part: 'define' },
+    kind: 'builds-on',
+    carries: 'the number you started with',
+    detail:
+      'Lecture 2 gave three ways of arriving at a probability — count the outcomes, run the experiment many times, or state the axioms — and treated the result as final. This page renames that number the prior and says it is only final until you learn something, which is the move the rest of the lecture is built on.',
+  },
+  {
+    from: { topic: 'ism3', part: 'defn' },
+    to: { topic: 'ism2', part: 'space' },
+    kind: 'builds-on',
+    carries: '|A| / |S|, and the S underneath it',
+    detail:
+      'The classical definition counted the outcomes you wanted and divided by the size of the whole sample space. Conditioning changes exactly one thing in that fraction: the denominator becomes |B| instead of |S|, which is why the board can derive P(A | B) by counting and let the |S| cancel top and bottom.',
+  },
+  {
+    from: { topic: 'ism3', part: 'defn' },
+    to: { topic: 'ism2', part: 'setops' },
+    kind: 'builds-on',
+    carries: 'P(A ∩ B), drawn as a real area',
+    detail:
+      'The two-circle lab in Lecture 2 made the intersection a genuine overlapping area rather than a number someone typed in. That same overlap is the numerator of every conditional probability on this page — nothing about it changes when you condition, which is exactly why the whole of the change lives in the denominator.',
+  },
+  {
+    from: { topic: 'ism3', part: 'complementcond' },
+    to: { topic: 'ism2', part: 'complement' },
+    kind: 'builds-on',
+    carries: 'P(A) + P(Aᶜ) = 1',
+    detail:
+      'The complement rule was proved in Lecture 2 by splitting S into A and everything else. Here it is applied inside a conditional world instead of the whole one, which is what makes parts (a) and (b) of Example 3 add to 1 and gives you a free check on both answers.',
+  },
+  {
+    from: { topic: 'ism3', part: 'complementcond' },
+    to: { topic: 'ism2', part: 'addition' },
+    kind: 'builds-on',
+    carries: 'P(A ∪ B) = P(A) + P(B) − P(A ∩ B)',
+    detail:
+      'The addition rule is where part (d) of Example 3 gets its denominator: conditioning on "holds at least one card" means dividing by P(A ∪ B), which has to be assembled from the three given numbers first. Without the subtraction of the overlap the denominator comes out at 1.0 and the answer at 0.5 instead of 0.67.',
+  },
+  {
+    from: { topic: 'ism3', part: 'independent' },
+    to: { topic: 'ism2', part: 'independent' },
+    kind: 'builds-on',
+    carries: 'P(A ∩ B) = P(A)·P(B) as a test',
+    detail:
+      'Lecture 2 gave the product form as the definition of independence and left it there. This page adds the conditional form P(A | B) = P(A) and proves each from the other in both directions, so the earlier test is now the same statement as "being told B changes nothing about A" rather than a separate fact to memorise.',
+  },
+  {
+    from: { topic: 'ism3', part: 'independent' },
+    to: { topic: 'ism2', part: 'exclusive' },
+    kind: 'contrast',
+    carries: 'P(A ∩ B) = 0 against P(A ∩ B) = P(A)·P(B)',
+    detail:
+      'Mutually exclusive means the circles do not touch, which Lecture 2 demonstrated by pulling them apart. Independence needs the overlap to be exactly P(A)·P(B), so for events with any probability at all the two conditions cannot hold together — and the lab on this page shows both tests failing at once the moment you drag the overlap to zero.',
+  },
+  {
+    from: { topic: 'ism3', part: 'atleastone' },
+    to: { topic: 'ism2', part: 'complement' },
+    kind: 'same-idea',
+    carries: '1 − P(none)',
+    detail:
+      'Lecture 2 introduced the complement as the quick way in whenever an event is awkward to count directly. Example 5 is that hint at full strength: "at least one right-handed" covers seven of the eight outcomes of three draws, and subtracting the single remaining outcome from 1 replaces adding up all seven.',
+  },
+  {
+    from: { topic: 'ism3', part: 'partition' },
+    to: { topic: 'ism2', part: 'exclusive' },
+    kind: 'builds-on',
+    carries: 'mutually exclusive, extended to k events',
+    detail:
+      'Lecture 2 defined mutually exclusive for a pair of events. A partition is that condition imposed across the whole collection at once, plus the requirement that the slices leave nothing out — and the theorem in the next part needs both halves, since overlapping slices double-count and missing ones silently drop a route.',
+  },
+  {
+    from: { topic: 'ism3', part: 'totalproof' },
+    to: { topic: 'ism2', part: 'axioms' },
+    kind: 'builds-on',
+    carries: 'the third axiom: disjoint events add',
+    detail:
+      'The axioms lab in Lecture 2 rejected four candidate assignments for breaking one rule or another, the third being that probabilities of events that cannot both happen simply add. Line 5 of this proof is that axiom and nothing else, which is why the board spends a whole page proving the pieces B ∩ Aᵢ are pairwise disjoint before it is allowed to use it.',
+  },
+  {
+    from: { topic: 'ism3', part: 'totalexamples' },
+    to: { topic: 'ism1', part: 'mean' },
+    kind: 'same-idea',
+    carries: 'Σ(f·x) / N, the weighted mean',
+    detail:
+      'Lecture 1 worked out the mean of grouped data by weighting each value by how often it occurred and dividing by the total count. Total probability is the same arithmetic with the weights already summing to 1: P(B) = Σ P(Aᵢ)P(B | Aᵢ) is a weighted average of the conditionals, which is why the answer must always land between the smallest and largest of them.',
+  },
+  {
+    from: { topic: 'ism3', part: 'table' },
+    to: { topic: 'ism2', part: 'practice' },
+    kind: 'builds-on',
+    carries: 'a two-way table of counts',
+    detail:
+      'One of the Lecture 2 practice problems laid a survey out as a grid and asked for probabilities off it. This page uses the same shape of table for the harder question: a conditional probability is a cell divided by its row or column total, so the grand total cancels and never appears in the answer.',
+  },
+  {
+    from: { topic: 'ism3', part: 'spam' },
+    to: { topic: 'mllec1', part: 'features' },
+    kind: 'builds-on',
+    carries: 'a feature as a measurable clue',
+    detail:
+      'The ML lecture defined a feature as a single measurable property of an example, and the thing a model actually reads. Example 6 gives two of them for the same email — the word "offer" and a suspicious link — and asks for the probability of both, which is the calculation a naive Bayes filter performs once per feature and multiplies together.',
+  },
+  {
+    from: { topic: 'ism3', part: 'spam' },
+    to: { topic: 'mllec1', part: 'spam' },
+    kind: 'same-idea',
+    carries: 'the spam filter as a worked task',
+    detail:
+      'The ML lecture used spam classification to pin down the task, the performance measure and the experience a learner gets. This is the same problem from underneath: the probabilities the filter would need, and the independence assumption that lets two features be combined by multiplying instead of by estimating their joint distribution.',
+  },
+  {
+    from: { topic: 'ism3', part: 'bayes' },
+    to: { topic: 'mllec1', part: 'whatisml' },
+    kind: 'used-by',
+    carries: 'P(h | D) ∝ P(D | h)·P(h)',
+    detail:
+      'The ML lecture defined learning as supplying data and answers and getting a program back. Bayesian learning is one concrete way of doing that, and this page is its engine: the MAP hypothesis is argmax P(h | D), which Bayes rewrites as likelihood times prior — so the syllabus line about MAP and naive Bayes is this theorem with an argmax on the front.',
+  },
 ]
 
 /* ------------------------------------------------------------- lookups */
