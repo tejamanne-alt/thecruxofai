@@ -7,6 +7,7 @@ import { ActivationConcept, DesignMatConcept, MetricsConcept } from '@/component
 import { GradientDescentSession } from '@/components/sessions/gradient-descent'
 import { Ism1Overview } from '@/components/sessions/ism1/overview'
 import { Ism2Overview } from '@/components/sessions/ism2/overview'
+import { Ism3Overview } from '@/components/sessions/ism3/overview'
 import { KMeansSession } from '@/components/sessions/kmeans'
 import { Lecture0aOverview } from '@/components/sessions/lec0a/overview'
 import { Lecture0bOverview } from '@/components/sessions/lec0b/overview'
@@ -26,6 +27,7 @@ import {
   ProbabilityConcept,
   SpreadConcept,
 } from '@/components/sessions/stats-concepts'
+import { BayesConcept, ConditionalConcept } from '@/components/sessions/stats-concepts2'
 import { CovarianceConcept, DotProductConcept } from '@/components/sessions/vector-concepts'
 import { CheatSheetTab } from '@/components/tabs/cheat-sheet-tab'
 import { ExamTab } from '@/components/tabs/exam-tab'
@@ -66,11 +68,14 @@ const OVERVIEWS: Record<TopicId, () => React.ReactElement> = {
   mllec1: MlLecture1Overview,
   ism1: Ism1Overview,
   ism2: Ism2Overview,
+  ism3: Ism3Overview,
   centre: CentreConcept,
   spread: SpreadConcept,
   outliers: OutliersConcept,
   probability: ProbabilityConcept,
   events: EventsConcept,
+  conditional: ConditionalConcept,
+  bayes: BayesConcept,
 }
 
 export function generateStaticParams() {

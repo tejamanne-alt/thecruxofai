@@ -16,7 +16,7 @@ import { UsedInAiml } from './algebra'
 import { AnalogyCallout, Explainers, MathBlock, SessionHeader } from './session-parts'
 
 /** Where in the taught chapters this idea came from. */
-function FromLecture({ items }: { items: Array<{ href: string; label: string }> }) {
+export function FromLecture({ items }: { items: Array<{ href: string; label: string }> }) {
   return (
     <div className="mt-7 rounded-lg border border-zinc-950/[0.08] bg-zinc-50 p-4">
       <div className="mb-2 text-[11px] font-semibold tracking-[0.06em] text-zinc-500 uppercase">

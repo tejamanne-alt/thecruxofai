@@ -890,6 +890,110 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
     },
   ],
 
+  ism3: [
+    {
+      id: 'revise',
+      title: 'Why a probability gets revised',
+      teaser: 'It rains on 30% of days. Then you look out of the window. Move the evidence and watch the number move.',
+      slides: 'Board 1 · Slides 5–6',
+    },
+    {
+      id: 'defn',
+      title: 'The definition: shrink the sample space',
+      teaser: 'Being told B happened throws the rest of S away. Drag two circles and watch B become the new ground.',
+      slides: 'Board 2 · Slides 7–8',
+    },
+    {
+      id: 'multiply',
+      title: 'The multiplication rule',
+      teaser: 'Rearrange the definition and you can walk down a tree. Chain it to three events, one branch at a time.',
+      slides: 'Board 3–4 · Slide 9',
+    },
+    {
+      id: 'table',
+      title: 'Reading it off a two-way table',
+      teaser: 'The loan-default table from the slides. Press a row or a column and watch the denominator change.',
+      slides: 'Board 5 · Slides 10–11',
+    },
+    {
+      id: 'subset',
+      title: 'When one event sits inside another',
+      teaser:
+        'Every CD player is an audio component. Nest the circles and both conditionals go somewhere you can predict.',
+      slides: 'Slides 12–13',
+    },
+    {
+      id: 'complementcond',
+      title: 'Conditioning on complements and unions',
+      teaser: 'P(A ∩ B′) = P(A) − P(A ∩ B), and the Visa/MasterCard example in full. Four answers from three numbers.',
+      slides: 'Board 6–7 · Slides 14–16',
+    },
+    {
+      id: 'independent',
+      title: 'Independence, and why the two definitions agree',
+      teaser:
+        'P(A|B) = P(A) and P(A ∩ B) = P(A)P(B) are the same statement. Move the overlap until both verdicts flip together.',
+      slides: 'Board 8 · Slide 17',
+    },
+    {
+      id: 'bags',
+      title: 'Two bags, one card from each',
+      teaser: 'Independent draws multiply. Pick what you want from each bag and count the cards that qualify.',
+      slides: 'Slides 18–19',
+    },
+    {
+      id: 'atleastone',
+      title: '“At least one” means: do the opposite',
+      teaser: 'Three adults, drawn with replacement. Enumerate all eight outcomes, or take the easy one off 1.',
+      slides: 'Board 9 · Slides 20–21',
+    },
+    {
+      id: 'spam',
+      title: 'Independent features on a spam filter',
+      teaser: 'Two clues in an email, and, or and neither. The one worked example that is already machine learning.',
+      slides: 'Slides 22–23',
+    },
+    {
+      id: 'replacement',
+      title: 'With replacement, and without',
+      teaser:
+        'Putting the marble back is what keeps the draws independent. Take it out and every later probability shifts.',
+      slides: 'Slides 24–25',
+    },
+    {
+      id: 'partition',
+      title: 'Cutting the sample space into slices',
+      teaser: 'Mutually exclusive and exhaustive. Drag the cuts and watch the slices of B appear underneath.',
+      slides: 'Slides 26–27',
+    },
+    {
+      id: 'totalproof',
+      title: 'Proving the law of total probability',
+      teaser: 'Six lines from B = B ∩ S to the sum. Step through them and watch the picture keep up.',
+      slides: 'Board 10–13 · Slide 28',
+    },
+    {
+      id: 'totalexamples',
+      title: 'Total probability at work',
+      teaser:
+        'Petrol, ad clicks, poisonous plants and a mining job. One calculator, four sets of numbers from the slides.',
+      slides: 'Slides 29–32, 37–44',
+    },
+    {
+      id: 'bayes',
+      title: 'Bayes: running the arrow backwards',
+      teaser:
+        'You know the effect and want the cause. The binary channel, with the prior and the posterior side by side.',
+      slides: 'Slides 33–36',
+    },
+    {
+      id: 'practice',
+      title: 'The practice problems',
+      teaser: 'All seven from the slides — the four that check out, and the two whose printed answers do not.',
+      slides: 'Slides 48–52',
+    },
+  ],
+
   dl1: [
     {
       id: 'map',

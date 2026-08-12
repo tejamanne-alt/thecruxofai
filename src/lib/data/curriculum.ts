@@ -32,11 +32,14 @@ export type TopicId =
   | 'mllec1'
   | 'ism1'
   | 'ism2'
+  | 'ism3'
   | 'centre'
   | 'spread'
   | 'outliers'
   | 'probability'
   | 'events'
+  | 'conditional'
+  | 'bayes'
 export type ChartKind = 'line' | 'bowl' | 'clusters' | 'boundary'
 
 /**
