@@ -5357,4 +5357,794 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
       },
     ],
   },
+  lec4: {
+    cheat: [
+      {
+        formula: 'det(A) = aⱼ₁Cⱼ₁ + … + aⱼₙCⱼₙ',
+        why: 'Cofactor expansion along row j. Any row or any column gives the same answer, so choose the one with the most zeros.',
+      },
+      {
+        formula: 'Cⱼₖ = (−1)ʲ⁺ᵏ Mⱼₖ',
+        why: 'Cofactor = signed minor. Mⱼₖ is the determinant left after crossing out row j and column k. Signs alternate like a chessboard, plus in the top-left.',
+      },
+      {
+        formula: 'swap two rows ⟹ det × (−1)',
+        why: 'Proved by induction: expand both along an untouched row, and every minor has had two rows exchanged.',
+      },
+      {
+        formula: 'add c × row i to row j ⟹ det unchanged',
+        why: 'The expansion splits as D₁ + cD₂, and D₂ has two equal rows so it is zero.',
+      },
+      {
+        formula: 'two equal rows ⟹ det = 0',
+        why: 'Swapping them leaves the matrix alone but must negate the determinant. Only 0 equals its own negative.',
+      },
+      {
+        formula: 'rank A = n ⟺ det A ≠ 0',
+        why: 'Both directions go through Ax = 0 having only x = 0. The bridge is elimination.',
+      },
+      {
+        formula: 'det(A) = (−1)ˢ det(U) = (−1)ˢ ΠUᵢᵢ',
+        why: 's is the number of row interchanges during elimination. A triangular determinant is its diagonal multiplied together.',
+      },
+      {
+        formula: 'tr(A) = Σᵢ aᵢᵢ',
+        why: 'The diagonal added up. Square matrices only.',
+      },
+      {
+        formula: 'tr(AB) = tr(BA), A ∈ ℝⁿˣᵏ, B ∈ ℝᵏˣⁿ',
+        why: 'Holds even though AB is n × n and BA is k × k. Both equal Σᵢ Σⱼ aᵢⱼbⱼᵢ.',
+      },
+      {
+        formula: 'pₐ(λ) = det(A − λI) = c₀ + c₁λ + … + (−1)ⁿλⁿ',
+        why: 'The characteristic polynomial. Degree exactly n for an n × n matrix.',
+      },
+      {
+        formula: 'c₀ = det A',
+        why: 'Set λ = 0 in det(A − λI). Every term with a λ disappears.',
+      },
+      {
+        formula: 'cₙ₋₁ = (−1)ⁿ⁻¹ tr(A)',
+        why: 'Only the diagonal product Π(aᵢᵢ − λ) can reach λⁿ⁻¹; every other contributor loses a row and a column and stops at λⁿ⁻².',
+      },
+      {
+        formula: 'Ax = λx, x ≠ 0',
+        why: 'The eigenvalue equation. x ≠ 0 is essential — otherwise every number would be an eigenvalue of every matrix.',
+      },
+      {
+        formula: 'λ eigenvalue ⟺ (A − λI)x = 0 non-trivially ⟺ rank(A − λI) < n ⟺ det(A − λI) = 0',
+        why: 'The four equivalent statements of slide 15. Only the last can be computed without already knowing x.',
+      },
+      {
+        formula: 'x eigenvector ⟹ cx eigenvector, c ≠ 0',
+        why: 'A(cx) = c(Ax) = c(λx) = λ(cx). Eigenvectors come in whole lines; unit length is a convention.',
+      },
+      {
+        formula: 'Eλ = null(A − λI)',
+        why: 'The eigenspace: eigenvectors of λ plus the zero vector. A subspace, so combinations stay inside.',
+      },
+      {
+        formula: 'spectrum = the set of all eigenvalues',
+        why: 'For Iₙ the spectrum is {1} and Eλ is the whole of ℝⁿ.',
+      },
+      {
+        formula: 'pₐ(λ) = p_{Aᵀ}(λ)',
+        why: 'Because det(M) = det(Mᵀ) and (A − λI)ᵀ = Aᵀ − λI. Same eigenvalues, but generally different eigenvectors.',
+      },
+      {
+        formula: 'A symmetric positive definite ⟹ λ real and λ > 0',
+        why: 'Real from symmetry; positive because λ = xᵀAx / ‖x‖² and the top is positive.',
+      },
+      {
+        formula: 'distinct eigenvalues ⟹ independent eigenvectors',
+        why: 'If y = cx then (λ − μ)cx = 0, and with λ ≠ μ and x ≠ 0 that forces c = 0.',
+      },
+      {
+        formula: 'xᵀAᵀAx = ‖Ax‖² > 0 for x ≠ 0 when rank A = n',
+        why: 'Why AᵀA is positive definite. Only the brackets moved: xᵀAᵀAx = (Ax)ᵀ(Ax).',
+      },
+      {
+        formula: 'algebraic multiplicity ≥ geometric multiplicity',
+        why: 'How often λ is a root, against dim Eλ. Equal for symmetric matrices; the shear [[0,1],[0,0]] has 2 against 1.',
+      },
+      {
+        formula: '|a + bi| = √((a + bi)(a − bi)) = √(a² + b²)',
+        why: 'The modulus. Multiplying by the conjugate is what kills the imaginary part.',
+      },
+      {
+        formula: 'xᴴ = x̄ᵀ,  ‖x‖² = xᴴx',
+        why: 'Conjugate transpose. Needed because xᵀx on x = (1+i, 2+i) gives 3 + 6i, which is not a length.',
+      },
+      {
+        formula: 'A Hermitian ⟺ Aᴴ = A',
+        why: 'The complex generalisation of symmetric. Its diagonal is forced to be real, and for real matrices it is symmetric.',
+      },
+      {
+        formula: 'A symmetric ⟹ every λ real',
+        why: 'xᴴAx is 1 × 1 and equals its own conjugate transpose, so it is real; xᴴx is real and positive; λ is their ratio.',
+      },
+      {
+        formula: 'λ ≠ μ ⟹ xᴴy = 0',
+        why: 'Write xᴴAy two ways, once as μxᴴy and once as λxᴴy. Eigenvectors of different eigenvalues are orthogonal.',
+      },
+      {
+        formula: 'A symmetric ⟹ A = QΛQᵀ',
+        why: 'The spectral theorem. Q holds orthonormal eigenvectors as columns, Λ the eigenvalues. QᵀQ = I, so Q⁻¹ = Qᵀ.',
+      },
+      {
+        formula: 'Σᵢ λᵢ = tr(A),  Πᵢ λᵢ = det(A)',
+        why: 'From pₐ(λ) = Π(λᵢ − λ): compare λⁿ⁻¹ coefficients for the first, set λ = 0 for the second. Two free checks on any answer.',
+      },
+      {
+        formula: 'A symmetric positive definite ⟹ A = LLᵀ',
+        why: 'Cholesky. L lower triangular with positive diagonal, found in one pass; the square roots are why positive definiteness is needed.',
+      },
+      {
+        formula: 'l₁₁ = √a₁₁, l₂₁ = a₂₁/l₁₁, l₂₂ = √(a₂₂ − l₂₁²)',
+        why: 'The deck’s slide 30 formulas. Diagonal: square root of the leftover. Below: leftover divided by the diagonal above.',
+      },
+      {
+        formula: 'Σ = LLᵀ, z ~ N(0, I) ⟹ Lz has covariance Σ',
+        why: 'Cov(Lz) = L·I·Lᵀ = LLᵀ = Σ. How every correlated Gaussian sample is drawn.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'You expand a 4 × 4 determinant along its second row and get 17. A classmate expands the same matrix down its third column. What do they get?',
+        options: ['17', '−17', 'It depends on the matrix', 'Half of 17, because a column has different signs'],
+        answer: 0,
+        explain:
+          'The cofactor formula gives the same number along every row and down every column — that is exactly what slide 2 states by giving both lines. The freedom is useful: pick the row or column with the most zeros, because a zero entry kills its whole term before the minor is even computed.',
+      },
+      {
+        q: 'During Gaussian elimination on a 3 × 3 matrix you make two row interchanges and end with a diagonal of 2, −3, 5. What is det A?',
+        options: ['−30', '30', '4', 'Cannot be told without the original matrix'],
+        answer: 0,
+        explain:
+          'det(A) = (−1)ˢ det(U). Here s = 2, so (−1)ˢ = +1, and det(U) is the diagonal multiplied together: 2 × (−3) × 5 = −30. So det A = −30. Only whether s is odd or even ever matters — three interchanges would have given +30 instead.',
+      },
+      {
+        q: 'A is 2 × 5 and B is 5 × 2. Which of these is true?',
+        options: [
+          'tr(AB) = tr(BA), even though AB is 2 × 2 and BA is 5 × 5',
+          'tr(AB) = tr(BA) only if A and B are square',
+          'AB and BA have the same size, so the claim is trivial',
+          'The traces differ by a factor of 5/2',
+        ],
+        answer: 0,
+        explain:
+          'Slide 11 states it for exactly this shape. Both traces equal Σᵢ Σⱼ aᵢⱼbⱼᵢ, read row-first or column-first, so they agree despite the matrices being different sizes. The 5 × 5 matrix BA simply has three extra eigenvalues, all zero, which contribute nothing to the sum.',
+      },
+      {
+        q: 'The characteristic polynomial of a 3 × 3 matrix is −λ³ + 6λ² − 10λ + 4. What are det A and tr A?',
+        options: [
+          'det A = 4 and tr A = 6',
+          'det A = −4 and tr A = −6',
+          'det A = 6 and tr A = 4',
+          'det A = 4 and tr A = 10',
+        ],
+        answer: 0,
+        explain:
+          'c₀ = det A directly, so det A = 4. And cₙ₋₁ = (−1)ⁿ⁻¹ tr A with n = 3 gives c₂ = (+1)·tr A, so tr A = 6. Both are read straight off without expanding anything, and they double as checks: the roots must add to 6 and multiply to 4.',
+      },
+      {
+        q: 'Why does the definition of an eigenvector insist that x ≠ 0?',
+        options: [
+          'Because the zero vector has no direction to preserve',
+          'Because A0 = λ0 holds for every λ, so allowing it would make every number an eigenvalue of every matrix',
+          'Because det(A − λI) would be undefined',
+          'It is a convention with no real consequence',
+        ],
+        answer: 1,
+        explain:
+          'The zero vector satisfies the equation for absolutely any λ, so the definition would say nothing at all. Note the asymmetry that catches people out: an eigenvalue of 0 is perfectly legal and means A is singular, but an eigenvector of 0 is not.',
+      },
+      {
+        q: 'For A with a 1 in every entry of a 2 × 2, the eigenvalues are 2 and 0. What does the eigenvalue 0 tell you?',
+        options: [
+          'A has an inverse with a zero entry',
+          'A is singular, and the eigenvector for λ = 0 spans its nullspace',
+          'The matrix is not square',
+          'Nothing — a zero eigenvalue is a computational artefact',
+        ],
+        answer: 1,
+        explain:
+          'Ax = 0x means Ax = 0, so an eigenvector for λ = 0 is exactly a non-zero vector in the nullspace. “0 is an eigenvalue”, “A has a nullspace”, “det A = 0” and “A is singular” are four ways of saying one thing.',
+      },
+      {
+        q: 'The shear with a single 1 in its top-right corner has characteristic polynomial λ². How many independent eigenvectors does it have?',
+        options: [
+          'Two, one for each appearance of the root',
+          'One',
+          'None, because the only eigenvalue is zero',
+          'Infinitely many',
+        ],
+        answer: 1,
+        explain:
+          'λ = 0 has algebraic multiplicity 2 but the nullspace of A − 0I is only one-dimensional, so the geometric multiplicity is 1. This is the matrix slide 17 uses to answer its own question: no, not every n × n matrix has n eigenvectors. Such a matrix is called defective and cannot be diagonalised.',
+      },
+      {
+        q: 'Slide 17 asks whether a rotation matrix has no eigenvalues or eigenvectors. What is the honest answer?',
+        options: [
+          'Correct — it has neither',
+          'It has no real eigenvalues or eigenvectors for turns strictly between 0° and 180°, but it does have a complex conjugate pair',
+          'It has two real eigenvalues at every angle',
+          'It has eigenvectors but no eigenvalues',
+        ],
+        answer: 1,
+        explain:
+          'A turn through θ gives p(λ) = λ² − 2cos θ·λ + 1, whose discriminant 4cos²θ − 4 is negative except at 0° and 180°. So there is no real direction left unturned — the intuition is right — but the eigenvalues exist as the complex pair cos θ ± i sin θ. At 0° and 180° the matrix is ±I and every direction is an eigenvector.',
+      },
+      {
+        q: 'A and Aᵀ. Which statement is right?',
+        options: [
+          'They have the same eigenvalues and the same eigenvectors',
+          'They have the same eigenvalues but generally different eigenvectors',
+          'They have the same eigenvectors but different eigenvalues',
+          'Neither is shared in general',
+        ],
+        answer: 1,
+        explain:
+          'det(A − λI) = det((A − λI)ᵀ) = det(Aᵀ − λI), so the characteristic polynomials are identical and the eigenvalues must match. Nothing in that chain says anything about the vectors, and they generally differ — the two sets are called right and left eigenvectors.',
+      },
+      {
+        q: 'A is m × n with rank n. Why is AᵀA positive definite?',
+        options: [
+          'Because AᵀA is symmetric, and all symmetric matrices are positive definite',
+          'Because xᵀAᵀAx = ‖Ax‖², which is positive unless Ax = 0 — and full column rank forbids that for x ≠ 0',
+          'Because m > n',
+          'Because its determinant is the square of det A',
+        ],
+        answer: 1,
+        explain:
+          'Only the brackets move: xᵀAᵀAx = (Ax)ᵀ(Ax) = ‖Ax‖². A squared length is never negative and is zero only when Ax = 0, which full column rank rules out. Symmetry alone is nowhere near enough — a symmetric matrix can easily have negative eigenvalues.',
+      },
+      {
+        q: 'For the complex vector x = (1 + i, 2 + i), the deck computes xᵀx = 3 + 6i. What is the point being made?',
+        options: [
+          'That the arithmetic is harder with complex numbers',
+          'That xᵀx is not real, so it cannot be a squared length — the definition of the inner product has to change to xᴴx',
+          'That the vector was chosen badly',
+          'That complex vectors have no length',
+        ],
+        answer: 1,
+        explain:
+          'The result is not merely a wrong length, it is not a length at all, because a length squared must be real and not negative. Conjugating the first copy fixes it: xᴴx = |1 + i|² + |2 + i|² = 2 + 5 = 7.',
+      },
+      {
+        q: 'Why must the diagonal entries of a Hermitian matrix be real?',
+        options: [
+          'By convention',
+          'Because conjugate-transposing leaves aᵢᵢ in place and conjugates it, so aᵢᵢ must equal its own conjugate',
+          'Because the determinant would otherwise be complex',
+          'They need not be real',
+        ],
+        answer: 1,
+        explain:
+          'Transposing does not move a diagonal entry, so Aᴴ = A forces aᵢᵢ to equal its conjugate — and only a real number does that. Set all imaginary parts to zero and Hermitian collapses to symmetric, which is the case you have been using all along.',
+      },
+      {
+        q: 'In the proof that a symmetric matrix has real eigenvalues, why is xᴴAx said to be real?',
+        options: [
+          'Because A is real',
+          'Because it is a 1 × 1 matrix that equals its own conjugate transpose, and only real numbers do that',
+          'Because x is chosen to be real',
+          'Because λ is assumed real at the start',
+        ],
+        answer: 1,
+        explain:
+          'The shapes give 1 × n times n × n times n × 1, so xᴴAx is a single number. Taking its conjugate transpose gives xᴴAᴴx = xᴴAx, using Aᴴ = A. A number equal to its own conjugate is real. Assuming λ real at the start would be circular — that is what is being proved.',
+      },
+      {
+        q: 'Which of these does the deck say it will NOT prove?',
+        options: [
+          'That the roots of pₐ(λ) are real for a symmetric matrix',
+          'That eigenvectors of different eigenvalues are orthogonal',
+          'That the geometric multiplicity of each eigenvalue equals its algebraic multiplicity',
+          'That A and Aᵀ share eigenvalues',
+        ],
+        answer: 2,
+        explain:
+          'Slides 25 and 26 prove the first two, and slide 19 proves the last. Slide 28 says plainly that the missing piece — enough eigenvectors even when an eigenvalue repeats — will not be proved. It is the one taken on trust, and it is exactly what the defective shear on slide 17 shows can fail for a non-symmetric matrix.',
+      },
+      {
+        q: 'In A = QΛQᵀ, why is the last factor a transpose rather than an inverse?',
+        options: [
+          'Because transposing is faster than inverting, and the difference is negligible',
+          'Because Q has orthonormal columns, so QᵀQ = I and Q⁻¹ really is Qᵀ',
+          'Because Λ is diagonal',
+          'Because A is symmetric, so every factor is symmetric',
+        ],
+        answer: 1,
+        explain:
+          'The spectral theorem supplies an ORTHONORMAL basis of eigenvectors, and that is precisely the condition QᵀQ = I. For a general diagonalisable matrix you must write QΛQ⁻¹, because the eigenvectors are not at right angles and the shortcut is unavailable.',
+      },
+      {
+        q: 'A 3 × 3 matrix has eigenvalues 2, 3 and 4. What are its trace and determinant?',
+        options: [
+          'tr = 9, det = 24',
+          'tr = 24, det = 9',
+          'tr = 9, det = 9',
+          'Cannot be told from the eigenvalues alone',
+        ],
+        answer: 0,
+        explain:
+          'Sum for the trace, product for the determinant: 2 + 3 + 4 = 9 and 2 × 3 × 4 = 24. These are the two free checks on any eigenvalue answer — if the numbers you computed do not add to the diagonal sum, they are wrong before you look any further.',
+      },
+      {
+        q: 'Cholesky fails on a symmetric matrix. What has it told you?',
+        options: [
+          'That the matrix is not square',
+          'That the matrix is not positive definite — some quantity under a square root came out at zero or below',
+          'That the arithmetic overflowed',
+          'That the matrix has complex eigenvalues',
+        ],
+        answer: 1,
+        explain:
+          'Three of the six formulas take a square root, and positive definiteness is exactly the promise that what is underneath stays positive. This is why attempting a Cholesky is the standard test for positive definiteness — cheaper and more reliable than computing every eigenvalue and checking its sign.',
+      },
+      {
+        q: 'You have Σ = LLᵀ and z with independent standard normal entries. Why does Lz have covariance Σ?',
+        options: [
+          'Because L is triangular',
+          'Because Cov(Lz) = L·Cov(z)·Lᵀ = L·I·Lᵀ = LLᵀ = Σ',
+          'Because the entries of z are already correlated',
+          'It does not — you need L⁻¹z',
+        ],
+        answer: 1,
+        explain:
+          'Covariance transforms as M·Cov·Mᵀ, and Cov(z) is the identity because the entries are independent with variance 1. So the identity in the middle vanishes and LLᵀ is left, which is Σ by construction. Add a mean vector on the front if the distribution is not centred at the origin.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define the cofactor expansion of a determinant, and prove that interchanging two rows multiplies the determinant by −1.',
+        meta: 'Define & prove · ~8 marks',
+        points: [
+          'State the definition: det(A) = aⱼ₁Cⱼ₁ + … + aⱼₙCⱼₙ along row j, or the matching sum down column k, with Cⱼₖ = (−1)ʲ⁺ᵏMⱼₖ and Mⱼₖ the minor.',
+          'Say what a minor is: the determinant of the submatrix left after deleting row j and column k, so the definition is recursive down to the 1 × 1 case det(A) = a₁₁.',
+          'Set the proof up as induction on n, and give the base case n = 2 explicitly: ad − bc becomes bc − ad = −(ad − bc).',
+          'State the induction hypothesis: the claim holds for all determinants of order n − 1.',
+          'Expand both D and E along a row that was NOT one of the two interchanged — this is the essential step, and marks are lost by expanding along a moved row.',
+          'Observe the coefficients aⱼₖ are identical in both expansions, while each minor Nⱼₖ of E is the matching Mⱼₖ of D with two rows exchanged.',
+          'Apply the hypothesis to get Mⱼₖ = −Nⱼₖ term by term, so every term changes sign and D = −E.',
+        ],
+      },
+      {
+        q: 'Prove that adding a multiple of one row to another leaves the determinant unchanged, and deduce that an n × n matrix has rank n if and only if its determinant is non-zero.',
+        meta: 'Prove & deduce · ~10 marks',
+        points: [
+          'Add c times row i to row j, so the new entries of row j are aⱼₖ + c·aᵢₖ, and expand D′ along that row.',
+          'Split the sum into two: D′ = Σ(−1)ʲ⁺ᵏaⱼₖMⱼₖ + cΣ(−1)ʲ⁺ᵏaᵢₖMⱼₖ = D₁ + cD₂, identifying D₁ as the original D.',
+          'Identify D₂ as the determinant of a matrix whose rows i and j both hold the entries aᵢₖ, so two of its rows are equal.',
+          'Prove D₂ = 0: interchanging the two identical rows leaves the matrix unchanged, so the determinant is unchanged, while the swap rule says it is negated — only 0 satisfies both.',
+          'Conclude D′ = D, and hence that elimination changes a determinant only through row interchanges: det(A) = (−1)ˢ det(U) with s the number of interchanges.',
+          'Forward direction: full rank means Ax = 0 has only x = 0, so Ux = 0 does too, so every column of U is a pivot column, so every Uᵢᵢ ≠ 0 and det(U) ≠ 0.',
+          'Reverse direction: det(A) ≠ 0 forces every Uᵢᵢ ≠ 0, making all columns pivot columns, so Ux = 0 and hence Ax = 0 have only the zero solution — full rank.',
+          'State the triangular fact used throughout: det(U) is the product of the diagonal entries.',
+        ],
+      },
+      {
+        q: 'Define the characteristic polynomial and show that its constant term is det(A) and that the coefficient of λⁿ⁻¹ is (−1)ⁿ⁻¹ tr(A).',
+        meta: 'Define & derive · ~8 marks',
+        points: [
+          'Define pₐ(λ) = det(A − λI) and state that it is a polynomial of degree exactly n, written c₀ + c₁λ + … + cₙ₋₁λⁿ⁻¹ + (−1)ⁿλⁿ.',
+          'Define the trace as tr(A) = Σᵢ aᵢᵢ, the sum of the diagonal entries.',
+          'For c₀: substitute λ = 0 into det(A − λI), giving pₐ(0) = det(A), and note every term containing λ vanishes, leaving c₀.',
+          'For cₙ₋₁: expand along the first row and observe that the (a₁₁ − λ)C₁₁ term contains the full diagonal product Πᵢ(aᵢᵢ − λ).',
+          'Argue that no other contributor can reach λⁿ⁻¹: each has a row and a column removed by its minor, killing two potential factors of λ, so it stops at λⁿ⁻².',
+          'Expand Πᵢ(aᵢᵢ − λ) and collect the λⁿ⁻¹ terms: take −λ from all but one bracket and aᵢᵢ from the remaining one, in n ways, giving (−1)ⁿ⁻¹Σᵢaᵢᵢ.',
+          'State the corollary from the same product: the coefficient of λⁿ is (−1)ⁿ.',
+        ],
+      },
+      {
+        q: 'Define eigenvalues and eigenvectors, state the four equivalent conditions, and find the eigenvalues and eigenvectors of the 2 × 2 matrix with 1 in every entry.',
+        meta: 'Define, state & compute · ~10 marks',
+        points: [
+          'Define: for A ∈ ℝⁿˣⁿ, λ is an eigenvalue and x ∈ ℝⁿ \\ 0 the corresponding eigenvector when Ax = λx; state that x ≠ 0 is required or every λ would qualify.',
+          'State the four equivalences: λ is an eigenvalue; (A − λI)x = 0 has a non-trivial solution; rank(A − λI) < n; det(A − λI) = 0.',
+          'Note that any non-zero multiple cx of an eigenvector is another eigenvector for the same λ, since A(cx) = λ(cx).',
+          'Form det(A − λI) = (1 − λ)² − 1 and solve: (1 − λ)² = 1 gives 1 − λ = ±1, so λ = 0 and λ = 2 — show both signs.',
+          'For λ = 0, row-reduce A to U with rows (1, 1) and (0, 0); the equation x₁ + x₂ = 0 gives the eigenvector (1, −1).',
+          'For λ = 2, row-reduce A − 2I to rows (1, −1) and (0, 0); the equation x₁ − x₂ = 0 gives the eigenvector (1, 1).',
+          'Check with the two identities: the eigenvalues sum to 2 = tr(A) and multiply to 0 = det(A), which also confirms A is singular.',
+        ],
+      },
+      {
+        q: 'State the spectral theorem, explain the difference between algebraic and geometric multiplicity, and give an example where they differ.',
+        meta: 'State, distinguish & exemplify · ~8 marks',
+        points: [
+          'State: if A ∈ ℝⁿˣⁿ is symmetric, there is an orthonormal basis of the vector space consisting of eigenvectors of A, and every eigenvalue is real.',
+          'Define algebraic multiplicity as the number of times λ appears as a root of pₐ(λ).',
+          'Define geometric multiplicity as dim Eλ, the dimension of the eigenspace, where Eλ is the nullspace of A − λI.',
+          'State that the geometric multiplicity never exceeds the algebraic one, and that the spectral theorem asserts they are equal for symmetric matrices.',
+          'Give the counter-example for a non-symmetric matrix: the shear with entries (0, 1) and (0, 0) has pₐ(λ) = λ², so λ = 0 has algebraic multiplicity 2, but the nullspace is spanned by (1, 0) alone, so the geometric multiplicity is 1.',
+          'Conclude that this matrix is defective — fewer than n independent eigenvectors, so no basis of eigenvectors and no diagonalisation.',
+          'Name the three supporting statements of slide 22 and say which is not proved in the deck: that geometric multiplicity equals algebraic multiplicity.',
+        ],
+      },
+      {
+        q: 'Prove that the eigenvalues of a real symmetric matrix are real and that eigenvectors belonging to different eigenvalues are orthogonal.',
+        meta: 'Prove · ~10 marks',
+        points: [
+          'Define the conjugate transpose xᴴ = x̄ᵀ and state that xᴴx = Σ|xᵢ|² is real and positive for x ≠ 0.',
+          'Motivate it: for x = (1 + i, 2 + i) the old form gives xᵀx = 3 + 6i, which is not real and so cannot be a squared length.',
+          'Start from Ax = λx and premultiply by xᴴ to get xᴴAx = λxᴴx.',
+          'Observe xᴴAx is 1 × 1, and compute its conjugate transpose: (xᴴAx)ᴴ = xᴴAᴴx = xᴴAx using Aᴴ = A, so it equals itself and is therefore real.',
+          'Conclude λ = xᴴAx / xᴴx is a ratio of two real numbers with a non-zero denominator, hence real.',
+          'For orthogonality, take Ax = λx and Ay = μy with λ ≠ μ, and evaluate xᴴAy two ways: once as μxᴴy, and once as (yᴴAx)ᴴ = (λyᴴx)ᴴ = λxᴴy, using that λ is real.',
+          'Equate to get (λ − μ)xᴴy = 0, and since λ ≠ μ conclude xᴴy = 0 — the two eigenvectors are orthogonal.',
+          'State the consequence: the orthonormal bases of the different eigenspaces can be strung together without collision, which is what the spectral theorem needs.',
+        ],
+      },
+      {
+        q: 'Show that the sum of the eigenvalues is the trace and their product is the determinant, and explain how each is used as a check.',
+        meta: 'Derive & apply · ~7 marks',
+        points: [
+          'Write the characteristic polynomial in factored form: pₐ(λ) = Πᵢ(λᵢ − λ), one bracket per eigenvalue counted with multiplicity.',
+          'For the sum: expand and collect λⁿ⁻¹ by taking −λ from all but one bracket, giving coefficient (−1)ⁿ⁻¹Σλᵢ.',
+          'Quote the earlier direct expansion of the determinant, which gave the same coefficient as (−1)ⁿ⁻¹ tr(A), and equate the two to get Σλᵢ = tr(A).',
+          'For the product: set λ = 0 in det(A − λI) = Πᵢ(λᵢ − λ), giving det(A) = Πᵢλᵢ immediately.',
+          'Note the corollary: if any eigenvalue is 0 then det(A) = 0, so A is singular — matching the equivalence proved earlier.',
+          'Explain the use: after computing eigenvalues, check they add to the diagonal sum and multiply to the determinant before going on to the eigenvectors.',
+          'Note the 2 × 2 shortcut: the two eigenvalues are the pair adding to tr(A) and multiplying to det(A), which often avoids the polynomial altogether.',
+        ],
+      },
+      {
+        q: 'State the Cholesky decomposition, derive the formulas for a 3 × 3 matrix, and explain its use in sampling from a multivariate Gaussian.',
+        meta: 'State, derive & apply · ~10 marks',
+        points: [
+          'State the theorem: a symmetric positive definite A factorises as A = LLᵀ with L lower triangular and positive diagonal entries.',
+          'Set out the 3 × 3 product with L lower triangular and Lᵀ upper triangular, and compare entries of LLᵀ with those of A one at a time.',
+          'Derive the diagonal formulas: l₁₁ = √a₁₁, l₂₂ = √(a₂₂ − l₂₁²), l₃₃ = √(a₃₃ − (l₃₁² + l₃₂²)).',
+          'Derive the below-diagonal formulas: l₂₁ = a₂₁/l₁₁, l₃₁ = a₃₁/l₁₁, l₃₂ = (a₃₂ − l₃₁l₂₁)/l₂₂.',
+          'State the pattern in words: a diagonal entry is the square root of what remains after the squares to its left; an entry below is its own remainder divided by the diagonal above it.',
+          'Explain why positive definiteness is required: the diagonal formulas take square roots, and positive definiteness is what keeps the quantities underneath positive — so a failed factorisation is itself the test.',
+          'State the sampling application: multivariate Gaussians are governed by a symmetric positive definite covariance matrix Σ.',
+          'Give the recipe and its justification: factor Σ = LLᵀ, generate z with independent standard Gaussian entries so Cov(z) = I, and take Lz, since Cov(Lz) = L·I·Lᵀ = LLᵀ = Σ.',
+        ],
+      },
+    ],
+  },
+  eigen: {
+    cheat: [
+      {
+        formula: 'Ax = λx, x ≠ 0',
+        why: 'The whole definition. A direction the matrix does not turn, and how much it stretches it.',
+      },
+      {
+        formula: 'det(A − λI) = 0',
+        why: 'How to find λ without knowing x. The only one of the four equivalent conditions you can compute directly.',
+      },
+      {
+        formula: 'Eλ = null(A − λI)',
+        why: 'How to find x once you have λ. Row-reduce and read off the free variables.',
+      },
+      {
+        formula: 'A(cx) = λ(cx)',
+        why: 'Eigenvectors come in whole lines through the origin. Unit length is a convention, not a fact.',
+      },
+      {
+        formula: 'λ = 0 ⟺ A singular',
+        why: 'An eigenvalue of zero means A flattens that direction to nothing, so it has a nullspace and det A = 0.',
+      },
+      {
+        formula: 'algebraic ≥ geometric multiplicity',
+        why: 'How often λ is a root, against how many directions it gives. Equal for symmetric matrices; the shear [[0,1],[0,0]] has 2 against 1.',
+      },
+      { formula: 'Σλᵢ = tr A,  Πλᵢ = det A', why: 'Two free checks. If your eigenvalues fail either, they are wrong.' },
+      {
+        formula: 'distinct λ ⟹ independent x',
+        why: 'So n different eigenvalues give a full basis of eigenvectors and the matrix can be diagonalised.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'Why is the zero vector excluded from being an eigenvector?',
+        options: [
+          'It has no length',
+          'Because A0 = λ0 for every λ, so every number would be an eigenvalue of every matrix',
+          'Because det(A − λI) would fail',
+          'It is not excluded',
+        ],
+        answer: 1,
+        explain:
+          'Allowing it would make the definition vacuous. Note the asymmetry: an eigenvalue of 0 is perfectly legal and tells you A is singular, but an eigenvector of 0 is not.',
+      },
+      {
+        q: 'You have found that λ = 3 is an eigenvalue of A. What do you do next to get its eigenvectors?',
+        options: [
+          'Invert A − 3I',
+          'Row-reduce A − 3I and read off the nullspace',
+          'Compute det(A − 3I) again',
+          'Multiply A by 3',
+        ],
+        answer: 1,
+        explain:
+          'Eλ is the nullspace of A − λI, so finding eigenvectors is an ordinary elimination job. Inverting is exactly what you cannot do — A − 3I is singular, which is why 3 was an eigenvalue in the first place.',
+      },
+      {
+        q: 'A 2 × 2 matrix has trace 7 and determinant 12. What are its eigenvalues?',
+        options: ['3 and 4', '7 and 12', '1 and 6', 'Cannot be told without the matrix'],
+        answer: 0,
+        explain:
+          'The eigenvalues add to the trace and multiply to the determinant, so you want the pair adding to 7 and multiplying to 12 — that is 3 and 4. For a 2 × 2 this often skips the characteristic polynomial entirely.',
+      },
+      {
+        q: 'A rotation of the plane through 30°. What are its real eigenvectors?',
+        options: [
+          'Two, at right angles',
+          'One, along the axis of rotation',
+          'None — no real direction survives, and the eigenvalues are a complex pair',
+          'Every direction, since rotation preserves length',
+        ],
+        answer: 2,
+        explain:
+          'p(λ) = λ² − 2cos θ·λ + 1 has discriminant 4cos²θ − 4, which is negative for every θ strictly between 0° and 180°. The eigenvalues exist as cos θ ± i sin θ; there is simply no real direction left unturned.',
+      },
+      {
+        q: 'Two PCA runs on similar data return principal components pointing in opposite directions. What is the most likely explanation?',
+        options: [
+          'A bug in the implementation',
+          'Any non-zero multiple of an eigenvector is another eigenvector, so the sign is arbitrary',
+          'The data was not centred',
+          'The covariance matrix was not symmetric',
+        ],
+        answer: 1,
+        explain:
+          'Eigenvectors come in lines, so v and −v are equally valid answers and different routines make different choices. A genuinely worrying disagreement is a change of direction within a plane, which happens when two eigenvalues are nearly equal.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define an eigenvalue and eigenvector, state the equivalent conditions, and describe the procedure for finding them.',
+        meta: 'Define & describe · ~7 marks',
+        points: [
+          'Define: λ ∈ ℝ is an eigenvalue of A ∈ ℝⁿˣⁿ and x ∈ ℝⁿ \\ 0 the corresponding eigenvector when Ax = λx.',
+          'Explain why x ≠ 0 is required: A0 = λ0 for every λ, so the definition would otherwise be empty.',
+          'State the equivalences: Ax = λx with x ≠ 0; (A − λI)x = 0 solvable non-trivially; rank(A − λI) < n; det(A − λI) = 0.',
+          'Describe the procedure: form det(A − λI), expand to the characteristic polynomial, find its roots, then for each root find the nullspace of A − λI.',
+          'State that any non-zero scalar multiple of an eigenvector is another one, so an eigenvector is a line rather than a single vector.',
+          'Note the checks available at the end: the eigenvalues must sum to tr(A) and multiply to det(A).',
+        ],
+      },
+    ],
+  },
+  spectraldecomp: {
+    cheat: [
+      {
+        formula: 'A symmetric ⟹ A = QΛQᵀ',
+        why: 'The spectral theorem. Q holds orthonormal eigenvectors as columns, Λ the matching eigenvalues down its diagonal.',
+      },
+      {
+        formula: 'QᵀQ = QQᵀ = I,  Q⁻¹ = Qᵀ',
+        why: 'What orthonormal columns buy you, and the only reason the third factor is a transpose.',
+      },
+      {
+        formula: 'Aᵏ = QΛᵏQᵀ',
+        why: 'The inner QᵀQ collapses to I. Powers of a diagonal matrix are done entry by entry.',
+      },
+      { formula: 'A⁻¹ = QΛ⁻¹Qᵀ', why: 'Invert the diagonal. Exists exactly when no eigenvalue is zero.' },
+      {
+        formula: 'Σ^(−1/2) = QΛ^(−1/2)Qᵀ',
+        why: 'Whitening: turns correlated features into a cloud with identity covariance.',
+      },
+      {
+        formula: 'read right to left: rotate, stretch, rotate back',
+        why: 'Qᵀ measures x in the eigenvector axes, Λ scales each, Q writes it back. Every symmetric matrix is that.',
+      },
+      {
+        formula: 'AᵀA and AAᵀ are square and symmetric',
+        why: 'How a rectangular data matrix joins in. This step is where singular-value decomposition and PCA come from.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'What does A = QΛQᵀ require of A?',
+        options: ['Nothing', 'That A is symmetric', 'That A is invertible', 'That A has distinct eigenvalues'],
+        answer: 1,
+        explain:
+          'Symmetry is what the spectral theorem needs, and it supplies both real eigenvalues and an orthonormal basis of eigenvectors. A general diagonalisable matrix gives only QΛQ⁻¹, with Q not orthogonal. Invertibility is not required — a zero eigenvalue simply sits in Λ.',
+      },
+      {
+        q: 'Why is A⁵⁰ = QΛ⁵⁰Qᵀ?',
+        options: [
+          'Because Λ commutes with everything',
+          'Because each adjacent QᵀQ collapses to I when the factors are multiplied out',
+          'Because Q is diagonal',
+          'It is only an approximation',
+        ],
+        answer: 1,
+        explain:
+          'QΛQᵀ · QΛQᵀ = QΛ(QᵀQ)ΛQᵀ = QΛ²Qᵀ, and the same collapse happens 49 more times. Raising the diagonal matrix to the power is then done entry by entry, which is no work at all.',
+      },
+      {
+        q: 'A covariance matrix has picked up a small negative eigenvalue from rounding. How is it repaired?',
+        options: [
+          'Recompute it in higher precision and hope',
+          'Decompose it, clip the diagonal of Λ at zero, and multiply QΛQᵀ back together',
+          'Take its absolute value entry by entry',
+          'Transpose it',
+        ],
+        answer: 1,
+        explain:
+          'The eigendecomposition is the only route that touches the eigenvalues directly. Clipping and rebuilding gives the nearest positive semi-definite matrix in the obvious sense. Adding a small multiple of the identity — jitter — is the cheaper alternative used when the negative value is tiny.',
+      },
+    ],
+    exam: [
+      {
+        q: 'State the spectral theorem, give the decomposition it produces, and explain what each factor does to a vector.',
+        meta: 'State & explain · ~7 marks',
+        points: [
+          'State: for symmetric A ∈ ℝⁿˣⁿ there is an orthonormal basis of eigenvectors, and every eigenvalue is real.',
+          'Give A = QΛQᵀ with Q holding the orthonormal eigenvectors as columns and Λ diagonal with the matching eigenvalues.',
+          'Justify the transpose: orthonormal columns mean QᵀQ = I, so Q⁻¹ = Qᵀ and no inverse need be computed.',
+          'Explain the action right to left: Qᵀx gives the coordinates of x in the eigenvector basis, Λ scales each coordinate by its own eigenvalue, Q returns to the original coordinates.',
+          'State the consequence for functions of A: Aᵏ = QΛᵏQᵀ and A⁻¹ = QΛ⁻¹Qᵀ, since the inner QᵀQ factors collapse.',
+          'Note the route for rectangular matrices: AᵀA and AAᵀ are square and symmetric, which is where SVD and PCA come from.',
+        ],
+      },
+    ],
+  },
+  trace: {
+    cheat: [
+      {
+        formula: 'tr(A) = Σᵢ aᵢᵢ',
+        why: 'The diagonal added up. Square matrices only — there is no diagonal otherwise.',
+      },
+      { formula: 'tr(A + B) = tr A + tr B', why: 'The diagonal of a sum is the sum of the diagonals.' },
+      {
+        formula: 'tr(αA) = α tr(A)',
+        why: 'With the rule above, this makes the trace a linear function of the matrix.',
+      },
+      {
+        formula: 'tr(Iₙ) = n',
+        why: 'n ones. It is why tr(H) counts the effective degrees of freedom of a projection.',
+      },
+      {
+        formula: 'tr(AB) = tr(BA), A ∈ ℝⁿˣᵏ, B ∈ ℝᵏˣⁿ',
+        why: 'AB is n × n and BA is k × k — different sizes, same trace. Both are Σᵢ Σⱼ aᵢⱼbⱼᵢ.',
+      },
+      {
+        formula: 'tr(ABC) = tr(BCA) = tr(CAB)',
+        why: 'The cyclic property. You may rotate the letters round; you may NOT shuffle them, so tr(ABC) ≠ tr(ACB) in general.',
+      },
+      {
+        formula: 'Σᵢ λᵢ = tr(A)',
+        why: 'The trace is the sum of the eigenvalues, from comparing λⁿ⁻¹ coefficients in pₐ(λ).',
+      },
+    ],
+    quiz: [
+      {
+        q: 'A is 3 × 7 and B is 7 × 3. Which is true of tr(AB) and tr(BA)?',
+        options: [
+          'They are equal, although AB is 3 × 3 and BA is 7 × 7',
+          'They differ, because the matrices differ',
+          'Only tr(AB) exists',
+          'They are equal only if A = Bᵀ',
+        ],
+        answer: 0,
+        explain:
+          'Both traces are the same collection of products aᵢⱼbⱼᵢ added in a different order. The larger matrix BA simply has four extra eigenvalues, all zero, contributing nothing.',
+      },
+      {
+        q: 'Which of these is NOT generally true?',
+        options: ['tr(ABC) = tr(CAB)', 'tr(ABC) = tr(ACB)', 'tr(A + B) = tr(A) + tr(B)', 'tr(Aᵀ) = tr(A)'],
+        answer: 1,
+        explain:
+          'The cyclic property lets you rotate letters round the circle, not reorder them arbitrarily. Swapping B and C is a reordering, and it generally changes the value. Transposing leaves the diagonal alone, so the last one is fine.',
+      },
+      {
+        q: 'You compute the eigenvalues of a matrix with diagonal 4, 1, 7 and get 3, 5 and 6. What should you conclude?',
+        options: [
+          'The eigenvalues are right',
+          'They are wrong, because they must sum to the trace and 3 + 5 + 6 = 14 while 4 + 1 + 7 = 12',
+          'The matrix is not symmetric',
+          'Nothing can be concluded from the trace',
+        ],
+        answer: 1,
+        explain:
+          'The sum of the eigenvalues is the trace, always, with no conditions on the matrix beyond being square. 14 ≠ 12, so there is an arithmetic mistake somewhere and it is worth finding before you go on to the eigenvectors.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define the trace, list its properties, and prove that tr(AB) = tr(BA) for A ∈ ℝⁿˣᵏ and B ∈ ℝᵏˣⁿ.',
+        meta: 'Define & prove · ~6 marks',
+        points: [
+          'Define tr(A) = Σᵢ₌₁ⁿ aᵢᵢ for a square matrix, the sum of the diagonal entries.',
+          'List: tr(A + B) = tr(A) + tr(B); tr(αA) = α tr(A); tr(Iₙ) = n; tr(AB) = tr(BA).',
+          'Note the shapes in the last one: AB is n × n while BA is k × k, so the two matrices are of different sizes.',
+          'Write tr(AB) = Σᵢ (AB)ᵢᵢ = Σᵢ Σⱼ aᵢⱼbⱼᵢ, expanding the matrix product in the diagonal entry.',
+          'Write tr(BA) = Σⱼ (BA)ⱼⱼ = Σⱼ Σᵢ bⱼᵢaᵢⱼ, and observe it is the same set of products summed in the other order.',
+          'Conclude the two are equal, and state the corollary that the trace is cyclic: tr(ABC) = tr(BCA) = tr(CAB), while arbitrary reordering is not allowed.',
+          'State the link to eigenvalues: tr(A) = Σλᵢ, which follows from comparing the λⁿ⁻¹ coefficient of the characteristic polynomial in factored and expanded form.',
+        ],
+      },
+    ],
+  },
+  cholesky: {
+    cheat: [
+      {
+        formula: 'A symmetric positive definite ⟹ A = LLᵀ',
+        why: 'L lower triangular with a positive diagonal. Often called the matrix square root.',
+      },
+      { formula: 'l₁₁ = √a₁₁', why: 'From (LLᵀ)₁₁ = l₁₁². The first formula, and every later one depends on it.' },
+      {
+        formula: 'l₂₁ = a₂₁ / l₁₁,  l₃₁ = a₃₁ / l₁₁',
+        why: 'Below the diagonal: the leftover divided by the diagonal entry above.',
+      },
+      {
+        formula: 'l₂₂ = √(a₂₂ − l₂₁²)',
+        why: 'On the diagonal: the square root of what remains after the squares to its left.',
+      },
+      {
+        formula: 'l₃₂ = (a₃₂ − l₃₁l₂₁) / l₂₂,  l₃₃ = √(a₃₃ − (l₃₁² + l₃₂²))',
+        why: 'The same two rules again, one row further down.',
+      },
+      {
+        formula: 'failure ⟺ not positive definite',
+        why: 'Three formulas take square roots. Positive definiteness is the promise the quantity underneath stays positive, so a failed attempt is the standard test.',
+      },
+      { formula: 'log det A = 2 Σᵢ log lᵢᵢ', why: 'The log-determinant falls out of the same factorisation for free.' },
+      {
+        formula: 'Σ = LLᵀ, z ~ N(0, I) ⟹ μ + Lz ~ N(μ, Σ)',
+        why: 'Because Cov(Lz) = L·I·Lᵀ = Σ. The reparameterisation trick and the Gaussian process sampling step.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'Which matrices have a Cholesky factor?',
+        options: [
+          'All square matrices',
+          'All symmetric matrices',
+          'Symmetric positive definite matrices',
+          'All invertible matrices',
+        ],
+        answer: 2,
+        explain:
+          'Both conditions are needed. Symmetry alone is not enough: a symmetric matrix with a negative eigenvalue will send the quantity under one of the square roots below zero, and the algorithm stops.',
+      },
+      {
+        q: 'scipy raises an error when you factorise a kernel matrix that should be positive definite. What is the usual cause and fix?',
+        options: [
+          'The matrix is not square; reshape it',
+          'Rounding has pushed the smallest eigenvalue slightly negative; add a small multiple of the identity',
+          'The kernel function is wrong; change kernels',
+          'The matrix is too large; use fewer points',
+        ],
+        answer: 1,
+        explain:
+          'Two nearly-identical training inputs make two nearly-identical rows, so the smallest eigenvalue sits near zero and rounding can tip it under. Adding about 10⁻⁶ times the identity — jitter — lifts every eigenvalue back above zero. It is ridge regression’s λI under another name.',
+      },
+      {
+        q: 'You want samples from a Gaussian with covariance Σ. What is the recipe?',
+        options: [
+          'Draw z with independent standard normal entries and take Σz',
+          'Factor Σ = LLᵀ, draw z with independent standard normal entries, and take Lz',
+          'Factor Σ = LLᵀ and take L⁻¹z',
+          'Draw z and take Σ^(1/2)z, which cannot be computed',
+        ],
+        answer: 1,
+        explain:
+          'Cov(Lz) = L·Cov(z)·Lᵀ = L·I·Lᵀ = LLᵀ = Σ. Using Σ itself would give covariance ΣΣᵀ = Σ², which is not what was asked for. Add a mean vector on the front if the distribution is not centred at the origin.',
+      },
+    ],
+    exam: [
+      {
+        q: 'State the Cholesky decomposition, derive the 3 × 3 formulas, and explain why positive definiteness is required.',
+        meta: 'State, derive & justify · ~8 marks',
+        points: [
+          'State: a symmetric positive definite A can be factorised as A = LLᵀ with L lower triangular and positive diagonal entries.',
+          'Set out the 3 × 3 product of L with Lᵀ and compare entries with A one at a time, working left to right and top to bottom.',
+          'Derive l₁₁ = √a₁₁ from (LLᵀ)₁₁ = l₁₁², then l₂₁ = a₂₁/l₁₁ from (LLᵀ)₂₁ = l₂₁l₁₁.',
+          'Derive l₂₂ = √(a₂₂ − l₂₁²) from (LLᵀ)₂₂ = l₂₁² + l₂₂², and similarly l₃₁, l₃₂ and l₃₃.',
+          'State the pattern: a diagonal entry is the square root of the remainder after the squares to its left; a below-diagonal entry is its remainder divided by the diagonal entry above.',
+          'Note the ordering: every formula uses only quantities already computed, so the factorisation needs a single pass.',
+          'Justify the condition: three formulas take square roots, and positive definiteness guarantees the quantities under them are positive — so a failed factorisation is itself a proof that the matrix is not positive definite.',
+          'Give the cost benefit over LU: only one triangle is stored, and the log-determinant is twice the sum of the logs of the diagonal.',
+        ],
+      },
+    ],
+  },
 }

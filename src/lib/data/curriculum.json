@@ -60,11 +60,16 @@
         "covariance",
         "vectorspace",
         "basis",
+        "eigen",
+        "spectraldecomp",
+        "trace",
+        "cholesky",
         "lec0a",
         "lec0b",
         "lec1",
         "lec2",
-        "lec3"
+        "lec3",
+        "lec4"
       ],
       "syllabus": "Linear algebra, calculus, probability and optimisation as used by machine learning. The brochure does not print a detailed syllabus for this course; the pages below cover the algebra and linear algebra that everything else is built on, and the gradient descent page comes from its optimisation sessions."
     },
@@ -590,6 +595,31 @@
       "label": "Total probability and Bayes' rule",
       "blurb": "Split the world into slices, add up the routes to an event, then run the last arrow backwards to ask which slice you came from.",
       "kind": "concept"
+    },
+    "lec4": {
+      "label": "Lecture 4 — Eigenvalues & eigenvectors",
+      "kind": "chapter",
+      "blurb": "The directions a matrix cannot turn. Expand a determinant by cofactors, put a letter on the diagonal to get the characteristic polynomial, then find the vectors that only get stretched — and end with the two decompositions those vectors build: A = QΛQᵀ and A = LLᵀ."
+    },
+    "eigen": {
+      "label": "Eigenvalues and eigenvectors",
+      "kind": "concept",
+      "blurb": "Most vectors get turned. A few only get stretched, and those few tell you what the matrix really does. Drag one round a circle until it stops turning."
+    },
+    "spectraldecomp": {
+      "label": "The spectral decomposition: A = QΛQᵀ",
+      "kind": "concept",
+      "blurb": "A symmetric matrix pulled apart into a rotation, a stretch and the rotation undone. Build Q and Λ, multiply them back, and check you get what you started with."
+    },
+    "trace": {
+      "label": "The trace",
+      "kind": "concept",
+      "blurb": "Add up the diagonal and stop. One number, four rules, and the one that surprises people: tr(AB) = tr(BA) even when AB and BA are different sizes."
+    },
+    "cholesky": {
+      "label": "Cholesky decomposition",
+      "kind": "concept",
+      "blurb": "The square root of a matrix, when the matrix is symmetric and positive definite. Six formulas, checked by multiplying back, and the sampling trick they exist for."
     }
   }
 }
