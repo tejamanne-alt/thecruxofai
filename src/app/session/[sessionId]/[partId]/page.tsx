@@ -9,6 +9,7 @@ import { LEC0B_PARTS } from '@/components/sessions/lec0b/parts'
 import { LEC1_PARTS } from '@/components/sessions/lec1/parts'
 import { LEC2_PARTS } from '@/components/sessions/lec2/parts'
 import { LEC3_PARTS } from '@/components/sessions/lec3/parts'
+import { LEC4_PARTS } from '@/components/sessions/lec4/parts'
 import { MLLEC1_PARTS } from '@/components/sessions/mllec1/parts'
 import { MLLEC2_PARTS } from '@/components/sessions/mllec2/parts'
 import { PartShell } from '@/components/sessions/session-parts'
@@ -28,6 +29,7 @@ const BODIES: Record<string, Record<string, React.ReactNode>> = {
   lec1: LEC1_PARTS,
   lec2: LEC2_PARTS,
   lec3: LEC3_PARTS,
+  lec4: LEC4_PARTS,
   mllec1: MLLEC1_PARTS,
   mllec2: MLLEC2_PARTS,
   dl1: DL1_PARTS,
