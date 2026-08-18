@@ -17,7 +17,14 @@ import { Lecture3Overview } from '@/components/sessions/lec3/overview'
 import { LinearAlgebraSession } from '@/components/sessions/linear-algebra'
 import { LinearRegressionSession } from '@/components/sessions/linear-regression'
 import { DeterminantConcept, MatrixMultiplyConcept, RankConcept } from '@/components/sessions/matrix-concepts'
+import {
+  AttrTypesConcept,
+  EncodingConcept,
+  HypothesisConcept,
+  ScalingConcept,
+} from '@/components/sessions/ml2-concepts'
 import { MlLecture1Overview } from '@/components/sessions/mllec1/overview'
+import { MlLecture2Overview } from '@/components/sessions/mllec2/overview'
 import { PerceptronSession } from '@/components/sessions/perceptron'
 import { BasisConcept, VectorSpaceConcept } from '@/components/sessions/space-concepts'
 import {
@@ -66,6 +73,11 @@ const OVERVIEWS: Record<TopicId, () => React.ReactElement> = {
   lec2: Lecture2Overview,
   lec3: Lecture3Overview,
   mllec1: MlLecture1Overview,
+  mllec2: MlLecture2Overview,
+  attrtypes: AttrTypesConcept,
+  scaling: ScalingConcept,
+  encoding: EncodingConcept,
+  hypothesis: HypothesisConcept,
   ism1: Ism1Overview,
   ism2: Ism2Overview,
   ism3: Ism3Overview,

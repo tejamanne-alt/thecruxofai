@@ -716,6 +716,162 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
     },
   ],
 
+  mllec2: [
+    {
+      id: 'nutshell',
+      title: 'What every ML algorithm is made of',
+      teaser: 'Three components and a loop. Walk the loop and see which of the three each stage feeds.',
+      slides: 'Slides 4–6',
+    },
+    {
+      id: 'data',
+      title: 'Data: objects and attributes',
+      teaser:
+        'Rows are objects, columns are attributes. Press any cell in the deck’s table and be told all three names for it.',
+      slides: 'Slide 7',
+    },
+    {
+      id: 'attrtypes',
+      title: 'The four types of attribute',
+      teaser: 'Nominal, ordinal, interval, ratio. Tick the operations a column allows and watch the type fall out.',
+      slides: 'Slides 8, 9, 11',
+    },
+    {
+      id: 'zero',
+      title: 'Where zero is, and what you may do to a scale',
+      teaser: 'Is 10° twice 5°? Answer it in Celsius, Fahrenheit and Kelvin and watch only one of them hold.',
+      slides: 'Slides 10, 12',
+    },
+    {
+      id: 'shape',
+      title: 'Discrete, continuous, and the shape of a dataset',
+      teaser:
+        'Countable or measured — then the four words for a dataset’s shape. Add columns and watch the space empty out.',
+      slides: 'Slides 13, 14',
+    },
+    {
+      id: 'datatypes',
+      title: 'The seven kinds of data',
+      teaser:
+        'Relational to sequence. Press each and get the deck’s own example table, with its attribute types marked.',
+      slides: 'Slides 15–21',
+    },
+    {
+      id: 'casestudy',
+      title: 'Case study: typing a real table',
+      teaser: 'The bank’s nine columns. Assign a type to each and get marked against the deck’s own annotations.',
+      slides: 'Slide 22',
+    },
+    {
+      id: 'quality',
+      title: 'Data quality, and what goes wrong',
+      teaser: 'Six things quality means. Break the loan dataset one way at a time and see who gets the wrong answer.',
+      slides: 'Slides 23–24',
+    },
+    {
+      id: 'noise',
+      title: 'Noise',
+      teaser:
+        'The deck’s three figures, live. Two sine waves, their sum, and a noise dial you turn until the shape is gone.',
+      slides: 'Slide 25',
+    },
+    {
+      id: 'outliers',
+      title: 'Outliers: noise, or the whole point',
+      teaser: 'The same four odd points, two jobs. Switch the goal and watch what you do with them reverse.',
+      slides: 'Slide 26',
+    },
+    {
+      id: 'missing',
+      title: 'Missing values, and how to fill them',
+      teaser: 'The deck’s air-traffic table with three holes in it. Try each fill and see which one lies to you.',
+      slides: 'Slides 27, 36',
+    },
+    {
+      id: 'duplicates',
+      title: 'Duplicates and inconsistent entries',
+      teaser: 'A mistake or a millionaire? Four defects hidden in ten rows — find them before the model does.',
+      slides: 'Slides 28, 34, 35',
+    },
+    {
+      id: 'preprocess',
+      title: 'Data engineering and feature engineering',
+      teaser:
+        'Raw data to prepared data to features. Sort eleven jobs into the right box and see where the boundary really is.',
+      slides: 'Slides 29–31',
+    },
+    {
+      id: 'aggregation',
+      title: 'Aggregation',
+      teaser: 'Split, apply, combine. Reproduce the deck’s group-by, then watch the spread shrink as you group.',
+      slides: 'Slides 32–33',
+    },
+    {
+      id: 'iqr',
+      title: 'Finding outliers with the IQR',
+      teaser: 'The lecture’s twelve numbers, worked live. Drag a value past the fence and watch it get flagged.',
+      slides: 'Slides 37–39',
+    },
+    {
+      id: 'sigma',
+      title: 'Finding outliers with three sigma',
+      teaser: 'Mean plus or minus three standard deviations. Move μ and σ and watch the two fences follow.',
+      slides: 'Slide 40',
+    },
+    {
+      id: 'sampling',
+      title: 'Sampling: making the training set representative',
+      teaser: 'Split the deck’s 150 irises at random and watch the class balance drift. Then split it properly.',
+      slides: 'Slides 41–44',
+    },
+    {
+      id: 'imbalance',
+      title: 'Imbalanced training sets',
+      teaser: 'Ninety-five to five. Under-sample, over-sample, or leave it — and see what the lazy classifier scores.',
+      slides: 'Slide 45',
+    },
+    {
+      id: 'scaling',
+      title: 'Feature scaling: normalisation and standardisation',
+      teaser:
+        'The deck’s income example, computed. Both printed answers come out exactly, and one printed input does not.',
+      slides: 'Slides 46–48',
+    },
+    {
+      id: 'featureeng',
+      title: 'Extract, select, construct, transform',
+      teaser:
+        'The four moves of feature engineering, on the deck’s own column list. Apply them and watch the table change.',
+      slides: 'Slides 49–54',
+    },
+    {
+      id: 'binning',
+      title: 'Binning a numeric attribute',
+      teaser: 'Equal width or equal depth. Put one huge salary in the data and watch equal-width collapse.',
+      slides: 'Slides 55–56',
+    },
+    {
+      id: 'encoding',
+      title: 'Encoding categorical features',
+      teaser:
+        'One-hot and label encoding on the deck’s car table — including the lower-case “gas” that quietly becomes a third fuel.',
+      slides: 'Slides 57–58',
+    },
+    {
+      id: 'challenges',
+      title: 'Challenges, and the words the textbook uses',
+      teaser: 'Five ways a project fails, then Mitchell’s vocabulary shown against the deck’s loan table.',
+      slides: 'Slides 59–61',
+    },
+    {
+      id: 'induction',
+      title: 'The inductive learning hypothesis',
+      teaser:
+        'Why fitting the training set is supposed to mean anything. Then build a hypothesis and see which days it catches.',
+      slides: 'Slides 62–66',
+    },
+  ],
+
   ism1: [
     {
       id: 'course',

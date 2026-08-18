@@ -1131,6 +1131,353 @@ export const CONNECTIONS: Connection[] = [
     detail:
       'The ML lecture defined learning as supplying data and answers and getting a program back. Bayesian learning is one concrete way of doing that, and this page is its engine: the MAP hypothesis is argmax P(h | D), which Bayes rewrites as likelihood times prior — so the syllabus line about MAP and naive Bayes is this theorem with an argmax on the front.',
   },
+  /* ------------------------- ML Lecture 2: data and preprocessing ---------- */
+  {
+    from: { topic: 'mllec2', part: 'nutshell' },
+    to: { topic: 'mllec1', part: 'workflow' },
+    kind: 'builds-on',
+    carries: 'step 6 — preprocess, clean, visualise',
+    detail:
+      'Lecture 1 laid out an eight-step workflow in which exactly one step chose a model, and step 6 was the one word “preprocess”. This whole chapter is that single step opened up over sixty slides, which is also why its five-step loop puts four of its five stages before the algorithm.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'data' },
+    to: { topic: 'dl3', part: 'design' },
+    kind: 'same-idea',
+    carries: 'the m × n design matrix',
+    detail:
+      'Deep Neural Networks builds every formula on X with m rows and n columns, one row per example and one column per feature. That is exactly this deck’s “objects are rows, attributes are columns”, so the eleven synonyms here — record, point, case, sample, instance; variable, field, dimension, feature — are all names for the two axes of that matrix.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'data' },
+    to: { topic: 'mllec1', part: 'features' },
+    kind: 'builds-on',
+    carries: 'features against the target column',
+    detail:
+      'Lecture 1 split a table into the input columns and the one column you would not know for a new case. This page names the same two axes formally — object and attribute — and adds the six-and-five list of synonyms, so that a textbook saying “instance” and a library saying “sample” can be recognised as the same thing.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'attrtypes' },
+    to: { topic: 'ism1', part: 'levels' },
+    kind: 'same-idea',
+    carries: 'nominal, ordinal, interval, ratio',
+    detail:
+      'The statistics course teaches the identical four levels in its own first lecture, under the name levels of measurement, and settles them with three questions. This deck settles them with four properties — distinctness, order, meaningful differences, meaningful ratios — and adds the table of which statistics each level permits, which is the part an ML pipeline actually acts on.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'attrtypes' },
+    to: { topic: 'ism1', part: 'types' },
+    kind: 'builds-on',
+    carries: 'categorical against numerical',
+    detail:
+      'Statistics Lecture 1 asks the first question about any column: is it a category or a number? That split is exactly the categorical/qualitative and numeric/quantitative grouping down the left of this deck’s table, with nominal and ordinal on one side and interval and ratio on the other.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'attrtypes' },
+    to: { topic: 'ism1', part: 'mean' },
+    kind: 'builds-on',
+    carries: 'when the mean is legal',
+    detail:
+      'The statistics course showed the mean as the balance point of the data, which needs the gaps between values to be real distances. That is precisely why this deck’s table lists the mean and standard deviation only from interval upwards, and gives nominal columns the mode and the χ² test instead.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'shape' },
+    to: { topic: 'lec2', part: 'dimension' },
+    kind: 'builds-on',
+    carries: 'dimension as the number of coordinates',
+    detail:
+      'Mathematical Foundations defines the dimension of a space as the size of a basis — how many numbers it takes to name a point. Dimensionality here is the same count viewed as data: n attributes means every object is a point in an n-dimensional space, which is why adding columns empties the space out without removing a single row.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'shape' },
+    to: { topic: 'lec3', part: 'highdim' },
+    kind: 'builds-on',
+    carries: 'what happens to distance as dimension grows',
+    detail:
+      'The analytic geometry lecture showed that in high dimensions the angles and distances between random vectors stop distinguishing anything. This page counts the same effect in rows per cell, and it is the reason k-nearest neighbours degrades as columns are added — the nearest neighbour stops being meaningfully nearer than the tenth.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'datatypes' },
+    to: { topic: 'mllec1', part: 'course' },
+    kind: 'builds-on',
+    carries: 'structured IID data only',
+    detail:
+      'Lecture 1 narrowed the course to structured data on IID rows and put unstructured data and time series explicitly out of scope. Six of the seven kinds listed here are exactly what that scope excludes or must be converted first — which is why the deck names them and then works only with the relational table.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'noise' },
+    to: { topic: 'dl3', part: 'whysq' },
+    kind: 'used-by',
+    carries: 'the error a model cannot remove',
+    detail:
+      'Squared error punishes a residual in proportion to its square, and noise is the part of that residual no model can predict because it was not caused by the inputs. It sets a floor on the loss, so a network driven to zero training error on noisy data has memorised the noise rather than solved the task.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'outliers' },
+    to: { topic: 'outliers' },
+    kind: 'same-idea',
+    carries: 'the definition of an outlier',
+    detail:
+      'The statistics concept page defines an outlier through the box plot and its 1.5 × IQR whiskers. This page adds the ML question the statistics course does not ask: whether the odd row is noise to be removed or the entire deliverable, as it is in credit card fraud and intrusion detection.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'outliers' },
+    to: { topic: 'ism1', part: 'median' },
+    kind: 'builds-on',
+    carries: 'why the median barely moves',
+    detail:
+      'Dragging one value to the far end of the number line moved the mean and left the median alone. That is the same robustness this page relies on when it says a Case 1 outlier can be neutralised by changing the loss rather than deleting the row — the median is what absolute-error minimisation predicts, and the mean is what squared error predicts.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'iqr' },
+    to: { topic: 'ism1', part: 'boxplot' },
+    kind: 'same-idea',
+    carries: 'the 1.5 × IQR fences',
+    detail:
+      'The statistics lecture draws a box from Q1 to Q3, whiskers out to the last point inside Q1 − 1.5·IQR and Q3 + 1.5·IQR, and separate dots beyond. This deck states the same rule as an outlier test and works it on twelve numbers, so the dots on that box plot and the flagged 22 here are one rule seen twice.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'iqr' },
+    to: { topic: 'ism1', part: 'fivepoint' },
+    kind: 'builds-on',
+    carries: 'Q1, Q2 and Q3',
+    detail:
+      'The five-number summary is where the quartiles were defined and where the median-of-each-half construction was shown. This page needs exactly that construction: it is what gives Q1 = 11 and Q3 = 14.5 on the lecture’s data, and it is why the deck’s printed answer differs from the (n+1)/4 formula in the box beside it.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'sigma' },
+    to: { topic: 'ism1', part: 'variance' },
+    kind: 'builds-on',
+    carries: 'σ, the standard deviation',
+    detail:
+      'The statistics course built σ as the typical distance of a value from the mean, and showed that squaring the deviations is what makes one far-away point count so heavily. That is exactly the weakness this page turns on the three-sigma rule: the outlier being hunted inflates σ, widens the fences it is measured against, and can conceal itself.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'sigma' },
+    to: { topic: 'ism1', part: 'shape' },
+    kind: 'builds-on',
+    carries: 'skew, and where the mean ends up',
+    detail:
+      'Statistics Lecture 1 showed the mean pulled towards the long tail while the median stays put. That is why the three-sigma rule fails on a skewed column such as income: the inflated σ pushes the lower fence below zero, where it can never fire, and the upper fence far past where the data actually thins out.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'sampling' },
+    to: { topic: 'dl3', part: 'traintest' },
+    kind: 'used-by',
+    carries: 'the held-back test set',
+    detail:
+      'Deep Neural Networks splits the data and reports its score on the held-out half. This page supplies the condition under which that score means anything — the split has to be representative — and shows the iris counts, 38/28/34 against 12/22/16, where a perfectly honest random draw quietly breaks it.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'sampling' },
+    to: { topic: 'ism1', part: 'sample' },
+    kind: 'builds-on',
+    carries: 'a sample standing in for a population',
+    detail:
+      'The statistics course introduced the sample as a stand-in for the whole population and the reason its variance is divided by n − 1. This deck gives the ML version of the same requirement: a sample is representative if it has approximately the same properties of interest as the original set of data — and a larger sample cures noise but never bias.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'imbalance' },
+    to: { topic: 'dl3', part: 'metrics' },
+    kind: 'used-by',
+    carries: 'why accuracy alone is not a score',
+    detail:
+      'The metrics page scores a model with a single number. This page shows the case where that number lies: at 950 ordinary rows against 50 rare ones, a model that never predicts the rare class scores 95% having learnt nothing, which is why an imbalanced problem is reported with precision and recall for the rare class instead.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'scaling' },
+    to: { topic: 'ism1', part: 'variance' },
+    kind: 'builds-on',
+    carries: 'μ and σ, reused as units',
+    detail:
+      'Standardization is (v − μ)/σ, the mean and standard deviation the statistics course built. Here they stop being a summary and become a unit of measurement: after the transformation every column is expressed in its own standard deviations, which is what makes columns in rupees and columns in years comparable at all.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'scaling' },
+    to: { topic: 'gradient' },
+    kind: 'used-by',
+    carries: 'the step size η against the shape of the bowl',
+    detail:
+      'Gradient descent takes one step size for every direction. Columns on wildly different scales stretch the bowl into a long narrow valley, so a single η is far too large along one axis and far too small along another and the path zig-zags — which is why scaling is a prerequisite for the optimiser rather than a tidying-up step.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'scaling' },
+    to: { topic: 'lec3', part: 'norms' },
+    kind: 'builds-on',
+    carries: '‖x‖, and what it assumes about units',
+    detail:
+      'The Euclidean norm adds squared components across every coordinate, which silently assumes the coordinates are in comparable units. Feature scaling is what makes that assumption true — and it is why an unscaled column with a large range dominates every distance in k-NN, k-means and any RBF kernel.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'featureeng' },
+    to: { topic: 'covariance' },
+    kind: 'used-by',
+    carries: 'the covariance matrix PCA decomposes',
+    detail:
+      'The deck names Principal Components Analysis as its cure for the curse of dimensionality and stops there. What PCA actually decomposes is the covariance matrix built on that page — which is also why the data has to be centred first, and why two columns that move together can be replaced by one without losing much.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'featureeng' },
+    to: { topic: 'rank' },
+    kind: 'builds-on',
+    carries: 'redundant columns, and what they cost',
+    detail:
+      'Rank counts how many columns really say something different. A redundant feature — height in centimetres beside height in inches — drops the rank without dropping a column, which is the same collinearity that makes fitted coefficients unstable and is exactly what feature selection is removing.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'encoding' },
+    to: { topic: 'dl2', part: 'encodings' },
+    kind: 'same-idea',
+    carries: 'turning categories into numbers a network can take',
+    detail:
+      'The perceptron session had to encode its inputs before any weight could multiply them. This page gives the general rule that session assumed: one-hot for a nominal attribute, because label encoding would assert an order, and label encoding only where the order is real.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'binning' },
+    to: { topic: 'ism1', part: 'range' },
+    kind: 'builds-on',
+    carries: 'B − A, the range',
+    detail:
+      'The statistics course introduced the range as the crudest measure of spread and showed that one extreme value is enough to define it. Equal-width binning divides that same range into N parts, W = (B − A)/N, and inherits the weakness whole: one salary of nine lakh puts thirty of thirty-one rows in the first bin.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'induction' },
+    to: { topic: 'mllec1', part: 'types' },
+    kind: 'builds-on',
+    carries: 'classification, regression, probability estimation',
+    detail:
+      'Lecture 1 separated the supervised tasks by what the target column holds. This deck shows the same three on one dataset with only the last column changing — Yes/No, a humidity between 20 and 100, and a probability in [0,1] — so the distinction is visibly about the target and not about the method.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'induction' },
+    to: { topic: 'mllec1', part: 'classification' },
+    kind: 'builds-on',
+    carries: 'generalisation to unseen rows',
+    detail:
+      'The tumour example judged a threshold by how it treated patients it had not seen. The inductive learning hypothesis is the assumption that made that judgement worth making, stated for the first time: a hypothesis that fits a large enough training set will fit unobserved examples too.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'challenges' },
+    to: { topic: 'mllec1', part: 'tradeoff' },
+    kind: 'builds-on',
+    carries: 'the accuracy against interpretability chart',
+    detail:
+      'Lecture 1 plotted models along a diagonal from explainable to accurate, and warned the chart was opinionated. Hypothesis space is what the axis is really measuring: a bigger space can express more and can be explained less, which is why max_depth, hidden units and polynomial degree are all the same knob.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'preprocess' },
+    to: { topic: 'mllec1', part: 'workflow' },
+    kind: 'builds-on',
+    carries: 'representation of input features and output',
+    detail:
+      'The workflow’s sixth step named preprocessing, cleaning, visualising and the train/test split in a single line. The raw → prepared → engineered chain on this page is that line drawn as a picture, with the two halves given the names data engineering and feature engineering.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'quality' },
+    to: { topic: 'dl3', part: 'metrics' },
+    kind: 'used-by',
+    carries: 'the ceiling that labels put on a score',
+    detail:
+      'Every metric on that page compares a prediction with a recorded answer. If the recorded answers are wrong for five per cent of rows then a perfect model still disagrees with five per cent of the test set, so no amount of tuning moves the ceiling — which is why a disappointing score should send you to the data before the hyper-parameters.',
+  },
+
+  {
+    from: { topic: 'mllec2', part: 'zero' },
+    to: { topic: 'attrtypes' },
+    kind: 'same-idea',
+    carries: 'the true zero that separates ratio from interval',
+    detail:
+      'The concept page states the ladder and its four permitted transformations. This part is the one question that decides the top rung, worked rather than asserted: 10 °C is 283.15 K and 5 °C is 278.15 K, a ratio of 1.018, so the zero of the Celsius scale was doing no work at all.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'casestudy' },
+    to: { topic: 'attrtypes' },
+    kind: 'used-by',
+    carries: 'the ladder, applied one column at a time',
+    detail:
+      'Nine columns of a bank’s customer table, each needing a level. The concept page supplies the four questions; this page shows what happens when one column — Credit Score — cannot be settled by them, because nothing printed says whether a score of zero means no creditworthiness.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'missing' },
+    to: { topic: 'ism1', part: 'variance' },
+    kind: 'builds-on',
+    carries: 'the spread that mean-imputation quietly shrinks',
+    detail:
+      'The statistics course built the variance from squared distances to the mean. Filling every gap with that mean leaves the mean untouched and puts the filled rows at distance zero, so the variance falls — and every standard error and confidence interval computed from it then claims more certainty than the data supports.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'duplicates' },
+    to: { topic: 'dl3', part: 'traintest' },
+    kind: 'used-by',
+    carries: 'what a held-out score is actually measuring',
+    detail:
+      'The test set only measures generalisation if the model has not already seen those rows. A duplicate that lands on both sides of the split turns part of that score into recall of a memorised row, which is why deduplication has to happen before the split and not on each side afterwards.',
+  },
+  {
+    from: { topic: 'mllec2', part: 'aggregation' },
+    to: { topic: 'ism1', part: 'mean' },
+    kind: 'builds-on',
+    carries: 'the mean as the balance point of a group',
+    detail:
+      'Split-apply-combine applies exactly the average the statistics course built, once per group: white 12 and 8 give 10, red 20 and 14 give 17, black 6 and 10 give 8. Averaging is also what damps the variation, which is the deck’s claim that aggregated data tends to be more stable.',
+  },
+  /* --------------------- the concepts ML Lecture 2 introduces --------------- */
+  {
+    from: { topic: 'attrtypes' },
+    to: { topic: 'ism1', part: 'levels' },
+    kind: 'same-idea',
+    carries: 'the same four levels, taught twice',
+    detail:
+      'The statistics course reaches the ladder through three questions about a column; the ML course reaches it through four operations the values must support. The rungs are identical, and this page keeps both routes so that either lecture’s wording is recognisable from the other.',
+  },
+  {
+    from: { topic: 'attrtypes' },
+    to: { topic: 'encoding' },
+    kind: 'used-by',
+    carries: 'nominal or ordinal, and therefore which encoder',
+    detail:
+      'The level is not an academic label — it is the input to a decision about code. A nominal column must be one-hot encoded because label encoding would assert an order; an ordinal one may be label encoded with integers chosen to preserve the order it really has.',
+  },
+  {
+    from: { topic: 'scaling' },
+    to: { topic: 'gradient' },
+    kind: 'used-by',
+    carries: 'the shape of the loss surface',
+    detail:
+      'Gradient descent uses one step size η in every direction, so it depends on the bowl being roughly round. Unscaled columns stretch it into a valley thousands of times steeper along one axis, and the fix is this transformation rather than a smaller η — which would simply make the shallow direction take forever.',
+  },
+  {
+    from: { topic: 'scaling' },
+    to: { topic: 'spread' },
+    kind: 'builds-on',
+    carries: 'σ as a unit rather than a summary',
+    detail:
+      'The statistics concept built the standard deviation to describe how far apart the numbers are. Standardization divides by it, so σ stops being a description and becomes the unit the column is measured in — which is exactly what makes the three-sigma rule collapse to the flat test |v′| > 3 afterwards.',
+  },
+  {
+    from: { topic: 'encoding' },
+    to: { topic: 'dl2', part: 'encodings' },
+    kind: 'used-by',
+    carries: 'the columns a network multiplies its weights by',
+    detail:
+      'A perceptron multiplies each input by a weight, so every categorical column must already be numeric by the time it arrives. This page decides how: one column per category for a nominal attribute, one integer column for an ordinal one — and the difference is whether the network is allowed to interpolate between categories.',
+  },
+  {
+    from: { topic: 'hypothesis' },
+    to: { topic: 'mllec1', part: 'tradeoff' },
+    kind: 'used-by',
+    carries: 'capacity, as the axis that chart is really about',
+    detail:
+      'Lecture 1 plotted models from explainable to accurate and called the chart opinionated. The size of the hypothesis space is what the axis measures: a larger space expresses more relationships and admits more explanations that no one can state, which is the trade-off drawn rather than asserted.',
+  },
+  {
+    from: { topic: 'hypothesis' },
+    to: { topic: 'lossfn' },
+    kind: 'contrast',
+    carries: 'what a learner searches against what it minimises',
+    detail:
+      'The objective function decides which hypothesis in the space is preferred; the hypothesis space decides which ones are available to prefer. Confusing them is expensive: a perfect loss cannot rescue a space that never contained a good rule, which is underfitting, and a huge space makes the loss’s minimum depend on the sample, which is overfitting.',
+  },
 ]
 
 /* ------------------------------------------------------------- lookups */
