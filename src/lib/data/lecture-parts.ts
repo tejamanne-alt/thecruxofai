@@ -1410,6 +1410,147 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
       slides: 'Slides 43–45',
     },
   ],
+  lec4: [
+    {
+      id: 'why',
+      title: 'What a decomposition is for',
+      teaser:
+        'Summarise a matrix, take it apart, rebuild it from less. Type a matrix and watch which of the lecture’s tools it qualifies for.',
+      slides: 'Slide 1',
+    },
+    {
+      id: 'cofactor',
+      title: 'The determinant by cofactors',
+      teaser:
+        'Strike out a row and a column, take the smaller determinant, put a sign on it. Expand along whichever row or column you like and get the same answer.',
+      slides: 'Slides 2–4',
+    },
+    {
+      id: 'detproof',
+      title: 'What row moves do to a determinant',
+      teaser:
+        'Swap two rows and the sign flips. Add a multiple of one row to another and nothing happens at all. Both proved, one move at a time.',
+      slides: 'Slides 5–8',
+    },
+    {
+      id: 'rankdet',
+      title: 'Full rank exactly when det ≠ 0',
+      teaser:
+        'Row-reduce to a staircase, count the swaps, multiply the diagonal. Then break one row and watch rank and determinant fail together.',
+      slides: 'Slides 9–10',
+    },
+    {
+      id: 'trace',
+      title: 'The trace',
+      teaser:
+        'Add up the diagonal and stop. Four rules — and one of them still holds when AB and BA are different sizes.',
+      slides: 'Slide 11',
+    },
+    {
+      id: 'charpoly',
+      title: 'The characteristic polynomial',
+      teaser:
+        'Put a letter on the diagonal, take the determinant, and a polynomial in λ falls out. Its bottom coefficient is det A and its next one is the trace.',
+      slides: 'Slides 12–14',
+    },
+    {
+      id: 'eigendef',
+      title: 'Eigenvalues and eigenvectors',
+      teaser:
+        'Drag a vector round a circle until A stops turning it. Four ways of saying the same thing, all ticking at once.',
+      slides: 'Slide 15',
+    },
+    {
+      id: 'example',
+      title: 'The deck’s worked example',
+      teaser: 'A of all ones: the polynomial, the roots λ = 2 and 0, and the two eigenvectors, one press at a time.',
+      slides: 'Slide 16',
+    },
+    {
+      id: 'procedure',
+      title: 'The procedure, and the matrix that runs short',
+      teaser:
+        'Roots first, nullspaces second. Then the matrix with one eigenvector where you wanted two, and the rotation the slide asks you to ponder.',
+      slides: 'Slide 17',
+    },
+    {
+      id: 'eigenspace',
+      title: 'The eigenspace, and the spectrum',
+      teaser:
+        'Every eigenvector of one λ, plus the zero vector, makes a subspace. Add two and stretch one, and watch it stay inside.',
+      slides: 'Slide 18',
+    },
+    {
+      id: 'properties',
+      title: 'Transpose, nullspace, positive definite',
+      teaser:
+        'A and Aᵀ share every eigenvalue. Eλ is a nullspace. And a symmetric positive definite matrix can never have a negative one.',
+      slides: 'Slide 19',
+    },
+    {
+      id: 'independence',
+      title: 'Distinct eigenvalues, and why AᵀA is everywhere',
+      teaser:
+        'Different λ forces independent x. Then build AᵀA from a data matrix and watch it stop being positive definite the moment two features repeat.',
+      slides: 'Slide 20',
+    },
+    {
+      id: 'spectral',
+      title: 'The spectral theorem',
+      teaser:
+        'Symmetric matrices get a full orthonormal basis of eigenvectors. The three claims that rests on, and the two multiplicities that have to agree.',
+      slides: 'Slides 21–22',
+    },
+    {
+      id: 'complex',
+      title: 'Complex vectors, and what length means',
+      teaser:
+        'The deck’s own x: xᵀx comes out at 3 + 6i, which is not a length. Mend the definition and it comes out at 7.',
+      slides: 'Slide 23',
+    },
+    {
+      id: 'hermitian',
+      title: 'Hermitian matrices',
+      teaser:
+        'Transpose, then conjugate. The generalisation of symmetric — and the reason its diagonal has to be real.',
+      slides: 'Slide 24',
+    },
+    {
+      id: 'realeigs',
+      title: 'Why symmetric means real and orthogonal',
+      teaser:
+        'Two short proofs, both done by premultiplying with xᴴ. Then check the right angle on a real pair of eigenvectors.',
+      slides: 'Slides 25–26',
+    },
+    {
+      id: 'decomp',
+      title: 'A = QΛQᵀ',
+      teaser:
+        'Eigenvectors into the columns, eigenvalues down the diagonal. Multiply the three back together and check you get what you started with.',
+      slides: 'Slides 27–28',
+    },
+    {
+      id: 'traceeigs',
+      title: 'The sum is the trace, the product is the determinant',
+      teaser:
+        'Two free checks on any eigenvalue answer you write in an exam. Edit the matrix and watch both keep holding.',
+      slides: 'Slide 29',
+    },
+    {
+      id: 'cholesky',
+      title: 'Cholesky: A = LLᵀ',
+      teaser:
+        'The deck’s six formulas, worked as you type and then multiplied back out to prove them. Break positive definiteness and watch it stop dead.',
+      slides: 'Slide 30',
+    },
+    {
+      id: 'gaussian',
+      title: 'Sampling a multivariate Gaussian',
+      teaser:
+        'Round independent noise in, tilted correlated data out. Turn L on and off and watch the cloud lean over.',
+      slides: 'Slide 31',
+    },
+  ],
 }
 
 export function partsOf(topic: TopicId): PartMeta[] {

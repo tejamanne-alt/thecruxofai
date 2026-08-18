@@ -1131,6 +1131,215 @@ export const CONNECTIONS: Connection[] = [
     detail:
       'The ML lecture defined learning as supplying data and answers and getting a program back. Bayesian learning is one concrete way of doing that, and this page is its engine: the MAP hypothesis is argmax P(h | D), which Bayes rewrites as likelihood times prior — so the syllabus line about MAP and naive Bayes is this theorem with an argmax on the front.',
   },
+  /* ---------------------------------------- Lecture 4: eigenvalues & eigenvectors */
+  {
+    from: { topic: 'lec4', part: 'why' },
+    to: { topic: 'lec0a', part: 'posdef' },
+    kind: 'builds-on',
+    carries: 'xᵀAx > 0 for every non-zero x',
+    detail:
+      'Lecture 0a defined positive definite as a promise about every possible x, and gave the leading-minor test for checking it. This lecture turns that promise into two entry requirements: it is what makes every eigenvalue positive in part 11, and it is what keeps the quantity under each Cholesky square root positive in part 19 — which is why a failed Cholesky is the standard test for the property.',
+  },
+  {
+    from: { topic: 'lec4', part: 'cofactor' },
+    to: { topic: 'lec0a', part: 'bigdet' },
+    kind: 'same-idea',
+    carries: 'expansion along a row, with (−1)ʲ⁺ᵏ',
+    detail:
+      'Lecture 0a taught the cofactor expansion as a method: pick the row with the most zeros and grind. This page is the same formula stated in symbols, as slide 4 does, so that the recursion — an n × n determinant defined by (n − 1) × (n − 1) ones — is visible rather than implied. If you can already do the arithmetic, read this page for the structure and skip the sums.',
+  },
+  {
+    from: { topic: 'lec4', part: 'detproof' },
+    to: { topic: 'lec0a', part: 'detrules' },
+    kind: 'builds-on',
+    carries: 'the six rules, now with proofs',
+    detail:
+      'Lecture 0a listed six things determinants do under row operations and let you check each by pressing a button. Two of those six are proved here from scratch — the sign flip on a swap, by induction, and the no-change on adding a multiple of a row — and both proofs turn on the fact that a matrix with two equal rows has determinant zero. If you memorised the rules, this is where they come from.',
+  },
+  {
+    from: { topic: 'lec4', part: 'rankdet' },
+    to: { topic: 'rank' },
+    kind: 'builds-on',
+    carries: 'rank = the number of pivots',
+    detail:
+      'The rank page counts how many rows of a matrix really say something, by eliminating and counting the pivots that survive. This page proves that for a square matrix that count is full exactly when the determinant is not zero — so the two tests you have been treating as separate are one test, and the bridge between them is det(A) = (−1)ˢ det(U).',
+  },
+  {
+    from: { topic: 'lec4', part: 'rankdet' },
+    to: { topic: 'lec1', part: 'lab' },
+    kind: 'builds-on',
+    carries: 'the elimination that produces U',
+    detail:
+      'Lecture 1 taught Gaussian elimination as a way to solve a system, one legal move at a time. Here the same elimination is used for a different purpose: run it, count how many row interchanges you needed, and the determinant of the original matrix is (−1) to that power times the diagonal of what you are left with. The count of swaps is the only part of the run that has to be remembered.',
+  },
+  {
+    from: { topic: 'lec4', part: 'trace' },
+    to: { topic: 'matmul' },
+    kind: 'builds-on',
+    carries: 'the shapes of AB against BA',
+    detail:
+      'The multiplication page is where you learnt that AB and BA are usually different matrices and often have different shapes — an n × k times a k × n gives n × n one way round and k × k the other. That is exactly the situation slide 11 puts tr(AB) = tr(BA) into, and the surprise only lands if you already know how far apart those two products are.',
+  },
+  {
+    from: { topic: 'lec4', part: 'charpoly' },
+    to: { topic: 'determinant' },
+    kind: 'builds-on',
+    carries: 'det(A) as one number that can be zero',
+    detail:
+      'The determinant page treats det A as a fixed number saying whether a matrix can be undone. This page puts a letter on the diagonal and takes the determinant of A − λI, turning that fixed number into a polynomial in λ. Everything you know about when a determinant is zero now becomes a statement about which λ are eigenvalues.',
+  },
+  {
+    from: { topic: 'lec4', part: 'eigendef' },
+    to: { topic: 'lec0b', part: 'dot' },
+    kind: 'builds-on',
+    carries: 'Ax as a stack of dot products',
+    detail:
+      'The dot product page showed that each entry of Ax is one row of A dotted with x, so a matrix acting on a vector is n dot products at once. Ax = λx is asking for the rare x where all n of those dot products conspire to give back a multiple of x itself — which is why it is a condition on the whole vector rather than something you can arrange entry by entry.',
+  },
+  {
+    from: { topic: 'lec4', part: 'eigendef' },
+    to: { topic: 'dl3', part: 'tips' },
+    kind: 'used-by',
+    carries: 'η < 2 / (largest eigenvalue)',
+    detail:
+      'The linear regression session gives a hard ceiling on the learning rate: descent converges only while η stays below 2 divided by the largest eigenvalue of XᵀX/N, and its lab watches training diverge the moment you cross it. That ceiling is an eigenvalue of a real matrix, computed from real data — this page is where the number in it comes from.',
+  },
+  {
+    from: { topic: 'lec4', part: 'example' },
+    to: { topic: 'lec0a', part: 'rref' },
+    kind: 'builds-on',
+    carries: 'row-reducing to read off the answers',
+    detail:
+      'Finding an eigenvector is not a new skill. Once λ is known, A − λI is an ordinary matrix and finding its nullspace is the row reduction Lecture 0a already taught — the deck’s own U on slide 16 is a row echelon form and nothing more. The only new part is knowing which matrix to reduce.',
+  },
+  {
+    from: { topic: 'lec4', part: 'eigenspace' },
+    to: { topic: 'vectorspace' },
+    kind: 'builds-on',
+    carries: 'closed under addition and scaling, and contains 0',
+    detail:
+      'The vector space page set out what a subset has to promise before it can be called a subspace, and made you break the candidates that fail. Eλ passes all three promises, which is why it is called an eigenspace — and it is also why the zero vector has to be thrown in, even though part 7 refused to call it an eigenvector.',
+  },
+  {
+    from: { topic: 'lec4', part: 'eigenspace' },
+    to: { topic: 'basis' },
+    kind: 'builds-on',
+    carries: 'dimension = how many vectors a basis needs',
+    detail:
+      'Span, basis and dimension gave you the machinery for measuring how big a subspace is. The dimension of Eλ has its own name here — the geometric multiplicity — and comparing it against how often λ is a root of the characteristic polynomial is what separates a matrix that can be diagonalised from one that cannot.',
+  },
+  {
+    from: { topic: 'lec4', part: 'properties' },
+    to: { topic: 'lec0a', part: 'transpose' },
+    kind: 'builds-on',
+    carries: 'det(M) = det(Mᵀ)',
+    detail:
+      'The transpose page gave the rule that tipping a matrix over leaves its determinant alone, alongside the (AB)ᵀ = BᵀAᵀ trap. The first of those is the whole proof that A and Aᵀ have the same eigenvalues: det(A − λI) = det((A − λI)ᵀ) = det(Aᵀ − λI), and the polynomials are therefore identical.',
+  },
+  {
+    from: { topic: 'lec4', part: 'independence' },
+    to: { topic: 'lec2', part: 'independence' },
+    kind: 'builds-on',
+    carries: 'no vector is a combination of the others',
+    detail:
+      'Lecture 2 defined linear independence and showed how elimination checks it. Slide 20 asks you to prove that eigenvectors of distinct eigenvalues are independent, and the proof is exactly the argument that page trains: assume one is a multiple of another and derive a contradiction — here, (λ − μ)cx = 0 with both factors non-zero.',
+  },
+  {
+    from: { topic: 'lec4', part: 'independence' },
+    to: { topic: 'designmat' },
+    kind: 'used-by',
+    carries: 'the m × n design matrix',
+    detail:
+      'The design matrix page builds X with one row per example and one column per feature, so that every prediction is one multiply, ŷ = Xw. Slide 20 is talking about exactly that X: it says AᵀA is n × n — features by features, whatever m is — and that it is positive definite precisely when no feature is a combination of the others.',
+  },
+  {
+    from: { topic: 'lec4', part: 'independence' },
+    to: { topic: 'regression' },
+    kind: 'used-by',
+    carries: '(AᵀA)⁻¹Aᵀy',
+    detail:
+      'Linear regression drags a line through a cloud of dots and reports the squared error. The closed-form answer for that fit is the least-squares solution slide 20 names, and it exists only while AᵀA can be inverted — so this page is the condition under which the regression page has a unique best line at all.',
+  },
+  {
+    from: { topic: 'lec4', part: 'independence' },
+    to: { topic: 'lec3', part: 'finalargument' },
+    kind: 'contrast',
+    carries: 'AᵀA against the QR route',
+    detail:
+      'Lecture 3 finished by proving that Gram–Schmidt gives A = QR, and warned that forming AᵀA squares the condition number and loses roughly twice as many digits. Slide 20 here is the reason AᵀA appears in the first place. Hold both: the theory says AᵀA is the right object, and the numerics say never to build it — which is why numpy.linalg.lstsq goes through QR.',
+  },
+  {
+    from: { topic: 'lec4', part: 'spectral' },
+    to: { topic: 'lec3', part: 'orthobasis' },
+    kind: 'builds-on',
+    carries: 'mutually orthogonal, each of length 1',
+    detail:
+      'Lecture 3 built an orthonormal basis by hand, out of any basis you happened to have, using Gram–Schmidt. The spectral theorem says a symmetric matrix hands you one for nothing: its own eigenvectors already are one. That is the entire reason symmetric matrices are worth arranging for, and why PCA components come out at right angles without anyone asking.',
+  },
+  {
+    from: { topic: 'lec4', part: 'complex' },
+    to: { topic: 'lec3', part: 'induced' },
+    kind: 'builds-on',
+    carries: '‖x‖² = ⟨x, x⟩',
+    detail:
+      'Lecture 3 derived length from the inner product: ‖x‖ = √⟨x, x⟩, so a vector’s size is how much it agrees with itself. Slide 23 shows that rule breaking on a complex vector — the deck’s own example gives 3 + 6i, which is not real and so is not a length — and the repair is to change the inner product to xᴴy rather than to abandon the rule.',
+  },
+  {
+    from: { topic: 'lec4', part: 'realeigs' },
+    to: { topic: 'lec3', part: 'orthogonality' },
+    kind: 'builds-on',
+    carries: '⟨x, y⟩ = 0 means at right angles',
+    detail:
+      'Lecture 3 defined orthogonality as the inner product being zero, and warned that it depends on which inner product you picked. Slide 26 produces exactly that condition — xᴴy = 0 — for eigenvectors of different eigenvalues of a symmetric matrix, under the standard inner product. No angle is ever computed; the zero is the whole statement.',
+  },
+  {
+    from: { topic: 'lec4', part: 'decomp' },
+    to: { topic: 'lec3', part: 'orthomatrix' },
+    kind: 'builds-on',
+    carries: 'QᵀQ = I, so Q⁻¹ = Qᵀ',
+    detail:
+      'Lecture 3 showed that a matrix with orthonormal columns preserves every length and every angle, and gets its inverse for free as its transpose. That free inverse is the only reason A = QΛQᵀ can end in a transpose rather than a Q⁻¹ — and it is what makes Aᵏ = QΛᵏQᵀ collapse so cleanly, because the inner QᵀQ vanishes at every join.',
+  },
+  {
+    from: { topic: 'lec4', part: 'cholesky' },
+    to: { topic: 'lec3', part: 'lu' },
+    kind: 'same-idea',
+    carries: 'A = LU against A = LLᵀ',
+    detail:
+      'Lecture 3 showed that Gaussian elimination is secretly a factorisation, A = LU, with L recording the multipliers used. Cholesky is the same idea with a stronger hypothesis and a better pay-off: when A is symmetric positive definite, U is forced to be Lᵀ, so one triangle carries everything and only half the work and half the memory are needed.',
+  },
+  {
+    from: { topic: 'lec4', part: 'gaussian' },
+    to: { topic: 'covariance' },
+    kind: 'builds-on',
+    carries: 'the covariance matrix Σ',
+    detail:
+      'The covariance page draws one rectangle per data point and adds them up, so Σ becomes something you have seen built rather than a symbol. Slide 31 uses that matrix in the opposite direction: instead of measuring Σ from data, it starts from the Σ you want and generates data that has it, by factoring Σ = LLᵀ and pushing independent noise through L.',
+  },
+  {
+    from: { topic: 'lec4', part: 'gaussian' },
+    to: { topic: 'ism1', part: 'variance' },
+    kind: 'builds-on',
+    carries: 'variance as the average squared distance',
+    detail:
+      'The statistics course built variance from one variable — square every distance from the mean and average them. A covariance matrix is that idea for several variables at once, with the variances on the diagonal and the leaning between pairs off it. This page needs the whole matrix, because it is the off-diagonal entries that make the sampled cloud tilt.',
+  },
+  {
+    from: { topic: 'lec4', part: 'traceeigs' },
+    to: { topic: 'lec0a', part: 'det' },
+    kind: 'builds-on',
+    carries: 'det as the area of the box the columns make',
+    detail:
+      'Lecture 0a drew ad − bc as an area you could flatten by dragging one arrow onto the other. This page says that area is the eigenvalues multiplied together — so a matrix scales area by the product of its stretches, and a single zero eigenvalue flattens the box exactly as dragging the arrows together did.',
+  },
+  {
+    from: { topic: 'lec4', part: 'gaussian' },
+    to: { topic: 'lec0b', part: 'expectation' },
+    kind: 'contrast',
+    carries: 'Σ as summation against Σ as a covariance matrix',
+    detail:
+      'Lecture 0b uses Σ constantly as the summation sign, in E[X] = Σ xᵢp(xᵢ). This page uses capital sigma for a covariance matrix instead, and both meanings appear within a few lines of each other. Tell them apart by what is attached: the summation sign carries a counter underneath it, and the matrix carries none.',
+  },
 ]
 
 /* ------------------------------------------------------------- lookups */

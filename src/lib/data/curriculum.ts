@@ -29,6 +29,7 @@ export type TopicId =
   | 'lec1'
   | 'lec2'
   | 'lec3'
+  | 'lec4'
   | 'mllec1'
   | 'ism1'
   | 'ism2'
@@ -40,6 +41,10 @@ export type TopicId =
   | 'events'
   | 'conditional'
   | 'bayes'
+  | 'eigen'
+  | 'spectraldecomp'
+  | 'trace'
+  | 'cholesky'
 export type ChartKind = 'line' | 'bowl' | 'clusters' | 'boundary'
 
 /**

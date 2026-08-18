@@ -4,6 +4,12 @@ import { Dl2Overview } from '@/components/sessions/dl2/overview'
 import { Dl3Overview } from '@/components/sessions/dl3/overview'
 import { LinSepConcept, LossConcept, NeuronConcept } from '@/components/sessions/dnn-concepts'
 import { ActivationConcept, DesignMatConcept, MetricsConcept } from '@/components/sessions/dnn-concepts2'
+import {
+  CholeskyConcept,
+  EigenConcept,
+  SpectralDecompConcept,
+  TraceConcept,
+} from '@/components/sessions/eigen-concepts'
 import { GradientDescentSession } from '@/components/sessions/gradient-descent'
 import { Ism1Overview } from '@/components/sessions/ism1/overview'
 import { Ism2Overview } from '@/components/sessions/ism2/overview'
@@ -14,6 +20,7 @@ import { Lecture0bOverview } from '@/components/sessions/lec0b/overview'
 import { Lecture1Overview } from '@/components/sessions/lec1/overview'
 import { Lecture2Overview } from '@/components/sessions/lec2/overview'
 import { Lecture3Overview } from '@/components/sessions/lec3/overview'
+import { Lecture4Overview } from '@/components/sessions/lec4/overview'
 import { LinearAlgebraSession } from '@/components/sessions/linear-algebra'
 import { LinearRegressionSession } from '@/components/sessions/linear-regression'
 import { DeterminantConcept, MatrixMultiplyConcept, RankConcept } from '@/components/sessions/matrix-concepts'
@@ -65,6 +72,7 @@ const OVERVIEWS: Record<TopicId, () => React.ReactElement> = {
   lec1: Lecture1Overview,
   lec2: Lecture2Overview,
   lec3: Lecture3Overview,
+  lec4: Lecture4Overview,
   mllec1: MlLecture1Overview,
   ism1: Ism1Overview,
   ism2: Ism2Overview,
@@ -76,6 +84,10 @@ const OVERVIEWS: Record<TopicId, () => React.ReactElement> = {
   events: EventsConcept,
   conditional: ConditionalConcept,
   bayes: BayesConcept,
+  eigen: EigenConcept,
+  spectraldecomp: SpectralDecompConcept,
+  trace: TraceConcept,
+  cholesky: CholeskyConcept,
 }
 
 export function generateStaticParams() {
