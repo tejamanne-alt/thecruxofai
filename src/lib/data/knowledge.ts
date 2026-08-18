@@ -3258,6 +3258,1051 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
     ],
   },
 
+  mllec2: {
+    cheat: [
+      {
+        formula: 'ML algorithm = data representation + parameter optimization + model evaluation, selection',
+        why: 'The three components every ML algorithm has, whichever of the tens of thousands you pick.',
+      },
+      {
+        formula: 'object = row · attribute = column',
+        why: 'Object is also record, point, case, sample, entity, instance. Attribute is also variable, field, characteristic, dimension, feature.',
+      },
+      {
+        formula: 'distinctness ⊂ order ⊂ differences ⊂ ratios',
+        why: 'The four properties, and they stack. Nominal has one, ordinal two, interval three, ratio all four.',
+      },
+      {
+        formula: 'nominal = · ordinal < · interval + · ratio ×',
+        why: 'The operation each level adds. Memorise the symbols and the table writes itself.',
+      },
+      {
+        formula: 'interval vs ratio ⟺ is zero an absence?',
+        why: 'Celsius zero is where water freezes, so 10° is not twice 5°. Kelvin zero is no heat at all, so it is.',
+      },
+      {
+        formula: 'nominal → permutation · ordinal → monotonic f · interval → a·x+b · ratio → a·x',
+        why: 'The transformation each level survives. Ratio loses the + b, because b would move the zero.',
+      },
+      {
+        formula: 'mode anywhere · median from ordinal · mean from interval · geometric mean from ratio',
+        why: 'Which statistics are legal at which level. This is the reason the classification exists.',
+      },
+      {
+        formula: 'discrete = finite or countably infinite · continuous = real-valued',
+        why: 'Binary attributes are a special case of discrete. Continuous is stored as floating point.',
+      },
+      {
+        formula: 'dimensionality · sparsity · resolution · size',
+        why: 'The four things to ask about a whole dataset. Sparsity: only presence counts.',
+      },
+      {
+        formula: 'relational · transactional · document · web/social · spatial · time series · sequence',
+        why: 'The seven kinds of data. Only the first is already a design matrix.',
+      },
+      {
+        formula: 'time series has a clock; a sequence has only an order',
+        why: 'DNA is sequence data — position matters, elapsed time is meaningless.',
+      },
+      {
+        formula: 'quality = correct + interpretable + usable on demand + complete + trustable + consistent',
+        why: 'The six spokes of the quality wheel.',
+      },
+      {
+        formula: 'noise · outliers · wrong data · fake data · missing values · duplicate data',
+        why: 'The problems the deck names. Poor data denies loans to credit-worthy people AND approves defaulters.',
+      },
+      {
+        formula: 'noise modifies a value; an outlier is a whole object',
+        why: 'For objects, noise is an extraneous object. For attributes, noise is modification of original values.',
+      },
+      {
+        formula: 'outlier: Case 1 noise to remove · Case 2 the goal of the analysis',
+        why: 'Case 2 examples: credit card fraud, intrusion detection. Nothing about the row decides which case you are in.',
+      },
+      {
+        formula: 'missing because not collected, or not applicable',
+        why: 'Age declined vs annual income of a child. In the second there is no true value to estimate.',
+      },
+      {
+        formula: 'missing: eliminate · estimate · ignore during analysis',
+        why: 'The three responses. Mean-imputation leaves the mean alone and shrinks the variance.',
+      },
+      {
+        formula: 'dirty = noisy · inconsistent · intentional',
+        why: 'Salary = −10; Age 42 with Birthday 03/07/2010; January 1 as everyone’s birthday.',
+      },
+      {
+        formula: 'data engineering: raw → prepared · feature engineering: prepared → features',
+        why: 'The deck’s two definitions, word for word. Prepared data can be clean and still unusable by a given model.',
+      },
+      {
+        formula: 'pre-processing = aggregation + cleansing + instances selection/partitioning + feature tuning',
+        why: 'The four headings on slide 31.',
+      },
+      {
+        formula: 'aggregation: data reduction · change of scale · more stable data',
+        why: 'Combining two or more attributes (or objects) into a single attribute (or object).',
+      },
+      { formula: 'IQR = Q3 − Q1', why: 'Q1 is the 25th percentile, Q3 the 75th. The width of the middle half.' },
+      {
+        formula: 'outlier if v < Q1 − 1.5·IQR or v > Q3 + 1.5·IQR',
+        why: 'The IQR fences. Q1 = 10, Q3 = 20 gives IQR = 10 and fences at −5 and 35.',
+      },
+      {
+        formula: 'the exercise: Q1 = 11, Q2 = 12.5, Q3 = 14.5, IQR = 3.5, fences 5.75 and 19.75, outlier 22',
+        why: 'Data 10,12,11,15,11,14,13,17,12,22,14,11. Q1 and Q3 are the medians of the two halves.',
+      },
+      {
+        formula: 'outlier if v < μ − 3σ or v > μ + 3σ',
+        why: 'The 3 sigma rule, based on the normal distribution. μ = 50, σ = 5 gives 35 and 65.',
+      },
+      {
+        formula: '≈99% of a normal variable lies within μ ± 3σ',
+        why: 'The deck’s wording. The exact figure is 99.73%, and textbooks print 99.7%.',
+      },
+      {
+        formula: 'IQR is robust; 3 sigma is not',
+        why: 'σ is inflated by the very outlier you are hunting, which widens the fences and can hide it.',
+      },
+      {
+        formula:
+          'a sample is representative if it has approximately the same properties of interest as the original data',
+        why: 'The deck’s own definition, and the key principle for effective sampling.',
+      },
+      {
+        formula: 'small sample → sampling noise · flawed process → sampling bias',
+        why: 'More data cures the first and does nothing at all for the second.',
+      },
+      {
+        formula: 'iris random split: train 38/28/34, test 12/22/16',
+        why: '50 of each species. Nothing is lost — the rows are just on the wrong sides. Stratified sampling fixes it.',
+      },
+      {
+        formula: 'simple random · stratified · clustered',
+        why: 'The three sampling types the deck names.',
+      },
+      {
+        formula: 'imbalanced: under sample the majority, or over sample the rare class',
+        why: 'Modify the training distribution so the rare class is well-represented. Never resample the test set.',
+      },
+      {
+        formula: 'v′ = (v − minA)/(maxA − minA) × (new_maxA − new_minA) + new_minA',
+        why: 'Min-max normalization. 73,600 in [12,000, 98,000] to [0,1] gives 61,600/86,000 = 0.716.',
+      },
+      {
+        formula: 'v′ = (v − μA)/σA',
+        why: 'Z-score normalization, or standardization. μ = 54,000, σ = 16,000 gives 19,600/16,000 = 1.225.',
+      },
+      {
+        formula: 'v′ = v/10ʲ, j smallest with max(|v′|) < 1',
+        why: 'Normalization by decimal scaling.',
+      },
+      {
+        formula: 'normalize when bounded and uniform (age); standardize when Gaussian is assumed',
+        why: 'Normalization is for KNN and NN; standardization is unbounded and less affected by outliers.',
+      },
+      {
+        formula: 'fit the scalers to the training data only',
+        why: 'Then transform both the training and the test set. Scaling the target is generally not required.',
+      },
+      {
+        formula: 'feature engineering = extraction + selection + construction + transformation',
+        why: 'Extraction and construction make new columns; selection keeps a subset; transformation rewrites in place.',
+      },
+      {
+        formula: 'curse of dimensionality → PCA',
+        why: 'When dimensionality increases, data becomes increasingly sparse in the space it occupies.',
+      },
+      {
+        formula: 'construction = polynomial expansion + feature crossing + business logic',
+        why: 'The three sources the deck names for building a new feature.',
+      },
+      {
+        formula: 'discretization = binning = bucketing',
+        why: 'Convert a continuous attribute into a discrete one. Naive Bayes, decision trees and their ensembles, minimum distance classifiers and KNN prefer discrete features.',
+      },
+      {
+        formula: 'equal-width: W = (B − A)/N',
+        why: 'A uniform grid. Most straightforward, but outliers dominate and skewed data is not handled well.',
+      },
+      {
+        formula: 'equal-depth: N intervals of roughly equal count',
+        why: 'Good data scaling. The edges move instead of the counts.',
+      },
+      {
+        formula: 'binarization → one hot / dummy · categories → numbers = label encoding',
+        why: 'One-hot for nominal, label encoding for ordinal — because label encoding asserts an order.',
+      },
+      {
+        formula:
+          'challenges: insufficient data · non-representative data · overfitting · underfitting · validation and testing',
+        why: 'The first two are Challenge 1 and Challenge 2 in this very lecture.',
+      },
+      {
+        formula: 'training example ⟨x, f(x)⟩',
+        why: 'f is the target function (target concept); h is a hypothesis believed similar to f.',
+      },
+      {
+        formula: 'concept = boolean f · classifier = discrete f(x) ∈ {1,…,K}',
+        why: 'f(x) = 1 gives positive instances, f(x) = 0 negative ones. The K values are the classes.',
+      },
+      {
+        formula: 'hypothesis space ⊇ version space',
+        why: 'The hypothesis space is everything the algorithm could output; the version space is what no example has ruled out yet.',
+      },
+      {
+        formula: 'inductive learning hypothesis',
+        why: 'Any hypothesis approximating the target function well over a sufficiently large training set will also approximate it well over other unobserved examples.',
+      },
+      {
+        formula: 'discrete f(x) → classification · continuous → regression · f(x) ∈ [0,1] → probability estimation',
+        why: 'The three shapes of inductive learning, shown on one dataset with only the last column changing.',
+      },
+      {
+        formula: '⟨?, …, ?⟩ most general · ⟨∅, …, ∅⟩ most specific',
+        why: 'Every day is a positive example, and no day is. Everything a learner can say lies between them.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'A column holds employee ID numbers, stored as integers. Which statistic is meaningful?',
+        options: ['The mean', 'The median', 'The mode', 'The standard deviation'],
+        answer: 2,
+        explain:
+          'Employee IDs are nominal: they support distinctness and nothing else. The mode — the most common value — is the only one of the four that needs no order and no arithmetic. The deck lists mode, entropy, contingency correlation and the χ² test as the legal operations at that level.',
+      },
+      {
+        q: 'Is a temperature of 10° twice a temperature of 5°?',
+        options: [
+          'Yes, on every scale — it is just arithmetic',
+          'Only on the Kelvin scale',
+          'Only on the Celsius scale',
+          'Never, for any physical quantity',
+        ],
+        answer: 1,
+        explain:
+          'Kelvin has a true zero, so its ratios are meaningful. Celsius and Fahrenheit are interval scales whose zeros were chosen by people — 10 °C is 283.15 K and 5 °C is 278.15 K, a ratio of 1.018, not 2.',
+      },
+      {
+        q: 'Which transformation is permitted on a ratio attribute but not on an interval one?',
+        options: [
+          'new = a × old + b',
+          'new = a × old, with no offset — and that is the only one permitted on ratio',
+          'Any monotonic function',
+          'Any permutation of values',
+        ],
+        answer: 1,
+        explain:
+          'It is the other way round from what the wording suggests, and that is the point. Interval permits a × old + b; ratio permits only a × old, because adding b would move the zero and destroy the ratios. Ratio is the more restrictive of the two.',
+      },
+      {
+        q: 'A dataset has 1,000 rows. You add attributes, splitting each into ten buckets. What happens to the data?',
+        options: [
+          'Nothing — no rows were removed',
+          'It becomes denser, because there is more information per row',
+          'It becomes increasingly sparse, because the space it occupies grew',
+          'The dimensionality falls',
+        ],
+        answer: 2,
+        explain:
+          'Two attributes give 100 cells and ten rows each; five attributes give 100,000 cells and one row per hundred cells. No row was removed — the space grew around them. This is the deck’s sparsity point and the curse of dimensionality in the same breath.',
+      },
+      {
+        q: 'What separates a time series from sequence data?',
+        options: [
+          'A time series is numeric and a sequence is categorical',
+          'A time series has timestamps, so the gap between readings is itself data; a sequence has only an order',
+          'A sequence is always longer',
+          'There is no difference; the deck uses the words interchangeably',
+        ],
+        answer: 1,
+        explain:
+          'The deck lists them as two of its seven kinds. DNA is sequence data: the third base comes after the second, and asking how long it took is meaningless. Shuffling the rows of either destroys the data, which is what separates both from relational data.',
+      },
+      {
+        q: 'The deck’s loan example says poor data quality has which effect?',
+        options: [
+          'Credit-worthy candidates are denied loans',
+          'More loans are given to individuals that default',
+          'Both of those, at the same time',
+          'Neither — accuracy simply falls by a predictable amount',
+        ],
+        answer: 2,
+        explain:
+          'This is the point of the example. Poor data does not trade one error for the other; it produces both at once. In module M11’s vocabulary those are the false positives and false negatives of the confusion matrix, and no threshold moves both down together.',
+      },
+      {
+        q: 'What is the difference between noise and an outlier?',
+        options: [
+          'Noise is bigger',
+          'Noise modifies values that are there; an outlier is a whole data object that differs from the rest',
+          'An outlier is always an error, noise never is',
+          'They are two names for the same thing',
+        ],
+        answer: 1,
+        explain:
+          'The deck defines noise twice — for attributes it is a modification of original values, for objects it is an extraneous object. An outlier is defined as a data object with characteristics considerably different from most of the others. Noise is spread across every row a little; an outlier is one row a lot.',
+      },
+      {
+        q: 'You find four unusual rows in a transaction dataset. Should you delete them?',
+        options: [
+          'Yes — outliers distort every statistic',
+          'No — never delete data',
+          'It depends on the analysis: they are noise to remove in Case 1 and the entire goal in Case 2',
+          'Only if they fail the three-sigma test',
+        ],
+        answer: 2,
+        explain:
+          'The deck refuses to answer with a rule and splits into two cases instead. In fraud detection and intrusion detection the odd rows are the deliverable. Nothing about a row tells you which case you are in — the question you are asking does.',
+      },
+      {
+        q: 'Annual income is missing for every child in a dataset. What is the right response?',
+        options: [
+          'Impute the column mean',
+          'Impute zero',
+          'Recognise that the attribute is not applicable, so there is no true value to estimate',
+          'Drop the income column entirely',
+        ],
+        answer: 2,
+        explain:
+          'The deck gives two reasons for a missing value, and this is the second: attributes may not be applicable to all cases. There is nothing to recover, so any imputation invents a fact. A separate “not applicable” flag is the honest encoding.',
+      },
+      {
+        q: 'You replace every missing value in a column with the column mean. What happens to the mean and the variance?',
+        options: [
+          'Both are unchanged',
+          'The mean is unchanged and the variance falls',
+          'The mean falls and the variance rises',
+          'Both rise',
+        ],
+        answer: 1,
+        explain:
+          'The mean is unchanged by construction, which is why the method looks harmless. But the filled rows now sit exactly on the average, so the spread shrinks — and every standard error, confidence interval and significance test downstream is computed from that spread. You have claimed more certainty than you have.',
+      },
+      {
+        q: 'A merged table has two rows with Tid 9, agreeing on income and disagreeing on marital status. What is this?',
+        options: [
+          'Noise',
+          'An inconsistent duplicate — the major issue when merging data from heterogeneous sources',
+          'An outlier',
+          'Disguised missing data',
+        ],
+        answer: 1,
+        explain:
+          'The deck flags exactly this pair in its dirty-data table. Exact duplicates are easy; “almost duplicates” that disagree are the hard case, because deleting either one loses information and keeping both gives the model two contradictory labels for one input.',
+      },
+      {
+        q: 'Which is the deck’s definition of data engineering?',
+        options: [
+          'Tuning prepared data to create the features the model expects',
+          'The process of converting raw data into prepared data',
+          'Choosing which model to fit',
+          'Everything done before deployment',
+        ],
+        answer: 1,
+        explain:
+          'Word for word. The other option is the deck’s definition of feature engineering. Data engineering produces something a person would call correct; feature engineering produces something a model can use — and prepared data can be perfectly clean and still unusable by a given algorithm.',
+      },
+      {
+        q: 'Grouping six rows keyed white, white, red, red, black, black with values 12, 8, 20, 14, 6, 10 and applying mean() gives what?',
+        options: ['10, 17, 8', '20, 34, 16', '12, 20, 6', '8, 14, 10'],
+        answer: 0,
+        explain:
+          'The deck’s own split-apply-combine example: (12+8)/2 = 10, (20+14)/2 = 17, (6+10)/2 = 8. Six rows became three — data reduction — and the spread of the three answers is smaller than the spread of the six inputs, which is the deck’s “more stable data”.',
+      },
+      {
+        q: 'For the data 10, 12, 11, 15, 11, 14, 13, 17, 12, 22, 14, 11, what is the IQR and which value is an outlier?',
+        options: ['IQR = 3.5, outlier 22', 'IQR = 12, outlier 10', 'IQR = 3.5, no outliers', 'IQR = 5.25, outlier 17'],
+        answer: 0,
+        explain:
+          'Sorted, the lower half 10,11,11,11,12,12 has median 11 = Q1, and the upper half 13,14,14,15,17,22 has median 14.5 = Q3. IQR = 3.5, so the fences are 11 − 5.25 = 5.75 and 14.5 + 5.25 = 19.75. Only 22 falls outside.',
+      },
+      {
+        q: 'Why is the IQR rule more reliable than the three-sigma rule on data you have not inspected?',
+        options: [
+          'It uses more of the data',
+          'Quartiles are barely moved by an extreme value, whereas an outlier inflates σ and widens the very fences meant to catch it',
+          'It does not need a computer',
+          'It flags more points',
+        ],
+        answer: 1,
+        explain:
+          'This is called masking. The three-sigma rule builds its bounds from the mean and standard deviation, and both are dragged by the outlier being hunted. The deck itself notes the rule is based on the properties of a normal distribution, and names income as its example of a skewed attribute.',
+      },
+      {
+        q: 'Random subsampling of the 150-flower iris set put 38 Setosa, 28 Versicolor and 34 Virginica in the training set. What has gone wrong?',
+        options: [
+          'Rows have been lost',
+          'Nothing — a random sample is by definition representative',
+          'The class proportions have drifted, so the test set no longer measures what you think it does',
+          'The test set is too small',
+        ],
+        answer: 2,
+        explain:
+          'Nothing was lost — each species still totals 50. But a representative training share would be 33.3 of each, and Versicolor is five short in training and five over in test. The deck’s own heading for the slide is “Issues with Subsampling (Independence Violation)”. Stratified sampling draws within each class and removes the drift.',
+      },
+      {
+        q: 'A training set is 950 ordinary rows and 50 fraudulent ones. A model that never predicts fraud scores what accuracy?',
+        options: ['50%', '5%', '95%', 'Undefined'],
+        answer: 2,
+        explain:
+          '950/1000. It has learnt nothing and is useless for the job it was built for, and by the most obvious measure it is excellent — which is why imbalanced problems are reported with precision, recall and F1 for the rare class, and why the deck asks you to modify the training distribution.',
+      },
+      {
+        q: 'Income ranges from 12,000 to 98,000 and is normalized to [0.0, 1.0]. Where does 73,600 map to?',
+        options: ['0.716', '0.751', '1.225', '0.736'],
+        answer: 0,
+        explain:
+          '(73,600 − 12,000)/(98,000 − 12,000) × (1.0 − 0) + 0 = 61,600/86,000 = 0.716. The last option, 0.736, is what decimal scaling gives for the same value; 1.225 is its z-score with μ = 54,000 and σ = 16,000.',
+      },
+      {
+        q: 'When should the scaler be fitted?',
+        options: [
+          'On the whole dataset, before splitting, so both sides are treated identically',
+          'On the training data only, then used to transform both the training and the test set',
+          'Separately on the training set and on the test set',
+          'After the model is fitted',
+        ],
+        answer: 1,
+        explain:
+          'The deck states it as a note on the slide. Fitting on everything means the test set’s own minimum, maximum, mean and deviation went into the numbers applied to it, so the reported score is optimistic — and nothing in the code looks wrong. Fitting the test set separately is worse still: the two sets are then on different scales.',
+      },
+      {
+        q: 'Which of the four feature-engineering moves produces fewer columns whose meanings are new?',
+        options: ['Selection', 'Extraction', 'Construction', 'Transformation'],
+        answer: 1,
+        explain:
+          'Extraction — the deck names PCA. Selection keeps a subset of the existing columns with their meanings intact; construction adds columns; transformation rewrites a column in place. The cost of extraction is that a principal component has no name.',
+      },
+      {
+        q: 'Thirty salaries run from 18 to 88 and one more is added at 900. What does equal-width binning with N = 4 do?',
+        options: [
+          'Nothing much — the bins simply widen a little',
+          'W becomes 220.5, so nearly every row lands in the first bin and some bins are empty',
+          'It puts about eight rows in each bin',
+          'It refuses to bin the outlier',
+        ],
+        answer: 1,
+        explain:
+          'W = (B − A)/N = (900 − 18)/4 = 220.5. This is the deck’s two warnings in one picture — outliers may dominate presentation, and skewed data is not handled well. Equal-depth is unaffected: it moves the edges to keep about eight rows per bin.',
+      },
+      {
+        q: 'A Fuel column holds Gas, Diesel, Gas and gas. What does label encoding produce?',
+        options: [
+          'Two categories, because case does not matter to an encoder',
+          'Three categories, because the encoder compares strings and “gas” is not “Gas”',
+          'An error',
+          'Four categories, one per row',
+        ],
+        answer: 1,
+        explain:
+          'The deck’s own label-encoding table prints 1, 2, 1, 3 — so “gas” becomes a third fuel appearing once in the training set. Its one-hot table on the same slide folds the case and shows only two columns. Both are printed together, and the lesson is the same either way.',
+      },
+      {
+        q: 'Which encoding suits a nominal attribute, and why?',
+        options: [
+          'Label encoding, because it is compact',
+          'One-hot, because label encoding would assert an order the attribute does not have',
+          'Either — it makes no difference to the model',
+          'Neither; nominal attributes must be dropped',
+        ],
+        answer: 1,
+        explain:
+          'One-hot puts every category the same distance from every other, which is right when there is no order. Label encoding is fine on an ordinal attribute — Gold before Platinum, low before medium before high — because there the order is real and the numbers can respect it.',
+      },
+      {
+        q: 'What is the difference between the hypothesis space and the version space?',
+        options: [
+          'They are the same thing under two names',
+          'The hypothesis space is everything the algorithm could output; the version space is the part of it no training example has ruled out yet',
+          'The version space is larger',
+          'The hypothesis space grows as data arrives',
+        ],
+        answer: 1,
+        explain:
+          'The hypothesis space is fixed by the choice of model, before any data. The version space starts as the whole hypothesis space and only shrinks. Data cannot add to the hypothesis space — only a different model can, which is exactly why underfitting is not cured by collecting more rows.',
+      },
+      {
+        q: 'The deck offers ⟨?, Cold, High, ?, ?, ?⟩ as one possible hypothesis for EnjoySport. How many of the four training rows does it classify correctly?',
+        options: ['All four', 'Three', 'One', 'None'],
+        answer: 3,
+        explain:
+          'It demands Cold, and the only cold day in the table is row 3 — the one labelled No. So it calls row 3 positive and rows 1, 2 and 4 negative, getting every row wrong. The slide offers it as an illustration of the notation, not as a good rule, and telling those two apart is the point of the hypothesis-space idea.',
+      },
+      {
+        q: 'State the inductive learning hypothesis.',
+        options: [
+          'Any hypothesis that fits the training data is the target function',
+          'Any hypothesis found to approximate the target function well over a sufficiently large set of training examples will also approximate it well over other unobserved examples',
+          'Learning is impossible without infinite data',
+          'The training and test sets must be the same size',
+        ],
+        answer: 1,
+        explain:
+          'The deck’s wording. It is an assumption, not a theorem — and it is what every train/test split on the course is quietly checking. It fails outright when the test rows are not drawn from the same distribution as the training rows, which is distribution shift.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define an attribute and an object, then state the four types of attribute with the properties, permitted transformations and legal statistics of each.',
+        meta: 'Definitions plus the full Stevens table · 8–10 marks',
+        points: [
+          'Data is a collection of data objects and their attributes. An attribute is a property or characteristic of an object; a collection of attributes describes an object.',
+          'An attribute is also called a variable, field, characteristic, dimension or feature; an object is also called a record, point, case, sample, entity or instance.',
+          'The type of an attribute depends on which of four properties it possesses: distinctness (=, ≠), order (<, >), meaningful differences (+, −), and meaningful ratios (*, /). The properties are cumulative.',
+          'Nominal: distinctness only. Examples — zip codes, employee ID numbers, eye colour, sex {male, female}. Permitted transformation: any permutation of values. Statistics: mode, entropy, contingency correlation, χ² test.',
+          'Ordinal: distinctness and order. Examples — hardness of minerals, {good, better, best}, grades, street numbers. Permitted transformation: new_value = f(old_value) for any monotonic f. Statistics: median, percentiles, rank correlation, run tests, sign tests.',
+          'Interval: distinctness, order and meaningful differences. Examples — calendar dates, temperature in Celsius or Fahrenheit. Permitted transformation: new_value = a × old_value + b. Statistics: mean, standard deviation, Pearson’s correlation, t and F tests.',
+          'Ratio: all four properties. Examples — temperature in Kelvin, monetary quantities, counts, age, mass, length, current. Permitted transformation: new_value = a × old_value, with no offset. Statistics: geometric mean, harmonic mean, percent variation.',
+          'Nominal and ordinal together are categorical or qualitative; interval and ratio are numeric or quantitative. The categorization is due to S. S. Stevens.',
+          'The distinguishing feature of a ratio scale is a true zero denoting an absence of the quantity. This is why the ratio transformation loses the offset b: adding b would move the zero and destroy the ratios.',
+        ],
+      },
+      {
+        q: 'Is a temperature of 10° twice a temperature of 5° on the Celsius, Fahrenheit and Kelvin scales? Justify your answer, and say whether measuring height above average is an analogous situation.',
+        meta: 'Applied reasoning about scale type · 5–6 marks',
+        points: [
+          'Not on Celsius and not on Fahrenheit; yes on Kelvin.',
+          'Celsius and Fahrenheit are interval scales. Their zeros are conventions — the freezing point of water, and a reference mixture — not an absence of heat, so a ratio of two readings depends on where the zero was placed rather than on the quantity itself.',
+          'Converting to an absolute scale shows it directly: 10 °C = 283.15 K and 5 °C = 278.15 K, a ratio of about 1.018, not 2.',
+          'Kelvin is a ratio scale: its zero is the absence of thermal energy, so 10 K really is twice 5 K.',
+          'Differences remain meaningful on all three scales — 10° minus 5° is a genuine five degrees of additional heat on any of them. It is only the ratio that fails.',
+          'Height above average is exactly analogous. Its zero is the average, which is arbitrary, so it is an interval reading: Bob at six inches above average is not twice as tall as Bill at three inches above average.',
+          'Height itself, measured from zero, is a ratio attribute. So the same physical quantity sits at different levels depending on how it is recorded, and the level is a property of the measurement, not of the thing measured.',
+        ],
+      },
+      {
+        q: 'Describe the kinds of data quality problem, and explain with the deck’s loan example why poor data quality matters.',
+        meta: 'List plus applied explanation · 6–8 marks',
+        points: [
+          'Data quality has six aspects: correct, interpretable, usable on demand, complete, trustable, consistent.',
+          'Poor data quality negatively affects many data processing efforts.',
+          'Examples of data quality problems: noise and outliers, wrong data, fake data, missing values, duplicate data.',
+          'The loan example: a classification model for detecting people who are loan risks is built using poor data. Some credit-worthy candidates are then denied loans, and more loans are given to individuals that default.',
+          'The point of the example is that both errors occur together. Poor data does not simply trade one type of mistake for another; it produces false rejections and false approvals at the same time.',
+          'Noise is defined at two levels: for objects it is an extraneous object, and for attributes it is a modification of original values — a distorted voice on a poor phone line, or snow on a television screen. It distorts both the magnitude and the shape of the original signal.',
+          'An outlier, by contrast, is a data object with characteristics considerably different from most of the other data objects in the data set.',
+          'Fake data is the hardest of the five to detect, because no individual row is impossible; only the pattern across rows reveals it, which is why provenance — the trustable aspect — matters.',
+        ],
+      },
+      {
+        q: 'Explain the two cases in which outliers arise, then describe both univariate methods of detecting them, working the lecture’s example for each.',
+        meta: 'Concept plus two worked methods · 10–12 marks',
+        points: [
+          'Outliers are data objects with characteristics that are considerably different than most of the other data objects in the data set.',
+          'Case 1: outliers are noise that interferes with data analysis, and are to be removed. Case 2: outliers are the goal of the analysis — the deck names credit card fraud and intrusion detection.',
+          'Nothing about a row determines which case applies. The analysis question decides it, and it must be decided before any row is deleted.',
+          'IQR method. IQR = Q3 − Q1, where Q1 is the 25th percentile and Q3 the 75th. Lower bound Q1 − 1.5 × IQR, upper bound Q3 + 1.5 × IQR. Simple example: Q1 = 10 and Q3 = 20 give IQR = 10, so the bounds are −5 and 35.',
+          'Worked exercise. Data = 10, 12, 11, 15, 11, 14, 13, 17, 12, 22, 14, 11. Sorted: 10, 11, 11, 11, 12, 12, 13, 14, 14, 15, 17, 22.',
+          'Median Q2 = (12 + 13)/2 = 12.5. Q1 = 11, the median of the lower six values. Q3 = 14.5, the median of the upper six. IQR = 14.5 − 11 = 3.5.',
+          'Fences: 11 − 1.5 × 3.5 = 5.75 and 14.5 + 1.5 × 3.5 = 19.75. The outlier is 22.',
+          'Three sigma method, based on the properties of a normal distribution. Lower bound μ − 3σ, upper bound μ + 3σ. With μ = 50 and σ = 5 the bounds are 35 and 65, so points below 35 or above 65 are outliers. Approximately 99% — more precisely 99.7% — of a normally distributed variable lies within μ ± 3σ.',
+          'Comparison worth stating: the IQR method assumes nothing about the shape of the distribution and its quartiles barely move when one extreme value is added. The three-sigma method assumes normality, and both the mean and the standard deviation are inflated by the very outlier being sought, so a large outlier can widen the fences enough to conceal itself.',
+        ],
+      },
+      {
+        q: 'Distinguish data engineering from feature engineering, and list the components of data pre-processing.',
+        meta: 'Definitions plus structure · 5–6 marks',
+        points: [
+          'Preprocessing the data for ML involves both data engineering and feature engineering.',
+          'Data engineering is the process of converting raw data into prepared data.',
+          'Feature engineering tunes the prepared data to create the features that are expected by the ML model.',
+          'The pipeline is therefore: raw data → data engineering → prepared data → feature engineering → engineered features → machine learning.',
+          'Data pre-processing comprises data aggregation, data cleansing, instances selection and partitioning, and feature tuning.',
+          'Aggregation is combining two or more attributes (or objects) into a single attribute (or object), for data reduction, change of scale — cities into regions, days into weeks or months — and because aggregated data tends to have less variability.',
+          'Data cleansing removes or corrects records of corrupted or invalid values: noisy records containing noise, errors or outliers such as Salary = “−10”; inconsistent records such as Age = 42 with Birthday = 03/07/2010; and intentional records such as disguised missing data, January 1 as everyone’s birthday.',
+          'The distinction to state clearly is that data engineering makes the data correct, while feature engineering makes it usable by a particular model. Prepared data can be entirely clean and still unsuitable for the chosen algorithm.',
+        ],
+      },
+      {
+        q: 'Explain what makes a sample representative, distinguish sampling noise from sampling bias, and describe the sampling methods available.',
+        meta: 'Principles plus methods · 8–10 marks',
+        points: [
+          'Challenge: non-representative training data. The training data should be representative of the new cases we want to generalize to.',
+          'Key principle: using a sample will work almost as well as using the entire data set if the sample is representative. A sample is representative if it has approximately the same properties of interest as the original set of data.',
+          'Small sample size leads to sampling noise, and the remedy is to increase the sampling size.',
+          'If the sampling process is flawed, even a large sample size can lead to sampling bias. Increasing the sample size does not remedy bias — it produces a larger sample of the same distorted population.',
+          'Sampling is the main technique employed for data reduction, used both in preliminary investigation and in final analysis. Statisticians sample because obtaining the entire dataset is too expensive or time-consuming; data mining samples because processing the entire dataset is too expensive or time-consuming.',
+          'Frequently used sampling types: simple random, stratified, and clustered.',
+          'The iris illustration: 150 flowers, 50 Setosa, 50 Versicolor, 50 Virginica. Random subsampling assigns 2/3 (100) to training and 1/3 (50) to test, giving training 38 Setosa, 28 Versicolor, 34 Virginica and test 12 Setosa, 22 Versicolor, 16 Virginica.',
+          'No data is lost — each species still totals 50 — but the class proportions have drifted from the representative 33.3 per class, which the deck heads “Issues with Subsampling (Independence Violation)”. Stratified sampling draws within each class and preserves the proportions.',
+          'For an imbalanced training set, modify the distribution of training data so that the rare class is well-represented, either by under-sampling the majority class or by over-sampling the rare class. Under-sampling discards real data; over-sampling repeats a small number of rows many times.',
+        ],
+      },
+      {
+        q: 'Describe feature scaling. Give the formulas for min-max normalization, z-score standardization and decimal scaling, work the lecture’s income example, and state when each is appropriate.',
+        meta: 'Formulas, worked example and selection criteria · 10–12 marks',
+        points: [
+          'Feature scaling maps continuous values from one range to a target range so that attributes can be compared and fitted to an appropriate distribution for statistical processing.',
+          'Min-max normalization to [new_minA, new_maxA]: v′ = (v − minA)/(maxA − minA) × (new_maxA − new_minA) + new_minA.',
+          'Worked example: income ranges from $12,000 to $98,000, normalized to [0.0, 1.0]. For v = 73,600: (73,600 − 12,000)/(98,000 − 12,000) × (1.0 − 0) + 0 = 61,600/86,000 = 0.716.',
+          'Z-score normalization, also called standardization: v′ = (v − μA)/σA. With μ = 54,000 and σ = 16,000, v = 73,600 gives (73,600 − 54,000)/16,000 = 19,600/16,000 = 1.225.',
+          'Normalization by decimal scaling: v′ = v/10ʲ, where j is the smallest integer such that Max(|v′|) < 1.',
+          'Use normalization when approximate upper and lower bounds on the data are known; when the data is approximately uniformly distributed across that range, for example age, and not on a skewed attribute such as income; when the algorithm makes no assumption about the data distribution, such as KNN or a neural network; and when a range of [0,1] or [−1,1] is wanted.',
+          'Use standardization when the algorithm does make assumptions about the data distribution, usually Gaussian; when a bounded range is not required; and when outliers are present, since it is less affected by them.',
+          'Fit the scalers to the training data only, then use them to transform both the training set and the test set. Fitting on the combined data allows information from the test set into the transformation, and inflates the reported score.',
+          'Scaling the target values is generally not required, since scaling exists to make input attributes comparable with one another.',
+          'Min-max is anchored to the two most extreme values in the column, so a single erroneous maximum rescales every other row — which is the mechanism behind the advice not to normalize a skewed attribute.',
+        ],
+      },
+      {
+        q: 'Describe feature engineering. Explain feature extraction, selection, construction and transformation, and state what discretization is for and how equal-width and equal-depth binning differ.',
+        meta: 'Four operations plus binning · 8–10 marks',
+        points: [
+          'Feature engineering is needed for coming up with a good set of features, and its motivating problem is irrelevant features.',
+          'Feature extraction: dimensionality reduction — reducing the number of features by creating lower-dimensional ones. The deck names Principal Components Analysis. Its motivation is the curse of dimensionality: when dimensionality increases, data becomes increasingly sparse in the space that it occupies.',
+          'Feature selection: choosing more useful features to train on among the existing features. Reasons given are to handle redundant features, to remove irrelevant features, and to drop features missing a large number of values.',
+          'Feature construction: combining existing features to produce a more useful one, by polynomial expansion using univariate mathematical functions, by feature crossing to capture feature interactions, or by using business logic from the domain of the ML use case.',
+          'Feature transformation: rewriting a column in place, which covers both the encoding of numerical features by discretization and the encoding of categorical features.',
+          'The distinction to state: extraction and construction create new columns with new meanings, selection retains a subset of the existing columns unchanged, and transformation rewrites the same columns.',
+          'Discretization converts a continuous attribute into a discrete one, also called binning or bucketing. Naive Bayes, decision trees and their ensembles including random forest, minimum distance classifiers and KNN prefer discrete features. It also handles outliers and improves the value spread. The output may be interval labels such as 0–10 and 11–20, or conceptual labels such as youth, adult and senior.',
+          'Equal-width (distance) partitioning divides the range into N intervals of equal size, a uniform grid, with width W = (B − A)/N where A and B are the lowest and highest values. It is the most straightforward, but outliers may dominate the presentation and skewed data is not handled well.',
+          'Equal-depth (frequency) partitioning divides the range into N intervals each containing approximately the same number of samples, giving good data scaling.',
+        ],
+      },
+      {
+        q: 'Explain how categorical features are encoded, and say which encoding suits which attribute type.',
+        meta: 'Two methods plus the selection rule · 5–6 marks',
+        points: [
+          'Binarization maps a categorical attribute into one or more binary variables — one hot, or dummy, encoding. Each category becomes its own column holding 1 for the row’s own category and 0 elsewhere.',
+          'Label encoding maps categorical features to a numeric representation, replacing each category with an integer in a single column.',
+          'One-hot suits a nominal attribute, because it places every category at the same distance from every other and so asserts no ordering.',
+          'Label encoding suits an ordinal attribute, where the ordering is genuine and the integers can be chosen to respect it. Applied to a nominal attribute it asserts an order that does not exist, and a model that adds up feature contributions will interpolate across categories that have no intermediate value.',
+          'The choice therefore follows directly from the attribute type, which is why the level of measurement is established before any encoding is done.',
+          'A practical caution the lecture’s own example demonstrates: encoders identify categories by comparing values exactly, so a Fuel column containing Gas, Diesel, Gas and lower-case gas is read as three categories, not two.',
+          'One-hot encoding of a high-cardinality attribute produces a very wide and very sparse table, which is the sparsity characteristic named earlier in the same lecture.',
+        ],
+      },
+      {
+        q: 'State the inductive learning hypothesis and define the associated terminology, including the hypothesis space and version space.',
+        meta: 'Definitions from the prescribed textbook · 8–10 marks',
+        points: [
+          'Inductive learning hypothesis: any hypothesis found to approximate the target function well over a sufficiently large set of training examples will also approximate the target function well over other unobserved examples.',
+          'Inductive learning, or prediction: given examples of a function (X, F(X)), predict F(X) for new examples X.',
+          'If F(X) is discrete the task is classification; if continuous, regression; if F(X) is a probability, probability estimation.',
+          'Training example: an example of the form ⟨x, f(x)⟩.',
+          'Target function, or target concept: the true function f. It is never observed directly — only some of its outputs are.',
+          'Hypothesis: a proposed function h believed to be similar to f.',
+          'Concept: a boolean function. Examples for which f(x) = 1 are called positive examples or positive instances; examples for which f(x) = 0 are negative examples or negative instances.',
+          'Classifier: a discrete-valued function. The possible values f(x) ∈ {1, …, K} are called the classes or class labels.',
+          'Hypothesis space: the space of all hypotheses that can, in principle, be output by a learning algorithm. It is fixed by the choice of learning algorithm, before any data is seen.',
+          'Version space: the space of all hypotheses in the hypothesis space that have not yet been ruled out by a training example. It begins as the whole hypothesis space and shrinks as examples accumulate.',
+          'In the constraint notation a hypothesis is a tuple with one entry per attribute, where “?” means any value is acceptable and “∅” means no value is. The most general hypothesis, ⟨?, ?, ?, ?, ?, ?⟩, states that every day is a positive example; the most specific, ⟨∅, ∅, ∅, ∅, ∅, ∅⟩, states that no day is.',
+          'It should be stated that the inductive learning hypothesis is an assumption rather than a result. It is what justifies evaluating a model on held-out data, and it fails when the unobserved examples are not drawn from the same distribution as the training examples.',
+        ],
+      },
+    ],
+  },
+  attrtypes: {
+    cheat: [
+      { formula: 'distinctness (=, ≠)', why: 'Rung one. Every attribute has it. On its own it gives nominal.' },
+      { formula: 'order (<, >)', why: 'Rung two. Adds ordinal.' },
+      { formula: 'differences meaningful (+, −)', why: 'Rung three. Adds interval, and makes the mean legal.' },
+      { formula: 'ratios meaningful (*, /)', why: 'Rung four. Adds ratio, and needs a zero that means an absence.' },
+      {
+        formula: 'nominal → any permutation',
+        why: 'Reassign every employee ID and nothing about the data changes.',
+      },
+      {
+        formula: 'ordinal → new = f(old), f monotonic',
+        why: '{good, better, best} works as {1,2,3} or as {0.5,1,10}.',
+      },
+      {
+        formula: 'interval → new = a·old + b',
+        why: '°F = 1.8 × °C + 32. Differences survive; the zero was never load-bearing.',
+      },
+      {
+        formula: 'ratio → new = a·old',
+        why: 'No offset. Metres to feet is × 3.28084, and b would destroy the ratios.',
+      },
+      {
+        formula: 'mode · median · mean · geometric mean',
+        why: 'The first statistic that becomes legal at each of the four rungs, in order.',
+      },
+      {
+        formula: 'level ≠ storage type',
+        why: 'Zip codes, ratings and counts are all int64, and want three different treatments.',
+      },
+      {
+        formula: 'a difference from a reference point is interval',
+        why: 'Height above average, days since launch, temperature anomaly. Their zeros are conventions.',
+      },
+      {
+        formula: 'nominal → one-hot · ordinal → label encoding',
+        why: 'The whole reason the level matters in code.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'Which of these is a ratio attribute?',
+        options: ['Calendar dates', 'Temperature in Celsius', 'Temperature in Kelvin', 'Street numbers'],
+        answer: 2,
+        explain:
+          'Kelvin has a true zero — no thermal energy — so 10 K really is twice 5 K. Dates and Celsius are interval; street numbers are ordinal.',
+      },
+      {
+        q: 'A column records “days since the product launched”. What level is it?',
+        options: ['Nominal', 'Ordinal', 'Interval', 'Ratio'],
+        answer: 2,
+        explain:
+          'Its zero is the launch date, which is a convention rather than an absence of time. So differences are meaningful — day 40 is genuinely ten days after day 30 — and ratios are not: day 40 is not “twice as late” as day 20 in any useful sense. Any column defined as a difference from a reference point should be suspected of being interval.',
+      },
+      {
+        q: 'Why does the permitted transformation for a ratio attribute drop the offset b?',
+        options: [
+          'Because ratio attributes are always positive',
+          'Because adding b would move the zero, and a ratio scale depends on its zero meaning an absence',
+          'Because b is redundant when a is present',
+          'It does not — ratio permits a·old + b as well',
+        ],
+        answer: 1,
+        explain:
+          'Interval scales tolerate a·old + b precisely because their zero carries no meaning to lose. A ratio scale’s zero does carry meaning, so shifting it would make every ratio wrong — which is why metres to feet is a pure multiplication.',
+      },
+      {
+        q: 'Which statistic is legal on an ordinal attribute but not on a nominal one?',
+        options: ['The mode', 'The median', 'The mean', 'The geometric mean'],
+        answer: 1,
+        explain:
+          'The median needs the values to be orderable, so it starts at ordinal. The mode is legal everywhere; the mean needs meaningful differences and starts at interval; the geometric mean needs a real zero and starts at ratio.',
+      },
+      {
+        q: 'A survey codes satisfaction as 1 = poor, 2 = fair, 3 = good, 4 = excellent. What is wrong with reporting the mean?',
+        options: [
+          'Nothing — the values are numbers',
+          'The scale is ordinal, so the gaps between adjacent codes are not known to be equal and a mean assumes they are',
+          'Means cannot be computed on integers',
+          'You should report the mode instead, always',
+        ],
+        answer: 1,
+        explain:
+          'Averaging assumes that the step from poor to fair is the same size as the step from good to excellent, and nothing in the survey established that. The median and the percentiles are the honest summaries. This is one of the most common real-world misuses of the ladder.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define the four levels of measurement, giving for each the properties it supports, its permitted transformation, and an example.',
+        meta: 'The Stevens ladder in full · 8 marks',
+        points: [
+          'The level of an attribute is determined by which of four properties its values support: distinctness (=, ≠), order (<, >), meaningful differences (+, −), and meaningful ratios (*, /). The properties are cumulative.',
+          'Nominal: distinctness only. The values are names. Examples — zip codes, employee ID numbers, eye colour, sex. Permitted transformation: any permutation of values. Legal statistics: mode, entropy, contingency correlation, χ² test.',
+          'Ordinal: distinctness and order. Examples — hardness of minerals, grades, {good, better, best}, a rating on a scale of 1 to 10. Permitted transformation: any order-preserving (monotonic) function. Legal statistics: median, percentiles, rank correlation, run tests, sign tests.',
+          'Interval: distinctness, order and meaningful differences; the zero is a convention. Examples — calendar dates, temperature in Celsius or Fahrenheit. Permitted transformation: new = a × old + b. Legal statistics: mean, standard deviation, Pearson’s correlation, t and F tests.',
+          'Ratio: all four properties, with a true zero denoting an absence of the quantity. Examples — temperature in Kelvin, monetary quantities, counts, age, mass, length. Permitted transformation: new = a × old, with no offset. Legal statistics: geometric mean, harmonic mean, percent variation.',
+          'Nominal and ordinal are collectively categorical or qualitative; interval and ratio are numeric or quantitative. The classification is due to S. S. Stevens.',
+          'The level is a property of the measurement rather than of the quantity measured: height is a ratio attribute while height above average is an interval one, because the second has an arbitrary zero.',
+          'The practical consequence is twofold. It determines which summary statistics are meaningful, and it determines the encoding: a nominal attribute requires one-hot encoding, since label encoding would assert an ordering it does not possess, while an ordinal attribute may be label-encoded with integers chosen to preserve the order.',
+        ],
+      },
+    ],
+  },
+  scaling: {
+    cheat: [
+      {
+        formula: 'v′ = (v − minA)/(maxA − minA) × (new_maxA − new_minA) + new_minA',
+        why: 'Min-max normalization. Anchored to the two extreme values in the column.',
+      },
+      { formula: 'v′ = (v − μA)/σA', why: 'Z-score standardization. Unbounded, and less moved by outliers.' },
+      { formula: 'v′ = v/10ʲ, j smallest with max(|v′|) < 1', why: 'Decimal scaling. Just moves the decimal point.' },
+      {
+        formula: '73,600 in [12,000, 98,000] → 0.716',
+        why: '61,600/86,000. The worked min-max figure from the lecture.',
+      },
+      { formula: '(73,600 − 54,000)/16,000 = 1.225', why: 'The worked z-score, with μ = 54,000 and σ = 16,000.' },
+      {
+        formula: 'fit on train, transform train and test',
+        why: 'The min, max, mean and deviation are learnt numbers. Fitting on everything leaks the test set.',
+      },
+      {
+        formula: 'normalize: bounded, uniform, distribution-free (KNN, NN)',
+        why: 'Not on a skewed attribute such as income.',
+      },
+      { formula: 'standardize: Gaussian assumed, unbounded, outlier-tolerant', why: 'The other half of the choice.' },
+      {
+        formula: 'scaling the target is generally not required',
+        why: 'Scaling makes inputs comparable to each other.',
+      },
+      {
+        formula: 'RobustScaler = median and IQR',
+        why: 'The third option when the extremes cannot be trusted at all.',
+      },
+      { formula: 'trees do not care', why: 'A split tests one column at a time and never compares across columns.' },
+    ],
+    quiz: [
+      {
+        q: 'Why does an unscaled dataset slow gradient descent down?',
+        options: [
+          'It does not — only the number of rows matters',
+          'The loss surface becomes a long narrow valley, so one learning rate is too big in one direction and too small in the other',
+          'Because large numbers overflow',
+          'Because the gradient becomes zero',
+        ],
+        answer: 1,
+        explain:
+          'A feature in rupees produces a gradient thousands of times larger than one in years, so a single η cannot suit both and descent zig-zags across the valley instead of running down it. The fix is scaling the columns, not a cleverer optimiser.',
+      },
+      {
+        q: 'One row of a salary column was entered with an extra zero. What does that do to min-max normalization?',
+        options: [
+          'Nothing — the error is only one row',
+          'It raises maxA, so every other row is squashed towards zero',
+          'It raises the mean only',
+          'It makes the result fall outside [0,1]',
+        ],
+        answer: 1,
+        explain:
+          'Min-max is anchored to the two extremes, so the whole column is rescaled by the error. This is why the lecture warns against normalizing a skewed attribute, and why RobustScaler — median and IQR — exists.',
+      },
+      {
+        q: 'You fit a StandardScaler on the full dataset and then split into train and test. What is the consequence?',
+        options: [
+          'Nothing; both sides are treated identically, which is desirable',
+          'The test rows contributed to the mean and deviation applied to them, so the reported score is optimistic',
+          'The model will crash at predict time',
+          'The training set becomes unscaled',
+        ],
+        answer: 1,
+        explain:
+          'This is the most common leak in applied ML, and nothing in the code looks wrong. Putting the scaler inside a Pipeline makes it impossible, because the pipeline is refitted per fold.',
+      },
+      {
+        q: 'Which model is completely unaffected by whether you scale the features?',
+        options: ['k-nearest neighbours', 'Ridge regression', 'A decision tree', 'k-means'],
+        answer: 2,
+        explain:
+          'A tree tests one column at a time — “Age ≤ 37.5” — and never compares across columns, so any monotonic rescaling gives the same tree. The other three all combine columns: two by Euclidean distance, and ridge through a penalty that punishes every weight equally regardless of its units.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Explain feature scaling: give the formulas, state when each method is appropriate, and explain why the scaler must be fitted on the training data only.',
+        meta: 'Formulas plus selection and the fitting rule · 8 marks',
+        points: [
+          'Feature scaling maps continuous values from one range onto a target range so that attributes can be compared and combined, and so that statistical processing is possible.',
+          'Min-max normalization: v′ = (v − minA)/(maxA − minA) × (new_maxA − new_minA) + new_minA. It produces a bounded result, typically in [0,1] or [−1,1].',
+          'Z-score normalization or standardization: v′ = (v − μA)/σA, where μ is the mean and σ the standard deviation. The result is unbounded.',
+          'Normalization by decimal scaling: v′ = v/10ʲ, where j is the smallest integer such that Max(|v′|) < 1.',
+          'Worked example: income from 12,000 to 98,000 normalized to [0,1] maps 73,600 to 61,600/86,000 = 0.716; with μ = 54,000 and σ = 16,000 the same value standardizes to 19,600/16,000 = 1.225.',
+          'Use normalization when approximate bounds are known, when the data is roughly uniform across the range such as age rather than skewed such as income, when the algorithm assumes no distribution such as KNN or a neural network, and when a bounded range is required.',
+          'Use standardization when the algorithm assumes a distribution, usually Gaussian; when a bounded range is not needed; and when outliers are present, since it is less affected by them.',
+          'The scaler must be fitted on the training data only and then used to transform both the training and the test set. Its parameters — the minimum, maximum, mean and standard deviation — are quantities learnt from data, so fitting them on the combined set allows information from the test set to influence the transformation applied to it, and the reported performance is then optimistic.',
+          'Scaling the target values is generally not required, since the purpose of scaling is to make input attributes comparable with one another.',
+          'Justification worth stating: methods that combine attributes are affected, and methods that do not are unaffected. Gradient descent, distance-based methods such as k-NN and k-means, and regularised linear models all require scaling; tree-based models test one attribute at a time and are invariant to it.',
+        ],
+      },
+    ],
+  },
+  encoding: {
+    cheat: [
+      {
+        formula: 'binarization = one hot = dummy encoding',
+        why: 'One column per category, exactly one 1 per row. Asserts no order.',
+      },
+      { formula: 'label encoding = one integer column', why: 'Compact, and it asserts 1 < 2 < 3.' },
+      { formula: 'nominal → one-hot', why: 'Any ordering would be invented, and a model would interpolate across it.' },
+      { formula: 'ordinal → label encoding', why: 'The order is real, so choose integers that respect it.' },
+      {
+        formula: '“Gas” ≠ “gas”',
+        why: 'An encoder compares values exactly, so a stray capital makes a third category that appears once.',
+      },
+      { formula: 'k categories → k columns', why: 'Cardinality decides whether one-hot is affordable at all.' },
+      { formula: 'discretization = binning = bucketing', why: 'The other direction: continuous into discrete.' },
+      {
+        formula: 'equal-width: W = (B − A)/N',
+        why: 'Uniform grid. One outlier inflates B and empties the other bins.',
+      },
+      { formula: 'equal-depth: ≈ n/N rows per bin', why: 'Good data scaling. The edges move instead of the counts.' },
+      {
+        formula: 'interval labels vs conceptual labels',
+        why: '0–10, 11–20 — or youth, adult, senior. Same bins, different readability.',
+      },
+      {
+        formula: 'a tree split is a bin boundary it chose itself',
+        why: 'Which is why manual binning matters most for naive Bayes and linear models.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'A City column holds Bangalore, Delhi and Mumbai, label-encoded as 1, 2 and 3. What has a linear model been told?',
+        options: [
+          'Nothing — the numbers are arbitrary labels',
+          'That Delhi sits exactly halfway between Bangalore and Mumbai',
+          'That Bangalore is the most common city',
+          'That there are only three cities in the world',
+        ],
+        answer: 1,
+        explain:
+          'A linear model multiplies the column by a coefficient and adds it in, so it reads 2 as being between 1 and 3 and one unit from each. City is nominal, so that ordering is invented — this is exactly why nominal attributes need one-hot encoding.',
+      },
+      {
+        q: 'A Fuel column holds Gas, Diesel, Gas and gas. How many categories does an encoder find?',
+        options: ['Two', 'Three', 'Four', 'It raises an error'],
+        answer: 1,
+        explain:
+          'Three. Encoders compare values exactly, so the lower-case spelling becomes its own category — one that appears exactly once in the training data and is a perfect opportunity to overfit. Standardising case and whitespace before encoding is part of data cleansing for this reason.',
+      },
+      {
+        q: 'Thirty salaries run from 18 to 88 and one more of 900 is added. What happens to equal-width binning with N = 4?',
+        options: [
+          'The bins widen slightly',
+          'W becomes 220.5, so nearly every row falls in the first bin and some bins are empty',
+          'The number of bins increases',
+          'It behaves exactly like equal-depth',
+        ],
+        answer: 1,
+        explain:
+          'W = (B − A)/N = (900 − 18)/4 = 220.5. This is why the deck warns that outliers may dominate the presentation and skewed data is not handled well. Equal-depth simply moves its edges and keeps about eight rows per bin.',
+      },
+      {
+        q: 'Why does a decision tree not usually need you to bin its numeric features?',
+        options: [
+          'Because trees cannot use numeric features at all',
+          'Because every split such as “Age ≤ 37.5” is already a bin boundary, chosen to maximise information gain',
+          'Because trees scale features internally',
+          'Because binning is only for text data',
+        ],
+        answer: 1,
+        explain:
+          'A tree is a binning algorithm that picks its own edges using the target. Manual binning matters most for the models that cannot do it — naive Bayes, which needs discrete features to estimate per-category probabilities, and linear models, which otherwise express only a straight line.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Explain how categorical and numerical features are encoded for a model, and state which method suits which attribute type.',
+        meta: 'Both directions of feature transformation · 8 marks',
+        points: [
+          'Binarization maps a categorical attribute into one or more binary variables — one hot, or dummy, encoding. Each category becomes a column holding 1 for that category and 0 otherwise.',
+          'Label encoding maps categorical features to a numeric representation, replacing each category with an integer in a single column.',
+          'One-hot suits a nominal attribute: it places every category at the same distance from every other and so asserts no ordering.',
+          'Label encoding suits an ordinal attribute, where the ordering is genuine and integers can be chosen to preserve it. Applied to a nominal attribute it asserts an ordering that does not exist, and a model which combines attributes linearly will interpolate between categories that have no intermediate value.',
+          'The choice therefore follows from the level of measurement, which must be established before any encoding is done.',
+          'Practical caution: encoders identify categories by exact comparison, so inconsistent case, trailing whitespace or two spellings of one value become separate categories. Standardising the values is part of data cleansing and must precede encoding.',
+          'One-hot encoding a high-cardinality attribute produces a very wide and very sparse matrix, which is the sparsity characteristic of high-dimensional data.',
+          'In the other direction, discretization — also called binning or bucketing — converts a continuous attribute into a discrete one. It is used because naive Bayes, decision trees and their ensembles, minimum distance classifiers and KNN prefer discrete features; to handle outliers; and to improve the spread of the data.',
+          'Equal-width (distance) partitioning divides the range into N intervals of equal size W = (B − A)/N, where A and B are the lowest and highest values. It is straightforward but outliers may dominate the presentation and skewed data is not handled well.',
+          'Equal-depth (frequency) partitioning divides the range into N intervals each containing approximately the same number of samples, giving good data scaling. The bins may carry interval labels such as 0–10 and 11–20, or conceptual labels such as youth, adult and senior.',
+        ],
+      },
+    ],
+  },
+  hypothesis: {
+    cheat: [
+      { formula: '⟨x, f(x)⟩', why: 'A training example: an input and the answer that goes with it.' },
+      { formula: 'f = target function (target concept)', why: 'The true rule. Never observed directly.' },
+      { formula: 'h ≈ f', why: 'A hypothesis: a proposed function believed to be similar to f.' },
+      {
+        formula: 'concept = boolean f',
+        why: 'f(x) = 1 gives positive examples or positive instances; f(x) = 0 gives negative ones.',
+      },
+      {
+        formula: 'classifier: f(x) ∈ {1, …, K}',
+        why: 'A discrete-valued function. The K values are the class labels.',
+      },
+      {
+        formula: 'hypothesis space H',
+        why: 'Every hypothesis the algorithm could output. Fixed by the model choice, before any data.',
+      },
+      {
+        formula: 'version space VS ⊆ H',
+        why: 'The hypotheses no training example has ruled out yet. It only ever shrinks.',
+      },
+      {
+        formula: 'inductive learning hypothesis',
+        why: 'A hypothesis approximating f well over a sufficiently large training set will also approximate it well over unobserved examples.',
+      },
+      { formula: '⟨?, …, ?⟩', why: 'The most general hypothesis: every day is a positive example.' },
+      { formula: '⟨∅, …, ∅⟩', why: 'The most specific hypothesis: no day is a positive example.' },
+      { formula: 'H too small → underfitting', why: 'The right rule was never sayable, so more data cannot help.' },
+      {
+        formula: 'H too large → overfitting',
+        why: 'Many contradictory hypotheses fit the training rows, and which you get depends on the draw.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'What is the difference between the hypothesis space and the version space?',
+        options: [
+          'They are the same thing',
+          'H is everything the algorithm could output; VS is the part of H that no training example has ruled out yet',
+          'VS is the larger of the two',
+          'H grows as more data arrives',
+        ],
+        answer: 1,
+        explain:
+          'H is fixed by the choice of model before any data is seen. VS starts as the whole of H and only shrinks. Data can never enlarge H — only a different model can, which is why underfitting is not cured by collecting more rows.',
+      },
+      {
+        q: 'A straight-line rule on credit score cannot express “defaults if the score is very low or very high”. What is this an example of?',
+        options: [
+          'Overfitting',
+          'Underfitting — the right hypothesis is not in the hypothesis space, so no amount of data will find it',
+          'Sampling bias',
+          'A missing value problem',
+        ],
+        answer: 1,
+        explain:
+          'The version space will shrink towards something that fits the data badly rather than towards nothing at all. Recognising this is what tells you to change the model rather than collect more rows, and it is the most useful diagnostic distinction in applied ML.',
+      },
+      {
+        q: 'Why does a learner need a restricted hypothesis space in order to generalise at all?',
+        options: [
+          'To save memory',
+          'Because with no restriction, for any new row there is a hypothesis fitting the training data and saying yes, and another fitting it equally well and saying no',
+          'Because the training set is always small',
+          'It does not — an unrestricted learner generalises best',
+        ],
+        answer: 1,
+        explain:
+          'The restriction is the inductive bias, and it is what lets a learner prefer one extension of the training answers over another. It is an assumption about the world rather than something derived from the data, which is why choosing a model is a substantive decision.',
+      },
+      {
+        q: 'What does the hypothesis ⟨?, ?, ?, ?, ?, ?⟩ say?',
+        options: [
+          'Nothing is a positive example',
+          'Every example is a positive example',
+          'Only examples matching the first training row are positive',
+          'The hypothesis is undefined',
+        ],
+        answer: 1,
+        explain:
+          'Every slot accepts any value, so every example matches. It is the most general hypothesis. Its opposite, ⟨∅, ∅, ∅, ∅, ∅, ∅⟩, accepts nothing — and everything a learner in this language can say lies between the two.',
+      },
+      {
+        q: 'When does the inductive learning hypothesis fail?',
+        options: [
+          'When the training set is large',
+          'When the unobserved examples are not drawn from the same distribution as the training examples',
+          'When the model has too few parameters',
+          'It cannot fail — it is a theorem',
+        ],
+        answer: 1,
+        explain:
+          'It is an assumption, not a theorem. Under distribution shift the guarantee simply does not apply — which is why a fraud model decays as fraudsters adapt, and why a model trained on one hospital’s scanners does badly at another.',
+      },
+    ],
+    exam: [
+      {
+        q: 'State the inductive learning hypothesis, define the associated terminology, and explain how the hypothesis space relates to overfitting and underfitting.',
+        meta: 'Definitions plus the link to model selection · 8–10 marks',
+        points: [
+          'Inductive learning hypothesis: any hypothesis found to approximate the target function well over a sufficiently large set of training examples will also approximate the target function well over other unobserved examples.',
+          'Inductive learning, or prediction: given examples of a function (X, F(X)), predict F(X) for new examples X. If F(X) is discrete the task is classification; if continuous, regression; if a probability, probability estimation.',
+          'Training example: an example of the form ⟨x, f(x)⟩. Target function, or target concept: the true function f, which is never observed directly. Hypothesis: a proposed function h believed to be similar to f.',
+          'Concept: a boolean function; examples where f(x) = 1 are positive examples or instances, and where f(x) = 0 are negative examples or instances.',
+          'Classifier: a discrete-valued function whose possible values f(x) ∈ {1, …, K} are the classes or class labels.',
+          'Hypothesis space: the space of all hypotheses that can, in principle, be output by a learning algorithm. Version space: the space of all hypotheses in the hypothesis space that have not yet been ruled out by a training example.',
+          'In the constraint notation a hypothesis is a tuple with one entry per attribute; “?” accepts any value and “∅” accepts none. The most general hypothesis ⟨?, …, ?⟩ classifies every example as positive; the most specific ⟨∅, …, ∅⟩ classifies none as positive.',
+          'The hypothesis space is fixed by the choice of learning algorithm before any data is seen, and data cannot enlarge it. The version space begins as the whole hypothesis space and shrinks monotonically as training examples arrive.',
+          'Underfitting corresponds to a hypothesis space too small to contain a good approximation to f: no quantity of data will find a rule the language cannot state, so the remedy is a different model rather than more data.',
+          'Overfitting corresponds to a hypothesis space large enough that many mutually inconsistent hypotheses remain consistent with all the training examples. Which one is returned then depends on the particular sample drawn, which is the source of high variance.',
+          'A restriction on the hypothesis space is the learner’s inductive bias, and some restriction is necessary for generalisation: without one, for any unobserved example there exist hypotheses consistent with all the training data that disagree about it, and nothing in the data prefers either.',
+          'The inductive learning hypothesis is an assumption rather than a result. Evaluating on a held-out test set is the empirical check of it, and it fails when the test examples are not drawn from the same distribution as the training examples.',
+        ],
+      },
+    ],
+  },
+
   ism1: {
     cheat: [
       { formula: 'x̄ = Σx / n', why: 'The mean. Add everything up, divide by how many. It is a balance point.' },

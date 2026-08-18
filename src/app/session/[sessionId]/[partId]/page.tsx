@@ -11,6 +11,7 @@ import { LEC2_PARTS } from '@/components/sessions/lec2/parts'
 import { LEC3_PARTS } from '@/components/sessions/lec3/parts'
 import { LEC4_PARTS } from '@/components/sessions/lec4/parts'
 import { MLLEC1_PARTS } from '@/components/sessions/mllec1/parts'
+import { MLLEC2_PARTS } from '@/components/sessions/mllec2/parts'
 import { PartShell } from '@/components/sessions/session-parts'
 import { CheatSheetTab } from '@/components/tabs/cheat-sheet-tab'
 import { ExamTab } from '@/components/tabs/exam-tab'
@@ -30,6 +31,7 @@ const BODIES: Record<string, Record<string, React.ReactNode>> = {
   lec3: LEC3_PARTS,
   lec4: LEC4_PARTS,
   mllec1: MLLEC1_PARTS,
+  mllec2: MLLEC2_PARTS,
   dl1: DL1_PARTS,
   dl2: DL2_PARTS,
   dl3: DL3_PARTS,

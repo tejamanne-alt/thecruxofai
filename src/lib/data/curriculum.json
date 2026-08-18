@@ -102,7 +102,7 @@
       "id": "ml",
       "group": "s1",
       "name": "Machine Learning",
-      "topics": ["regression", "kmeans", "mllec1"],
+      "topics": ["regression", "kmeans", "attrtypes", "scaling", "encoding", "hypothesis", "mllec1", "mllec2"],
       "syllabus": "Introduction to Machine Learning; various kinds of learning; supervised and unsupervised learning; the ML workflow; Bayesian learning, MAP hypothesis, Bayes optimal classifier, naive Bayes; linear models for regression; linear models for classification; non-linear models; decision trees; MDL principle; instance based learning; support vector machines; ensemble learning; clustering, k-means, GMM; model evaluation and comparison."
     },
     {
@@ -434,6 +434,31 @@
       "label": "Lecture 1 — Introduction to Machine Learning",
       "blurb": "What machine learning is, when it is worth using, and the three kinds of it. Write a task as ⟨T, P, E⟩, drag a decision boundary, and watch an agent learn by being rewarded.",
       "kind": "chapter"
+    },
+    "mllec2": {
+      "label": "Lecture 2 — The machine learning workflow: data and preprocessing",
+      "blurb": "Where the time actually goes. Attribute types, dirty data, outliers, sampling, scaling and encoding — the whole of module M2.",
+      "kind": "chapter"
+    },
+    "attrtypes": {
+      "label": "Levels of measurement: nominal, ordinal, interval, ratio",
+      "blurb": "Four questions decide what a column means, and which sums on it are honest.",
+      "kind": "concept"
+    },
+    "scaling": {
+      "label": "Feature scaling: normalisation and standardisation",
+      "blurb": "Two ways to make columns comparable, and the rule about fitting them that decides whether your score is real.",
+      "kind": "concept"
+    },
+    "encoding": {
+      "label": "Turning categories into numbers",
+      "blurb": "One-hot and label encoding. One invents an order that is not there; the other does not.",
+      "kind": "concept"
+    },
+    "hypothesis": {
+      "label": "Hypotheses, the hypothesis space and version space",
+      "blurb": "What a learner is actually searching, from the most specific ∅ to the most general ?.",
+      "kind": "concept"
     },
     "perceptron": {
       "label": "The perceptron",
