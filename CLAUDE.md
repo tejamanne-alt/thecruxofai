@@ -224,7 +224,7 @@ Run the real thing in a browser and prove it works:
   Chromium and fails the page unless something on it actually changed the text: a chart handle moved with
   the arrow keys, a slider, a tick box, a number box or a button, in that order. It exists because the
   element-hunting version could not see a canvas at all and quietly passed four drag-only labs it had
-  never touched. Adding a lab means this must still pass, and so must the count — 284 part routes today.
+  never touched. Adding a lab means this must still pass, and so must the count — 312 part routes today.
 - **Every lab goes through `LabBox` or `ChartRow`, and nothing else draws that frame.** Both set
   `data-lab`, and the checker looks for controls inside it and nowhere else — so a part with no lab now
   fails instead of quietly passing on a tab button. Twenty labs used to draw the border, radius and

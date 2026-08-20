@@ -57,6 +57,409 @@ export const LINK_KINDS: Record<LinkKind, { forward: string; back: string }> = {
  * twice, so the two can never drift apart.
  */
 export const CONNECTIONS: Connection[] = [
+  /* ------------------------------------- session 4: classification */
+  {
+    from: { topic: 'dl4', part: 'whatis' },
+    to: { topic: 'mllec1', part: 'classification' },
+    kind: 'builds-on',
+    carries: 'a categorical target',
+    detail:
+      'The ML lecture defined classification by its output — a label from a fixed list — and gave spam, digits and diagnosis as the examples. This deck takes that same definition and adds the three-way split by how many labels one example may carry, which is what decides whether the last layer is one sigmoid, a softmax over K, or K independent sigmoids.',
+  },
+  {
+    from: { topic: 'dl4', part: 'whatis' },
+    to: { topic: 'dl3', part: 'whatis' },
+    kind: 'contrast',
+    carries: 'y ∈ {1, …, K} against y ∈ ℝ',
+    detail:
+      'Session 3 fixed the target as a continuous number and warned that digits 0 to 9 look like numbers and are not. This session is the other side of that warning: the same feature vector goes in, but the arrow now lands on one of K names, and the test is whether values between two targets mean anything.',
+  },
+  {
+    from: { topic: 'dl4', part: 'whylinear' },
+    to: { topic: 'dl3', part: 'loss' },
+    kind: 'contrast',
+    carries: 'squared error on a 0/1 label',
+    detail:
+      'Session 3 built J(w) = (1/2N)‖Xw − y‖² and showed it working on house prices. Point the same loss at labels of 0 and 1 and two things break: the predictions leave [0, 1] entirely, and the model is charged for being too confidently right, which drags the boundary towards a correctly classified point that happens to be far away.',
+  },
+  {
+    from: { topic: 'dl4', part: 'sigmoid' },
+    to: { topic: 'activation' },
+    kind: 'builds-on',
+    carries: 'σ(z) = 1/(1 + e⁻ᶻ), and σ′ ≤ 0.25',
+    detail:
+      'The activation concept page lists the sigmoid beside the step and the identity, and notes that its derivative never exceeds 0.25. This part is where that function stops being one entry in a table and becomes the model: it is what makes the output a probability, and its σ(1 − σ) derivative is what makes the gradient come out as ŷ − y.',
+  },
+  {
+    from: { topic: 'dl4', part: 'sigmoid' },
+    to: { topic: 'dl3', part: 'identity' },
+    kind: 'contrast',
+    carries: 'f(z) = z against σ(z)',
+    detail:
+      'Regression chose the identity because any real output had to be reachable and f′ = 1 lets gradients pass unchanged. Classification chooses the opposite property: bounded output, at the cost of a derivative that vanishes when |z| is large. That vanishing is exactly the saturation that makes feature scaling essential here.',
+  },
+  {
+    from: { topic: 'dl4', part: 'components' },
+    to: { topic: 'dl1', part: 'components' },
+    kind: 'builds-on',
+    carries: 'data, model, objective, learning algorithm',
+    detail:
+      'Session 1 introduced the four-part checklist and session 3 filled it in for regression. This part fills it in a third time, and the value is in what does not move: only the model’s activation and the objective change, and the learning algorithm changes only in how much data goes into one step.',
+  },
+  {
+    from: { topic: 'dl4', part: 'components' },
+    to: { topic: 'designmat' },
+    kind: 'same-idea',
+    carries: 'X ∈ ℝᴺˣ⁽ᵈ⁺¹⁾, ones column first',
+    detail:
+      'The design matrix concept page explains why a column of ones is glued onto the data: it turns the bias into an ordinary weight so that z = wᵀx needs no "and then add b" clause. Nothing about that changes for classification — only the label column, which may now hold nothing but 0 and 1.',
+  },
+  {
+    from: { topic: 'dl4', part: 'neuron' },
+    to: { topic: 'neuron' },
+    kind: 'same-idea',
+    carries: 'ŷ = f(Σwᵢxᵢ + b)',
+    detail:
+      'The neuron concept page defines a unit as a weighted sum followed by an activation, and leaves f open on purpose. Logistic regression is that unit with f = σ — which is why a technique that arrives from statistics turns out to be one artificial neuron, and why a deep classifier is this same unit sitting on top of learned features.',
+  },
+  {
+    from: { topic: 'dl4', part: 'neuron' },
+    to: { topic: 'dotproduct' },
+    kind: 'builds-on',
+    carries: 'wᵀx, the dot product',
+    detail:
+      'The dot product page defines ⟨w, x⟩ as multiply-matching-entries-and-add, and shows it measuring how much two vectors agree. The logit is exactly that number: how much this example agrees with the weight vector. Everything the model can do is squeezed through that single scalar before the sigmoid ever sees it.',
+  },
+  {
+    from: { topic: 'dl4', part: 'neuron' },
+    to: { topic: 'conditional' },
+    kind: 'builds-on',
+    carries: 'P(y = 1 | x)',
+    detail:
+      'The statistics course defines a conditional probability as the chance of one event given that another has happened, and warns that P(A | B) is not P(B | A). The output of this model is written P(y = 1 | x) — the chance of the positive class given these features — and it earns that reading only because the loss is derived from the likelihood.',
+  },
+  {
+    from: { topic: 'dl4', part: 'decision' },
+    to: { topic: 'dl1', part: 'hyperplane' },
+    kind: 'builds-on',
+    carries: 'wᵀx = 0, the separating hyperplane',
+    detail:
+      'Session 1 introduced the hyperplane as the flat thing one dimension below its space, and showed the weight vector standing perpendicular to it. That is precisely the boundary here: σ crosses 0.5 at z = 0, so the surface where the model changes its mind is wᵀx = 0 — straight, however curved the probability shading looks.',
+  },
+  {
+    from: { topic: 'dl4', part: 'decision' },
+    to: { topic: 'linsep' },
+    kind: 'builds-on',
+    carries: 'what one straight cut can and cannot separate',
+    detail:
+      'The linear separability page shows the four XOR points and the line that cannot be drawn. Logistic regression inherits that limit exactly: the sigmoid curves the probabilities and never the boundary, so anything a perceptron cannot separate this cannot either. Hidden layers are the answer in both cases.',
+  },
+  {
+    from: { topic: 'dl4', part: 'decision' },
+    to: { topic: 'lec3', part: 'orthogonality' },
+    kind: 'builds-on',
+    carries: 'w ⊥ the boundary',
+    detail:
+      'Analytic geometry showed that a vector is perpendicular to a plane exactly when its dot product with every direction in the plane is zero. Apply that here and the feature weights point at right angles to the decision boundary, and |wᵀx|/‖w‖ is the distance from a point to it — which is why scaling every weight up sharpens the probabilities without moving the line an inch.',
+  },
+  {
+    from: { topic: 'dl4', part: 'bce' },
+    to: { topic: 'lossfn' },
+    kind: 'builds-on',
+    carries: 'one number that says how wrong',
+    detail:
+      'The loss function concept page makes the case that training needs a single number to reduce, and that the number has to match the task. Cross-entropy is that number for classification: it reads only the probability given to the true class, and unlike squared error it has no upper limit on what a mistake can cost.',
+  },
+  {
+    from: { topic: 'dl4', part: 'bce' },
+    to: { topic: 'ism4', part: 'statement' },
+    kind: 'builds-on',
+    carries: 'the likelihood P(data | parameters)',
+    detail:
+      'The Bayes lecture separates the likelihood from the posterior and shows the likelihood as the probability of what you saw, given a hypothesis. Cross-entropy is the negative logarithm of exactly that quantity for the whole dataset — so minimising the loss here is maximum likelihood estimation, done by gradient descent instead of by calculus.',
+  },
+  {
+    from: { topic: 'dl4', part: 'whyce' },
+    to: { topic: 'dl3', part: 'whysq' },
+    kind: 'contrast',
+    carries: 'four reasons for a loss, twice over',
+    detail:
+      'Session 3 gave four reasons for squared error: differentiable, convex, quadratic penalty, and maximum likelihood under Gaussian noise. This slide gives four for cross-entropy and three of them are the same words — the difference is the noise model. A 0/1 label is a coin flip, not a real number with Gaussian noise, and that single change swaps one loss for the other.',
+  },
+  {
+    from: { topic: 'dl4', part: 'sgd' },
+    to: { topic: 'dl3', part: 'batch' },
+    kind: 'builds-on',
+    carries: 'the batch algorithm, and its cost',
+    detail:
+      'Session 3’s Algorithm 1 computes the gradient over all N examples before taking one step. This part keeps the update rule character for character and changes only how much data goes into ∇J — which turns one exact step per epoch into N noisy ones, and turns a dataset larger than memory from impossible into routine.',
+  },
+  {
+    from: { topic: 'dl4', part: 'sgd' },
+    to: { topic: 'gradient' },
+    kind: 'builds-on',
+    carries: 'w ← w − η∇J',
+    detail:
+      'The gradient descent page lets you set η and watch the step overshoot, crawl or diverge. Everything it shows still holds here — the update rule is unchanged — but the gradient it steps against is now an estimate rather than the real thing, which is why η matters more and why the path staggers instead of gliding.',
+  },
+  {
+    from: { topic: 'dl4', part: 'grad' },
+    to: { topic: 'dl3', part: 'gradient' },
+    kind: 'same-idea',
+    carries: '(ŷ − y)x, the error times the input',
+    detail:
+      'Session 3 derived ∇J = (1/N)Xᵀ(Xw − y) for squared error on a linear model. This deck derives (ŷ − y)x for cross-entropy on a sigmoid — and it is the same formula. The σ(1 − σ) that the chain rule produces cancels against the 1/ŷ from the logarithm, which is why the training loop needs no changes at all between the two sessions.',
+  },
+  {
+    from: { topic: 'dl4', part: 'sgdalgo' },
+    to: { topic: 'dl2', part: 'pla' },
+    kind: 'contrast',
+    carries: 'update on every example, not only on mistakes',
+    detail:
+      'The perceptron learning algorithm updates only when it gets an example wrong, and leaves the weights alone otherwise. SGD on cross-entropy updates on every example, because ŷ − y is never exactly zero — even a correct, confident prediction contributes a small push. That is the difference between a rule that stops when it can and a loss that always wants to be lower.',
+  },
+  {
+    from: { topic: 'dl4', part: 'example' },
+    to: { topic: 'dl3', part: 'example' },
+    kind: 'same-idea',
+    carries: 'a worked run on four numbers',
+    detail:
+      'Session 3 followed three houses from a loss of 7.5 to 1.51 in one batch step. This one follows four students through two SGD steps to w = (0.116, 0.847). Read them together and the difference is visible: the batch step improves every example at once, while these two steps improve two examples and make the other two worse.',
+  },
+  {
+    from: { topic: 'dl4', part: 'example' },
+    to: { topic: 'scaling' },
+    kind: 'builds-on',
+    carries: 'why a large feature moves its weight harder',
+    detail:
+      'The scaling page argues that features on wildly different ranges make training crawl. This example shows the mechanism in two numbers: the gradient is the error times the input, so the example with x₁ = 3 pushes w₁ three times as hard as it pushes the bias. Multiply that by a feature measured in thousands and the sigmoid saturates before training starts.',
+  },
+  {
+    from: { topic: 'dl4', part: 'graph' },
+    to: { topic: 'dl3', part: 'graph' },
+    kind: 'same-idea',
+    carries: 'forward to the loss, backward to the gradient',
+    detail:
+      'Session 3’s graph runs x and w into a multiply, then to the loss, with a dashed return path carrying the gradient. This one inserts a σ node between z and ŷ and changes nothing else — and the backward path still carries e = ŷ − y, which is the clearest possible statement of what the two models have in common.',
+  },
+  {
+    from: { topic: 'dl4', part: 'confusion' },
+    to: { topic: 'metrics' },
+    kind: 'same-idea',
+    carries: 'TP, FP, FN, TN',
+    detail:
+      'The metrics concept page builds the same four counts and derives precision and recall from them. This part is where they arrive in the lecture, with the threshold made movable: the four numbers are a property of the model *and* the cut point, and sliding the cut trades misses for false alarms without retraining anything.',
+  },
+  {
+    from: { topic: 'dl4', part: 'confusion' },
+    to: { topic: 'dl3', part: 'traintest' },
+    kind: 'builds-on',
+    carries: 'the same formula over different rows',
+    detail:
+      'Session 3 split the data and computed the same loss on the training and the test rows, and warned that any scaling must be fitted on the training rows alone. That rule is unchanged here — only the numbers being reported change, from RMSE and R² to a table of four counts.',
+  },
+  {
+    from: { topic: 'dl4', part: 'metrics' },
+    to: { topic: 'mllec2', part: 'imbalance' },
+    kind: 'builds-on',
+    carries: 'a rare class, and what it does to a score',
+    detail:
+      'The ML workflow lecture warned that an imbalanced dataset lets a model score well by ignoring the minority class, and gave resampling as the fix at the data level. This part shows the same failure at the metric level: 98% accuracy for a model that finds nobody, which is why precision, recall and F1 exist and why F1 ignores true negatives entirely.',
+  },
+  {
+    from: { topic: 'dl4', part: 'metrics' },
+    to: { topic: 'dl3', part: 'metrics' },
+    kind: 'contrast',
+    carries: 'RMSE and MAE against precision and recall',
+    detail:
+      'Regression reports errors in the units of the thing predicted, so RMSE and MAE mean something to a person. Classification has no units to report in, so it reports proportions of a contingency table instead — and unlike RMSE, no single one of them is safe to quote alone.',
+  },
+  {
+    from: { topic: 'dl4', part: 'multi' },
+    to: { topic: 'ism2', part: 'axioms' },
+    kind: 'builds-on',
+    carries: 'the probabilities of an exhaustive set sum to 1',
+    detail:
+      'The probability axioms say that the outcomes of an experiment, taken together, have probability 1. A multi-class model asserts exactly that about its K classes — the example must be one of them — and softmax is the mechanism that makes the assertion true by construction rather than by hope.',
+  },
+  {
+    from: { topic: 'dl4', part: 'onehot' },
+    to: { topic: 'encoding' },
+    kind: 'same-idea',
+    carries: 'a category becomes a vector with a single 1',
+    detail:
+      'The encoding page introduced one-hot for categorical *inputs*, and warned that a high-cardinality column explodes into thousands of near-empty ones. Here the same encoding is applied to the *target*, where the cardinality problem does not arise — K is fixed — and the argument that survives is the other one: integers imply an order between classes that does not exist.',
+  },
+  {
+    from: { topic: 'dl4', part: 'weights' },
+    to: { topic: 'matmul' },
+    kind: 'builds-on',
+    carries: 'Z = XW, and why the shapes must line up',
+    detail:
+      'The matrix multiplication page shows each entry of a product as a row against a column, and the shape rule that makes it legal. Z = XW is that rule doing real work: N × (d + 1) against (d + 1) × K gives N × K, one row of K class scores per example — and checking those shapes is the fastest way to catch a transposed gradient later.',
+  },
+  {
+    from: { topic: 'dl4', part: 'weights' },
+    to: { topic: 'dl3', part: 'design' },
+    kind: 'builds-on',
+    carries: 'one weight vector becomes K columns',
+    detail:
+      'Regression needed a single w ∈ ℝᵈ⁺¹ against a design matrix of the same width. Multi-class keeps the design matrix exactly as it was and widens the weights into a matrix with one column per class, so the parameter count goes from d + 1 to (d + 1) × K — 7 850 for MNIST, which is the baseline every later architecture is measured against.',
+  },
+  {
+    from: { topic: 'dl4', part: 'softmax' },
+    to: { topic: 'activation' },
+    kind: 'builds-on',
+    carries: 'the last activation is decided by the target',
+    detail:
+      'The activation page argues that the final function is chosen by what the output must be able to be. Softmax is the third answer in that series: identity for any real number, sigmoid for one probability, softmax for K probabilities that must add to 1 — and it is the only one of the three whose outputs are coupled to each other.',
+  },
+  {
+    from: { topic: 'dl4', part: 'catce' },
+    to: { topic: 'dl4', part: 'bce' },
+    kind: 'same-idea',
+    carries: '−Σₖ yₖ log ŷₖ collapses to the binary form',
+    detail:
+      'The binary loss looked like two terms glued together with a (1 − y) switch. The categorical loss is a sum over K terms of which one-hot labels keep exactly one. Set K = 2 with y = [1 − y, y] and the second becomes the first — they are one formula written for different numbers of classes.',
+  },
+  {
+    from: { topic: 'dl4', part: 'minibatch' },
+    to: { topic: 'mllec2', part: 'sampling' },
+    kind: 'builds-on',
+    carries: 'a sample stands in for the whole',
+    detail:
+      'The ML lecture made the case that a random sample can represent a dataset, and that a biased sample cannot. A mini-batch is that argument applied to a gradient: B randomly chosen examples give an estimate that is right on average, and the shuffle each epoch is what stops the sample being systematically biased by the order the data was stored in.',
+  },
+  {
+    from: { topic: 'dl4', part: 'mbgrad' },
+    to: { topic: 'dl3', part: 'gradient' },
+    kind: 'same-idea',
+    carries: 'Xᵀ(prediction − truth), one shape up',
+    detail:
+      'Session 3 wrote ∇J = (1/N)Xᵀ(Xw − y), with the error as a column of N numbers. The multi-class version is (1/B)X_Bᵀ(Ŷ_B − Y_B), with the error as a B × K block. The shape check is the same discipline in both: the gradient must come out the shape of the parameters, or the formula is written the wrong way round.',
+  },
+  {
+    from: { topic: 'dl4', part: 'mcexample' },
+    to: { topic: 'lec0a', part: 'multiply' },
+    kind: 'builds-on',
+    carries: 'a row against a column, by hand',
+    detail:
+      'Lecture 0a lets you press any entry of a matrix product and see exactly which row and which column produced it. That is the only skill this worked example needs — Z_B = X_B W and X_Bᵀ(Ŷ_B − Y_B) are both that operation — and it is what lets you check the deck’s printed numbers rather than copy them, which is how three of them turn out not to follow from its own inputs.',
+  },
+  {
+    from: { topic: 'dl4', part: 'inference' },
+    to: { topic: 'ism4', part: 'maphyp' },
+    kind: 'same-idea',
+    carries: 'arg max over the hypotheses',
+    detail:
+      'The MAP hypothesis picks whichever class has the largest posterior probability, and the statistics lecture notes that the shared denominator can be ignored because it is the same for every class. Softmax inference is that rule exactly: compute a score per class, and take the arg max — and for the same reason, the normaliser does not affect which one wins.',
+  },
+  {
+    from: { topic: 'dl4', part: 'mcmetrics' },
+    to: { topic: 'ism4', part: 'classifier' },
+    kind: 'builds-on',
+    carries: 'a K × K table of what was called what',
+    detail:
+      'The Naive Bayes lecture scored its classifier by counting how often each true class was predicted as each class. That table is the multi-class confusion matrix, and this part reads precision and recall off it one class at a time — treating each class as positive and the rest as negative, which is the same one-vs-all move Naive Bayes makes when it compares posteriors.',
+  },
+  {
+    from: { topic: 'dl4', part: 'tips' },
+    to: { topic: 'scaling' },
+    kind: 'builds-on',
+    carries: 'x′ = (x − μ)/σ',
+    detail:
+      'The scaling page derives the z-score and shows two features on wildly different ranges slowing training down. This slide calls it essential and gives the classification-specific reason: an unscaled feature drives the logit far from zero, where σ′ is nearly zero, so the weight stops moving even though the answer is wrong.',
+  },
+  {
+    from: { topic: 'dl4', part: 'debug' },
+    to: { topic: 'dl3', part: 'debug' },
+    kind: 'same-idea',
+    carries: 'symptom, cause, fix',
+    detail:
+      'Session 3 listed four symptoms of a bad regression run. This one lists six, and the overlap is the point: NaN, oscillation and a flat loss all mean the same things in both, and η is implicated in most of them. The two genuinely new entries — predicting one class for everything, and softmax outputs not summing to 1 — could not exist in a regression.',
+  },
+  {
+    from: { topic: 'dl4', part: 'compare' },
+    to: { topic: 'dl3', part: 'summary' },
+    kind: 'builds-on',
+    carries: 'data → model → objective → learning, round again',
+    detail:
+      'Session 3 closed with the four components as a loop that runs until the loss stops falling. This session closes with the same loop drawn three times, for regression, binary and multi-class — and the comparison shows that only the activation, the loss and the number of output neurons ever differ between them.',
+  },
+  {
+    from: { topic: 'dl4', part: 'compare' },
+    to: { topic: 'dl1', part: 'mlp' },
+    kind: 'used-by',
+    carries: 'the head that every deep network ends in',
+    detail:
+      'Session 1 fixed XOR by putting a hidden layer in front of the same output unit. That is the shape of everything after this session: the classifier described here becomes the last layer, and every later module — deeper networks, convolutions, transformers — is a better way of producing the x that this layer consumes.',
+  },
+
+  /* --------------------------------- the concepts session 4 introduces */
+  {
+    from: { topic: 'logistic' },
+    to: { topic: 'neuron' },
+    kind: 'same-idea',
+    carries: 'one unit, weighted sum then activation',
+    detail:
+      'The neuron page defines a unit as ŷ = f(Σwᵢxᵢ + b) and deliberately leaves f open. Logistic regression is that unit with f = σ, which is why a method that arrives from statistics turns out to be the output layer of every binary classifier in the deep learning course.',
+  },
+  {
+    from: { topic: 'logistic' },
+    to: { topic: 'perceptron' },
+    kind: 'contrast',
+    carries: 'a smooth squash instead of a hard step',
+    detail:
+      'The perceptron puts a step function on the weighted sum, which gives a hard yes or no and a derivative of zero — so it needs a learning rule of its own. Swap the step for a sigmoid and the same unit becomes differentiable, trainable by gradient descent, and able to say how sure it is.',
+  },
+  {
+    from: { topic: 'softmax' },
+    to: { topic: 'logistic' },
+    kind: 'builds-on',
+    carries: 'σ is softmax with K = 2',
+    detail:
+      'Divide the two-class softmax through by e^{z₁} and what is left is 1/(1 + e^{−(z₁−z₂)}) = σ(z₁ − z₂). So the binary model was never a special case bolted on: it is the K-class model with the redundant second score removed.',
+  },
+  {
+    from: { topic: 'softmax' },
+    to: { topic: 'activation' },
+    kind: 'builds-on',
+    carries: 'the output layer’s job',
+    detail:
+      'The activation page argues that the last function is chosen by what the output has to be able to be, and lists the identity and the sigmoid. Softmax is the third case, and the only one whose outputs are coupled — K numbers produced together, constrained to sum to 1.',
+  },
+  {
+    from: { topic: 'crossentropy' },
+    to: { topic: 'lossfn' },
+    kind: 'builds-on',
+    carries: 'the single number training reduces',
+    detail:
+      'The loss function page makes the case that learning needs one number to minimise, and that the number must match the task. Cross-entropy is that number for a categorical target: it reads only the probability given to the truth, and charges −log of it, without an upper bound.',
+  },
+  {
+    from: { topic: 'crossentropy' },
+    to: { topic: 'bayes' },
+    kind: 'builds-on',
+    carries: 'the likelihood of the observed data',
+    detail:
+      'Bayes’ rule separates the likelihood P(data | hypothesis) from the posterior. Cross-entropy is the negative logarithm of that likelihood, summed over a dataset — so training a classifier by minimising it is maximum likelihood estimation carried out by gradient descent.',
+  },
+  {
+    from: { topic: 'sgdvariants' },
+    to: { topic: 'gradient' },
+    kind: 'builds-on',
+    carries: 'w ← w − η∇J',
+    detail:
+      'The gradient descent page shows the step overshooting, crawling and diverging as η changes. All three variants here apply that identical step; the only thing that differs is how many examples went into ∇J, and therefore how trustworthy the direction is.',
+  },
+  {
+    from: { topic: 'sgdvariants' },
+    to: { topic: 'dl3', part: 'batch' },
+    kind: 'builds-on',
+    carries: 'one exact step per pass over the data',
+    detail:
+      'Session 3’s batch algorithm is the first of the three, written out line by line: compute the gradient over every example, then take one step. Stochastic and mini-batch descent change nothing about that pseudocode except the set the sum runs over.',
+  },
   /* ------------------------------------------------ setting the scene */
   {
     from: { topic: 'dl1', part: 'map' },

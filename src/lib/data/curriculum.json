@@ -111,7 +111,23 @@
       "id": "dnn",
       "group": "s1",
       "name": "Deep Neural Networks",
-      "topics": ["perceptron", "neuron", "activation", "linsep", "lossfn", "metrics", "designmat", "dl1", "dl2", "dl3"],
+      "topics": [
+        "perceptron",
+        "neuron",
+        "activation",
+        "linsep",
+        "lossfn",
+        "metrics",
+        "designmat",
+        "logistic",
+        "softmax",
+        "crossentropy",
+        "sgdvariants",
+        "dl1",
+        "dl2",
+        "dl3",
+        "dl4"
+      ],
       "syllabus": "Introduction to neural networks; linear neural networks for regression and classification; deep feedforward networks; backpropagation; deep network training; regularization and optimization; transfer learning and fine-tuning; convolutional neural networks; recurrent neural networks; attention mechanisms; transformers and vision transformers.",
       "note": "The brochure prints this course under Semester 2. It sits here under Semester 1 because that is when the sessions are actually running — the syllabus above is still the published one, word for word."
     },
@@ -502,6 +518,31 @@
       "label": "Session 2 — The perceptron",
       "blurb": "The same unit again, in the notation the rest of the course uses: z = Σwᵢxᵢ + b, then an activation. Solve the gates in the 0/1 encoding, run the learning algorithm with a separate bias update, and keep the four output conventions straight.",
       "kind": "chapter"
+    },
+    "dl4": {
+      "label": "Session 4 — Linear neural networks for classification",
+      "blurb": "The same neuron again, but the answer is now a category. Sigmoid turns a score into a probability, cross-entropy scores the guess, and SGD takes one example at a time. Then K neurons, softmax and mini-batches — and the deck's own two worked examples, recomputed on the page.",
+      "kind": "chapter"
+    },
+    "logistic": {
+      "label": "Logistic regression",
+      "blurb": "One neuron, a sigmoid on the end, and a straight decision boundary. Where the probability comes from, why the boundary is wᵀx = 0, and why squared error is the wrong loss for it.",
+      "kind": "concept"
+    },
+    "softmax": {
+      "label": "The softmax function",
+      "blurb": "K scores in, one probability distribution out. Why the exponential, why the sum is always 1, why adding a constant to every score changes nothing — and why that last fact is what keeps it from overflowing.",
+      "kind": "concept"
+    },
+    "crossentropy": {
+      "label": "Cross-entropy loss",
+      "blurb": "The loss that only looks at the probability you gave the right answer. Binary and categorical are the same formula, and −log is what makes a confident mistake cost so much.",
+      "kind": "concept"
+    },
+    "sgdvariants": {
+      "label": "Batch, stochastic and mini-batch descent",
+      "blurb": "The same update rule, three amounts of data behind it. How many examples per step, how noisy the path is, and why mini-batch is the one everything actually uses.",
+      "kind": "concept"
     },
     "dl3": {
       "label": "Session 3 — Linear neural networks for regression",
