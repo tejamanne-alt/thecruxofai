@@ -10,6 +10,7 @@
  * a lab is a fix everywhere it appears, and both end with links back to the
  * parts they were drawn from.
  */
+import { BayesProofLab } from '@/components/charts/bayes-lab'
 import { CondVennLab, IndependenceEquivLab } from '@/components/charts/cond-prob-lab'
 import { LoanTableLab } from '@/components/charts/cond-table-lab'
 import { BayesLab, PartitionLab, TotalProbLab } from '@/components/charts/total-prob-lab'
@@ -247,6 +248,17 @@ export function BayesConcept() {
         <BayesLab />
       </div>
 
+      <p className="crux-prose mb-3 max-w-[720px] text-[14px]/[1.7] text-zinc-700">
+        Both rules come out of one argument, and it is short enough to be worth knowing. Step through it: A is written
+        as its own intersection with the union of the slices, the distributive law cuts it into pieces, the pieces are
+        shown to be disjoint so their probabilities may be added, and the definition of a conditional probability
+        finishes it.
+      </p>
+
+      <div className="my-6">
+        <BayesProofLab />
+      </div>
+
       <Explainers
         plain="Split the possibilities into cases where exactly one is true. Work out how likely your event is inside each case, multiply by how likely the case was, and add them up — that is the overall probability. Bayes then asks the question the other way round: you saw the event, so which case were you probably in? Divide the one route you care about by the total of all the routes."
         breaks="Total probability breaks when the slices are not a real partition — overlapping cases get counted twice and missing ones are silently dropped, so the answer is not a probability of anything. Bayes breaks when the prior is ignored. A test that is right 95% of the time, applied to something that only happens 1% of the time, still produces far more false alarms than true ones, and no amount of accuracy in the test fixes that: it is the base rate, and it is exactly the P(A) in the numerator."
@@ -344,6 +356,10 @@ export function BayesConcept() {
           { href: '/session/ism3/totalproof', label: 'The proof' },
           { href: '/session/ism3/totalexamples', label: 'Total probability at work' },
           { href: '/session/ism3/bayes', label: "Bayes' theorem" },
+          { href: '/session/ism4/statement', label: 'ISM Lecture 4 · The general statement' },
+          { href: '/session/ism4/proof', label: 'The proof in full' },
+          { href: '/session/ism4/maphyp', label: 'h_MAP and h_ML' },
+          { href: '/session/naivebayes', label: 'Concept · The Naive Bayes classifier' },
         ]}
       />
     </div>
