@@ -1706,6 +1706,204 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
       slides: 'Slides 43–45',
     },
   ],
+  dl4: [
+    {
+      id: 'whatis',
+      title: 'What classification is',
+      teaser:
+        'A category out, not a number. Sort the deck’s own examples into binary, multi-class and multi-label and watch the output type decide the model.',
+      slides: 'Slides 4\u20136',
+    },
+    {
+      id: 'whylinear',
+      title: 'Why a straight line will not do',
+      teaser:
+        'Fit a regression line to labels of 0 and 1, then drag a point far to the right and watch the prediction leave [0, 1] entirely.',
+      slides: 'Slides 8\u201310',
+    },
+    {
+      id: 'sigmoid',
+      title: 'The sigmoid function',
+      teaser:
+        '\u03c3(z) = 1/(1 + e\u207b\u1dbb). Drag z along the curve and watch \u03c3, \u03c3\u2032 and the symmetry rule \u03c3(\u2212z) = 1 \u2212 \u03c3(z) all agree at once.',
+      slides: 'Slides 12\u201314',
+    },
+    {
+      id: 'components',
+      title: 'The four components, and the data in matrix form',
+      teaser:
+        'The same checklist as session 3 with two boxes changed. Then build X, y and w for a classification problem and see what the ones column is still doing.',
+      slides: 'Slides 16\u201317',
+    },
+    {
+      id: 'neuron',
+      title: 'Logistic regression is one neuron',
+      teaser:
+        'Weighted sum, then a squash. Feed a point through z = w\u1d40x and \u0177 = \u03c3(z) one box at a time and watch the logit become a probability.',
+      slides: 'Slides 18\u201319',
+    },
+    {
+      id: 'decision',
+      title: 'The decision rule and the boundary',
+      teaser:
+        '\u0177 \u2265 0.5 is the same test as w\u1d40x \u2265 0. Drag the boundary across a scatter of two classes and watch both tests flip together.',
+      slides: 'Slide 20',
+    },
+    {
+      id: 'bce',
+      title: 'Binary cross-entropy',
+      teaser:
+        'Two branches of one formula. Drag the predicted probability and watch the loss for a positive label and a negative label pull in opposite directions.',
+      slides: 'Slides 21\u201322',
+    },
+    {
+      id: 'whyce',
+      title: 'Why cross-entropy and not squared error',
+      teaser:
+        'Four reasons on the slide. Put both losses on the same axes and find the confident wrong prediction that squared error barely notices.',
+      slides: 'Slide 23',
+    },
+    {
+      id: 'sgd',
+      title: 'From batch to stochastic gradient descent',
+      teaser:
+        'One example per step instead of all N. Set the dataset size and watch the cost per update and the noise in the path trade against each other.',
+      slides: 'Slides 24\u201325',
+    },
+    {
+      id: 'grad',
+      title: 'The gradient is (\u0177 \u2212 y)x',
+      teaser:
+        'The sigmoid and the log cancel, and what is left is the error times the input. Change y and x and watch each part of the gradient move.',
+      slides: 'Slide 26',
+    },
+    {
+      id: 'sgdalgo',
+      title: 'The SGD algorithm, line by line',
+      teaser:
+        'Nine lines of pseudocode, and the shuffle that matters more than it looks. Step through one example at a time and watch every variable change.',
+      slides: 'Slides 27\u201329',
+    },
+    {
+      id: 'example',
+      title: 'The worked example, step by step',
+      teaser:
+        'Four students, \u03b7 = 0.5, w = 0. Follow the deck through its two SGD iterations to w = (0.116, 0.847), every number recomputed here.',
+      slides: 'Slides 31\u201335',
+    },
+    {
+      id: 'graph',
+      title: 'The computational graph',
+      teaser:
+        'Forwards to the loss, backwards to the gradient. Press each node and watch the value flowing through it on the deck’s own example.',
+      slides: 'Slides 36, 44',
+    },
+    {
+      id: 'confusion',
+      title: 'The split, and the confusion matrix',
+      teaser:
+        'Four counts that hold everything else. Move the threshold and watch predictions slide between the boxes.',
+      slides: 'Slides 38\u201339',
+    },
+    {
+      id: 'metrics',
+      title: 'Accuracy, precision, recall and F1',
+      teaser:
+        'The deck’s worked counts give 0.75 four times. Then unbalance the data and watch accuracy stay high while recall collapses.',
+      slides: 'Slides 40\u201343',
+    },
+    {
+      id: 'multi',
+      title: 'Multi-class classification',
+      teaser:
+        'K classes, one answer, probabilities that add to 1. Drag a point around three regions and watch the winner change.',
+      slides: 'Slides 47\u201349',
+    },
+    {
+      id: 'onehot',
+      title: 'One-hot labels',
+      teaser:
+        'A class number becomes a vector with a single 1. Type class labels and watch Y build itself, then see what integer codes would have implied.',
+      slides: 'Slides 51\u201353',
+    },
+    {
+      id: 'weights',
+      title: 'The weight matrix and the K logits',
+      teaser:
+        'One column of W per class, so K linear models at once. Edit W and watch z = W\u1d40x and Z = XW stay in step.',
+      slides: 'Slides 54\u201356',
+    },
+    {
+      id: 'softmax',
+      title: 'The softmax function',
+      teaser:
+        'Exponentiate, then divide by the total. Reproduce the deck’s z = [2, 1, 0.1] answer, then add a constant to every logit and watch nothing move.',
+      slides: 'Slides 57\u201359',
+    },
+    {
+      id: 'catce',
+      title: 'The forward pass and categorical cross-entropy',
+      teaser:
+        'Only the probability on the true class is read. Drag it down through the deck’s four rows and watch the loss climb from 0.22 to 3.00.',
+      slides: 'Slides 60\u201363',
+    },
+    {
+      id: 'minibatch',
+      title: 'Mini-batch SGD: batch, iteration, epoch',
+      teaser:
+        'Three words people mix up in exams. Set N and B and watch \u2308N/B\u2309 iterations per epoch fall out, including the deck’s 469.',
+      slides: 'Slides 65\u201367',
+    },
+    {
+      id: 'mbgrad',
+      title: 'The mini-batch gradient and the update',
+      teaser:
+        '\u2207J = (1/B)X\u1d40(\u0176 \u2212 Y), a whole batch in one matrix product. Build it entry by entry and check it against the sum it came from.',
+      slides: 'Slides 68\u201371',
+    },
+    {
+      id: 'mcexample',
+      title: 'The multi-class worked example',
+      teaser:
+        'Four points, three classes, B = 2, \u03b7 = 0.1. Every step recomputed from the deck’s X, Y and W — and the three printed numbers that do not match.',
+      slides: 'Slides 73\u201379',
+    },
+    {
+      id: 'inference',
+      title: 'Inference, and what the confidence means',
+      teaser:
+        'Logits, softmax, arg max. Reproduce the deck’s 68.7% answer, then find the input where the model is barely surer than a coin toss.',
+      slides: 'Slides 81\u201382',
+    },
+    {
+      id: 'mcmetrics',
+      title: 'Multi-class metrics, per class and averaged',
+      teaser:
+        'The deck’s 3 × 3 matrix gives 84.7%. Read precision and recall off it one class at a time, then compare macro against weighted.',
+      slides: 'Slides 84\u201388',
+    },
+    {
+      id: 'tips',
+      title: 'Implementation tips and numerical stability',
+      teaser:
+        'Scaling, initialisation, and the max-subtraction that stops softmax overflowing. Push a logit to 1000 and watch the naive version return NaN.',
+      slides: 'Slide 91',
+    },
+    {
+      id: 'debug',
+      title: 'The debugging checklist',
+      teaser:
+        'Six symptoms with named causes. Break the training run six ways and match each one to its line on the slide.',
+      slides: 'Slide 92',
+    },
+    {
+      id: 'compare',
+      title: 'Regression, binary, multi-class — the whole table',
+      teaser:
+        'Four comparison slides in one place. Pick a task and watch the activation, the loss, the output shape and the metrics all change together.',
+      slides: 'Slides 94\u201399',
+    },
+  ],
   lec4: [
     {
       id: 'why',

@@ -2,6 +2,13 @@ import { AlgebraSession } from '@/components/sessions/algebra'
 import { Dl1Overview } from '@/components/sessions/dl1/overview'
 import { Dl2Overview } from '@/components/sessions/dl2/overview'
 import { Dl3Overview } from '@/components/sessions/dl3/overview'
+import {
+  CrossEntropyConcept,
+  LogisticConcept,
+  SgdVariantsConcept,
+  SoftmaxConcept,
+} from '@/components/sessions/dl4-concepts'
+import { Dl4Overview } from '@/components/sessions/dl4/overview'
 import { LinSepConcept, LossConcept, NeuronConcept } from '@/components/sessions/dnn-concepts'
 import { ActivationConcept, DesignMatConcept, MetricsConcept } from '@/components/sessions/dnn-concepts2'
 import {
@@ -66,6 +73,11 @@ const OVERVIEWS: Record<TopicId, () => React.ReactElement> = {
   dl1: Dl1Overview,
   dl2: Dl2Overview,
   dl3: Dl3Overview,
+  dl4: Dl4Overview,
+  logistic: LogisticConcept,
+  softmax: SoftmaxConcept,
+  crossentropy: CrossEntropyConcept,
+  sgdvariants: SgdVariantsConcept,
   activation: ActivationConcept,
   metrics: MetricsConcept,
   designmat: DesignMatConcept,

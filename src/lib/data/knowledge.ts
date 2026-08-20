@@ -6470,6 +6470,783 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
     ],
   },
 
+  dl4: {
+    cheat: [
+      {
+        formula: 'σ(z) = 1/(1 + e⁻ᶻ) ,  σ′(z) = σ(z)(1 − σ(z))',
+        why: 'The sigmoid and its derivative. Range (0, 1), monotonic, σ(0) = 0.5 and σ′(0) = 0.25, its largest value.',
+      },
+      {
+        formula: 'σ(−z) = 1 − σ(z)',
+        why: 'The symmetry on slide 14. It is why the two class probabilities always add to exactly 1.',
+      },
+      {
+        formula: 'z = wᵀx ,  ŷ = σ(z) = P(y = 1 | x)',
+        why: 'Logistic regression as one neuron. z is the logit — the model is linear in z, not in ŷ.',
+      },
+      {
+        formula: 'predict 1 if ŷ ≥ 0.5 ⟺ wᵀx ≥ 0',
+        why: 'The two forms of one test. The boundary wᵀx = 0 is a hyperplane, and it is straight.',
+      },
+      {
+        formula: 'ℓ = −[y log ŷ + (1 − y) log(1 − ŷ)]',
+        why: 'Binary cross-entropy. One branch is always multiplied by zero; at ŷ = 0.5 it is log 2 ≈ 0.693.',
+      },
+      {
+        formula: 'J(w) = −(1/N) Σᵢ [ y⁽ⁱ⁾ log ŷ⁽ⁱ⁾ + (1 − y⁽ⁱ⁾) log(1 − ŷ⁽ⁱ⁾) ] ,  w* = arg min J',
+        why: 'The average loss and the goal. arg min is the w that minimises J, not the minimum value.',
+      },
+      {
+        formula: 'cross-entropy: MLE · penalises confident errors · convex · well-behaved gradients',
+        why: 'The deck’s four reasons, slide 23. The fourth is the σ′ cancellation that squared error loses.',
+      },
+      {
+        formula: '∇ℓ = (ŷ⁽ⁱ⁾ − y⁽ⁱ⁾) x⁽ⁱ⁾ ,  w ← w − η∇ℓ',
+        why: 'The SGD gradient and step. Error times input — the same form as the regression gradient.',
+      },
+      {
+        formula: 'SGD: shuffle each epoch, one example per update',
+        why: 'Algorithm 1. N updates per epoch instead of one; the shuffle stops the path cycling.',
+      },
+      {
+        formula: 'the binary example: w = (0, 0) → (−0.25, −0.25) → (0.116, 0.847)',
+        why: 'X = [[1,1],[1,2],[1,3],[1,4]], y = (0,0,1,1), η = 0.5, examples 1 then 3. Predictions after: 0.724, 0.859, 0.934, 0.971.',
+      },
+      {
+        formula: 'Accuracy = (TP+TN)/(TP+TN+FP+FN) ·  P = TP/(TP+FP) ·  R = TP/(TP+FN)',
+        why: 'Off the confusion matrix. Precision divides by a column, recall by a row.',
+      },
+      {
+        formula: 'F1 = 2·P·R/(P+R)',
+        why: 'The harmonic mean, so one bad half drags it down. It ignores TN entirely.',
+      },
+      {
+        formula: 'accuracy misleads on imbalanced data',
+        why: 'Say “no” to 98 healthy and 2 ill patients and score 98%. Use recall when a miss costs most, precision when a false alarm does.',
+      },
+      {
+        formula: 'W ∈ ℝ⁽ᵈ⁺¹⁾ˣᴷ ,  z = Wᵀx ,  Z = XW ∈ ℝᴺˣᴷ',
+        why: 'One column of W per class, so K linear models at once. (d + 1) × K parameters.',
+      },
+      {
+        formula: 'softmax(z)ₖ = e^{zₖ} / Σⱼ e^{zⱼ}',
+        why: 'K logits to a distribution. Positive, sums to 1, order-preserving, and equal to the sigmoid when K = 2.',
+      },
+      {
+        formula: 'softmax(z + c) = softmax(z) ;  stable form uses c = maxₖ zₖ',
+        why: 'Translation invariance, used deliberately. Exact, not an approximation, and it is what stops e^z overflowing.',
+      },
+      {
+        formula: 'J(W) = −(1/N) Σᵢ Σₖ yₖ⁽ⁱ⁾ log ŷₖ⁽ⁱ⁾',
+        why: 'Categorical cross-entropy. One-hot y collapses the inner sum to −log of the true class; J starts at log K.',
+      },
+      {
+        formula: '∇J_B = (1/B) X_Bᵀ (Ŷ_B − Y_B) ,  W ← W − η∇J_B',
+        why: 'The mini-batch gradient. Shape (d + 1) × K, matching W. Dropping the 1/B multiplies η by B.',
+      },
+      {
+        formula: 'iterations per epoch = ⌈N/B⌉',
+        why: '⌈60000/128⌉ = 469, and 4 690 updates after 10 epochs. Examples seen depends on epochs; updates depend on B.',
+      },
+      {
+        formula: 'macro = (1/K) Σₖ metricₖ ;  weighted uses wₖ = Nₖ/N',
+        why: 'Macro treats every class equally, weighted by frequency. They differ only when the classes are unbalanced.',
+      },
+      {
+        formula: 'Top-K accuracy = (1/N) Σᵢ 𝟙[ y⁽ⁱ⁾ ∈ Top-K(ŷ⁽ⁱ⁾) ]',
+        why: 'Right if the truth is anywhere in the top K guesses. It cannot be read off a confusion matrix.',
+      },
+      {
+        formula: 'identity → regression · sigmoid → binary · softmax → multi-class',
+        why: 'Slide 97 in one line. The output type picks the activation, the activation picks the loss.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'Why can a plain linear model not be used directly for binary classification?',
+        options: [
+          'Because it cannot be trained by gradient descent',
+          'Because its output is unbounded, so it can predict values below 0 or above 1, which cannot be probabilities',
+          'Because it has too few parameters',
+          'Because the labels are integers',
+        ],
+        answer: 1,
+        explain:
+          'Slide 10. A non-zero slope always escapes [0, 1] eventually, and no choice of w prevents it. There is a second problem too: squared error charges the model for being "too correct" on a point far past the boundary, which drags the boundary itself.',
+      },
+      {
+        q: 'What is σ′(0)?',
+        options: ['0', '0.25', '0.5', '1'],
+        answer: 1,
+        explain:
+          'σ′(z) = σ(z)(1 − σ(z)), and σ(0) = 0.5, so σ′(0) = 0.5 × 0.5 = 0.25. That is the largest value the sigmoid’s derivative ever takes, which is where the vanishing-gradient story in later modules begins.',
+      },
+      {
+        q: 'The decision rule says predict class 1 when ŷ ≥ 0.5. What is the equivalent test on the logit?',
+        options: ['z ≥ 0.5', 'z ≥ 0', 'z ≥ 1', 'There is no equivalent test'],
+        answer: 1,
+        explain:
+          'σ crosses 0.5 exactly at z = 0 and is increasing, so the two tests always agree. The second form is cheaper — no exponential — and it is what makes the boundary the hyperplane wᵀx = 0.',
+      },
+      {
+        q: 'A model gives ŷ = 0.01 for an example whose true label is 1. Which loss punishes it more, and why does that matter?',
+        options: [
+          'Squared error, because 0.99² is large',
+          'They punish it equally',
+          'Cross-entropy, because its cost is unbounded while squared error can never exceed 0.5',
+          'Neither punishes it at all',
+        ],
+        answer: 2,
+        explain:
+          'Squared error on a 0/1 label is capped at 0.5 whatever the model believed, so a handful of confident errors barely move it. Cross-entropy charges −log(0.01) ≈ 4.6 and keeps climbing. Worse, squared error’s gradient there is nearly zero because the sigmoid has saturated.',
+      },
+      {
+        q: 'Why does the gradient of the cross-entropy loss contain no σ′ term?',
+        options: [
+          'Because the sigmoid is ignored when differentiating',
+          'Because the σ(1 − σ) from the chain rule cancels against the 1/ŷ from the logarithm',
+          'Because σ′ is always 1',
+          'Because the gradient is computed numerically',
+        ],
+        answer: 1,
+        explain:
+          'With y = 1: ∂ℓ/∂ŷ = −1/ŷ, ∂ŷ/∂z = ŷ(1 − ŷ), ∂z/∂wⱼ = xⱼ. The product is (ŷ − 1)xⱼ = (ŷ − y)xⱼ. The same cancellation happens with y = 0, which is why the code never has to branch on the label — and it is exactly why cross-entropy and the sigmoid are chosen as a pair.',
+      },
+      {
+        q: 'In Algorithm 1, what does shuffling the dataset each epoch actually achieve?',
+        options: [
+          'It makes each epoch faster',
+          'It stops the same order of examples being applied as a repeating rhythm, which can make the weights cycle instead of settling',
+          'It reduces memory use',
+          'It is only there for reproducibility',
+        ],
+        answer: 1,
+        explain:
+          'Without it SGD meets any structure in the data order — sorted by class, sorted by date — again and again in the same pattern. In practice this is DataLoader’s shuffle=True, which defaults to False, and a dataset stored sorted by class trains disastrously without it.',
+      },
+      {
+        q: 'For the deck’s example (η = 0.5, w = 0, first example x = [1, 1] with y = 0), what is w after one SGD update?',
+        options: ['(0, 0)', '(−0.25, −0.25)', '(0.25, 0.25)', '(−0.5, −0.5)'],
+        answer: 1,
+        explain:
+          'z = 0 so ŷ = 0.5; the error is 0.5 − 0 = 0.5; the gradient is 0.5 × [1, 1] = (0.5, 0.5); the step is (0, 0) − 0.5(0.5, 0.5) = (−0.25, −0.25). Both weights fall because the model guessed too high for a student who failed.',
+      },
+      {
+        q: 'A test set has 98 healthy and 2 ill patients. A model predicts "healthy" for everyone. What are its accuracy and its recall for the ill class?',
+        options: [
+          'Accuracy 0.98, recall 0.98',
+          'Accuracy 0.98, recall 0',
+          'Accuracy 0.5, recall 0',
+          'Accuracy 0, recall 0',
+        ],
+        answer: 1,
+        explain:
+          '98 of 100 predictions are right, so accuracy is 0.98. But TP = 0, so recall = 0/(0 + 2) = 0 and the model finds nobody. Precision is undefined, since TP + FP = 0 — there is genuinely no set of positive predictions to be right about. This is slide 42’s warning in numbers.',
+      },
+      {
+        q: 'Why is F1 the harmonic mean rather than the ordinary average?',
+        options: [
+          'It is easier to compute',
+          'Because it stays low unless both precision and recall are respectable — the ordinary mean would reward being excellent at one and useless at the other',
+          'Because it is always larger',
+          'Because precision and recall are always equal',
+        ],
+        answer: 1,
+        explain:
+          'Precision 1.0 with recall 0.1 averages to 0.55 the usual way but gives F1 = 2(1)(0.1)/1.1 = 0.18. That matters because either metric can be made perfect alone: predict positive for everything and recall is 1; predict positive only once and precision is 1.',
+      },
+      {
+        q: 'Why does the deck prefer one-hot labels over integer encoding for K classes?',
+        options: [
+          'One-hot uses less memory',
+          'Because integers imply an order and a scale between classes that usually does not exist, and one-hot matches the shape softmax produces',
+          'Because integers cannot be stored in a matrix',
+          'Because softmax requires integers',
+        ],
+        answer: 1,
+        explain:
+          'Writing classes as 1, 2, 3 asserts that class 3 sits above class 2 and that class 4 is twice class 2, which is nonsense for cat, dog and car. One-hot says nothing about order. It also has K entries per example, exactly like the softmax output, so the loss needs no conversion.',
+      },
+      {
+        q: 'Given logits z = [2.0, 1.0, 0.1], what is the softmax probability of class 1?',
+        options: ['0.500', '0.659', '0.242', '0.099'],
+        answer: 1,
+        explain:
+          'e^2.0 ≈ 7.39, e^1.0 ≈ 2.72, e^0.1 ≈ 1.11, summing to about 11.22. Then 7.39/11.22 ≈ 0.659, with 0.242 and 0.099 for the other two. Note how far the exponential has spread evenly-spaced logits.',
+      },
+      {
+        q: 'Softmax is translation invariant: softmax(z + c) = softmax(z). What is that property used for in practice?',
+        options: [
+          'To speed up the computation',
+          'To subtract the largest logit first, so no exponential can overflow — an exact rearrangement, not an approximation',
+          'To make the probabilities sum to 1',
+          'To reduce the number of parameters',
+        ],
+        answer: 1,
+        explain:
+          'Adding c multiplies every numerator and the denominator by e^c, so the ratio is unchanged. Taking c = maxₖ zₖ makes the largest exponent e⁰ = 1, so the sum sits between 1 and K. Without it, e^800 overflows to Infinity and Infinity ÷ Infinity is NaN.',
+      },
+      {
+        q: 'The true class is 2 and the model gives it probability 0.2. What is the categorical cross-entropy loss?',
+        options: ['0.20', '0.80', '1.61', '3.00'],
+        answer: 2,
+        explain:
+          'Only the true class is read: ℓ = −log(0.2) ≈ 1.61. The other K − 1 terms are multiplied by zero by the one-hot label. Slide 62’s table gives 0.22, 0.69, 1.61 and 3.00 for probabilities of 0.8, 0.5, 0.2 and 0.05.',
+      },
+      {
+        q: 'N = 60 000 and B = 128. How many weight updates happen in 10 epochs?',
+        options: ['600 000', '4 690', '469', '10'],
+        answer: 1,
+        explain:
+          '⌈60000/128⌉ = ⌈468.75⌉ = 469 iterations per epoch, so 469 × 10 = 4 690 updates. The ceiling matters: the last batch of each epoch is short, and averaging its gradient over B rather than its own size is a real bug.',
+      },
+      {
+        q: 'What does the 1/B in ∇J_B = (1/B)X_Bᵀ(Ŷ_B − Y_B) do?',
+        options: [
+          'It normalises the probabilities',
+          'It makes the gradient an average, so the effective learning rate does not change when B changes',
+          'It prevents overflow',
+          'It is optional and usually dropped',
+        ],
+        answer: 1,
+        explain:
+          'Without it the gradient is B times larger, which is the same as multiplying η by B. A configuration that works at B = 32 then explodes at B = 256 and it looks as though the larger batch broke the model. In PyTorch this is reduction="mean" rather than "sum".',
+      },
+      {
+        q: 'What shape must ∇J have, and why is that a useful check?',
+        options: [
+          'B × K, matching the batch',
+          '(d + 1) × K, matching W — one number per weight',
+          'N × K, matching the dataset',
+          '1 × K, one number per class',
+        ],
+        answer: 1,
+        explain:
+          'X_Bᵀ is (d + 1) × B and the error block is B × K, so the product is (d + 1) × K, exactly the shape of W. If the shapes do not line up, the formula is written the wrong way round — and you know before computing a single number.',
+      },
+      {
+        q: 'Why can softmax not be used for a multi-label problem?',
+        options: [
+          'It is too slow when K is large',
+          'Because its outputs are forced to sum to 1, so raising one probability necessarily lowers the others — "action and comedy" is unrepresentable',
+          'Because multi-label problems have no logits',
+          'Because it requires one-hot labels',
+        ],
+        answer: 1,
+        explain:
+          'The constraint is a modelling assumption, not a technicality, and no amount of training works around it. Multi-label uses K independent sigmoids with BCEWithLogitsLoss, so several outputs can be near 1 at once.',
+      },
+      {
+        q: 'A multi-class training run reports a loss of NaN after a few iterations. What are the deck’s causes?',
+        options: [
+          'Overfitting, and too little data',
+          'A learning rate that is too large, log(0) in the loss, unscaled features, and a naive softmax that overflowed',
+          'Too many epochs',
+          'The test set is too small',
+        ],
+        answer: 1,
+        explain:
+          'Slide 92. All four are about numbers becoming too large or too small: η too large makes successive steps grow, unscaled features make the logits huge to begin with, and e^z then overflows to Infinity. The fixes are to decrease η, scale the features and use the stable softmax.',
+      },
+      {
+        q: 'On slide 85’s 3 × 3 confusion matrix, macro and weighted precision are almost identical. Why?',
+        options: [
+          'Because the model is accurate',
+          'Because all three classes have exactly 50 examples, so every weight wₖ = Nₖ/N is 1/3',
+          'Because there are only three classes',
+          'They are always identical',
+        ],
+        answer: 1,
+        explain:
+          'Weighted averaging uses wₖ = Nₖ/N, and with equal class sizes those weights are all 1/K, which is the macro average. The two come apart sharply on imbalanced data — and there macro is the honest number when the rare class is the point.',
+      },
+      {
+        q: 'Which three things differ between the regression, binary and multi-class columns of slide 97?',
+        options: [
+          'The design matrix, the gradient and the training loop',
+          'The activation, the loss and the number of output neurons',
+          'The learning rate, the batch size and the epochs',
+          'Everything differs',
+        ],
+        answer: 1,
+        explain:
+          'The weighted sum, the design matrix, the gradient descent loop and the train/test split are identical in all three. The output type picks the activation, the activation picks the loss, and the evaluation metrics follow from the output type — everything else is shared.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Derive the gradient of the binary cross-entropy loss for logistic regression, and state the SGD algorithm that uses it.',
+        meta: 'Derive & state · ~10 marks',
+        points: [
+          'State the model: z = wᵀx with the augmented x whose first entry is 1, and ŷ = σ(z) = 1/(1 + e⁻ᶻ).',
+          'Write the loss for one example: ℓ = −[y log ŷ + (1 − y) log(1 − ŷ)], and note that one of the two terms is always multiplied by zero.',
+          'Take y = 1 first: ℓ = −log ŷ so ∂ℓ/∂ŷ = −1/ŷ.',
+          'Quote the sigmoid derivative ∂ŷ/∂z = σ(z)(1 − σ(z)) = ŷ(1 − ŷ), and ∂z/∂wⱼ = xⱼ.',
+          'Chain them: ∂ℓ/∂wⱼ = (−1/ŷ)·ŷ(1 − ŷ)·xⱼ = −(1 − ŷ)xⱼ = (ŷ − 1)xⱼ = (ŷ − y)xⱼ. State that the ŷ cancels — this is the key step.',
+          'Repeat for y = 0: ℓ = −log(1 − ŷ), ∂ℓ/∂ŷ = 1/(1 − ŷ), and the (1 − ŷ) cancels to leave ŷxⱼ, which is again (ŷ − y)xⱼ. Conclude that both branches give ∇ℓ = (ŷ − y)x.',
+          'State Algorithm 1: initialise w = 0 or small random values; for each of T epochs, shuffle D; for each example compute ŷ = σ(wᵀx), compute ∇ℓ = (ŷ − y)x, and update w ← w − η∇ℓ; optionally compute J(w) for monitoring; return w.',
+          'Explain "stochastic": one randomly chosen example per update, giving an unbiased but noisy estimate of the true gradient and N updates per epoch instead of one.',
+          'For full marks, note that this is identical in form to the linear regression gradient of Module 3, and that the identity is not a coincidence — it is the cancellation above, which is exactly why cross-entropy and the sigmoid are chosen as a pair.',
+        ],
+      },
+      {
+        q: 'Given X = [[1,1],[1,2],[1,3],[1,4]], y = (0, 0, 1, 1)ᵀ, w⁽⁰⁾ = 0 and η = 0.5, carry out two SGD iterations using example 1 and then example 3, and report the resulting predictions.',
+        meta: 'Compute · ~10 marks',
+        points: [
+          'Initial state: with w = 0 every z is 0, so ŷ = σ(0) = 0.5 for all four examples.',
+          'Iteration 1, forward: x⁽¹⁾ = [1, 1] with y = 0, so z = 0 and ŷ = 0.5.',
+          'Iteration 1, error: ŷ − y = 0.5 − 0 = 0.5.',
+          'Iteration 1, gradient and update: ∇ℓ = 0.5 × [1, 1] = (0.5, 0.5), and w⁽¹⁾ = (0, 0) − 0.5(0.5, 0.5) = (−0.25, −0.25).',
+          'Iteration 2, forward: x⁽³⁾ = [1, 3] with y = 1, so z = −0.25 + 3(−0.25) = −1.0 and ŷ = σ(−1) = 1/(1 + e) ≈ 0.269.',
+          'Iteration 2, error: 0.269 − 1 = −0.731.',
+          'Iteration 2, gradient and update: ∇ℓ = −0.731 × [1, 3] = (−0.731, −2.193), and w⁽²⁾ = (−0.25, −0.25) − 0.5(−0.731, −2.193) = (0.116, 0.847).',
+          'Predictions with w⁽²⁾: σ(0.963) ≈ 0.724, σ(1.810) ≈ 0.859, σ(2.657) ≈ 0.934, σ(3.504) ≈ 0.971.',
+          'Comment correctly on the result: examples 3 and 4 (true label 1) have improved, but examples 1 and 2 (true label 0) have moved from 0.5 up to 0.724 and 0.859 — that is away from their label, not towards it. Two updates from a partial sweep touched only examples 1 and 3, and the large step for example 3 pulled the whole curve up. This is the noisiness of SGD, and the run needs many more epochs.',
+          'Note that the second weight moves three times as far as the first because x₁ = 3 while x₀ = 1 — the argument for feature scaling, in two numbers.',
+        ],
+      },
+      {
+        q: 'Justify the choice of cross-entropy over squared error as the loss for classification, and explain what breaks if squared error is used.',
+        meta: 'Discuss · ~8 marks',
+        points: [
+          'Give the deck’s four reasons: it has a probabilistic interpretation as the negative log-likelihood; it penalises confident wrong predictions heavily; it is convex for a linear model, so there is one global minimum; and it has well-behaved gradients with the sigmoid.',
+          'Expand on the probabilistic reason: the likelihood of one example is ŷ^y(1 − ŷ)^(1−y); taking the product over the dataset, then the logarithm, then negating gives exactly J(w). Minimising cross-entropy is maximising the probability of the data observed.',
+          'Expand on the penalty: squared error on a 0/1 label is capped at 0.5 however certain the model was, so a few confident errors barely move it. Cross-entropy is unbounded, so being sure and wrong is the most expensive thing the model can do.',
+          'Expand on the gradient, which is the strongest argument: with squared error the σ′ from the chain rule survives, and σ′ is nearly zero exactly where the model is confidently wrong. The model learns slowest where it is most wrong. With cross-entropy the log’s derivative cancels the σ′ and the gradient is (ŷ − y)x.',
+          'Note that convexity is a property of the pairing, not of cross-entropy alone: squared error applied to a sigmoid output gives a surface with flat regions and, for some datasets, local minima.',
+          'State the practical signature of the mistake: the loss falls a little and then crawls, the model never becomes confident, and nothing errors — which makes it hard to find.',
+          'Conclude with the general principle: the activation and the loss are chosen as a pair. Sigmoid with binary cross-entropy, softmax with categorical cross-entropy — the two pairings whose derivatives cancel to leave ŷ − y, which is why frameworks fuse them into one operation.',
+        ],
+      },
+      {
+        q: 'Explain how a binary classifier is evaluated. Define the confusion matrix and each metric derived from it, and say when each should be used.',
+        meta: 'Define & explain · ~8 marks',
+        points: [
+          'State the principle: evaluate on data the model has not seen. Split into training (learn w), validation (tune η, epochs, batch size) and test (used once, at the end).',
+          'Define the confusion matrix: rows are the actual class, columns the predicted class. TP and TN on the diagonal; FP is a false alarm (Type I error) and FN is a miss (Type II error).',
+          'Define Accuracy = (TP + TN)/(TP + TN + FP + FN) — the fraction of all predictions that are right.',
+          'Define Precision = TP/(TP + FP) — of those predicted positive, how many were. It divides by a column of the matrix.',
+          'Define Recall = TP/(TP + FN) — of those that were positive, how many were found. It divides by a row.',
+          'Define F1 = 2PR/(P + R), the harmonic mean, and explain why it is harmonic: either metric can be made perfect alone, and the harmonic mean stays low unless both are respectable.',
+          'Give the usage rules: accuracy when classes are balanced; precision when false positives are costly, as in spam detection; recall when false negatives are costly, as in disease detection; F1 when both matter, especially on imbalanced data.',
+          'Give the imbalance warning with numbers: on 98 healthy and 2 ill patients, always answering "healthy" gives 98% accuracy, recall 0 and undefined precision.',
+          'For full marks, add that all of these are computed at a threshold: moving the 0.5 trades precision against recall without retraining, so the operating point is a cost decision rather than a model one.',
+        ],
+      },
+      {
+        q: 'Describe the multi-class classification model in full: the weight matrix, the softmax activation, the loss, and the mini-batch SGD update. State the shape of every object.',
+        meta: 'Describe & state · ~10 marks',
+        points: [
+          'Data: X ∈ ℝᴺˣ⁽ᵈ⁺¹⁾ with a leading ones column, and one-hot labels Y ∈ {0, 1}ᴺˣᴷ with exactly one 1 per row.',
+          'Justify one-hot: integer encoding implies an order and a scale between classes that usually does not exist, and one-hot matches the shape of the softmax output so the loss needs no conversion.',
+          'Weights: W ∈ ℝ⁽ᵈ⁺¹⁾ˣᴷ, one column per class, row 0 holding the biases; (d + 1) × K parameters in total.',
+          'Logits: z = Wᵀx ∈ ℝᴷ for one example, or Z = XW ∈ ℝᴺˣᴷ for the dataset. State that logits are unbounded and are not probabilities.',
+          'Activation: ŷₖ = softmax(z)ₖ = e^{zₖ}/Σⱼe^{zⱼ}, applied row-wise. Give the properties: outputs in (0, 1), summing to 1, order-preserving, translation invariant, differentiable, and equal to the sigmoid when K = 2.',
+          'Loss: J(W) = −(1/N) ΣᵢΣₖ yₖ⁽ⁱ⁾ log ŷₖ⁽ⁱ⁾. Note that one-hot y collapses the inner sum to −log of the probability on the true class.',
+          'Gradient: ∇J_B = (1/B)X_Bᵀ(Ŷ_B − Y_B), with X_B ∈ ℝᴮˣ⁽ᵈ⁺¹⁾ and Ŷ_B, Y_B ∈ ℝᴮˣᴷ. Check the shapes: (d + 1) × B times B × K gives (d + 1) × K, matching W.',
+          'Update: W ← W − η∇J_B, and state Algorithm 2 — initialise W ~ N(0, 0.01); for each epoch shuffle and for each mini-batch compute Z_B = X_BW, Ŷ_B = softmax(Z_B), the gradient, and the step.',
+          'Inference: z = Wᵀx_new, ŷ = softmax(z), k̂ = arg maxₖ ŷₖ, and optionally report ŷ_k̂ as a confidence.',
+          'For full marks, note that arg max of the logits gives the same class as arg max of the probabilities, so the softmax is needed for training and for the confidence score but not for the answer.',
+        ],
+      },
+      {
+        q: 'Given X_B = [[1,1,2],[1,2,1]], one-hot Y_B = [[1,0,0],[0,1,0]], W⁽⁰⁾ = [[0.1,−0.1,0.2],[0.2,0.1,−0.1],[−0.1,0.2,0.1]], B = 2 and η = 0.1, carry out one mini-batch update.',
+        meta: 'Compute · ~10 marks',
+        points: [
+          'Logits: Z_B = X_BW⁽⁰⁾. Row 1 is [1,1,2] against each column: 0.1 + 0.2 − 0.2 = 0.1; −0.1 + 0.1 + 0.4 = 0.4; 0.2 − 0.1 + 0.2 = 0.3, giving [0.1, 0.4, 0.3].',
+          'Row 2 is [1,2,1]: 0.1 + 0.4 − 0.1 = 0.4; −0.1 + 0.2 + 0.2 = 0.3; 0.2 − 0.2 + 0.1 = 0.1, giving [0.4, 0.3, 0.1]. Show this working — the middle entry is the one most easily slipped.',
+          'Softmax row-wise: row 1 gives [0.280, 0.378, 0.342]. Row 2 is a permutation of row 1’s logits, and softmax permutes its output the same way, so it gives [0.378, 0.342, 0.280]. Say so — it is a check that needs no calculator.',
+          'Errors: Ŷ_B − Y_B = [[−0.720, 0.378, 0.342], [0.378, −0.658, 0.280]]. Note the pattern: the true class is always negative and every other class positive.',
+          'Gradient: ∇J = (1/2)X_Bᵀ(Ŷ_B − Y_B) ≈ [[−0.171, −0.140, 0.311], [0.018, −0.469, 0.451], [−0.531, 0.049, 0.482]].',
+          'Show one entry in full for method marks — for example ∇J[0][0] = (1×(−0.720) + 1×0.378)/2 = −0.171.',
+          'Update: W⁽¹⁾ = W⁽⁰⁾ − 0.1∇J ≈ [[0.117, −0.086, 0.169], [0.198, 0.147, −0.145], [−0.047, 0.195, 0.052]].',
+          'State the shape check: X_Bᵀ is 3 × 2, the error block is 2 × 3, so ∇J is 3 × 3 — the shape of W.',
+          'Note that the version of this example in the Module 4 slides prints Z_B row 2 as [0.4, 0.2, 0.1], ŷ⁽²⁾ as [0.387, 0.315, 0.298] and ∇J[1][0] as −0.024; none of the three follows from the stated X, Y and W, and the sign of that last entry is wrong even on the slides’ own figures. Reproduce the method, and show the arithmetic.',
+        ],
+      },
+      {
+        q: 'Compare batch, stochastic and mini-batch gradient descent across every dimension you can, and say which you would use and why.',
+        meta: 'Compare · ~8 marks',
+        points: [
+          'State what is shared: all three apply w ← w − η∇J and differ only in how many examples ∇J averages over.',
+          'Batch: all N examples per update, ∇J = (1/N)Σᵢ∇ℓᵢ, one iteration per epoch, slow per iteration, smooth and deterministic convergence, high memory, exact gradient, no online learning. Best for small datasets.',
+          'Stochastic: one example, ∇ℓᵢ for a random i, N iterations per epoch, fast per iteration, noisy and oscillating, low memory, a noisy but unbiased estimate. Best for online learning, and hard to parallelise.',
+          'Mini-batch: B examples with 1 < B ≪ N, ∇J_B = (1/B)Σᵢ∈B∇ℓᵢ, ⌈N/B⌉ iterations per epoch, medium speed, balanced convergence, medium memory, a good estimate. Typical B is 32, 64, 128 or 256. The deep learning standard.',
+          'Give the computational argument, which is the decisive one: a mini-batch is a single matrix multiplication, which is what GPU hardware is built for, so B examples cost far less than B times one example.',
+          'Give the statistical argument and its limit: averaging B gradients reduces the noise as 1/√B, so four times the computation halves it — which is why batch sizes cluster in the low hundreds rather than growing indefinitely.',
+          'Give the memory argument: SGD and mini-batch need only B examples resident, so datasets larger than memory become trainable. Batch GD on a dataset that does not fit is not slow, it is impossible.',
+          'Note the coupling with η: a larger batch gives a less noisy gradient and tolerates a larger learning rate, so B and η must be tuned together — and dropping the 1/B multiplies the effective η by B.',
+          'Conclude: mini-batch, with B a power of two between 32 and 512, and shuffling every epoch.',
+        ],
+      },
+      {
+        q: 'A multi-class training run behaves badly. Work through the deck’s debugging checklist, giving the causes and fixes for each symptom, and say what order you would diagnose them in.',
+        meta: 'Diagnose · ~8 marks',
+        points: [
+          'Loss NaN or Inf: η too large so successive steps grow, log(0) in the loss, unscaled features making the logits huge, or a naive softmax overflowing. Fix by decreasing η, scaling the features and using the stable softmax with c = maxₖ zₖ.',
+          'Explain the overflow precisely: e^z beyond about e^709 exceeds what a double can hold and becomes Infinity, and Infinity ÷ Infinity is NaN. Subtracting the largest logit is exact — it is softmax’s translation invariance — and caps the sum between 1 and K.',
+          'Predicts the same class for everything: check class balance first, then verify the softmax and loss implementation, the one-hot encoding, and whether η is too small.',
+          'Loss oscillating: η too large, batches too small. Fix by decreasing η, increasing B, or applying learning-rate decay.',
+          'Loss not decreasing: η too small or too large, a wrong sign in the gradient, unscaled features, unshuffled data, or a broken one-hot encoding. Verify the gradient by hand on a single example.',
+          'Softmax outputs not summing to 1: an implementation bug or a precision issue — normalising down the wrong axis is the usual cause. This is always code, never data.',
+          'High training accuracy with low test accuracy: overfitting. Fix by regularising, getting more data, or simplifying the model.',
+          'State the diagnostic order: read the training loss alone first, because five of the six symptoms are optimisation problems. Only once it falls smoothly does the train/test gap mean anything — a model that has not learnt cannot be overfitting.',
+          'Give the sanity checks: a tiny dataset should reach 100% accuracy, every ŷ should lie in [0, 1], each row of Ŷ should sum to 1, shuffling should improve results, and the confusion matrix should be printed rather than a single accuracy number.',
+          'For full marks, add the symptom the slide omits: a loss that falls then flattens well above zero with a small train/test gap is underfitting, and the cure is more capacity rather than less.',
+        ],
+      },
+    ],
+  },
+
+  logistic: {
+    cheat: [
+      {
+        formula: 'z = wᵀx = w₀ + w₁x₁ + ⋯ + w_d x_d',
+        why: 'The logit. A dot product, and the only linear part of the model.',
+      },
+      {
+        formula: 'ŷ = σ(z) = 1/(1 + e⁻ᶻ) = P(y = 1 | x)',
+        why: 'The sigmoid turns the score into a probability. Bounded and increasing.',
+      },
+      {
+        formula: 'predict 1 ⟺ ŷ ≥ 0.5 ⟺ wᵀx ≥ 0',
+        why: 'Two forms of one test, because σ crosses 0.5 exactly at z = 0.',
+      },
+      {
+        formula: 'boundary: wᵀx = 0, a hyperplane',
+        why: 'Straight, whatever the shading looks like. Scaling w sharpens the probabilities and moves it nowhere.',
+      },
+      {
+        formula: '∇ℓ = (ŷ − y)x ,  w ← w − η∇ℓ',
+        why: 'The gradient and the step. Identical in form to linear regression’s.',
+      },
+      {
+        formula: 'z = log(ŷ/(1 − ŷ))',
+        why: 'The inverse of the sigmoid: the logit is the log-odds, which is why e^{wⱼ} is an odds ratio.',
+      },
+      {
+        formula: 'separable data ⟹ no minimum',
+        why: 'The loss always falls further as w grows, so training diverges without regularisation.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'Logistic regression has "regression" in its name. What kind of task does it perform?',
+        options: ['Regression, predicting a number', 'Binary classification', 'Clustering', 'Dimensionality reduction'],
+        answer: 1,
+        explain:
+          'It is a classifier. The name comes from the logistic function it uses, and from its origins as a regression on the log-odds — z = log(ŷ/(1 − ŷ)) really is a linear regression, on a transformed target.',
+      },
+      {
+        q: 'What is the shape of a logistic regression decision boundary in two dimensions?',
+        options: ['A circle', 'A straight line', 'An S-shaped curve', 'It depends on the data'],
+        answer: 1,
+        explain:
+          'The boundary is where wᵀx = 0, which is linear in x. The sigmoid curves the probabilities, not the boundary. This is exactly the perceptron’s limitation, and why XOR is out of reach for a single unit.',
+      },
+      {
+        q: 'Multiplying every weight by 10 does what?',
+        options: [
+          'Moves the boundary ten times further from the origin',
+          'Leaves the boundary exactly where it is and makes the probabilities far more extreme',
+          'Changes which examples are classified as positive',
+          'Has no effect at all',
+        ],
+        answer: 1,
+        explain:
+          'The set where wᵀx = 0 is unchanged when w is scaled, so every prediction is identical. But z is ten times larger everywhere, so σ(z) is pushed towards 0 and 1 — the same decisions, expressed far more confidently.',
+      },
+      {
+        q: 'Why does scikit-learn regularise LogisticRegression by default?',
+        options: [
+          'To make it train faster',
+          'Because on linearly separable data the unregularised loss has no minimum, so the weights grow without bound',
+          'Because the sigmoid is unstable',
+          'To handle missing values',
+        ],
+        answer: 1,
+        explain:
+          'If the classes can be separated perfectly, scaling w up always reduces the loss further, so there is no optimum to converge to. An L2 penalty makes the problem well-posed. The strength is the C parameter, and smaller C means more regularisation.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Describe the logistic regression model completely: the prediction, the decision rule, the loss and the training, and state its limitation.',
+        meta: 'Describe · ~8 marks',
+        points: [
+          'Model: z = wᵀx with an augmented x whose first entry is 1, then ŷ = σ(z) = 1/(1 + e⁻ᶻ), read as P(y = 1 | x).',
+          'Say what the sigmoid is for: a linear score is unbounded and a probability is not, and σ maps (−∞, ∞) into (0, 1) monotonically, so no ordering is changed.',
+          'Decision rule: predict 1 when ŷ ≥ 0.5, which is the same test as wᵀx ≥ 0 because σ crosses 0.5 exactly at z = 0.',
+          'Boundary: the set wᵀx = 0, a hyperplane. State that it is straight and that scaling w changes confidence without moving it.',
+          'Loss: binary cross-entropy ℓ = −[y log ŷ + (1 − y) log(1 − ŷ)], derived from maximum likelihood, and convex in w for this model.',
+          'Training: gradient descent with ∇ℓ = (ŷ − y)x, in batch, stochastic or mini-batch form.',
+          'Interpretation: the logit is the log-odds, z = log(ŷ/(1 − ŷ)), so a weight is the change in log-odds per unit of its feature and e^{wⱼ} is an odds ratio. This is why the model remains standard where decisions must be explained.',
+          'Limitation: it can only separate classes that are linearly separable. The classical fix is engineered features; the deep learning fix is a hidden layer that learns them.',
+          'For full marks, note that logistic regression is exactly one artificial neuron with a sigmoid activation, so it is the output layer of every binary classifier in the course.',
+        ],
+      },
+    ],
+  },
+
+  softmax: {
+    cheat: [
+      {
+        formula: 'softmax(z)ₖ = e^{zₖ} / Σⱼ e^{zⱼ}',
+        why: 'Exponentiate, then divide by the total. Two steps, both forced.',
+      },
+      {
+        formula: 'ŷₖ ∈ (0, 1) and Σₖ ŷₖ = 1',
+        why: 'A genuine distribution, and never exactly 0 or 1 — which keeps the log in the loss finite.',
+      },
+      {
+        formula: 'zᵢ > zⱼ ⟹ ŷᵢ > ŷⱼ',
+        why: 'Order preserved, so arg max of the logits is arg max of the probabilities. The softmax is not needed for the answer.',
+      },
+      {
+        formula: 'softmax(z + c) = softmax(z)',
+        why: 'Translation invariance. Exact, and the whole basis of the stable implementation.',
+      },
+      {
+        formula: 'stable: SM(z)ₖ = e^{zₖ − c} / Σⱼ e^{zⱼ − c}, c = maxₖ zₖ',
+        why: 'The largest exponent becomes e⁰ = 1, so the sum lies between 1 and K and nothing can overflow.',
+      },
+      {
+        formula: 'K = 2: softmax(z)₁ = σ(z₁ − z₂)',
+        why: 'It collapses to the sigmoid of the difference — the two logits were one degree of freedom.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'Why does softmax exponentiate the logits rather than just dividing each by the sum?',
+        options: [
+          'Because it is faster',
+          'Because logits can be negative, and e^z is positive for every real z',
+          'Because the exponential is differentiable and division is not',
+          'To make the outputs sum to 1',
+        ],
+        answer: 1,
+        explain:
+          'Dividing raw logits by their sum can give negative "probabilities", or divide by zero. e^z is always positive, so after normalising the results are guaranteed to lie strictly in (0, 1) — and never at either end, which keeps the logarithm in the loss finite.',
+      },
+      {
+        q: 'What does subtracting the largest logit before exponentiating change about the result?',
+        options: [
+          'It makes the probabilities slightly less accurate',
+          'Nothing at all — softmax is translation invariant, so the result is exactly the same',
+          'It changes which class is predicted',
+          'It makes the probabilities sum to less than 1',
+        ],
+        answer: 1,
+        explain:
+          'Adding c to every logit multiplies every numerator and the denominator by e^c, so the ratio is unchanged. This is an identity, not an approximation. Choosing c = maxₖ zₖ caps the largest exponent at e⁰ = 1, so nothing can overflow.',
+      },
+      {
+        q: 'A transformer’s attention mechanism uses softmax. What is it applied to?',
+        options: [
+          'The output vocabulary',
+          'Similarity scores between positions, turning them into weights that sum to 1',
+          'The learning rate',
+          'The gradient',
+        ],
+        answer: 1,
+        explain:
+          'Each position scores every other position, and softmax turns those scores into a set of weights summing to 1 — how much attention to pay to each. The mechanism the architecture is named for is this function applied to similarity scores.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Define softmax, prove that its outputs form a probability distribution, and state and justify two of its other properties.',
+        meta: 'Define & prove · ~7 marks',
+        points: [
+          'Definition: softmax(z)ₖ = e^{zₖ} / Σⱼ₌₁ᴷ e^{zⱼ} for a vector of K logits.',
+          'Positivity: e^{zₖ} > 0 for every real zₖ, and the denominator is a sum of positive terms, so every output is strictly positive.',
+          'Sums to one: Σₖ e^{zₖ}/Σⱼe^{zⱼ} = (Σₖ e^{zₖ})/(Σⱼ e^{zⱼ}) = 1, since the denominator is exactly the sum of the numerators.',
+          'Upper bound: each output is one positive term divided by a sum including it, so it is strictly less than 1. Hence ŷₖ ∈ (0, 1), never at either end.',
+          'Property — order preservation: e^z is strictly increasing, and all outputs share a denominator, so zᵢ > zⱼ implies ŷᵢ > ŷⱼ. Consequence: arg max of the logits equals arg max of the probabilities, so softmax is not needed to get the answer, only the confidence.',
+          'Property — translation invariance: softmax(z + c)ₖ = e^{zₖ+c}/Σⱼe^{zⱼ+c} = e^c e^{zₖ}/(e^c Σⱼ e^{zⱼ}) = softmax(z)ₖ. Consequence: subtract c = maxₖ zₖ for numerical stability, which is exact and caps the largest exponent at 1.',
+          'For full marks, show the K = 2 collapse: ŷ₁ = e^{z₁}/(e^{z₁} + e^{z₂}); dividing top and bottom by e^{z₁} gives 1/(1 + e^{−(z₁−z₂)}) = σ(z₁ − z₂), so a two-class softmax is a sigmoid on the difference of the logits.',
+        ],
+      },
+    ],
+  },
+
+  crossentropy: {
+    cheat: [
+      {
+        formula: 'ℓ = −[y log ŷ + (1 − y) log(1 − ŷ)]',
+        why: 'Binary. One branch is always multiplied by zero; the (1 − y) switch is what lets one line handle both labels.',
+      },
+      {
+        formula: 'ℓ = −Σₖ yₖ log ŷₖ = −log ŷ_true',
+        why: 'Categorical. One-hot y collapses the sum to the probability given the right answer.',
+      },
+      {
+        formula: 'J starts at log K',
+        why: 'log 2 ≈ 0.693 for binary, 2.30 for ten classes, 6.91 for a thousand. A free check on any fresh run.',
+      },
+      {
+        formula: '−log 0.8 = 0.22 · −log 0.5 = 0.69 · −log 0.2 = 1.61 · −log 0.05 = 3.00',
+        why: 'The deck’s table. The cost climbs without limit as the true class is ruled out.',
+      },
+      {
+        formula: 'ℓ = −log L, L = Πᵢ ŷᵢ^{yᵢ}(1 − ŷᵢ)^{1−yᵢ}',
+        why: 'Where it comes from: the negative log-likelihood of the observed labels.',
+      },
+      {
+        formula: '∇ℓ = (ŷ − y)x',
+        why: 'Paired with the sigmoid or softmax, the derivatives cancel and only the error survives.',
+      },
+      {
+        formula: 'squared error is capped at 0.5 on a 0/1 label',
+        why: 'Which is why it barely notices a confident mistake, and why its gradient there is nearly zero.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'What does cross-entropy actually measure about a prediction?',
+        options: [
+          'The distance between ŷ and y',
+          'The probability the model assigned to the outcome that actually happened, through −log of it',
+          'How many predictions were correct',
+          'The variance of the predictions',
+        ],
+        answer: 1,
+        explain:
+          'It reads exactly one number — the probability given to the true class — and charges −log of it. It says nothing about how the remaining probability was spread among the wrong classes, which is a real difference from squared error.',
+      },
+      {
+        q: 'A ten-class model starts training and reports a loss of 2.30. What does that tell you?',
+        options: [
+          'The model is broken',
+          'It is behaving correctly: log 10 ≈ 2.30 is what an untrained model giving every class 1/10 must score',
+          'The learning rate is too high',
+          'The data is imbalanced',
+        ],
+        answer: 1,
+        explain:
+          'A fresh model gives every class 1/K, so the loss is −log(1/K) = log K. A run that starts far from log K has wrong labels or a wrong output layer — and you know within seconds rather than after an hour of training.',
+      },
+      {
+        q: 'What is the relationship between cross-entropy and maximum likelihood?',
+        options: [
+          'They are unrelated',
+          'Minimising cross-entropy is exactly maximising the likelihood of the observed labels',
+          'Cross-entropy is an approximation to maximum likelihood',
+          'Maximum likelihood only applies to regression',
+        ],
+        answer: 1,
+        explain:
+          'The likelihood of one example is ŷ^y(1 − ŷ)^(1−y). Take the product over the dataset, take a logarithm to turn it into a sum, and negate it to turn maximising into minimising, and you have exactly J(w).',
+      },
+    ],
+    exam: [
+      {
+        q: 'Derive binary cross-entropy from maximum likelihood, and explain why it is preferred to squared error for classification.',
+        meta: 'Derive & discuss · ~8 marks',
+        points: [
+          'Set up: the model outputs ŷ = P(y = 1 | x), so the probability it assigns to the observed label is ŷ if y = 1 and 1 − ŷ if y = 0.',
+          'Write both cases as one expression: P(y | x) = ŷ^y (1 − ŷ)^(1−y), and check it against y = 0 and y = 1.',
+          'Assume the examples are independent, so the likelihood of the dataset is L = Πᵢ ŷᵢ^{yᵢ}(1 − ŷᵢ)^{1−yᵢ}.',
+          'Take the logarithm to turn the product into a sum: log L = Σᵢ [yᵢ log ŷᵢ + (1 − yᵢ) log(1 − ŷᵢ)].',
+          'Negate and average to get a loss to minimise: J(w) = −(1/N) Σᵢ [yᵢ log ŷᵢ + (1 − yᵢ) log(1 − ŷᵢ)], which is equation (8).',
+          'Preference — unbounded penalty: squared error on a 0/1 label can never exceed 0.5, so confident mistakes barely register; cross-entropy charges −log ŷ, which grows without limit.',
+          'Preference — gradients: with squared error the σ′ from the chain rule survives, and σ′ is nearly zero exactly where the model is confidently wrong, so it learns slowest where it is most wrong. With cross-entropy the log’s derivative cancels σ′ and the gradient is (ŷ − y)x.',
+          'Preference — convexity: J is convex in w for this model, whereas squared error applied to a sigmoid output is not.',
+          'For full marks, note the same derivation with Gaussian noise instead of a Bernoulli label gives squared error, so the choice of loss is a statement about how the data was generated rather than a matter of taste.',
+        ],
+      },
+    ],
+  },
+
+  sgdvariants: {
+    cheat: [
+      { formula: 'w ← w − η∇J', why: 'The step. Identical in all three variants; only the gradient differs.' },
+      {
+        formula: 'batch: ∇J = (1/N) Σᵢ₌₁ᴺ ∇ℓᵢ',
+        why: 'Exact and smooth. One update per epoch, and the whole dataset in memory.',
+      },
+      {
+        formula: 'SGD: ∇J = ∇ℓᵢ for one random i',
+        why: 'An unbiased but noisy estimate. N updates per epoch, minimal memory, supports online learning.',
+      },
+      {
+        formula: 'mini-batch: ∇J_B = (1/B) Σᵢ∈B ∇ℓᵢ',
+        why: 'The standard. ⌈N/B⌉ updates per epoch, and one matrix multiply per update.',
+      },
+      {
+        formula: 'iterations per epoch = ⌈N/B⌉',
+        why: '469 for N = 60 000 and B = 128. Examples seen depends only on the epochs.',
+      },
+      {
+        formula: 'gradient noise ∝ 1/√B',
+        why: 'Four times the batch halves the noise. Diminishing returns, and why B stops growing.',
+      },
+      {
+        formula: 'shuffle every epoch',
+        why: 'Otherwise any order in the data becomes a repeating rhythm and the weights can cycle.',
+      },
+      {
+        formula: 'typical B ∈ {32, 64, 128, 256, 512}',
+        why: 'Powers of two, because GPU memory and tensor cores are organised that way.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'What is the difference between an iteration and an epoch?',
+        options: [
+          'They are the same thing',
+          'An iteration is one weight update; an epoch is one full pass over the data, taking ⌈N/B⌉ iterations',
+          'An epoch is one weight update; an iteration is one pass over the data',
+          'An iteration is one example; an epoch is one batch',
+        ],
+        answer: 1,
+        explain:
+          'With batch GD an epoch is one iteration; with plain SGD it is N of them; with mini-batch it is ⌈N/B⌉. The number of examples seen after T epochs is N × T whatever B is — only the number of updates depends on B.',
+      },
+      {
+        q: 'Why is a mini-batch of 128 examples much cheaper than 128 separate single-example updates?',
+        options: [
+          'Because it uses less memory',
+          'Because the whole batch is one matrix multiplication, which is exactly what GPU hardware is built for',
+          'Because the gradient is smaller',
+          'Because fewer examples are actually used',
+        ],
+        answer: 1,
+        explain:
+          'Z = XW handles the whole batch in one operation. The statistical benefit — a less noisy gradient — is real but secondary; the computational one is what made mini-batch the standard.',
+      },
+      {
+        q: 'You double the batch size from 128 to 256 and leave the learning rate alone. What often happens?',
+        options: [
+          'Training is exactly twice as fast',
+          'Training becomes slower to converge, because a less noisy gradient can safely take larger steps and η has not been raised to match',
+          'The loss becomes NaN',
+          'Nothing changes',
+        ],
+        answer: 1,
+        explain:
+          'Batch size and learning rate are coupled: a larger batch gives a better gradient estimate and tolerates a larger η. The common heuristic is to scale η with B. Separately, dropping the 1/B from the gradient multiplies the effective η by B, which is a different bug with the opposite symptom.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Compare batch, stochastic and mini-batch gradient descent, and explain why mini-batch became the standard.',
+        meta: 'Compare · ~7 marks',
+        points: [
+          'State what is common: w ← w − η∇J in all three, differing only in how many examples ∇J averages over.',
+          'Batch: all N examples, exact gradient, one update per epoch, smooth and deterministic, high memory, no online learning. Best for small datasets.',
+          'Stochastic: one random example, an unbiased but noisy estimate, N updates per epoch, low memory, supports online learning, oscillates near the minimum and is hard to parallelise.',
+          'Mini-batch: B examples with 1 < B ≪ N, a good estimate, ⌈N/B⌉ updates per epoch, medium memory, balanced convergence.',
+          'The computational argument: a batch is one matrix multiplication, which maps directly onto GPU hardware, so B examples cost far less than B times one example. This is the decisive reason.',
+          'The statistical argument and its limit: noise falls as 1/√B, so four times the computation halves it — diminishing returns that keep practical batch sizes in the low hundreds.',
+          'The memory argument: only B examples need be resident, so datasets larger than memory are trainable at all.',
+          'Note the practical requirements: shuffle every epoch, include the 1/B so η means the same thing at every batch size, handle the short final batch by averaging over its own size, and tune B and η together.',
+          'For full marks, note that "SGD" in modern usage means the mini-batch version, and that momentum, RMSProp and Adam all keep this update and only replace ∇J with something derived from it.',
+        ],
+      },
+    ],
+  },
+
   activation: {
     cheat: [
       {
