@@ -330,23 +330,26 @@ The first two are the foundations everything else leans on, so they come first i
 | k-means clustering | Machine Learning         | Change k, alternate the assign and move steps, reseed to land in a different local minimum                                           |
 | The perceptron     | Deep Neural Networks     | Train a pass at a time and watch the boundary rotate as the mistakes run out                                                         |
 
-And twelve chapters, each covering a real lecture end to end. A chapter is split into parts, every part is its own
-route and its own row in the left menu, and every part has something to operate — 220 part routes in all:
+And fifteen chapters, each covering a real lecture end to end. A chapter is split into parts, every part is its own
+route and its own row in the left menu, and every part has something to operate — 284 part routes in all:
 
-| Chapter                                                       | Course                              | Parts |
-| ------------------------------------------------------------- | ----------------------------------- | ----- |
-| Lecture 0a — Matrices, determinants and linear systems        | Mathematical Foundations            | 21    |
-| Lecture 0b — Vectors, dot products and probability            | Mathematical Foundations            | 19    |
-| Lecture 1 — Linear equations & Gaussian elimination           | Mathematical Foundations            | 18    |
-| Lecture 2 — Vector spaces, independence and basis             | Mathematical Foundations            | 14    |
-| Lecture 3 — Analytic geometry                                 | Mathematical Foundations            | 20    |
-| Lecture 1 — Describing data: centre, spread and outliers      | Introduction to Statistical Methods | 14    |
-| Lecture 2 — Probability: events, axioms and the addition rule | Introduction to Statistical Methods | 14    |
-| Lecture 3 — Conditional probability, independence and Bayes   | Introduction to Statistical Methods | 16    |
-| Lecture 1 — Introduction to Machine Learning                  | Machine Learning                    | 20    |
-| Session 1 — Fundamentals of Neural Networks                   | Deep Neural Networks                | 24    |
-| Session 2 — The perceptron                                    | Deep Neural Networks                | 19    |
-| Session 3 — Linear neural networks for regression             | Deep Neural Networks                | 21    |
+| Chapter                                                           | Course                              | Parts |
+| ----------------------------------------------------------------- | ----------------------------------- | ----- |
+| Lecture 0a — Matrices, determinants and linear systems            | Mathematical Foundations            | 21    |
+| Lecture 0b — Vectors, dot products and probability                | Mathematical Foundations            | 19    |
+| Lecture 1 — Linear equations & Gaussian elimination               | Mathematical Foundations            | 18    |
+| Lecture 2 — Vector spaces, independence and basis                 | Mathematical Foundations            | 14    |
+| Lecture 3 — Analytic geometry                                     | Mathematical Foundations            | 20    |
+| Lecture 4 — Eigenvalues & eigenvectors                            | Mathematical Foundations            | 20    |
+| Lecture 1 — Describing data: centre, spread and outliers          | Introduction to Statistical Methods | 14    |
+| Lecture 2 — Probability: events, axioms and the addition rule     | Introduction to Statistical Methods | 14    |
+| Lecture 3 — Conditional probability, independence and Bayes       | Introduction to Statistical Methods | 16    |
+| Lecture 4 — Bayes’ theorem and Naive Bayes                        | Introduction to Statistical Methods | 20    |
+| Lecture 1 — Introduction to Machine Learning                      | Machine Learning                    | 20    |
+| Lecture 2 — The machine learning workflow: data and preprocessing | Machine Learning                    | 24    |
+| Session 1 — Fundamentals of Neural Networks                       | Deep Neural Networks                | 24    |
+| Session 2 — The perceptron                                        | Deep Neural Networks                | 19    |
+| Session 3 — Linear neural networks for regression                 | Deep Neural Networks                | 21    |
 
 To give a sense of what "something to operate" means: in ISM Lecture 1 you drag a dot and watch the mean chase it
 while the median stays put; in Maths Lecture 1 you run Gaussian elimination one legal row operation at a time on the
@@ -356,18 +359,19 @@ bars line up.
 
 Concepts drawn from those chapters, each reusing the chapter's own labs and linking back to the parts it came from:
 
-| Concept                               | From                           |
-| ------------------------------------- | ------------------------------ |
-| Averages: mean, median and mode       | ISM Lecture 1, parts 4–7       |
-| Spread: how far apart the numbers are | ISM Lecture 1, parts 8–11      |
-| Outliers and the box plot             | ISM Lecture 1, parts 9, 12–13  |
-| Probability: what the number means    | ISM Lecture 2, parts 1, 7–8    |
-| Events as sets: and, or, not          | ISM Lecture 2, parts 4–6, 9–10 |
-| Conditional probability               | ISM Lecture 3, parts 1–2, 4, 7 |
-| Total probability and Bayes' rule     | ISM Lecture 3, parts 12–15     |
+| Concept                               | From                                                |
+| ------------------------------------- | --------------------------------------------------- |
+| Averages: mean, median and mode       | ISM Lecture 1, parts 4–7                            |
+| Spread: how far apart the numbers are | ISM Lecture 1, parts 8–11                           |
+| Outliers and the box plot             | ISM Lecture 1, parts 9, 12–13                       |
+| Probability: what the number means    | ISM Lecture 2, parts 1, 7–8                         |
+| Events as sets: and, or, not          | ISM Lecture 2, parts 4–6, 9–10                      |
+| Conditional probability               | ISM Lecture 3, parts 1–2, 4, 7                      |
+| Total probability and Bayes' rule     | ISM Lecture 3, parts 12–15; Lecture 4, parts 1–2, 8 |
+| The Naive Bayes classifier            | ISM Lecture 4, parts 11–14, 17                      |
 
-(The Deep Neural Networks and Mathematical Foundations courses carry their own concept pages too — the full list is
-the Concepts bucket under each course in the left menu.)
+(The Mathematical Foundations, Machine Learning and Deep Neural Networks courses carry their own concept pages too —
+the full list is the Concepts bucket under each course in the left menu.)
 
 Every session ends with a **Where this shows up in AI & ML** section — not "you will need this one day", but the places
 the idea appears by name in things already on the site.
