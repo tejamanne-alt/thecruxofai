@@ -1131,6 +1131,191 @@ export const CONNECTIONS: Connection[] = [
     detail:
       'The ML lecture defined learning as supplying data and answers and getting a program back. Bayesian learning is one concrete way of doing that, and this page is its engine: the MAP hypothesis is argmax P(h | D), which Bayes rewrites as likelihood times prior — so the syllabus line about MAP and naive Bayes is this theorem with an argmax on the front.',
   },
+  /* ------------------------- ISM Lecture 4: Bayes and Naive Bayes --------- */
+  {
+    from: { topic: 'ism4', part: 'statement' },
+    to: { topic: 'ism3', part: 'bayes' },
+    kind: 'builds-on',
+    carries: 'P(A | B) = P(B | A)·P(A) / P(B)',
+    detail:
+      'Lecture 3 introduced Bayes on two events and demonstrated it on the binary channel, with the prior and the posterior drawn side by side. This page states the general version with n slices instead of two and adds the conditions the two-event case could leave implicit — P(Eᵢ) > 0, P(A) > 0, and A ⊆ ⋃ Eᵢ — which are exactly the lines an exam asks you to justify.',
+  },
+  {
+    from: { topic: 'ism4', part: 'statement' },
+    to: { topic: 'ism3', part: 'partition' },
+    kind: 'builds-on',
+    carries: 'the partition E₁ … Eₙ',
+    detail:
+      'The slices lab in Lecture 3 established what a partition is by letting you drag the cuts while B stayed put. This page reuses that picture with A in place of B and adds the answer underneath: the same cuts now produce a row of posteriors, and moving A without changing its size changes them completely while leaving P(A) almost alone.',
+  },
+  {
+    from: { topic: 'ism4', part: 'proof' },
+    to: { topic: 'ism3', part: 'totalproof' },
+    kind: 'builds-on',
+    carries: 'B = B ∩ S, then distribute',
+    detail:
+      'The six-line proof of total probability in Lecture 3 is the first half of the nine-line proof here, with S replaced by ⋃ Eᵢ because A is only assumed to sit inside the slices rather than inside the whole sample space. The second half is new: the definition of a conditional probability is written as line (4) and the earlier result is substituted into it.',
+  },
+  {
+    from: { topic: 'ism4', part: 'proof' },
+    to: { topic: 'ism2', part: 'axioms' },
+    kind: 'builds-on',
+    carries: 'the third axiom: disjoint events add',
+    detail:
+      'The axioms lab in Lecture 2 rejected four candidate assignments for breaking one rule or another, the third being that events which cannot both happen simply add. Line 5 of this proof is that axiom and nothing else, which is why the line before it exists at all — proving (A ∩ Eᵢ) ∩ (A ∩ Eⱼ) = ∅ is what earns the right to use it.',
+  },
+  {
+    from: { topic: 'ism4', part: 'managers' },
+    to: { topic: 'ism3', part: 'multiply' },
+    kind: 'builds-on',
+    carries: 'P(A ∩ Eᵢ) = P(Eᵢ)·P(A | Eᵢ)',
+    detail:
+      'The multiplication rule was derived in Lecture 3 by clearing the division out of the definition, and walked down a tree one branch at a time. Every row of the managers table is one branch of that tree: 4/9 × 3/10 is the chance of taking the X route and then getting the bonus, and part (i) of the question is nothing but the three branches added up.',
+  },
+  {
+    from: { topic: 'ism4', part: 'rash' },
+    to: { topic: 'ism2', part: 'complement' },
+    kind: 'builds-on',
+    carries: 'P(M) = 1 − P(F)',
+    detail:
+      'The complement rule from Lecture 2 is what supplies the second prior here: the deck gives 90% for flu and says there is no other disease, so measles is the remaining 10% rather than a number you were told. The same move appears again in the spam example, where P(A | Bᶜ) has to be read as the false-positive rate rather than one minus the detection rate.',
+  },
+  {
+    from: { topic: 'ism4', part: 'spamtrap' },
+    to: { topic: 'mllec2', part: 'imbalance' },
+    kind: 'used-by',
+    carries: 'the base rate, as class imbalance',
+    detail:
+      'This page computes P(not spam | flagged) = 5/104 and then watches it pass one in two as the base rate falls, with the filter untouched. The ML preprocessing lecture meets the same effect from the other side — ninety-five to five, and a lazy classifier that scores 95% — so under-sampling, over-sampling and class weights are all attempts to move the prior that appears in this numerator.',
+  },
+  {
+    from: { topic: 'ism4', part: 'hypothesis' },
+    to: { topic: 'mllec1', part: 'whatisml' },
+    kind: 'used-by',
+    carries: 'prior, likelihood, evidence, posterior',
+    detail:
+      'The ML lecture defined learning as swapping two boxes: supply the data and the answers, and a program comes out. This page names the four pieces that particular program is assembled from, and the slide says so itself — this logic forms the core of the Naive Bayes classifier, used for spam filtering, sentiment analysis, document categorisation and medical diagnosis.',
+  },
+  {
+    from: { topic: 'ism4', part: 'offer' },
+    to: { topic: 'mllec1', part: 'features' },
+    kind: 'builds-on',
+    carries: 'a feature as a measurable clue',
+    detail:
+      'The ML lecture had you tap columns to sort features from the target. Here the single feature is the presence of the word “offer” and the target is the spam label, and the two given likelihoods — 0.8 in spam against 0.1 in good mail — are what a feature is worth: their ratio of 8 is the entire strength of the evidence, and equal likelihoods would make the feature useless however common the word.',
+  },
+  {
+    from: { topic: 'ism4', part: 'maphyp' },
+    to: { topic: 'dl3', part: 'whysq' },
+    kind: 'used-by',
+    carries: 'arg max P(D | h)·P(h)',
+    detail:
+      'Deep Learning Lecture 3 gave four reasons for squaring the error and asked which survive when you swap in absolute error. Maximum likelihood is the reason it does not print: squared error is the negative log likelihood under Gaussian noise, so fitting by least squares is h_ML, and adding λ‖w‖² to it is h_MAP under a Gaussian prior on the weights.',
+  },
+  {
+    from: { topic: 'ism4', part: 'weather' },
+    to: { topic: 'mllec2', part: 'attrtypes' },
+    kind: 'builds-on',
+    carries: 'a nominal attribute',
+    detail:
+      'The ML preprocessing lecture sorted attributes into nominal, ordinal, interval and ratio by ticking the operations each allows. Outlook is nominal — Overcast is not between Sunny and Rainy and no arithmetic on it means anything — and that is exactly why a frequency table works here: the method never does arithmetic on a value, it only ever looks the value up.',
+  },
+  {
+    from: { topic: 'ism4', part: 'classifier' },
+    to: { topic: 'mllec1', part: 'classification' },
+    kind: 'builds-on',
+    carries: 'the classification task',
+    detail:
+      'The ML lecture set up classification by dragging a threshold on tumour size and watching patients fall the wrong side of it. This page gives the same task a probabilistic engine: score every class with P(X | C)·P(C), divide by the shared total, and take the biggest — and it shows that the division changes the numbers without ever moving the threshold’s verdict.',
+  },
+  {
+    from: { topic: 'ism4', part: 'condindep' },
+    to: { topic: 'ism3', part: 'independent' },
+    kind: 'builds-on',
+    carries: 'P(A ∩ B) = P(A)·P(B)',
+    detail:
+      'Lecture 3 proved that P(A | B) = P(A) and the product form are the same statement. Conditional independence is that definition with everything conditioned on a third event: P(X | Y, Z) = P(X | Z). The thunder example shows why the extra Z matters — thunder and rain are plainly dependent, and become independent the moment lightning is known.',
+  },
+  {
+    from: { topic: 'ism4', part: 'condindep' },
+    to: { topic: 'mllec2', part: 'challenges' },
+    kind: 'builds-on',
+    carries: '2ⁿ − 1 parameters per class',
+    detail:
+      'The ML lecture listed five ways a project fails, one of them being too little data for the model you want. This page puts a number on it: n binary features need 2ⁿ − 1 probabilities per class if you refuse to assume anything, and at n = 20 that is over a million cells with almost nothing in them. The naive assumption is what brings it down to 20.',
+  },
+  {
+    from: { topic: 'ism4', part: 'dearfriend' },
+    to: { topic: 'ism3', part: 'spam' },
+    kind: 'builds-on',
+    carries: 'two clues in one email, multiplied',
+    detail:
+      'Lecture 3 called its spam example the one worked problem that is already machine learning: two features, and their joint probability taken as a product because they were assumed independent. This page is that example finished — the same product, but with the probabilities counted off a training table rather than given, and with the assumption now named as the thing that makes the method naive.',
+  },
+  {
+    from: { topic: 'ism4', part: 'laplace' },
+    to: { topic: 'mllec2', part: 'quality' },
+    kind: 'builds-on',
+    carries: 'a count of zero in a training table',
+    detail:
+      'The ML lecture broke the loan dataset one way at a time to show what data quality means. Here is a subtler break: the table is complete and correct, and one cell still reads 0/7 simply because a word never happened to appear with a class. That zero destroys a whole class of the classifier, and adding 1 to every count is the deck’s repair.',
+  },
+  {
+    from: { topic: 'ism4', part: 'textclass' },
+    to: { topic: 'mllec2', part: 'encoding' },
+    kind: 'builds-on',
+    carries: 'turning text into columns of numbers',
+    detail:
+      'One-hot encoding in the ML lecture turned a car’s fuel type into columns a model could read. Bag of words is the same move on a sentence: one column per vocabulary word, holding a count. It is why the vocabulary size V shows up in every smoothed denominator here — the encoding decided how many columns there are, and smoothing has to pay for all of them.',
+  },
+  {
+    from: { topic: 'ism4', part: 'sentiment' },
+    to: { topic: 'mllec1', part: 'spam' },
+    kind: 'same-idea',
+    carries: 'a learned filter instead of a rule list',
+    detail:
+      'The ML lecture set hand-written rules against a learned filter and let you watch the rule list rot as spammers adapted. This page is what the learned side actually contains: a table of word counts and one multiplication per word, retrained by incrementing counters. Nothing in it was written by hand, which is why it does not rot in the same way.',
+  },
+  {
+    from: { topic: 'ism4', part: 'species' },
+    to: { topic: 'ism1', part: 'mean' },
+    kind: 'contrast',
+    carries: 'a summary table against the rows it came from',
+    detail:
+      'Lecture 1 built every statistic straight from the dots so a summary could always be traced back. This page is what happens when that link is broken: slide 40 prints a Height row for S1 that the eight specimens do not support, and slide 41 then computes with the printed value. Recounting from the raw rows is the only thing that catches it, and the lab does exactly that.',
+  },
+  {
+    from: { topic: 'ism4', part: 'practice' },
+    to: { topic: 'ism3', part: 'totalexamples' },
+    kind: 'builds-on',
+    carries: 'one calculator, several sets of numbers',
+    detail:
+      'Lecture 3’s practice page ran petrol stations, ad clicks, poisonous plants and a mining job through a single total-probability calculator. These seven sheets are that shape with the arrow reversed: the same slices-priors-likelihoods table, plus one division at the end. Six of the seven fall out of it, and the seventh has a question and a printed solution that contradict each other.',
+  },
+  {
+    from: { topic: 'ism4', part: 'nbrule' },
+    to: { topic: 'mllec1', part: 'instancemodel' },
+    kind: 'builds-on',
+    carries: 'model-based learning, in its smallest form',
+    detail:
+      'The ML lecture set instance-based learning — remember every example — against model-based learning, which boils them down to a rule. Naive Bayes is about as model-based as it gets: after training it keeps one prior per class and one number per feature, and the training examples are thrown away, which is why the whole classifier is a couple of small tables.',
+  },
+  {
+    from: { topic: 'ism4', part: 'tennis' },
+    to: { topic: 'ism2', part: 'counting' },
+    kind: 'builds-on',
+    carries: 'the multiplication principle, 3 × 3 × 2 × 2',
+    detail:
+      'Lecture 2 counted outcomes when there were too many to list. That principle is what makes this example hard: four attributes with 3, 3, 2 and 2 values give 36 possible weather descriptions from only 14 rows of data, so the row you want has never been observed. Counting the combinations is how you see that direct counting cannot answer the question.',
+  },
+  {
+    from: { topic: 'ism4', part: 'applications' },
+    to: { topic: 'mllec1', part: 'tradeoff' },
+    kind: 'builds-on',
+    carries: 'where this method sits among the others',
+    detail:
+      'The ML lecture put accuracy against interpretability on a chart it admitted was opinionated. This deck places Naive Bayes on it explicitly — along with decision trees and neural networks, one of the most practical learning methods — and then prints the bill: it needs many probabilities estimated up front, and its independence assumption costs calibration rather than ranking.',
+  },
   /* ------------------------- ML Lecture 2: data and preprocessing ---------- */
   {
     from: { topic: 'mllec2', part: 'nutshell' },

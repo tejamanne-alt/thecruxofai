@@ -87,7 +87,9 @@
         "bayes",
         "ism1",
         "ism2",
-        "ism3"
+        "ism3",
+        "ism4",
+        "naivebayes"
       ],
       "syllabus": null
     },
@@ -586,6 +588,11 @@
       "blurb": "News arrives and the odds move. Shrink the sample space onto what you were told, chain the multiplication rule down a tree, then split the world into slices and turn the last one round with Bayes.",
       "kind": "chapter"
     },
+    "ism4": {
+      "label": "Lecture 4 — Bayes\u2019 theorem and Naive Bayes",
+      "blurb": "Prove Bayes from the partition picture, run it on six worked examples, then let it classify. Add the one assumption that turns a table of counts into a classifier \u2014 and watch a single zero destroy it until Laplace puts a 1 in every cell.",
+      "kind": "chapter"
+    },
     "centre": {
       "label": "Averages: mean, median and mode",
       "blurb": "Three answers to \"where is the middle?\". Drag one dot to the far end and see which of them chases it.",
@@ -619,6 +626,11 @@
     "bayes": {
       "label": "Total probability and Bayes' rule",
       "blurb": "Split the world into slices, add up the routes to an event, then run the last arrow backwards to ask which slice you came from.",
+      "kind": "concept"
+    },
+    "naivebayes": {
+      "label": "The Naive Bayes classifier",
+      "blurb": "Bayes\u2019 rule plus one assumption you know is false. Multiply a prior by one factor per feature, take the biggest, and see what a single zero count does before smoothing rescues it.",
       "kind": "concept"
     },
     "lec4": {

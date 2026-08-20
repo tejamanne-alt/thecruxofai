@@ -1149,6 +1149,146 @@ export const LECTURE_PARTS: Partial<Record<TopicId, PartMeta[]>> = {
       slides: 'Slides 48–52',
     },
   ],
+  ism4: [
+    {
+      id: 'statement',
+      title: 'Bayes\u2019 theorem: what it actually says',
+      teaser:
+        'The slide\u2019s own picture, with the slices in your hands. Drag the cuts and watch which slice the evidence points at.',
+      slides: 'Slides 2\u20135',
+    },
+    {
+      id: 'proof',
+      title: 'The proof, one line at a time',
+      teaser: 'Nine lines from A \u2286 \u222aE\u1d62 to the formula. Step through them and watch the picture keep up.',
+      slides: 'Slides 6\u20138',
+    },
+    {
+      id: 'managers',
+      title: 'Example 1: who is probably the new manager?',
+      teaser:
+        'Three candidates, three bonus-scheme chances. Work out 23/45 forwards, then run it backwards to 6/23 \u2014 in exact fractions.',
+      slides: 'Slides 9\u201310',
+    },
+    {
+      id: 'rash',
+      title: 'Example 2: flu or measles?',
+      teaser:
+        'Measles almost always gives a rash, flu almost never \u2014 yet a rash still means flu more often than not. Drag the rates and find out why.',
+      slides: 'Slides 11\u201312',
+    },
+    {
+      id: 'spamtrap',
+      title: 'Example 3: flagged as spam, and innocent',
+      teaser:
+        'A filter that catches 99% of spam still throws away good mail. Move the base rate and watch 5/104 turn into something much worse.',
+      slides: 'Slides 13\u201314',
+    },
+    {
+      id: 'hypothesis',
+      title: 'Prior, likelihood, evidence, posterior',
+      teaser:
+        'The same formula with hypothesis-shaped names on it. Move a prior and watch every posterior move, always summing to exactly 1.',
+      slides: 'Slide 15',
+    },
+    {
+      id: 'offer',
+      title: 'Example 4: the word \u201coffer\u201d',
+      teaser:
+        'The deck\u2019s first real classifier question. One word, two classes, and the 0.774 that comes out of it.',
+      slides: 'Slides 16\u201317',
+    },
+    {
+      id: 'maphyp',
+      title: 'Bayesian learning: h, D, and the best hypothesis',
+      teaser:
+        'P(h | D) written with data in it. Take the argmax to get h_MAP, flatten the prior and it collapses to h_ML.',
+      slides: 'Slides 18\u201320',
+    },
+    {
+      id: 'weather',
+      title: 'Example 5: fourteen days, one feature',
+      teaser:
+        'Raw rows in, frequency table out, answer at the end. Press a weather value and watch both posteriors land on 0.60 and 0.40.',
+      slides: 'Slides 21\u201323',
+    },
+    {
+      id: 'classifier',
+      title: 'From theorem to classifier',
+      teaser:
+        'P(C | X) with a feature vector in the slot. See why the denominator can be dropped, and what \u201cgenerative\u201d buys you.',
+      slides: 'Slides 24\u201326',
+    },
+    {
+      id: 'condindep',
+      title: 'Conditional independence \u2014 the naive bit',
+      teaser:
+        'The assumption Bayes does not make and Naive Bayes does. Count the parameters it saves: 2\u207f \u2212 1 against n.',
+      slides: 'Slides 27\u201328',
+    },
+    {
+      id: 'nbrule',
+      title: 'The rule: argmax P(Y)\u00b7\u03a0 P(X\u1d62 | Y)',
+      teaser:
+        'One prior, one factor per feature, take the biggest. Build the product term by term and switch to logs when it underflows.',
+      slides: 'Slide 29',
+    },
+    {
+      id: 'dearfriend',
+      title: 'Worked example: is \u201cDear Friend\u201d spam?',
+      teaser: 'Twenty-four words of training data. Pick the words of a message and watch 0.891 against 0.109 appear.',
+      slides: 'Slides 30\u201332',
+    },
+    {
+      id: 'laplace',
+      title: 'One zero ruins everything, and Laplace fixes it',
+      teaser:
+        '\u201cLunch Money Money Money Money\u201d scores exactly 0 for spam. Add 1 to every count and the answer flips.',
+      slides: 'Slides 33\u201335',
+    },
+    {
+      id: 'tennis',
+      title: 'Worked example: four attributes, play tennis',
+      teaser:
+        'Outlook, temperature, humidity, wind. Choose today\u2019s weather and watch eight fractions multiply out to 0.021 and 0.005.',
+      slides: 'Slides 36\u201338',
+    },
+    {
+      id: 'species',
+      title: 'Worked example: which species is it?',
+      teaser:
+        'Eight specimens, four attributes, two classes. The answer flips to S2 \u2014 and one column is doing almost all the work.',
+      slides: 'Slides 39\u201341',
+    },
+    {
+      id: 'textclass',
+      title: 'Naive Bayes for text: the bag of words',
+      teaser:
+        'Five tagged sentences and a vocabulary of 14. Smooth the counts, tag \u201cA very close game\u201d, and see where the 2.76 \u00d7 10\u207b\u2075 comes from.',
+      slides: 'Slides 42\u201347',
+    },
+    {
+      id: 'sentiment',
+      title: 'Worked example: movie-review sentiment',
+      teaser:
+        'Five reviews, ten words, one new sentence. Watch a positive-looking sentence come out negative by a factor of twenty.',
+      slides: 'Slides 48\u201353',
+    },
+    {
+      id: 'applications',
+      title: 'Where it is used, and what it costs',
+      teaser:
+        'Spam, sentiment, documents, diagnosis. Then the price: duplicate one feature and watch a confident answer get more confident for no reason.',
+      slides: 'Slides 54\u201357',
+    },
+    {
+      id: 'practice',
+      title: 'The seven practice problems',
+      teaser:
+        'Every practice sheet in the deck, worked in the open \u2014 including the one whose printed solution contradicts its own question.',
+      slides: 'Slides 58\u201372',
+    },
+  ],
 
   dl1: [
     {

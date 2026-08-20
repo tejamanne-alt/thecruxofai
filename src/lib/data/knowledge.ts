@@ -4684,6 +4684,333 @@ export const knowledge: Record<TopicId, TopicKnowledge> = {
     ],
   },
 
+  ism4: {
+    cheat: [
+      {
+        formula: 'P(Eᵢ | A) = P(Eᵢ)P(A | Eᵢ) / Σⱼ P(Eⱼ)P(A | Eⱼ)',
+        why: "Bayes' theorem. Needs the Eᵢ mutually exclusive with A ⊆ ⋃ Eᵢ, and P(Eᵢ) > 0, P(A) > 0.",
+      },
+      {
+        formula: 'P(A) = Σᵢ₌₁ⁿ P(Eᵢ)·P(A | Eᵢ)',
+        why: 'Total probability, or the rule of elimination. Always the denominator — work it out first.',
+      },
+      {
+        formula: 'A = A ∩ (⋃ Eᵢ) = ⋃ (A ∩ Eᵢ)',
+        why: 'The move that starts the proof. Free because A sits inside the union, and it lets the slices in.',
+      },
+      {
+        formula: 'P(H | E) = P(E | H)P(H) / P(E)',
+        why: 'Posterior = likelihood × prior ÷ evidence. P(E) normalises, so Σ P(Hᵢ | E) = 1.',
+      },
+      {
+        formula: 'h_MAP = arg max P(D | h)·P(h)',
+        why: 'P(D) drops out — it does not depend on h, so it cannot reorder the candidates.',
+      },
+      {
+        formula: 'h_ML = arg max P(D | hᵢ)',
+        why: 'MAP with the priors assumed equal. An extra assumption, not a simplification.',
+      },
+      {
+        formula: 'P(X | Y, Z) = P(X | Z)',
+        why: 'Conditional independence. X and Y are related only through Z, so knowing Z makes Y irrelevant.',
+      },
+      {
+        formula: 'P(X₁ … Xₙ | Y) = Πⱼ P(Xⱼ | Y)',
+        why: 'The naive assumption. 2ⁿ − 1 numbers per class become n. The only inexact step in the method.',
+      },
+      {
+        formula: 'Ŷ ← arg max P(Y = yₖ)·Πᵢ P(Xᵢ | Y = yₖ)',
+        why: 'The classifier. Drop the shared denominator; in code, add logs instead of multiplying.',
+      },
+      {
+        formula: 'P(Xᵢ = v | Y) = (count + 1) / (total + V)',
+        why: 'Laplace smoothing. V is the number of distinct values — without it the column no longer sums to 1.',
+      },
+      {
+        formula: 'P(N | D, F) = 0.891,  P(S | D, F) = 0.109',
+        why: 'The deck’s “Dear Friend” answer, from the 8/5/3/1 against 2/1/0/4 word table.',
+      },
+      {
+        formula: '(3/9)(2/9)(6/9)(6/9)(9/14) = 0.021',
+        why: 'Play tennis, Yes, for (Sunny, Hot, Normal, False). The No score is 0.005, so the player plays.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'Bayes’ theorem requires A ⊆ ⋃ᵢ Eᵢ. What does that condition actually say?',
+        options: [
+          'Every Eᵢ must have the same probability',
+          'A cannot happen outside the slices, so between them they cover every way A can occur',
+          'A must be one of the Eᵢ',
+          'The Eᵢ must be independent of A',
+        ],
+        answer: 1,
+        explain:
+          'It is the exhaustiveness condition. If A could occur outside the slices there would be a route to A missing from the denominator, so Σ P(Eᵢ)P(A | Eᵢ) would be smaller than P(A) and every posterior would be too big. It is also why the posteriors add to exactly 1.',
+      },
+      {
+        q: 'In a neighbourhood 90% of sick children have flu and 10% measles. Rashes appear in 8% of flu cases and 95% of measles cases. A child has a rash. Why is P(flu | rash) as high as 0.43?',
+        options: [
+          'Because 0.08 is close to 0.95 once they are multiplied',
+          'Because there are nine times as many flu cases, so even a rare symptom of flu turns up in comparable numbers',
+          'Because the two illnesses are independent',
+          'Because Bayes’ theorem always returns a value near 0.5',
+        ],
+        answer: 1,
+        explain:
+          'P(R ∩ F) = 0.9 × 0.08 = 0.072 and P(R ∩ M) = 0.1 × 0.95 = 0.095. The prior is doing the work: make the two illnesses equally common and the same rash rates give only 0.078. This is the base-rate effect.',
+      },
+      {
+        q: 'A filter detects 99% of spam and falsely flags 5% of good mail, and half of all mail is spam. What is the probability that a flagged message is in fact not spam?',
+        options: ['0.05', '5/104 ≈ 0.048', '0.01', '0.5'],
+        answer: 1,
+        explain:
+          'P(Bᶜ | A) = (0.05 × 0.5) / (0.05 × 0.5 + 0.99 × 0.5) = 5/104. The 0.5 cancels top and bottom, so the answer is decided entirely by the two error rates — but only because the base rate happens to be one half. At a 5% base rate the same filter is wrong about roughly half of what it flags.',
+      },
+      {
+        q: 'What exactly does “naive” refer to in Naive Bayes?',
+        options: [
+          'Assuming the classes are equally likely',
+          'Assuming the features are conditionally independent given the class',
+          'Ignoring the denominator P(X)',
+          'Using counts instead of a fitted distribution',
+        ],
+        answer: 1,
+        explain:
+          'The slide is explicit: Naive Bayes assumes conditional independence where Bayes theorem does not. Dropping P(X) is exact, not naive — it is the same for every class. Assuming equal priors is a different assumption, the one that turns h_MAP into h_ML.',
+      },
+      {
+        q: 'With n binary features, how many numbers per class does the joint P(X₁ … Xₙ | Y) need, and how many does the naive assumption need?',
+        options: ['n and n²', '2ⁿ − 1 and n', 'n! and n', '2n and n/2'],
+        answer: 1,
+        explain:
+          'Every combination of n yes/no features needs its own probability — 2ⁿ of them, and they must sum to 1, so 2ⁿ − 1 free numbers. The assumption replaces that with one probability per feature: n. At n = 20 it is 1,048,575 against 20.',
+      },
+      {
+        q: 'In the deck’s word table, P(Lunch | spam) = 0/7. What happens to the message “Lunch Money Money Money Money”?',
+        options: [
+          'It is classified as spam, because Money dominates',
+          'The spam score is exactly 0, so the message is classified Normal no matter how many times Money appears',
+          'The classifier returns an error',
+          'The zero is ignored and the remaining factors are used',
+        ],
+        answer: 1,
+        explain:
+          'Zero times anything is zero, so the whole spam score vanishes. The deck computes 0.0000015 against 0 and calls it the issue with the Naïve Bayes classifier. Adding 1 to every count makes the two scores 0.00001 and 0.00133, and the verdict flips to Spam — with no new data at all.',
+      },
+      {
+        q: 'When Laplace smoothing adds 1 to every count, what must be added to each column total?',
+        options: [
+          'Nothing — the totals stay as they were',
+          '1',
+          'The number of distinct words or values, V',
+          'The number of classes',
+        ],
+        answer: 2,
+        explain:
+          'Each of the V cells in the column gained 1, so the column gained V. In the Dear/Friend table there are four words, so 17 and 7 become 21 and 11. Skip it and the fractions in a column no longer sum to 1, which is the deck’s own reason: “so the division will never be greater than 1”.',
+      },
+      {
+        q: 'Why does h_MAP = arg max P(D | h)·P(h) not need P(D)?',
+        options: [
+          'Because P(D) is always 1',
+          'Because P(D) does not depend on h, so dividing every candidate by it cannot change which is largest',
+          'Because the hypotheses are independent of the data',
+          'Because P(D) is assumed uniform',
+        ],
+        answer: 1,
+        explain:
+          'It is a shared positive constant. Dividing a set of numbers by the same positive value rescales them without reordering them, so the argmax is untouched. The prior P(h) drops out only under the extra assumption P(hᵢ) = P(hⱼ), and that is what gives h_ML.',
+      },
+      {
+        q: 'Today = (Sunny, Hot, Normal, False). The Yes score is 3/9 × 2/9 × 6/9 × 6/9 × 9/14 = 0.021 and the No score is 0.005. Why does the deck never compute P(X₁, X₂, X₃, X₄)?',
+        options: [
+          'Because it is always 1 for categorical features',
+          'Because it is the same divisor for both classes and so cannot change which is larger',
+          'Because the features are independent, so it is zero',
+          'Because it was given in the question',
+        ],
+        answer: 1,
+        explain:
+          'Both classes would be divided by it. The comparison 0.021 > 0.005 settles the question without it. You would need it only to report a calibrated probability — here that would be 0.021/(0.021 + 0.005) ≈ 0.82.',
+      },
+      {
+        q: 'In the movie-review example the negative class wins by about twenty times, despite having the smaller prior. What is doing that?',
+        options: [
+          'The word “movie”, which is common in positive reviews',
+          'Every negative probability is 0.125, because six training words plus add-one smoothing over ten vocabulary words flattens the class completely',
+          'The prior 2/5 is larger than 3/5 once squared',
+          'The negative class has more training data',
+        ],
+        answer: 1,
+        explain:
+          'The negative class has only 6 training words, so with V = 10 every count becomes (0 or 1) + 1 over 16 — and every word in the test sentence lands on 2/16 = 0.125. The positive class has real structure, 0.0833 against 0.0417, and both “hated” and “poor” land on the lower value.',
+      },
+    ],
+    exam: [
+      {
+        q: 'State Bayes’ theorem for a partition E₁ … Eₙ and prove it, making clear where each condition is used.',
+        meta: 'State & prove · ~10 marks',
+        points: [
+          'State it in full: E₁ … Eₙ mutually exclusive with P(Eᵢ) > 0, A an arbitrary event with P(A) > 0 and A ⊆ ⋃ᵢ Eᵢ; then P(Eᵢ | A) = P(Eᵢ)P(A | Eᵢ) / Σⱼ P(Eⱼ)P(A | Eⱼ).',
+          'Start from A ⊆ ⋃ Eᵢ to write A = A ∩ (⋃ Eᵢ), and say why that step is legal — intersecting with a superset returns the set.',
+          'Apply the distributive law: A = (A ∩ E₁) ∪ … ∪ (A ∩ Eₙ).',
+          'Prove the pieces are pairwise disjoint: an element of (A ∩ Eᵢ) ∩ (A ∩ Eⱼ) would lie in Eᵢ ∩ Eⱼ = ∅. This is what licenses the next step.',
+          'Apply the third axiom to get P(A) = Σ P(A ∩ Eᵢ), then the multiplication rule P(A ∩ Eᵢ) = P(Eᵢ)P(A | Eᵢ) to reach the rule of total probability (3).',
+          'Write the definition P(Eᵢ | A) = P(Eᵢ ∩ A)/P(A) as (4), substitute (2) and (3) into it, and state the result.',
+          'Note where P(A) > 0 and P(Eᵢ) > 0 were needed: the first for (4) to be defined, the second for each conditional in the sum.',
+        ],
+      },
+      {
+        q: 'Derive the Naive Bayes classification rule from Bayes’ theorem, stating the assumption used and quantifying what it saves.',
+        meta: 'Derive & justify · ~10 marks',
+        points: [
+          'Start from P(Y = yₖ | X₁ … Xₙ) = P(Y = yₖ)P(X₁ … Xₙ | Y = yₖ) / Σⱼ P(Y = yⱼ)P(X₁ … Xₙ | Y = yⱼ). Nothing assumed yet.',
+          'State conditional independence: X is conditionally independent of Y given Z if P(X | Y, Z) = P(X | Z); the naive assumption is that the Xᵢ are conditionally independent given the class.',
+          'Derive the product form for two features from the chain rule: P(X₁, X₂ | Y) = P(X₁ | X₂, Y)P(X₂ | Y) = P(X₁ | Y)P(X₂ | Y); generalise to Πⱼ P(Xⱼ | Y).',
+          'Substitute to get the classifier, then drop the denominator with the reason: it is the same for every class and so cannot change the argmax.',
+          'Give the rule as Ŷ ← arg max over yₖ of P(Y = yₖ)·Πᵢ P(Xᵢ | Y = yₖ).',
+          'Quantify: without the assumption 2ⁿ − 1 parameters per class for n binary features; with it, n. Say why that matters — most feature combinations never occur in training.',
+          'State that the assumption is generally false (words come in phrases, symptoms cluster) and that the method is still used because the ranking survives even when the probabilities do not.',
+        ],
+      },
+      {
+        q: 'Explain the zero-frequency problem in Naive Bayes and how Laplace smoothing solves it, using the “Lunch Money Money Money Money” example.',
+        meta: 'Explain with a worked example · ~8 marks',
+        points: [
+          'Give the frequency table: Dear 8/2, Friend 5/1, Lunch 3/0, Money 1/4, with column totals 17, 7 and 24.',
+          'Show the failure: P(N)P(L|N)P(M|N)⁴ = (17/24)(3/17)(1/17)⁴ = 0.0000015, while P(S)P(L|S)P(M|S)⁴ = (7/24)(0/7)(4/7)⁴ = 0.',
+          'Explain why: P(Lunch | spam) = 0/7 because Lunch never appeared in spam, and one zero factor annihilates the whole product however strong the other evidence is.',
+          'Name the distinction — never observed is not the same as impossible — and say that three sightings cannot establish an impossibility.',
+          'Apply the fix: add 1 to each of the eight cells, giving 9/3, 6/2, 4/1, 2/5 and column totals 21 and 11 (the totals grow by V = 4, the number of distinct words).',
+          'Recompute: (21/32)(4/21)(2/21)⁴ = 0.00001 and (11/32)(1/11)(5/11)⁴ = 0.00133, so the message is now classified Spam.',
+          'Comment: the verdict changed with no new data, and the denominator must grow by V or the column no longer sums to 1.',
+        ],
+      },
+      {
+        q: 'Machines A, B and C make 25%, 35% and 40% of a factory’s bolts, with defect rates 5%, 4% and 2%. A defective bolt is drawn. Find the probability it came from A, and from B or C, and comment on the result.',
+        meta: 'Compute & interpret · ~8 marks',
+        points: [
+          'Define E₁, E₂, E₃ as the machine that made the bolt and E as the event that it is defective; note the Eᵢ are mutually exclusive and exhaustive because a bolt has exactly one maker.',
+          'Write the priors 0.25, 0.35, 0.40 and the likelihoods P(E | Eᵢ) = 0.05, 0.04, 0.02.',
+          'Total probability: P(E) = 0.25(0.05) + 0.35(0.04) + 0.40(0.02) = 0.0125 + 0.0140 + 0.0080 = 0.0345.',
+          'Bayes: P(E₁ | E) = 0.0125/0.0345 = 0.36.',
+          'Similarly P(E₂ | E) = 0.41 and P(E₃ | E) = 0.23, so P(B or C | E) = 0.41 + 0.23 = 0.64.',
+          'Check: the three posteriors sum to 1, which is the arithmetic check on the whole answer.',
+          'Interpret: machine C makes the most bolts and is the least likely culprit, because its low defect rate outweighs its share — prior and likelihood pull in opposite directions and the posterior is where they balance.',
+        ],
+      },
+    ],
+  },
+
+  naivebayes: {
+    cheat: [
+      {
+        formula: 'P(C | X) = P(X | C)·P(C) / P(X)',
+        why: 'C is the class, X is the whole feature vector. P(X) normalises, so the posteriors sum to 1.',
+      },
+      {
+        formula: 'P(X | Y, Z) = P(X | Z)',
+        why: 'Conditional independence: X and Y are linked only through Z, so knowing Z makes Y irrelevant.',
+      },
+      {
+        formula: 'P(X₁ … Xₙ | Y) = Πⱼ P(Xⱼ | Y)',
+        why: 'The naive assumption. Turns one impossible joint table into n countable ones.',
+      },
+      {
+        formula: '2ⁿ − 1  vs  n',
+        why: 'Parameters per class without and with the assumption, for n binary features.',
+      },
+      {
+        formula: 'Ŷ ← arg max P(Y)·Πᵢ P(Xᵢ | Y)',
+        why: 'The rule. Drop the shared denominator unless you need a calibrated number.',
+      },
+      {
+        formula: 'P(Xᵢ = v | Y) = (count + k) / (total + k·V)',
+        why: 'Add-k smoothing. k = 1 is Laplace; V is the number of distinct values, and it must go in the denominator.',
+      },
+      {
+        formula: 'log P(Y) + Σᵢ log P(Xᵢ | Y)',
+        why: 'The same rule in logs. Used everywhere, because the product underflows past a few hundred features.',
+      },
+    ],
+    quiz: [
+      {
+        q: 'Which step of the Naive Bayes derivation is the only one that is not exact?',
+        options: [
+          'Dropping the denominator P(X)',
+          'Replacing P(X₁ … Xₙ | Y) with Π P(Xᵢ | Y)',
+          'Applying Bayes’ theorem',
+          'Taking the argmax over classes',
+        ],
+        answer: 1,
+        explain:
+          'Bayes is a theorem, the argmax is a choice, and dropping P(X) is exact because it is a shared positive constant. The product form is an assumption about the data, and it is generally false.',
+      },
+      {
+        q: 'A feature value never seen with class A appears in a new example. What does an unsmoothed Naive Bayes do?',
+        options: [
+          'Ignores that feature and uses the rest',
+          'Gives class A a score of exactly zero, whatever the other features say',
+          'Falls back on the prior for class A',
+          'Raises an error',
+        ],
+        answer: 1,
+        explain:
+          'The score is a product, and one zero factor annihilates it. Class A is then eliminated on the strength of an absence in the training data rather than on evidence. Adding k to every count — Laplace when k = 1 — is the standard fix.',
+      },
+      {
+        q: 'Two features in a dataset are near-duplicates of each other. What does that do to Naive Bayes?',
+        options: [
+          'Nothing — the assumption handles it',
+          'It pushes the winning posterior towards 1, so the ranking usually survives but the probability becomes untrustworthy',
+          'It makes the classifier refuse to predict',
+          'It changes the prior',
+        ],
+        answer: 1,
+        explain:
+          'The duplicated evidence is multiplied in twice, as if it were independent confirmation. That is why Naive Bayes scores well on AUC and accuracy while being badly calibrated, and why Platt scaling or isotonic regression is often fitted on top of it.',
+      },
+      {
+        q: 'Why do implementations work with sums of log probabilities rather than products?',
+        options: [
+          'Logs are faster to compute than multiplication',
+          'Because every factor is at most 1, so a few hundred features drive the product below the smallest representable double and every class scores zero',
+          'Because it makes the classifier more accurate',
+          'Because Bayes’ theorem is defined in log space',
+        ],
+        answer: 1,
+        explain:
+          'A double underflows below about 10⁻³⁰⁸. Logs turn the product into a sum of numbers around −7 each, which is comfortable. Recovering the normalised posterior from log scores then needs the log-sum-exp trick, or the exponentials overflow instead.',
+      },
+    ],
+    exam: [
+      {
+        q: 'Explain what conditional independence means, why Naive Bayes assumes it, and what it costs.',
+        meta: 'Explain · ~8 marks',
+        points: [
+          'Define it: X is conditionally independent of Y given Z if P(X | Y, Z) = P(X | Z) for all values — knowing Y adds nothing once Z is known.',
+          'Distinguish it from plain independence with an example: thunder and rain are dependent, but conditionally independent given lightning, because the link runs through the common cause.',
+          'State the motivation as an estimation problem: the joint P(X₁ … Xₙ | Y) needs 2ⁿ − 1 numbers per class, and almost every combination is unobserved in any real dataset.',
+          'State what the assumption gives: n numbers per class, each estimated from the whole dataset rather than from the handful of rows matching a combination.',
+          'State the cost: the assumption is generally false, correlated features are double-counted, and the resulting posteriors are pushed towards 0 and 1 — good ranking, poor calibration.',
+          'Note the middle ground: a Bayesian network keeps chosen dependencies, and Naive Bayes is its extreme case with the class as the only parent.',
+        ],
+      },
+      {
+        q: 'A message is to be classified from a word-frequency table. Set out the full procedure, including smoothing, and say at each step why it is valid.',
+        meta: 'Method · ~8 marks',
+        points: [
+          'Step 1–3: collect the raw labelled data, build the frequency table, and take row and column sums to get P(class) and P(word | class).',
+          'Apply smoothing before dividing: add k to every cell and k·V to every column total, where V is the vocabulary size, so each column still sums to 1.',
+          'Step 4: for each class compute P(class) × Π P(wordᵢ | class), using the naive assumption to justify the product.',
+          'Take the argmax; state that the denominator P(X) is shared and therefore omitted, and that it would be needed only to report a probability.',
+          'Say why logs are used in practice, and how to recover a normalised posterior from log scores.',
+          'Check the answer: the posteriors must sum to 1, and no class may have a score of exactly zero once smoothing is applied.',
+        ],
+      },
+    ],
+  },
   centre: {
     cheat: [
       { formula: 'x̄ = Σx / n', why: 'The mean. Uses every value, so every value can pull it.' },

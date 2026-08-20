@@ -4,6 +4,7 @@ import { DL3_PARTS } from '@/components/sessions/dl3/parts'
 import { ISM1_PARTS } from '@/components/sessions/ism1/parts'
 import { ISM2_PARTS } from '@/components/sessions/ism2/parts'
 import { ISM3_PARTS } from '@/components/sessions/ism3/parts'
+import { ISM4_PARTS } from '@/components/sessions/ism4/parts'
 import { LEC0A_PARTS } from '@/components/sessions/lec0a/parts'
 import { LEC0B_PARTS } from '@/components/sessions/lec0b/parts'
 import { LEC1_PARTS } from '@/components/sessions/lec1/parts'
@@ -38,6 +39,7 @@ const BODIES: Record<string, Record<string, React.ReactNode>> = {
   ism1: ISM1_PARTS,
   ism2: ISM2_PARTS,
   ism3: ISM3_PARTS,
+  ism4: ISM4_PARTS,
 }
 
 export function generateStaticParams() {
